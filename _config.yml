@@ -16,11 +16,11 @@ minimal_mistakes_skin    : "dark" # "default"  "air", "aqua", "contrast", , "dir
 
 # Site Settings
 locale                   : "ko-KR"
-title                    : " 평생 공부 블로그 : Today I Learned‍ 🌙"
+title                    : " DataScientist로 성장하기!! "
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "식빵맘💛"
-description              : "공부 & 취미 블로그"
+name                     : "Meaningful96"
+description              : "Blog for Studying"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "ansohxxn/comments" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -93,17 +93,17 @@ analytics:
 
 # Site Author
 author:
-  name             : "공부하는 식빵맘 👱‍♀️"
-  avatar           : "https://user-images.githubusercontent.com/42318591/108615416-2e1bb580-7447-11eb-8a54-6338e53ce625.png"
-  bio              : "반갑습니다 :)"
+  name             : "Meaningful96"
+  avatar           : "https://user-images.githubusercontent.com/111734605/202103519-bb6a0169-1faf-4207-a1e1-a3e74bb658bc.jpg"
+  bio              : "Greeting :)"
   #location         : "Seoul, South Korea"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:bboddak@gmail.com"
+      url: "mailto:minkk0213@gmail.com"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/ansohxxn"
+      url: "https://github.com/meaningful96"
     #- label: "Instagram"
     #  icon: "fab fa-fw fa-instagram"
     #  url: "https://instagram.com/06.25ash"
@@ -123,7 +123,7 @@ footer:
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/ansohxxn"
+      url: "https://github.com/meaningful96"
     #- label: "Twitter"
     #  icon: "fab fa-fw fa-twitter-square"
       # url:
