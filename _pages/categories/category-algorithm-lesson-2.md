@@ -1,7 +1,7 @@
 ---
-title: "자료 구조와 알고리즘 (with C#)"
+title: "파이썬 문법 정복하기!!"
 layout: archive
-permalink: categories/algorithm-lesson-2
+permalink: categories/py
 author_profile: true
 sidebar_main: true
 ---
@@ -10,5 +10,5 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories['Algorithm Lesson 2'] %}
+{% assign posts = site.categories['Python'] %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
