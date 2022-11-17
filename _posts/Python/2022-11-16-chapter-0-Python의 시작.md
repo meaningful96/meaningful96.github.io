@@ -1,5 +1,5 @@
 ---
-title:  "Python Chapter 1.1 : 파이썬을 시작합니다!!" 
+title:  "Python Chapter 0 : 파이썬을 시작합니다!!" 
 
 categories:
   - py
