@@ -20,7 +20,7 @@ Machine learning과 Deep learning의 알고리즘은 Cost fucntion을 감소시�
 (1) Gradient Descent
 
 <p align="center">
-<img width="400" alt="1" src="https://user-images.githubusercontent.com/111734605/202996617-b816808f-5db0-4921-a878-cc97bbeb7e9e.png">
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/202996617-b816808f-5db0-4921-a878-cc97bbeb7e9e.png">
 </p>
 
 Gradient Descentsms Gradient(기울기)의 반대 방향으로 Update를 진행한다. 하지만, 기본적으로 gradient descent는 초기값에 매우 민감한 알고리즘이다. 결국, Minimum cost value가 
@@ -46,6 +46,6 @@ Vanishing gradient는 특히 딥러닝 알고리즘에서 치명적이다. 딥�
 - Backpropagation시 모든 weight의 값이 똑같이 바뀌게 됨.
 
 <p align="center">
-<img width="400" alt="image" src="https://user-images.githubusercontent.com/111734605/203003878-2f8764a7-d30e-47bd-8fe1-3806a8353b0e.png">
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203003878-2f8764a7-d30e-47bd-8fe1-3806a8353b0e.png">
 </p>
 
