@@ -49,3 +49,16 @@ Vanishing gradient는 특히 딥러닝 알고리즘에서 치명적이다. 딥�
 <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203003878-2f8764a7-d30e-47bd-8fe1-3806a8353b0e.png">
 </p>
 
+Ex) 2개의 Hidden Layer(은닉층)가 있는 MLP
+
+> bias = 0, Weight = a 로 초기화했다고 가정(zero는 아니고 보다 더 직관적으로 보여주기 위해 상수로 설정)
+> Activation fucntion = ReLU, ReLU = maximum(0,x)
+> f(x1,x2) = (ReLU(ax1), ReLU(ax2)) 
+
+이때 ax1과 ax2의 편미분값은 a로 동일하다. 이는 다시 말해 Loss에 동일한 영향을 미치는 것이고 동일한 영향을 미친다는 것은 기울기가 같다는 것이다.(대칭적 가중치) 이렇게 했을 경우
+두 가지 문제점이 발생한다.
+
+- 서로 다른 것을 학습하지 못함
+- Weight가 여러 개인 것이 무의미
+
+## 3. Random Initialization
