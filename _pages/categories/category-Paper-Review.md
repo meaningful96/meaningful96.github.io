@@ -1,7 +1,7 @@
 ---
 title: "Paper Review"
 layout: archive
-permalink: categories/paperreview
+permalink: categories/CP
 author_profile: true
 sidebar_main: true
 ---
@@ -10,5 +10,5 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories.paperreview %}
+{% assign posts = site.categories.PR %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
