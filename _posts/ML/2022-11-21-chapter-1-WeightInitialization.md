@@ -24,6 +24,6 @@ Machine learning과 Deep learning의 알고리즘은 Cost fucntion을 감소시�
 Gradient Descentsms Gradient(기울기)의 반대 방향으로 Update를 진행한다. 하지만, 기본적으로 gradient descent는 초기값에 매우 민감한 알고리즘이다. 결국, Minimum cost value가 
 Weight의 Initial value가 어디냐에 따라 그 값이 달라지게 된다.
 
-(2) **Initial Weight Value(초기 가중치 값)**에 따라 모델의 성능에 상당한 영향을 준다.
+(2) **Initial Weight Value**(초기 가중치 값)에 따라 모델의 성능에 상당한 영향을 준다.
 
 - 초기값이 Extremely High or Extremely Low일 경우
