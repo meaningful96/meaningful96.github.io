@@ -72,7 +72,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "DL" %}
-                        <li><a href="/categories/DL" class="">유니티 강의2 ({{category[1].size}})</a></li>
+                        <li><a href="/categories/DL" class="">Deep Learning ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
