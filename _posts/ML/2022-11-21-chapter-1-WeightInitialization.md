@@ -62,3 +62,5 @@ Ex) 2개의 Hidden Layer(은닉층)가 있는 MLP
 - Weight가 여러 개인 것이 무의미
 
 ## 3. Random Initialization
+Parameter를 모두 다르게 초기화할 수 있는 방법으로 가장 쉽게 생각해 볼 수 있는 방법은 확률분포를 이용하는 것이다. Gaussian Distribution(정규분포)을 이용하여 각 weight에 배정하여
+Initial value를 설정할 수 있다.
