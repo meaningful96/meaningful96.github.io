@@ -1,7 +1,7 @@
 ---
 title: "Study Progress"
 layout: archive
-permalink: categories/studyprogress
+permalink: categories/SP
 author_profile: true
 sidebar_main: true
 ---
@@ -10,5 +10,5 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories.studyprogress %}
+{% assign posts = site.categories.SP %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
