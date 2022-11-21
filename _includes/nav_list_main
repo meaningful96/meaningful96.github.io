@@ -40,7 +40,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "CT" %}
-                        <li><a href="/categories/codingtest" class="">Coding Test ({{category[1].size}})</a></li>
+                        <li><a href="/categories/CT" class="">Coding Test ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -49,14 +49,14 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Algorithm" %}
-                        <li><a href="/categories/algorithm" class="">알고리즘 구현 (with C++ & Python) ({{category[1].size}})</a></li>
+                        <li><a href="/categories/Algorithm" class="">알고리즘 구현 (with C++ & Python) ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "DS" %}
-                        <li><a href="/categories/datastructure" class="">Data Structure ({{category[1].size}})</a></li>
+                        <li><a href="/categories/DS" class="">Data Structure ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -65,28 +65,28 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "ML" %}
-                        <li><a href="/categories/machinelearning" class="">Machine Learning ({{category[1].size}})</a></li>
+                        <li><a href="/categories/ML" class="">Machine Learning ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "DL" %}
-                        <li><a href="/categories/deeplearning" class="">유니티 강의2 ({{category[1].size}})</a></li>
+                        <li><a href="/categories/DL" class="">유니티 강의2 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "PR" %}
-                        <li><a href="/categories/paperreview" class="">논문 리뷰 ({{category[1].size}})</a></li>
+                        <li><a href="/categories/PR" class="">논문 리뷰 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "SP" %}
-                        <li><a href="/categories/studyprogress" class="">Study Progress ({{category[1].size}})</a></li>
+                        <li><a href="/categories/SP" class="">Study Progress ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -95,14 +95,14 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "OPT" %}
-                        <li><a href="/categories/optimization" class="">최적화 이론 ({{category[1].size}})</a></li>
+                        <li><a href="/categories/OPT" class="">최적화 이론 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
         <span class="nav__sub-title">Etc</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Etc.." %}
-                        <li><a href="/categories/optimization" class="">Etc.. ({{category[1].size}})</a></li>
+                        <li><a href="/categories/ETC" class="">Etc.. ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}            
             </ul>
