@@ -60,7 +60,17 @@ Ex) 2개의 Hidden Layer(은닉층)가 있는 MLP
 
 - 서로 다른 것을 학습하지 못함
 - Weight가 여러 개인 것이 무의미
+- 따라서 Weight의 초깃값은 **무작위**로 설정해야 함을 시사해줌
 
 ## 3. Random Initialization
 Parameter를 모두 다르게 초기화할 수 있는 방법으로 가장 쉽게 생각해 볼 수 있는 방법은 확률분포를 이용하는 것이다. Gaussian Distribution(정규분포)을 이용하여 각 weight에 배정하여
-Initial value를 설정할 수 있다.
+Initial value를 설정할 수 있다. 이해를 위해 표준편차를 각각 다르게 설정하면서 가중치를 정규분포로 초기화한 신경망(Neural Net)의 활성화 함수(Activation fucntion) 출력 값을 살펴
+보았다.
+
+  (1) 표준편차가 1인 케이스, Activation function = Sigmoid(Logistic) function
+  
+  <p align="center">
+  <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203316223-d8c17028-4fdb-444a-b49a-f1c7a8a68ab7.png">
+  </p>
+  
+  
