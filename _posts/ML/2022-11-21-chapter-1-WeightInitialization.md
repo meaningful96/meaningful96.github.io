@@ -91,7 +91,14 @@ Initial value를 설정할 수 있다. 이해를 위해 표준편차를 각각 �
 ## 4. LeCun Initialization
 LeCun은 CNN 모델을 사용한 Architecture인 LeNet의 창시자이다. CNN을 도입함으로서 인공지능 분야의 큰 획을 그은 분이다. LeCun은 효과적인 Backpropagation을 위한 논문으로서 초기화
 방법을 제시했다. Gaussian Distribution과 Uniform Distribution을 따르는 두 가지 방법에 대해서 소개했다.
-(논문 링크: [Efficient BackProp](http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf)
+(논문 링크: [Efficient BackProp](http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf))
+
+  <p align="center">
+  <img width="500" alt="KakaoTalk_20221122_223809519" src="https://user-images.githubusercontent.com/111734605/203328282-214d9daf-8573-4fb2-91b5-2eb081742cba.png">
+  </p>
+  
+## 5. Xavier Initialization
+Xavier 초기화 기법은 딥러닝 분야에서 자주 사용되는 방법 중 하나이다. Xavier는 위의 Zero initialization이나, Random initialization에서 발생한땐 문제들을 해결하기 위해 고안된
 
 
   
