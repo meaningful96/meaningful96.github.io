@@ -73,4 +73,12 @@ Initial value를 설정할 수 있다. 이해를 위해 표준편차를 각각 �
   <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203316223-d8c17028-4fdb-444a-b49a-f1c7a8a68ab7.png">
   </p>
   
+  먼저 Sigmoid 함수의 가장 큰 특징은, Input 값이 0 주위에서만 미분값이 유의미한 값을 가진다. 0에서 작아질수록 sigmoid 값의 출력은 0에 가까워지고, 0에서 커질수록 sigmoid 출력은
+  1에 수렴한다. 하지만, input값이 0에서 멀면 sigmoid 함수는 saturation이 되기 때문에 미분값(gradient)값이 0이 되고, 결국 **Vanishing Gradient**현상이 일어나게 된다. 위의 그
+  림을 보면 sigmoid의 출력값이 0과 1에 가까울때만 출력되는 것을 확인할 수 있다. 그리고 앞서 말했듯, 이 경우 미분값은 0이 된다. 
+  
+  >(즉, 표준편차가 1이면 sigmoid 기준으로 input이 양 극단에 치우친 것과 마찬가지이다.)
+  
+  (2) 표준편차가 0.01
+  
   
