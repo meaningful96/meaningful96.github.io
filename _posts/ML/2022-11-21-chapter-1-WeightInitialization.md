@@ -67,7 +67,7 @@ Parameter를 모두 다르게 초기화할 수 있는 방법으로 가장 쉽게
 Initial value를 설정할 수 있다. 이해를 위해 표준편차를 각각 다르게 설정하면서 가중치를 정규분포로 초기화한 신경망(Neural Net)의 활성화 함수(Activation fucntion) 출력 값을 살펴
 보았다.
 
-  (1) 표준편차가 1인 케이스, Activation function = Sigmoid(Logistic) function
+  (1) 평균 0.5, 표준편차가 1인 케이스, Activation function = Sigmoid(Logistic) function
   
   <p align="center">
   <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203316223-d8c17028-4fdb-444a-b49a-f1c7a8a68ab7.png">
@@ -77,8 +77,21 @@ Initial value를 설정할 수 있다. 이해를 위해 표준편차를 각각 �
   1에 수렴한다. 하지만, input값이 0에서 멀면 sigmoid 함수는 saturation이 되기 때문에 미분값(gradient)값이 0이 되고, 결국 **Vanishing Gradient**현상이 일어나게 된다. 위의 그
   림을 보면 sigmoid의 출력값이 0과 1에 가까울때만 출력되는 것을 확인할 수 있다. 그리고 앞서 말했듯, 이 경우 미분값은 0이 된다. 
   
-  >(즉, 표준편차가 1이면 sigmoid 기준으로 input이 양 극단에 치우친 것과 마찬가지이다.)
+  > (즉, 표준편차가 1이면 sigmoid 기준으로 input이 양 극단에 치우친 것과 마찬가지이다.)
   
-  (2) 표준편차가 0.01
+  (2) 평균 0.5, 표준편차가 0.01인 케이스, Activation function = Sigmoid(Logistic) function
   
+  <p align="center">
+  <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203321902-f02439cc-eb77-48f7-822e-96e727b170bf.png">
+  </p>
+  
+  이 경우에는 Input이 0.5 주변에 모여있으므로 활성함수인 sigmoid를 취하게되면 유의미한 값을 가지게되며, 미분값이 0이 아니다. 하지만, 대부분의 출력값이 0.5 주변에 모여있기 때문에
+  Zero initialization에서 봤던 예시 처럼 노드별로 gradient값의 출력값이 비슷해 결국은 Multi-Layer를 구성하는 의미가 사라지게 된다.
+  
+## 4. LeCun Initialization
+LeCun은 CNN 모델을 사용한 Architecture인 LeNet의 창시자이다. CNN을 도입함으로서 인공지능 분야의 큰 획을 그은 분이다. LeCun은 효과적인 Backpropagation을 위한 논문으로서 초기화
+방법을 제시했다. Gaussian Distribution과 Uniform Distribution을 따르는 두 가지 방법에 대해서 소개했다.
+(논문 링크: [Efficient BackProp](http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf)
+
+
   
