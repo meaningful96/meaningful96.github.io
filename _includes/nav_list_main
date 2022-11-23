@@ -101,11 +101,11 @@
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "OPTproject" %}
-                        <li><a href="/categories/OPTproject" class="">OPT Project ({{category[1].size}})</a></li>
+                    {% if category[0] == "optproject" %}
+                        <li><a href="/categories/optproject" class="">최적화 프로젝트 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
-            </ul> 
+            </ul>
              
         <span class="nav__sub-title">Etc</span>
             <ul>
