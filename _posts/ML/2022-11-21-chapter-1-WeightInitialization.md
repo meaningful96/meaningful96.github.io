@@ -134,25 +134,69 @@ plt.plot(x,y,'b')
   <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203448439-a42bcab1-d216-4482-ad51-41c81e800ecd.png">
   </p>
   
-  - Activation value per Layer
+  - Activation value in Each Layer
   
   <p align="center">
   <img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203448548-d3fe5ff2-61f2-45da-bdaa-141fc08f3493.png">
   </p>
   
   각 Layer에서 나온 활성화 값을 보면,
+  
   **<span style = "color: red">결국 데이터들이 각 레이어에서 0과 1에 집중되어있고, 다음 Layer로 Sigmoid를 취해서 넘어갈 경우 결국 미분값은 0됨을 알 수 있다.</span>**
   
   
   (2) 표준편차가 0.01인 케이스, Activation function = Sigmoid(Logistic) function
   
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.close("all")
+# 모델링 및 변수 초기화
+def sigmoid(x):
+  return 1/(1 + np.exp(-x))
+
+x = np.random.randn(1000, 100) # mini batch : 1000, input : 100
+node_num = 100                 # 각 은닉층의 노드(뉴런) 수
+hidden_layer_size = 5          # 은닉층이 5개
+activations = {}               # 이곳에 활성화 결과(활성화값)를 저장
+
+plt.hist(x)
+
+for i in range(hidden_layer_size):
+    if i != 0:
+        x = activations[i - 1]
+        
+    w = np.random.randn(node_num, node_num) * 0.01 # 표준편차가 0.01로 바뀜
+    a = np.dot(x, w)
+    z = sigmoid(a)
+    activations[i] = z
+
+# 히스토그램 그리기
+plt.figure(figsize=(20,5))
+
+for i, a in activations.items():
+    plt.subplot(1, len(activations), i + 1)
+    plt.title(str(i+1) + "-layer")
+    plt.hist(a.flatten(), 30, range = (0,1))
+
+plt.show()
+```
+
+  - Activation value in Each Layer
+  
   <p align="center">
-  <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203321902-f02439cc-eb77-48f7-822e-96e727b170bf.png">
+  <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203449805-258361ff-3280-400c-82c9-ede44ae26b4e.png">
   </p>
   
   이 경우에는 Input이 0.5 주변에 모여있으므로 활성함수인 sigmoid를 취하게되면 유의미한 값을 가지게되며, 미분값이 0이 아니다. 하지만, 대부분의 출력값이 0.5 주변에 모여있기 때문에
   Zero initialization에서 봤던 예시 처럼 노드별로 gradient값의 출력값이 비슷해 결국은 Multi-Layer를 구성하는 의미가 사라지게 된다.
   
+  Zero initialization이나, 지금의 경우를 두고 'model 표현력이 떨어진다'라고 한다.
+  
+'**<span style = "color: red">Important</span>**  
+
+
 ## 4. LeCun Initialization
 LeCun은 CNN 모델을 사용한 Architecture인 LeNet의 창시자이다. CNN을 도입함으로서 인공지능 분야의 큰 획을 그은 분이다. LeCun은 효과적인 Backpropagation을 위한 논문으로서 초기화
 방법을 제시했다. Gaussian Distribution과 Uniform Distribution을 따르는 두 가지 방법에 대해서 소개했다.
