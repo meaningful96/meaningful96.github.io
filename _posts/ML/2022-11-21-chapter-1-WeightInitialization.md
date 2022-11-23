@@ -137,7 +137,7 @@ plt.plot(x,y,'b')
   - Activation value in Each Layer
   
   <p align="center">
-  <img width="1600" alt="image" src="https://user-images.githubusercontent.com/111734605/203448548-d3fe5ff2-61f2-45da-bdaa-141fc08f3493.png">
+  <img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203448548-d3fe5ff2-61f2-45da-bdaa-141fc08f3493.png">
   </p>
   
   각 Layer에서 나온 활성화 값을 보면,
@@ -186,7 +186,7 @@ plt.show()
   - Activation value in Each Layer
   
   <p align="center">
-  <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203449805-258361ff-3280-400c-82c9-ede44ae26b4e.png">
+  <img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203449805-258361ff-3280-400c-82c9-ede44ae26b4e.png">
   </p>
   
   이 경우에는 Input이 0.5 주변에 모여있으므로 활성함수인 sigmoid를 취하게되면 유의미한 값을 가지게되며, 미분값이 0이 아니다. 하지만, 대부분의 출력값이 0.5 주변에 모여있기 때문에
