@@ -100,8 +100,8 @@
                 {% endfor %}
              <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Project" %}
-                        <li><a href="/categories/Project" class="">Optimization Project ({{category[1].size}})</a></li>
+                    {% if category[0] == "OPTproject" %}
+                        <li><a href="/categories/OPTproject" class="">Optimization Project ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}               
         <span class="nav__sub-title">Etc</span>
