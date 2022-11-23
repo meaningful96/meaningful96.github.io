@@ -67,7 +67,7 @@ Parameter를 모두 다르게 초기화할 수 있는 방법으로 가장 쉽게
 Initial value를 설정할 수 있다. 이해를 위해 표준편차를 각각 다르게 설정하면서 가중치를 정규분포로 초기화한 신경망(Neural Net)의 활성화 함수(Activation fucntion) 출력 값을 살펴
 보았다.
 
-  (1) 표준편차가 1인 케이스, Activation function = Sigmoid(Logistic) function
+### (1) 표준편차가 1인 케이스, Activation function = Sigmoid(Logistic) function
  
 ```python
 import numpy as np
@@ -145,7 +145,7 @@ plt.plot(x,y,'b')
   **<span style = "color: red">결국 데이터들이 각 레이어에서 0과 1에 집중되어있고, 다음 Layer로 Sigmoid를 취해서 넘어갈 경우 결국 미분값은 0됨을 알 수 있다.</span>**
   
   
-  (2) 표준편차가 0.01인 케이스, Activation function = Sigmoid(Logistic) function
+### (2) 표준편차가 0.01인 케이스, Activation function = Sigmoid(Logistic) function
   
 ```python
 import numpy as np
@@ -217,5 +217,142 @@ LeCun은 CNN 모델을 사용한 Architecture인 LeNet의 창시자이다. CNN�
 Xavier 초기화 기법은 딥러닝 분야에서 자주 사용되는 방법 중 하나이다. Xavier는 위의 Zero initialization이나, Random initialization에서 발생한땐 문제들을 해결하기 위해 고안된  
 방법이다. Xavier initialization에서는 고정된 표준편차를 사용하지 않는다. 이전 Hidden layer의 노드 수에 맞추어 변화시키는 것이 특징이다.
 [Xavier Initializaion이 고안된 논문](https://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf)
-이 말하는 것을 결국 각 층의 활성화값들을 광범위하게 분포시킬 목적으로 가중치의 적절한 분포를 찾자는 것이다. 앞 계층의 노드가 n개라면 표준편차가 $\frac{1}{\sqrt{n}}$
+이 말하는 것을 결국 각 층의 활성화값들을 광범위하게 분포시킬 목적으로 가중치의 적절한 분포를 찾자는 것이다. 앞 계층의 노드가 n개라면 표준편차가
+**$$\frac{1}{\sqrt{n}}$$ 인 분포를 사용**하면 된다는 것이 결론이다.
+
+<p align="center">
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203454262-e5a0fd44-78fe-4564-bfbf-1a10115c3628.png">
+</p>
+  
+
+### (1) Xavier Intialization 실험
+
+```python
+# 모델링 및 변수 초기화
+import numpy as np
+import matplotlib.pyplot as plt
+
+def sigmoid(x):
+    return 1/(1+np.exp(-x))
+
+x = np.random.randn(1000,100) # mini batch 1000, input 100
+node_num = 100                # 각 은닉층의 노드(뉴런) 수
+hidden_layer_size = 5         # 은닉층의 5개
+activations = {}              # 이곳에 활성화 결과(활성화값)를 저장
+
+for i in range(hidden_layer_size):
+    if i != 0:
+        x = activations[i - 1]
+        
+    w = np.random.randn(node_num, node_num)/np.sqrt(node_num) # node의 개수에 루트씌우고 나눠줌
+    a = np.dot(x,w)
+    z = sigmoid(a)
+    activations[i] = z
+
+# 히스토그램 그리기
+plt.figure(figsize = (20,5))
+plt.suptitle("Weight Initialization = Xavier", fontsize = 16)
+for i,a in activations.items():
+    plt.subplot(1, len(activations), i+1)
+    plt.title(str(i + 1) + 'layer')
+    plt.hist(a.flatten(), range = (0,1))   
+```
+
+<p align="center">
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203458530-14d5855a-cf95-492f-a564-62e21c795398.png">
+</p>
+
+결과적으로 층이 깊어질수록 일그러지는 경향성이 있지만, 앞에서 본 zero & random initialization에 비하면 확실히 넓게 분포되어 있음을 알 수 있다. 각 층에 데이터가 골구로 분포되어
+있으므로, Sigmoid 함수의 표현력도 제한받지 않고 효율적인 학습을 이끌어 낼 수 있다.
+
+**<span style = "color: red">How to reduce distortion</span>** 
+```
+위의 그림에서 오른쪽으로 갈수록 층이 깊어지고, 갈수록 분포가 왜곡된다(일그러진다).  
+이는 Sigmoid함수에의해 발생한다. Activation function을 Sigmoid가 아닌 쌍곡함수  
+중 tahn 힘수를 이용하면 개선된다. tanh를 사용하면 종 모양으로 분포가 된다. 이와  
+같은 현상이 발생하는 이유는, sigmoid는 원점대칭이 아니기 때문이다. (0,0.5) 대칭
+반면 tanh는 완벽하게 원점대칭이다.
+```
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def tanh(x):
+    return (np.exp(x) - np.exp(-x))/(np.exp(x) + np.exp(-x))
+
+x = np.linspace(-10,10,500)
+y = tanh(x)
+plt.plot(x,y,'b')
+```
+
+딥러닝을 위한 Framework로 나는 Pytorch를 주력으로 사용한다. Pytorch에서 Xavier Initialization을 사용하면 다음과 같다.
+
+```
+# PyTorch
+torch.nn.init.xavier_normal_()
+```
+
+### (2) Xavier initialization with ReLU
+앞서서 지금까지 Sigmoid 함수를 활성화 함수로 사용했다. 하지만, Sigmoid 함수는 Vanishing gradient issue에 치명적인 원인을 제공한다. 그 이유인 즉슨, 0 부근에서만 미분값이 유의미한
+결과를 가지고, 그 이외의 지점에서 미분값이 0이기 때문이다. 이는 결국 Deep-Layer Model에서 Hidden layer를 거치면 거칠수록 vanishing gradient issue를 심화시킨다. 따라서, 다른 활
+성화 함수를 사용할 필요가 있다. 그것의 대안으로 나온 함수가 바로 ReLU이다. 
+
+#### ReLU
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def ReLU(x):
+    return np.maximum(0, x)
+
+x = np.linspace(-5,5,500)
+y = ReLU(x)
+plt.plot(x,y,'b')
+```
+
+<p align="center">
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203460964-84d02eea-c509-4abe-88cc-7dc792d2c5eb.png">
+</p>
+
+논문에서 말해주듯이, Xavier Intialization은 활성화 함수가 선형인 것을 전제로 결과를 도출한다. Sigmoid 함수와 tanh는 점 대칭 함수이고, 0 부근에서 Linear한 특성을 보인다.
+따라서 이 두 함수는 Xavier initialization을 사용하는데 적합하다는 것을 알 수 있다. 하지만, ReLU는 0이하인 지점에서는 그 값이 0이고, 양의 구간에서만 선형인 것을 알 수 있다.
+
+### (3) ReLU 함수를 이용해 Xavier Initialization 실험
+- 표준편차가 0.01인 정규분포, activation function = ReLU
+```python
+# 모델링 및 변수 초기화
+import numpy as np
+import matplotlib.pyplot as plt
+
+def relu(x):
+    return np.maximum(0, x)
+
+x = np.random.randn(1000, 100) # mini batch : 1000, input : 100
+node_num = 100                 # 각 은닉층의 노드(뉴런) 수
+hidden_layer_size = 5          # 은닉층이 5개
+activations = {}               # 이곳에 활성화 결과(활성화값)를 저장
+
+for i in range(hidden_layer_size):
+    if i != 0:
+        x = activations[i - 1]
+        
+    w = np.random.randn(node_num, node_num) * 0.01
+    a = np.dot(x, w)
+    z = relu(a)
+    activations[i] = z
+
+# 히스토그램 그리기
+plt.figure(figsize=(20,5))
+plt.suptitle("Normal Distribution, Standard deviation = 0.01 ", fontsize=16)
+for i, a in activations.items():
+    plt.subplot(1, len(activations), i + 1)
+    plt.title(str(i+1) + "-layer")
+    plt.ylim(0, 7000) # y축 최대 7000으로 제한, y축 범위
+    plt.hist(a.flatten(), 30, range = (0,1))
+plt.show()
+```
+
+<p align="center">
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203464868-50a8ed5a-d518-45e4-862e-9580c8fe0f63.png">
+</p>
 
