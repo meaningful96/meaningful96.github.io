@@ -67,19 +67,81 @@ Parameter를 모두 다르게 초기화할 수 있는 방법으로 가장 쉽게
 Initial value를 설정할 수 있다. 이해를 위해 표준편차를 각각 다르게 설정하면서 가중치를 정규분포로 초기화한 신경망(Neural Net)의 활성화 함수(Activation fucntion) 출력 값을 살펴
 보았다.
 
-  (1) 평균 0.5, 표준편차가 1인 케이스, Activation function = Sigmoid(Logistic) function
+  (1) 표준편차가 1인 케이스, Activation function = Sigmoid(Logistic) function
+  
+    ```python
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    # 모델링 및 변수 초기화
+    def sigmoid(x):
+        return 1/(1 + np.exp(-x))
+
+    x = np.linspace(-5,5, 500)
+    y = sigmoid(x)
+    plt.title("Sigdmoid function")
+    plt.plot(x,y,'b')
+    ```
   
   <p align="center">
-  <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203316223-d8c17028-4fdb-444a-b49a-f1c7a8a68ab7.png">
+  <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203447819-8f020237-553d-4a61-b0c7-5f69418dda6d.png">
   </p>
   
   먼저 Sigmoid 함수의 가장 큰 특징은, Input 값이 0 주위에서만 미분값이 유의미한 값을 가진다. 0에서 작아질수록 sigmoid 값의 출력은 0에 가까워지고, 0에서 커질수록 sigmoid 출력은
-  1에 수렴한다. 하지만, input값이 0에서 멀면 sigmoid 함수는 saturation이 되기 때문에 미분값(gradient)값이 0이 되고, 결국 **Vanishing Gradient**현상이 일어나게 된다. 위의 그
+  1에 수렴한다. 하지만, input값이 0에서 멀면 sigmoid 함수는 saturation이 되기 때문에 미분값(gradient)값이 0이 되고, 결국 **Vanishing Gradient**현상이 일어나게 된다. 야래 그
   림을 보면 sigmoid의 출력값이 0과 1에 가까울때만 출력되는 것을 확인할 수 있다. 그리고 앞서 말했듯, 이 경우 미분값은 0이 된다. 
   
   > (즉, 표준편차가 1이면 sigmoid 기준으로 input이 양 극단에 치우친 것과 마찬가지이다.)
   
-  (2) 평균 0.5, 표준편차가 0.01인 케이스, Activation function = Sigmoid(Logistic) function
+  ```python
+  import numpy as np
+  import matplotlib.pyplot as plt
+
+  # 모델링 및 변수 초기화
+  def sigmoid(x):
+      return 1/(1 + np.exp(-x))
+
+  x = np.random.randn(1000, 100) # mini batch : 1000, input : 100
+  node_num = 100                 # 각 은닉층의 노드(뉴런) 수
+  hidden_layer_size = 5          # 은닉층이 5개
+  activations = {}               # 이곳에 활성화 결과(활성화값)를 저장
+
+  plt.hist(x)
+
+  for i in range(hidden_layer_size):
+      if i != 0:
+          x = activations[i - 1]
+          
+      w = np.random.randn(node_num, node_num) * 1
+      a = np.dot(x, w)
+      z = sigmoid(a)
+      activations[i] = z
+
+  # 히스토그램 그리기
+  plt.figure(figsize=(20,5))
+
+  for i, a in activations.items():
+      plt.subplot(1, len(activations), i + 1)
+      plt.title(str(i+1) + "-layer")
+      plt.hist(a.flatten(), 30, range = (0,1))
+
+  plt.show()
+  ```
+  
+  - 데이터 분포를 보기위한 Histogram
+  
+  <p align="center">
+  <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203448439-a42bcab1-d216-4482-ad51-41c81e800ecd.png">
+  </p>
+  
+  - Activation value per Layer
+  
+  <p align="center">
+  <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203448548-d3fe5ff2-61f2-45da-bdaa-141fc08f3493.png">
+  </p>
+  
+  
+  (2) 표준편차가 0.01인 케이스, Activation function = Sigmoid(Logistic) function
   
   <p align="center">
   <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203321902-f02439cc-eb77-48f7-822e-96e727b170bf.png">
