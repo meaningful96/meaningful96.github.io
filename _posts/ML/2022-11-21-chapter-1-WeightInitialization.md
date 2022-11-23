@@ -318,7 +318,9 @@ plt.plot(x,y,'b')
 따라서 이 두 함수는 Xavier initialization을 사용하는데 적합하다는 것을 알 수 있다. 하지만, ReLU는 0이하인 지점에서는 그 값이 0이고, 양의 구간에서만 선형인 것을 알 수 있다.
 
 ### (3) ReLU 함수를 이용해 Xavier Initialization 실험
+
 - 표준편차가 0.01인 정규분포, activation function = ReLU
+
 ```python
 # 모델링 및 변수 초기화
 import numpy as np
@@ -354,5 +356,44 @@ plt.show()
 
 <p align="center">
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203464868-50a8ed5a-d518-45e4-862e-9580c8fe0f63.png">
+</p>
+
+- Xavier Initialization, activation function = ReLU
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def relu(x):
+    return np.maximum(0, x)
+
+x = np.random.randn(1000, 100) # mini batch : 1000, input : 100
+node_num = 100                 # 각 은닉층의 노드(뉴런) 수
+hidden_layer_size = 5          # 은닉층이 5개
+activations = {}               # 이곳에 활성화 결과(활성화값)를 저장
+
+for i in range(hidden_layer_size):
+    if i != 0:
+        x = activations[i - 1]
+    # Xavier 초깃값 적용          
+    w = np.random.randn(node_num, node_num)/ np.sqrt(node_num)
+    a = np.dot(x, w)
+    z = relu(a)
+    activations[i] = z
+
+plt.figure(figsize=(20,5))
+plt.suptitle("Xavier Initialization with ReLU", fontsize=16)
+for i, a in activations.items():
+    plt.subplot(1, len(activations), i + 1)
+    plt.title(str(i+1) + "-layer")
+    plt.ylim(0, 7000)    
+    plt.hist(a.flatten(), 30, range = (0,1))
+
+
+plt.show()
+```
+
+<p align="center">
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203465528-2d3a7691-af55-47bb-96e1-3e0e82cf106b.png">
 </p>
 
