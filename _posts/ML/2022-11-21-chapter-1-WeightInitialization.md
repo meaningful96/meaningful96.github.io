@@ -303,7 +303,7 @@ torch.nn.init.xavier_normal_()
 결과를 가지고, 그 이외의 지점에서 미분값이 0이기 때문이다. 이는 결국 Deep-Layer Model에서 Hidden layer를 거치면 거칠수록 vanishing gradient issue를 심화시킨다. 따라서, 다른 활
 성화 함수를 사용할 필요가 있다. 그것의 대안으로 나온 함수가 바로 ReLU이다. 
 
-#### ReLU
+#### - ReLU
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
