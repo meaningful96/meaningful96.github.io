@@ -68,20 +68,20 @@ Initial value를 설정할 수 있다. 이해를 위해 표준편차를 각각 �
 보았다.
 
   (1) 표준편차가 1인 케이스, Activation function = Sigmoid(Logistic) function
-  
-    ```python
-    import numpy as np
-    import matplotlib.pyplot as plt
+ 
+```python
+import numpy as np
+import matplotlib.pyplot as plt
 
-    # 모델링 및 변수 초기화
-    def sigmoid(x):
-        return 1/(1 + np.exp(-x))
+# 모델링 및 변수 초기화
+def sigmoid(x):
+  return 1/(1 + np.exp(-x))
 
-    x = np.linspace(-5,5, 500)
-    y = sigmoid(x)
-    plt.title("Sigdmoid function")
-    plt.plot(x,y,'b')
-    ```
+x = np.linspace(-5,5, 500)
+y = sigmoid(x)
+plt.title("Sigdmoid function")
+plt.plot(x,y,'b')
+```
   
   <p align="center">
   <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203447819-8f020237-553d-4a61-b0c7-5f69418dda6d.png">
