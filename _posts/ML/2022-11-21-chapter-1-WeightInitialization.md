@@ -409,11 +409,60 @@ plt.show()
 ```
 
 **결과**  
-- 표준편차가 0.01인 정규 분포를 사용한 결과: <span style = "color: red">학습이 잘 이루어지지 않을 것으로 예상</span>
-- Xavier Initialization을 사용한 결과    : <span style = "color: red">층이 깊어지면서 치우침이 조금씩 커진다. 즉, 층이 깊어질수록 분포들이 0 쪽으로 쏠리는 경향성을 보이고 ReLU는 0에서 미분값이 0이므로 **Vanishing Graident issue**가 발생하게 된다</span> 
+1. 표준편차가 0.01인 정규 분포를 사용한 결과: <span style = "color: red">학습이 잘 이루어지지 않을 것으로 예상</span>
+2. Xavier Initialization을 사용한 결과    : <span style = "color: red">층이 깊어지면서 치우침이 조금씩 커진다. 즉, 층이 깊어질수록 분포들이 0 쪽으로 쏠리는 경향성을 보이고 ReLU는 0에서 미분값이 0이므로 **Vanishing Graident issue**가 발생하게 된다</span> 
 
 **고찰**
-층이 깊어질수록 치우침이 없어지게 하도록하는 방법이 필요하다. 근데, ReLU는 양의 구간에서만 미분값이 유의미하다. 즉, 절반의 구간에서만 유의미하므로, 그 효과를 증폭시키기 위해 **2배의 계수**가 필요할꺼 같다. 이를 만족시키기위해 나온 초기화 기법이 He Initialization이다.
+층이 깊어질수록 치우침이 없어지게 하도록하는 방법이 필요하다. 근데, ReLU는 양의 구간에서만 미분값이 유의미하다. 즉, 절반의 구간에서만 유의미하므로, 그 효과를 증폭시키기 위해 **두 배의 계수**가 필요할꺼 같다. 이를 만족시키기위해 나온 초기화 기법이 He Initialization이다.
 
 ## 6. He Initialization
+He Initialization의 기본적인 틀은 Xavier와 동일하다. 다만, 그 효과를 두 배로 만들기 위해서 표준편차에 x2 를 해준 **$$\frac{2}{\sqrt{n}}$$** 인 정규 분포를 사용하는 것이다.
+역시 마찬가지로 Layer수에 Dependent하다.(n = Layer 수)
 
+### (1) He initialization 실험
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def relu(x):
+    return np.maximum(0, x)
+
+x = np.random.randn(1000, 100) # mini batch : 1000, input : 100
+node_num = 100                 # 각 은닉층의 노드(뉴런) 수
+hidden_layer_size = 5          # 은닉층이 5개
+activations = {}               # 이곳에 활성화 결과(활성화값)를 저장
+
+for i in range(hidden_layer_size):
+    if i != 0:
+        x = activations[i - 1]
+    # Xavier 초깃값 적용          
+    w = np.random.randn(node_num, node_num)*np.sqrt(2/node_num)
+    a = np.dot(x, w)
+    z = relu(a)
+    activations[i] = z
+
+plt.figure(figsize=(20,5))
+plt.suptitle("Xavier Initialization with ReLU", fontsize=16)
+for i, a in activations.items():
+    plt.subplot(1, len(activations), i + 1)
+    plt.title(str(i+1) + "-layer")
+    plt.ylim(0, 7000)    
+    plt.hist(a.flatten(), 30, range = (0,1))
+plt.show()
+```
+
+<p align="center">
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203467948-2b04d971-bc3f-4f43-89eb-03dd8c4babe6.png">
+</p>
+
+### (2) He Initialization 결과
+1. 모든 층에서 균일하게 분포, 층이 깊어져도 분포가 균일하게 유지되기에 Backpropagation을 진행할 때도 적절한 값이 나올 것으로 예상된다.
+2. 따라서 ReLU에 적합한 weight initialization은 He initialization이다.
+
+## 7. Weight Initialization 실험 결과
+
+**<span style = "color: red">
+1. ReLU를 활성화 함수로 사용할 때는 He을 사용!!
+2. Sigmoid, tanh 처럼 zero centered fucntion을 사용할 경우 Xavier를 사용!!
+</span>**
