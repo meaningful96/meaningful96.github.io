@@ -194,7 +194,7 @@ plt.show()
   
   Zero initialization이나, 지금의 경우를 두고 'model 표현력이 떨어진다'라고 한다.
   
-'**<span style = "color: red">Important</span>**  
+'**<span style = "color: red">Important</span>**  안녕
 
 
 ## 4. LeCun Initialization
