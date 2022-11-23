@@ -397,3 +397,10 @@ plt.show()
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203465528-2d3a7691-af55-47bb-96e1-3e0e82cf106b.png">
 </p>
 
+**<span style = "color: red">Important</span>**  
+```
+- 학습이 잘되기 위해서는 Layer마다 분포들의 표준편차는 같거나 비슷해야함.
+```
+
+
+
