@@ -217,6 +217,5 @@ LeCun은 CNN 모델을 사용한 Architecture인 LeNet의 창시자이다. CNN�
 Xavier 초기화 기법은 딥러닝 분야에서 자주 사용되는 방법 중 하나이다. Xavier는 위의 Zero initialization이나, Random initialization에서 발생한땐 문제들을 해결하기 위해 고안된  
 방법이다. Xavier initialization에서는 고정된 표준편차를 사용하지 않는다. 이전 Hidden layer의 노드 수에 맞추어 변화시키는 것이 특징이다.
 [Xavier Initializaion이 고안된 논문](https://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf)
-이 말하는 것을 결국 각 층의 활성화값들을 광범위하게 분포시킬 목적으로 가중치의 적절한 분포를 찾자는 것이다. 앞 계층의 노드가 n개라면 표준편차가
-$$\frac{1}{\sqrt{n}}$$
+이 말하는 것을 결국 각 층의 활성화값들을 광범위하게 분포시킬 목적으로 가중치의 적절한 분포를 찾자는 것이다. 앞 계층의 노드가 n개라면 표준편차가 $\frac{1}{\sqrt{n}}$
 
