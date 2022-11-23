@@ -1,7 +1,7 @@
 ---
 title: "NonLinear Optimization Project"
 layout: archive
-permalink: categories/OPTproject
+permalink: categories/optproject
 author_profile: true
 sidebar_main: true
 ---
@@ -10,6 +10,6 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories.OPTproject%}
+{% assign posts = site.categories.optproject%}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
  
