@@ -137,7 +137,7 @@ plt.plot(x,y,'b')
   - Activation value in Each Layer
   
   <p align="center">
-  <img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203448548-d3fe5ff2-61f2-45da-bdaa-141fc08f3493.png">
+  <img width="1600" alt="image" src="https://user-images.githubusercontent.com/111734605/203448548-d3fe5ff2-61f2-45da-bdaa-141fc08f3493.png">
   </p>
   
   각 Layer에서 나온 활성화 값을 보면,
