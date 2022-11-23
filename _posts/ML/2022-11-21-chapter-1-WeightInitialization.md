@@ -142,7 +142,7 @@ plt.plot(x,y,'b')
   
   각 Layer에서 나온 활성화 값을 보면,
   
-  **<span style = "background-color:#fff5b1;">결국 데이터들이 각 레이어에서 0과 1에 집중되어있고, 다음 Layer로 Sigmoid를 취해서 넘어갈 경우 결국 미분값은 0됨을 알 수 있다.</span>**
+  **<span style = "color:aqua">결국 데이터들이 각 레이어에서 0과 1에 집중되어있고, 다음 Layer로 Sigmoid를 취해서 넘어갈 경우 결국 미분값은 0됨을 알 수 있다.</span>**
   
   
 ### (2) 표준편차가 0.01인 케이스, Activation function = Sigmoid(Logistic) function
@@ -195,7 +195,7 @@ plt.show()
   Zero initialization이나, 지금의 경우를 두고 'model **표현력**이 떨어진다'라고 한다.
 
 
-**<span style = "background-color:#fff5b1;">Important</span>**  
+**<span style = "color:aqua">Important</span>**  
 ```
 각 층의 활성화값은 적당히 고루 분포되어야 한다.층과 층 사이에 적당하게    
 다양한 데이터가 흐르게 해야 신경망 학습이 효율적으로 이뤄지기 때문이다.      
@@ -271,7 +271,7 @@ for i,a in activations.items():
 결과적으로 층이 깊어질수록 일그러지는 경향성이 있지만, 앞에서 본 zero & random initialization에 비하면 확실히 넓게 분포되어 있음을 알 수 있다. 각 층에 데이터가 골구로 분포되어
 있으므로, Sigmoid 함수의 표현력도 제한받지 않고 효율적인 학습을 이끌어 낼 수 있다.
 
-**<span style = "background-color:#fff5b1;">How to reduce distortion</span>** 
+**<span style = "color:aqua">How to reduce distortion</span>** 
 ```
 위의 그림에서 오른쪽으로 갈수록 층이 깊어지고, 갈수록 분포가 왜곡된다(일그러진다).  
 이는 Sigmoid함수에의해 발생한다. Activation function을 Sigmoid가 아닌 쌍곡함수  
@@ -403,7 +403,7 @@ plt.show()
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203465528-2d3a7691-af55-47bb-96e1-3e0e82cf106b.png">
 </p>
 
-**<span style = "background-color:#fff5b1;">Important</span>**  
+**<span style = "color:aqua">Important</span>**  
 ```
 - 학습이 잘되기 위해서는 Layer마다 분포들의 표준편차는 같거나 비슷해야함.
 ```
