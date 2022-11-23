@@ -1,5 +1,5 @@
 ---
-title: "OPTproject"
+title: "NonLinear Optimization Project"
 layout: archive
 permalink: categories/OPTproject
 author_profile: true
