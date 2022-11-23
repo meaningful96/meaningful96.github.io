@@ -462,7 +462,7 @@ plt.show()
 
 ## 7. Weight Initialization 실험 결과
 
-**<span style = "color: red">
-1. ReLU를 활성화 함수로 사용할 때는 He을 사용!!
-2. Sigmoid, tanh 처럼 zero centered fucntion을 사용할 경우 Xavier를 사용!!
-</span>**
+<span style = "color: red">
+**1. ReLU를 활성화 함수로 사용할 때는 He을 사용!!**
+**2. Sigmoid, tanh 처럼 zero centered fucntion을 사용할 경우 Xavier를 사용!!**
+</span>
