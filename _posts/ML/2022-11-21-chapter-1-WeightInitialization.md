@@ -192,7 +192,7 @@ plt.show()
   이 경우에는 Input이 0.5 주변에 모여있으므로 활성함수인 sigmoid를 취하게되면 유의미한 값을 가지게되며, 미분값이 0이 아니다. 하지만, 대부분의 출력값이 0.5 주변에 모여있기 때문에
   Zero initialization에서 봤던 예시 처럼 노드별로 gradient값의 출력값이 비슷해 결국은 Multi-Layer를 구성하는 의미가 사라지게 된다.
   
-  Zero initialization이나, 지금의 경우를 두고 'model 표현력이 떨어진다'라고 한다.
+  Zero initialization이나, 지금의 경우를 두고 'model **표현력**이 떨어진다'라고 한다.
 
 
 **<span style = "color: red">Important</span>**  
@@ -204,6 +204,7 @@ plt.show()
 ```
 
 ## 4. LeCun Initialization
+
 LeCun은 CNN 모델을 사용한 Architecture인 LeNet의 창시자이다. CNN을 도입함으로서 인공지능 분야의 큰 획을 그은 분이다. LeCun은 효과적인 Backpropagation을 위한 논문으로서 초기화
 방법을 제시했다. Gaussian Distribution과 Uniform Distribution을 따르는 두 가지 방법에 대해서 소개했다.
 (논문 링크: [Efficient BackProp](http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf))
@@ -213,7 +214,10 @@ LeCun은 CNN 모델을 사용한 Architecture인 LeNet의 창시자이다. CNN�
   </p>
   
 ## 5. Xavier Initialization
-Xavier 초기화 기법은 딥러닝 분야에서 자주 사용되는 방법 중 하나이다. Xavier는 위의 Zero initialization이나, Random initialization에서 발생한땐 문제들을 해결하기 위해 고안된
+Xavier 초기화 기법은 딥러닝 분야에서 자주 사용되는 방법 중 하나이다. Xavier는 위의 Zero initialization이나, Random initialization에서 발생한땐 문제들을 해결하기 위해 고안된  
+방법이다. Xavier initialization에서는 고정된 표준편차를 사용하지 않는다. 이전 Hidden layer의 노드 수에 맞추어 변화시키는 것이 특징이다. 
+
+만약 이전 노드의 수가 n 개이고 현재 은닉층의 노드가 m 개일 때, 1n+m√ 을 표준편차로 하는 가중치를 초기화한다.
 
 
   
