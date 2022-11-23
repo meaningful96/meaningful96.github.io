@@ -140,10 +140,8 @@ plt.plot(x,y,'b')
   <img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/203448548-d3fe5ff2-61f2-45da-bdaa-141fc08f3493.png">
   </p>
   
-  각 Layer에서 나온 활성화 값을 보면
-<span style = "color: red">
-  결국 데이터들이 각 레이어에서 0과 1에 집중되어있고, 다음 Layer로 Sigmoid를 취해서 넘어갈 경우 결국 미분값은 0됨을 알 수 있다.
-</span>
+  각 Layer에서 나온 활성화 값을 보면,
+  <span style = "color: red">결국 데이터들이 각 레이어에서 0과 1에 집중되어있고, 다음 Layer로 Sigmoid를 취해서 넘어갈 경우 결국 미분값은 0됨을 알 수 있다.</span>
   
   
   (2) 표준편차가 0.01인 케이스, Activation function = Sigmoid(Logistic) function
