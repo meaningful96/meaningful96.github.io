@@ -220,6 +220,12 @@ Xavier 초기화 기법은 딥러닝 분야에서 자주 사용되는 방법 중
 이 말하는 것을 결국 각 층의 활성화값들을 광범위하게 분포시킬 목적으로 가중치의 적절한 분포를 찾자는 것이다. 앞 계층의 노드가 n개라면 표준편차가
 **$$\frac{1}{\sqrt{n}}$$ 인 분포를 사용**하면 된다는 것이 결론이다.
 
+**Xavier Intialization 의 특징**
+- Neuron의 개수가 많을수록 초깃값으로 설정하는 weight이 더 좁게 퍼짐
+- Layer가 깊어질수록 앞의 본 방식보다 더 넓게 분포됨을 알 수 있음.
+- 따라서 sigmoid를 쓰더라도 표현력이 어느정도 보장됨
+- Neuron의 개수에 따라 초기화되므로 좀 더 robust함
+
 <p align="center">
 <img width="500" alt="image" src="https://user-images.githubusercontent.com/111734605/203454262-e5a0fd44-78fe-4564-bfbf-1a10115c3628.png">
 </p>
@@ -402,5 +408,12 @@ plt.show()
 - 학습이 잘되기 위해서는 Layer마다 분포들의 표준편차는 같거나 비슷해야함.
 ```
 
+**결과**  
+- 표준편차가 0.01인 정규 분포를 사용한 결과: <span style = "color: red">학습이 잘 이루어지지 않을 것으로 예상</span>
+- Xavier Initialization을 사용한 결과    : <span style = "color: red">층이 깊어지면서 치우침이 조금씩 커진다. 즉, 층이 깊어질수록 분포들이 0 쪽으로 쏠리는 경향성을 보이고 ReLU는 0에서 미분값이 0이므로 **Vanishing Graident issue**가 발생하게 된다</span> 
 
+**고찰**
+층이 깊어질수록 치우침이 없어지게 하도록하는 방법이 필요하다. 근데, ReLU는 양의 구간에서만 미분값이 유의미하다. 즉, 절반의 구간에서만 유의미하므로, 그 효과를 증폭시키기 위해 **2배의 계수**가 필요할꺼 같다. 이를 만족시키기위해 나온 초기화 기법이 He Initialization이다.
+
+## 6. He Initialization
 
