@@ -75,7 +75,7 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 :  "ttps://user-images.githubusercontent.com/111734605/202103519-bb6a0169-1faf-4207-a1e1-a3e74bb658bc.jpg" # Open Graph/Twitter default site image
+og_image                 :  "/assets/images/me.jpg" # Open Graph/Twitter default site image
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
