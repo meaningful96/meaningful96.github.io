@@ -98,7 +98,8 @@
                         <li><a href="/categories/OPT" class="">최적화 이론 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
-             <ul>
+            </ul>
+            <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "OPTproject" %}
                         <li><a href="/categories/OPTproject" class="">최적화 Project ({{category[1].size}})</a></li>
