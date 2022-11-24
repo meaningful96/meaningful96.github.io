@@ -10,6 +10,6 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories.paperreview %}
+{% assign posts = site.categories.PapeRreview %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
 
