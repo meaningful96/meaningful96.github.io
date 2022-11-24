@@ -32,15 +32,15 @@
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "BJ" %}
-                        <li><a href="/categories/BJ" class="">백준 문제 풀이 ({{category[1].size}})</a></li>
+                    {% if category[0] == "Baekjoon" %}
+                        <li><a href="/categories/baekjoon" class="">백준 문제 풀이 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>            
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "CT" %}
-                        <li><a href="/categories/CT" class="">Coding Test ({{category[1].size}})</a></li>
+                    {% if category[0] == "Codingtest" %}
+                        <li><a href="/categories/codingtest" class="">Coding Test ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -49,14 +49,14 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Algorithm" %}
-                        <li><a href="/categories/Algorithm" class="">알고리즘 구현 (with C++ & Python) ({{category[1].size}})</a></li>
+                        <li><a href="/categories/algorithm" class="">알고리즘 구현 (with C++ & Python) ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "DS" %}
-                        <li><a href="/categories/DS" class="">Data Structure ({{category[1].size}})</a></li>
+                    {% if category[0] == "DataStructure" %}
+                        <li><a href="/categories/datastructure" class="">Data Structure ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -64,29 +64,29 @@
         <span class="nav__sub-title">ML/DL</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "ML" %}
-                        <li><a href="/categories/ML" class="">Machine Learning ({{category[1].size}})</a></li>
+                    {% if category[0] == "MachineLearning" %}
+                        <li><a href="/categories/machinelearning" class="">Machine Learning ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "DL" %}
-                        <li><a href="/categories/DL" class="">Deep Learning ({{category[1].size}})</a></li>
+                    {% if category[0] == "DeepLearning" %}
+                        <li><a href="/categories/deeplearning" class="">Deep Learning ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "PR" %}
-                        <li><a href="/categories/PR" class="">논문 리뷰 ({{category[1].size}})</a></li>
+                    {% if category[0] == "PaperReview" %}
+                        <li><a href="/categories/paperreview" class="">논문 리뷰 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "SP" %}
-                        <li><a href="/categories/SP" class="">Study Progress ({{category[1].size}})</a></li>
+                    {% if category[0] == "StudyProgress" %}
+                        <li><a href="/categories/studyprogress" class="">Study Progress ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -94,8 +94,8 @@
         <span class="nav__sub-title">Optimization</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "OPT" %}
-                        <li><a href="/categories/OPT" class="">최적화 이론 ({{category[1].size}})</a></li>
+                    {% if category[0] == "Optimization" %}
+                        <li><a href="/categories/optimization" class="">최적화 이론 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
