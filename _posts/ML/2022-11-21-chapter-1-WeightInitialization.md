@@ -2,7 +2,7 @@
 title: Chapter 1. Weight Initialization
 
 categories:
-  - machinlearning
+  - machinelearning
 tags:
   - [ML,DL,Machine learning, Deep Learning]
 
