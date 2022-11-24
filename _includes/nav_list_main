@@ -95,7 +95,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Optimization" %}
-                        <li><a href="/categories/optimization" class="">최적화 이론 ({{category[1].size}})</a></li>
+                        <li><a href="/categories/Optimization" class="">최적화 이론 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -111,7 +111,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Etc.." %}
-                        <li><a href="/categories/ETC" class="">Etc.. ({{category[1].size}})</a></li>
+                        <li><a href="/categories/Etc" class="">Etc.. ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}            
             </ul>
