@@ -2,7 +2,7 @@
 title: Chapter 0.Cross Validation
 
 categories:
-  - machinelearning
+  - MachineLearning
 tags:
   - [ML,DL,Machine learning, Deep Learning]
 
