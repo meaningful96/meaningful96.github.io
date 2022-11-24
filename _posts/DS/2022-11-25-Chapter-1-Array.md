@@ -2,7 +2,7 @@
 title: chapter 1. Array & List
 
 categories:
-  - datastructure
+  - DataStructure
 tags:
   - [DS,Data Structure, Algorithm]
 
