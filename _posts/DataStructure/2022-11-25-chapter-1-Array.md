@@ -1,7 +1,7 @@
 ---
 title: Chapter 1. Array & List
 
-categories: 카테고리 이름
+categories:
   - DataStructure
 tags:
   - [DS,DataStructure,Array, List]
