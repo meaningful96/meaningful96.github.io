@@ -1,5 +1,5 @@
 ---
-title: Chapter 1. Weight Initialization
+title: (ML)Chapter 1. Weight Initialization
 
 categories:
   - MachineLearning
