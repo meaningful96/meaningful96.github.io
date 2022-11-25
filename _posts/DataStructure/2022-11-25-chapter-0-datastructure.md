@@ -1,5 +1,5 @@
 ---
-title: (DS)Chapter 0. Data Structure의 개념
+title: Chapter 0. Data Structure의 개념
 
 categories:
   - DataStructure
