@@ -60,3 +60,4 @@ k-fold cross validation은 좀 더 좋은 Hpyerparameter를 찾기 위해서 위
 <p align="center">
 <img width="400" alt="4" src="https://user-images.githubusercontent.com/111734605/202990430-c0dc5400-6a74-45ce-b7da-6ef23f883e81.png">
 </p>
+
