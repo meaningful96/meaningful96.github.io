@@ -58,7 +58,7 @@ pop(3)    # 3번 index의 값을 삭제한다.
 <span style = "color: aqua">Before</span>  
 
 <p align="center">
-![image](https://user-images.githubusercontent.com/111734605/203910705-64aae3ad-b6a2-47eb-818a-b12615cec892.png)
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/203910705-64aae3ad-b6a2-47eb-818a-b12615cec892.png">
 </p>
 
 <span style = "color: aqua">After pop(3)</span> 
