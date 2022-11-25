@@ -19,7 +19,7 @@ last_modified_at: 2022-11-25
 데이터가 저장된 순차 리스트에 해당한다. 순차적으로 저장된 데이터를 참조하는 데에는 <span style = "color:aqua">**Index**</span>가 사용된다.
 
 <p align="center">
-![image](https://user-images.githubusercontent.com/111734605/203910344-cf37af79-f47e-463d-973c-a981d238aa59.png)
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/203910344-cf37af79-f47e-463d-973c-a981d238aa59.png">
 </p>
 
 ### 2) Array의 특징
@@ -41,9 +41,9 @@ last_modified_at: 2022-11-25
 확인(Search)는 특정 인덱스에 있는 요소를 확인하는 것이다. 즉, 특정 인덱스만 있으면 바로 확인 가능하기에 O(1)의 Time complexity를 가진다.
 
 <p align="center">
-![image](https://user-images.githubusercontent.com/111734605/203910426-80ef361f-434c-4d3d-b879-f344ca329c21.png)
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/203910426-80ef361f-434c-4d3d-b879-f344ca329c21.png">
 </p>
-
+  
 **변경**  
 변경 역시 특정 인덱스의 값 만을 바꾸는 것이다. 정확히 말하면 특정 인덱스에 할당된 주소를 바꾸는 것이다.
 
@@ -64,7 +64,7 @@ pop(3)    # 3번 index의 값을 삭제한다.
 <span style = "color: aqua">After pop(3)</span> 
 
 <p align="center">
-![image](https://user-images.githubusercontent.com/111734605/203910748-083eaa8b-3134-4a1d-a82c-77fdaee3e377.png)
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/203910748-083eaa8b-3134-4a1d-a82c-77fdaee3e377.png">
 </p>
 
 어떠한 원소를 삭제할 때 평균적으로 $\frac{N}{2}$ 만큼 떙겨야 하므로 삭제의 시간 복잡도는 <span style = "color: aqua">**O(N)**</span>이다.  
@@ -75,13 +75,13 @@ pop(3)    # 3번 index의 값을 삭제한다.
 <span style = "color: aqua">Before</span>  
 
 <p align="center">
-![image](https://user-images.githubusercontent.com/111734605/203910798-3389bfc7-006f-4f0f-b76b-0145a97cefee.png)
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/203910798-3389bfc7-006f-4f0f-b76b-0145a97cefee.png">
 </p>
 
 <span style = "color: aqua">After insert(3,19)</span>  
 
 <p align="center">
-![image](https://user-images.githubusercontent.com/111734605/203910833-0db7705a-e7ac-4726-9511-3ff1c6e5e365.png)
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/203910833-0db7705a-e7ac-4726-9511-3ff1c6e5e365.png">
 </p>
 
 역시 마찬가지로, 평균적으로 $\frac{N}{2}$ 만큼 우측으로 밀어야 하므로 시간 복잡도는 <span style = "color: aqua">**O(N)**</span>이다.
