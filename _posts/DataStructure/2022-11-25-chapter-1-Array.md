@@ -97,4 +97,65 @@ pop(3)    # 3번 index의 값을 삭제한다.
 - <span style = "color: aqua">List = 같은 특성을 갖는 원소들이 **순서대로** 구성된 집합인 선형 자료 구조이다.</span>
 - 이 리스트는 Python에서 기본적으로 제공하는 List와는 다르다.
 
-하지만, 데이터가 메모리 상에 연속적으로 저장되진 않기 때문에 순차 리스트가 아닌 연결 리스트라고 부른다.
+하지만, 데이터가 메모리 상에 연속적으로 저장되진 않기 때문에 순차 리스트가 아닌 연결 리스트(Linked-List)라고 부른다.
+- 연결 리스트에는 여러 종류의 구조가 존재한다.
+- 단일 연결 리스트(Singly Linked List), 이중 연결 리스트(Doubly Linked List), 원형 연결 리스트(Circular Linked List)...
+
+### 2) List의 
+#### (1) 원소 확인 및 변경
+단일 연결 리스트로 정리함.
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204198899-1478e79f-cfd0-464f-8c2e-ed223161aa47.png">
+</p>
+
+**확인**
+순차 접근 방식을 사용하기 때문에 처음부터 순차적으로 탐색한다. 이 때 **딸기**를 찾는다고하자. 처음부터 시작해서 순차적으로 데이터에 접근하기에, 사과를 거쳐 배를 거치고 딸기는 찾는다. 이렇게되면 결론적으로 Time Complexity는 <span style = "color: aqua">O(N)</span>이 된다.
+
+**변경**
+변경은 간단하다. 만약 딸기를 파인애플로 변경한다고 하면, 딸기에 해당하는 데이터에 접근한 이후 그 곳에서 Value값만 바꾸면된다. 따라서 Time Complexity는 <span style = "color: aqua">O(1)</span>이다.  
+- Search의 Time Complexity는 O(N)이다.
+- Change의 Time Complexity는 O(1)이다.
+
+따라서, 만약 확인과 접근을 둘 다 수행한다고하면 O(N+1)이고 O(N+1) = O(N)이라고 할 수 있다.
+
+#### (2) 원소 삽입 및 삭제
+
+**삭제**
+이번엔 파인애플을 삭제한다고 해보자. 삭제의 Mechanism은 간단하다. 삭제하는 Link값에 연결된 선을 바꿔주면된다. 즉, 배에 해당하는 Link를 바나나의 Link와 연결시켜주면 되기 때문에 
+Time Complexity는 O(1)이다. 하지만, 파인애플을 삭제하기 위해서는 Serch과정이 포함되기에 결론적으로 삭제 연산의 Time Complexity는 <span style = "color: aqua">O(N)</span>이다.
+삭제의 경우 당연히 리스트의 크기는 줄어든다.
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204198902-4ed3db93-21ec-46f5-86f0-138c089d1e39.png">
+</p>
+
+**삽입**
+삽입의 경우도 Serch과정을 거친후 새로운 Link를 끼워넣는 것과 마찬가지다. 즉 양 옆의 링크를 끊고 새로운 값이 저장된 Node의 Link로 연결시키면 된다. 이 경우도 결국
+Time Complexity는 <span style = "color: aqua">O(N)</span>이다. 삽입의 경우 결국 리스트의 크기는 늘어난다.(즉 리스트의 크기는 배열과 다르게 가변적이다.)
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204198904-9d275b2b-db3e-40f5-b248-3f6e60e82bd8.png">
+</p>
+
+- Insert의 Time Complexity는 O(N)이다.
+- Delete의 Time Complexity는 O(N)이다.
+
+#### (3) 메모리 상에 연속성
+Int형 자료의 크기는 4Byte이다. 이 때 배열의 각 주소는 100,104,108,112 순으로 연속적으로 주소가 할당된다.  
+반면 리스트의 경우 100,204,336,540등으로 주소가 연속적으로 할당되지 않는 특징이 있다. 
+
+## 3. Array VS Array-List VS Linked-list
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204203088-f1a85e22-9b92-48d9-9fe0-ce1f61179102.png">
+</p>
+
+- ArrayList는 쉽게 말하면 Python의 기본 자료구조인 List를 말한다.
+- 크기가 가변적인 배열이 필요하다면 ArrayList(PythonList)
+- Linked List의 삭제,추가의 시간 복잡도는 O(N)이지만 Array나 ArrayList보다 빠름
+  - 데이터의 **삭제, 추가**가 많을 때 => LinkedList
+  - 데이터의 **접근**이 많을때        => ArrayList, Array
+
+- Array, ArrayList는 인덱스가 있지만 LinkedList는 없다
+  - 인덱스가 필요하면     => ArrayList
+  - 인덱스가 필요 없다면  => LinkedList
