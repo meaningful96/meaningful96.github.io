@@ -80,3 +80,181 @@ class Stack:
 <p align="center">
 <img width="404" alt="image" src="https://user-images.githubusercontent.com/111734605/204210392-cb6aa294-5fef-4b82-8f6e-cb1f9878797f.png">
 </p>
+
+## 2. Stack 구현하기
+### 1) Python
+```python
+class stack:
+    def __init___(self):
+        self.items = []
+    
+    def push(self, val):
+        self.items.append(val)
+    
+    def pop(self):
+        try:
+            return self.items.pop() # pop을 할 아이템이 없으면
+        except IndexError:
+            print("Stack is empty") # IndexError 발생        
+    
+    def peek(self):
+        try:
+            return self.items[-1]
+        except IndexError:
+            print("Stack is empty")
+            
+    
+    def __len__(self): # len()로 호출하면 stack의 item 수 반환
+        return len(self.items)
+    
+S = Stack()
+S.push(1)      # 1 
+S.push(10)     # 1, 10
+S.push(-3)     # 1, 10, -3
+S.push(4)      # 1, 10, -3, 4
+print(S.items) # [1,10,-3,4]
+S.pop()        # 1, 10, -3
+S.pop()        # 1, 10    
+```
+
+### 2) C++
+```cpp
+#include <iostream>
+#define MAX 6
+
+using namespace std;
+int STACK[MAX], TOP;
+
+// stack initialization
+void initStack()
+{
+	TOP = -1;
+}
+
+//Check it is empty or not
+int isEmpty()
+{
+	if(TOP == -1)
+		return 1;
+	else
+		return 0;
+}
+
+//Check stack os full or not
+int isFull()
+{
+	if(TOP == MAX -1)
+		return 1;
+	else 
+		return 0;
+}
+
+void push(int num)
+{
+	if(isFull())
+	{
+		cout<<"STACK is FULL.\n";
+		return;
+	}
+	++TOP;
+	STACK[TOP] = num;
+	cout<<num<<"has been iserted.\n";
+}
+
+void display()
+{
+	int i;
+	if(isEmpty())
+	{
+		cout<<"STACK is Empty: \n";
+		return;
+	}
+	cout<<"STACK Elements: \n";
+	for(i = TOP; i>=0; i--)
+	{
+		cout<<STACK[i]<<"\n";
+	}
+	cout<<"\n";
+}
+//Pop - to remove item
+void pop()
+{
+	int temp;
+	if(isEmpty())
+	{
+		cout<<"STACK is Empty.\n";
+		return;
+	}
+	temp = STACK[TOP];
+	TOP--;
+	cout<<temp<<"has been deleted.\n";
+}
+int main()
+{
+	int num;
+	initStack();
+	char ch;
+	do
+	{
+		int a;
+		cout<<"Choose \n1.push\n"<<"2.pop\n"<<"3.display\n";
+		cout<<"Please enter your choice: ";
+		cin>>a;
+		switch(a)
+		{
+			case 1:
+				cout<<"Enter an Integer Number: ";
+				cin>>num;
+				push(num);
+			break;
+			case 2:
+				pop();
+				break;
+			case 3:
+				display();
+				break;
+			default:
+				cout<<"An Invalid Choice!!!\n";
+		}
+	cout<<"Do you want to continue ?";
+	cin>>ch;
+		
+	}
+	while(ch == 'Y' || ch == 'y');
+	return 0;
+}
+```
+
+<p align="center">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/204218000-31e17c82-59eb-498a-a22a-f52f3611a820.png">
+</p>
+
+
+### 3) C++ 
+```cpp
+#include <iostream>
+#include <stack>
+using namespace std;
+int main(void) {
+
+	stack<int> st;
+	stack<int> st2;
+
+	st.push(1);
+	st.push(2);
+	st.push(3);
+
+	st2.push(10);
+	st2.push(20);
+	st2.push(30);
+
+	swap(st, st2);
+
+	while (!st.empty()) {
+		cout << st.top() << endl;
+		st.pop();
+	}
+
+	return 0;
+}
+```
