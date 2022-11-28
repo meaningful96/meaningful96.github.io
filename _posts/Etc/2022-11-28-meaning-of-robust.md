@@ -62,7 +62,7 @@ ax1.plot(Mline_X,Mline_Y,'g')
 Data = np.array([7,9,13,500,10])
 DataIndex = np.array([1,2,3,4,5])
 
-Data_Coupled_Index_with_Data = np.column_stack([DataIndex,Data]) #(1,7), (2,9), (3,13), (4,11), (5,10)
+Data_Coupled_Index_with_Data = np.column_stack([DataIndex,Data]) #(1,7), (2,9), (3,13), (4,500), (5,10)
 Mean = np.mean(Data)
 
 f1 = plt.figure()
