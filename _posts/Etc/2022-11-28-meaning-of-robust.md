@@ -1,5 +1,5 @@
 ---
-title: 카테고리랑 페이지 만들기
+title: Robust의 의미
 
 categories:
   - Etc
@@ -9,8 +9,8 @@ tags:
 toc: true
 toc_sticky: true
 
-date: 2022-11-25
-last_modified_at: 2022-11-25 
+date: 2022-11-28
+last_modified_at: 2022-11-28
 ---
 
 ## 1. Robust의 의미
