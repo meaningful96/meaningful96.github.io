@@ -51,7 +51,7 @@ ax1.plot(Mline_X,Mline_Y,'g')
 ```
 
 <p align="center">
-<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/204193820-8b84f8e9-f345-45bc-ab32-56eb96656538.png">
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/204193820-8b84f8e9-f345-45bc-ab32-56eb96656538.png">
 </p>
 
 만약 이 상황에서 하나의 데이터가 잘못 Mapping되어 7,9,13,<span style = "color:aqua">**100**</span>,10이 되었다고 가정하자. 그러면
@@ -78,7 +78,7 @@ ax1.plot(Mline_X,Mline_Y,'g')
 ```
 
 <p align="center">
-<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/204194556-6268ebc5-6d35-4666-8f77-066eebdfb7c6.png">
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/204194556-6268ebc5-6d35-4666-8f77-066eebdfb7c6.png">
 </p>
 
 위의 Plot 처럼 바뀌게된다. 평균이 10에서 107.8로 바뀌고 Outlier에 의해 모든 데이터들이 평균과 많이 차이가나게 되는 것을 볼 수 있다. 따라서 이 상태로 데이터들의 평균은 107.8입니다
