@@ -51,7 +51,7 @@ ax1.plot(Mline_X,Mline_Y,'g')
 ```
 
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204193820-8b84f8e9-f345-45bc-ab32-56eb96656538.png">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/204193820-8b84f8e9-f345-45bc-ab32-56eb96656538.png">
 </p>
 
 만약 이 상황에서 하나의 데이터가 잘못 Mapping되어 7,9,13,<span style = "color:aqua">**100**</span>,10이 되었다고 가정하자. 그러면
@@ -59,7 +59,7 @@ ax1.plot(Mline_X,Mline_Y,'g')
 ```python
 ## Data Fitting
 
-Data = np.array([7,9,13,100,10])
+Data = np.array([7,9,13,500,10])
 DataIndex = np.array([1,2,3,4,5])
 
 Data_Coupled_Index_with_Data = np.column_stack([DataIndex,Data]) #(1,7), (2,9), (3,13), (4,11), (5,10)
@@ -78,7 +78,16 @@ ax1.plot(Mline_X,Mline_Y,'g')
 ```
 
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204194103-65e2a363-1055-4a26-94d4-520ea4c7554d.png">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/204194556-6268ebc5-6d35-4666-8f77-066eebdfb7c6.png">
 </p>
 
-위의 P,ot
+위의 Plot 처럼 바뀌게된다. 평균이 10에서 107.8로 바뀌고 Outlier에 의해 모든 데이터들이 평균과 많이 차이가나게 되는 것을 볼 수 있다. 따라서 이 상태로 데이터들의 평균은 107.8입니다
+라고하면 부적절해 보인다.
+
+### 이상값(Ideal Value)
+이상값이란 <span style = "color:aqua">**"다른 값에 비해 지나치게 크거나 작은값"**</span>을 말한다. 위의 두 번째 경우 이상값을 평균값으로 하기엔 부적합하다. 이 경우 이상값으로
+중앙값을 사용하는 것이 좀 더 데이터의 특성을 잘 반영한다.(중앙값은 10이다.)
+
+## 2. 결론
+결론적으로 <span style = "color:aqua">**Robust**</span>하다는 것의 의미는 이상값에 더 적은 영향을 주는 값을 말한다. 
+- Robust = 이상값들에 Insensitive한, Less sensitive한 것을 의미한다.
