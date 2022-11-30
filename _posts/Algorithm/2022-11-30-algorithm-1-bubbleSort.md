@@ -49,7 +49,7 @@ print(var1, var2)
 른쪽으로 한 칸 이동한다. 
 
 <p align="center">
-<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/204766459-c2067707-c3ef-4bc2-a0f6-d700d1ab5ee1.pn">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/204766459-c2067707-c3ef-4bc2-a0f6-d700d1ab5ee1.png">
 </p>
 
 
