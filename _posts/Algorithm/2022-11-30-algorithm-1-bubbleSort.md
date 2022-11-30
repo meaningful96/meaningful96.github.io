@@ -55,11 +55,11 @@ print(var1, var2)
 
 **Ex2)**
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204766783-650b4465-a91c-4403-8e32-cc4f44b18851.png">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204768406-7eb80781-055d-4be6-9940-0eb3e5e959de.png">
 </p>
 
 #### 파이썬으로 구현하기  
-**- 첫 번째 패스 구현**
+**- 첫 번째 패스 구현**  
 **Input**
 ```python
 list = [23,21,22,24,23,27,26]
