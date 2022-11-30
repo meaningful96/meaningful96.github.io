@@ -59,8 +59,8 @@ print(var1, var2)
 </p>
 
 #### 파이썬으로 구현하기  
-**- 첫 번째 패스 구현**  
-**Input**
+**첫 번째 패스 구현**  
+**[Input]**
 ```python
 list = [23,21,22,24,23,27,26]
 lastElementsIndex = len(list) - 1
