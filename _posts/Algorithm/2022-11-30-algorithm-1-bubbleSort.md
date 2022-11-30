@@ -59,8 +59,8 @@ print(var1, var2)
 </p>
 
 #### 파이썬으로 구현하기  
-**첫 번째 패스 구현**  
-**[Input]**
+**Ex1) 첫 번째 패스 구현**   
+**[Input]**  
 ```python
 list = [23,21,22,24,23,27,26]
 lastElementsIndex = len(list) - 1
@@ -70,7 +70,7 @@ for idx in range(lastElementsIndex):
         list[idx], list[idx + 1] = list[idx + 1], list[idx]
     print(idx + 1, list )
 ```
-**Output**
+**[Output]**  
 ```python
 0 [23, 21, 22, 24, 23, 27, 26]
 1 [21, 23, 22, 24, 23, 27, 26]
@@ -81,6 +81,26 @@ for idx in range(lastElementsIndex):
 6 [21, 22, 23, 23, 24, 26, 27]
 ```
 첫 번쨰 패스가 마무리되면 가장 큰 값이 리스트의 맨 오른쪽에 위치하게 된다. 그 다음은 두번 째 패스인데, 두 번째 패스의 목표는 당연하게도 리스트에서 두 번째로 가장 큰 값을 맨 오른쪽
-끝에서 두 번째(index = 1)로 옮기는 것이다.
+끝에서 두 번째(index = 1)로 옮기는 것이다. 이를 N-1번 반복 수행하므로 다음과 같이 코드를 일반화 할 수 있다.
+
+**Ex2)**   
+**[Input]**  
+```python
+# 재사용이 편리하도록 함수로 구현한 버블 정렬 코드
+def BubbleSort(list):
+    # 리스트에 담긴 데이터를 순서대로 정렬합니다.
+    lastElementsIndex = len(list) - 1
+    for passNo in range(lastElementsIndex, 0, -1): # range(시작, 끝, 간격)
+        for idx in range(passNo):
+            if list[idx] > list[idx + 1]:
+                list[idx], list[idx + 1] = list[idx + 1], list[idx]
+    return list
+a = [23,21,22,24,23,27,26]
+# print(BubbleSort(a))
+```
+**[Output]**
+```python
+[21, 22, 23, 23, 24, 26, 27]
+```
 
 
