@@ -177,5 +177,5 @@ def BubbleSort(list):
   올라감에 따라 값을 비교하는 횟수가 감소한다.
   
 ### 4) Summery
-- Time Complexity:  O($$N^2$$)
+- Time Complexity:  O(N^2)
 - Space Complexity: O(1)
