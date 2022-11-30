@@ -48,8 +48,35 @@ print(var1, var2)
 패스가 진행됨에 따라 가장 큰 값이 서서히 이동하는 것을 볼 수 있다. 버블 정렬은 서로 붙어 있는 이웃끼리 값을 비교한다. 인접한 두 값 중 왼쪽 값이 더 크다면 서로의 값을 뒤바꾸고, 오
 른쪽으로 한 칸 이동한다. 
 
+**Ex1)**
 <p align="center">
-<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/204766459-c2067707-c3ef-4bc2-a0f6-d700d1ab5ee1.png">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204766459-c2067707-c3ef-4bc2-a0f6-d700d1ab5ee1.png">
 </p>
 
+**Ex2)**
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204766783-650b4465-a91c-4403-8e32-cc4f44b18851.png">
+</p>
 
+#### 파이썬으로 구현하기  
+**첫 번째 패스 구현**
+```python
+list = [23,21,22,24,23,27,26]
+lastElementsIndex = len(list) - 1
+print(0, list)
+for idx in range(lastElementsIndex):
+    if list[idx] > list[idx + 1]:
+        list[idx], list[idx + 1] = list[idx + 1], list[idx]
+    print(idx + 1, list )
+```
+```python
+##출력
+0 [23, 21, 22, 24, 23, 27, 26]
+1 [21, 23, 22, 24, 23, 27, 26]
+2 [21, 22, 23, 24, 23, 27, 26]
+3 [21, 22, 23, 24, 23, 27, 26]
+4 [21, 22, 23, 23, 24, 27, 26]
+5 [21, 22, 23, 23, 24, 27, 26]
+6 [21, 22, 23, 23, 24, 26, 27]
+```
+첫 번쨰 패스가 마무리되면 가장 큰
