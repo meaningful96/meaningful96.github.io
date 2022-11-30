@@ -58,8 +58,8 @@ print(var1, var2)
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204768406-7eb80781-055d-4be6-9940-0eb3e5e959de.png">
 </p>
 
-#### 파이썬으로 구현하기  
-**Ex1) 첫 번째 패스 구현**   
+### 3) 파이썬으로 구현하기  
+#### Ex1) 첫 번째 패스 구현  
 **[Input]**  
 ```python
 list = [23,21,22,24,23,27,26]
@@ -83,7 +83,7 @@ for idx in range(lastElementsIndex):
 첫 번쨰 패스가 마무리되면 가장 큰 값이 리스트의 맨 오른쪽에 위치하게 된다. 그 다음은 두번 째 패스인데, 두 번째 패스의 목표는 당연하게도 리스트에서 두 번째로 가장 큰 값을 맨 오른쪽
 끝에서 두 번째(index = 1)로 옮기는 것이다. 이를 N-1번 반복 수행하므로 다음과 같이 코드를 일반화 할 수 있다.
 
-**Ex2)재사용이 편리하도록 함수로 구현한 버블 정렬 코드**   
+#### Ex2)재사용이 편리하도록 함수로 구현한 버블 정렬 코드
 **[Input]**  
 ```python
 def BubbleSort(list):
@@ -97,11 +97,13 @@ def BubbleSort(list):
 a = [23,21,22,24,23,27,26]
 # print(BubbleSort(a))
 ```
+
 **[Output]**
 ```python
 [21, 22, 23, 23, 24, 26, 27]
 ```
-**3) 최적화**  
+
+#### Ex3) 최적화  
 이전 패스에서 앞뒤 자리 비교(swap)이 한 번도 일어나지 않았다면 정렬되지 않는 값이 하나도 없었다고 간주할 수 있다. 따라서 이럴 경우, 이후 패스를 수행하지 않아도 된다.
 ```python
 Initial: [1, 2, 3, 5, 4]
@@ -113,3 +115,40 @@ Initial: [1, 2, 3, 5, 4]
 => 이전 패스에서 swap이 한 번도 없었으니 종료
 ```
 
+**[Input]**
+```python
+def BubbleSort(list):
+    for i in range(len(list) - 1):
+        swapped = False
+        for j in range(i):
+            if list[j] > list[j + 1]:
+                list[j], list[j + 1] = list[j + 1], list[j]
+                swapped = True
+        if not swapped:
+            break
+```
+
+#### Ex4) 최적화 2
+이전 패스에서 앞뒤 자리 비교(swap)가 있었는지 여부를 체크하는 대신 마지막으로 앞뒤 자리 비교가 있었던 index를 기억해두면 다음 패스에서는 그 자리 전까지만 정렬해도 된다. 
+따라서 한 칸씩 정렬 범위를 줄여나가는 대신 한번에 여러 칸씩 정렬 범위를 줄여나갈 수 있다.
+```python
+Initial: [3, 2, 1, 4, 5]
+
+ Pass 1: [2, 1, 3, 4, 5] => 마지막 Swap 위치가 index 1
+             ^        *
+ Pass 2: [1, 2, 3, 4, 5] => 중간 패스 skip하고 바로 index 1로 보낼 값 찾기
+          ^     *  *  *
+ ```
+ 
+**[Input]**
+```python
+def BubbleSort(list):
+    end = len(list) - 1
+    while end > 0:
+        last_swap = 0
+        for i in range(end):
+            if list[i] > list[i + 1]:
+                list[i], list[i + 1] = list[i + 1], list[i]
+                last_swap = i
+        end = last_swap
+```
