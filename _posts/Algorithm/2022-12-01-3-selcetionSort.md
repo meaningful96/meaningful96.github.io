@@ -33,7 +33,7 @@ last_modified_at: 2022-12-01
 가지로 3회전에서는 세 번째 자료를 정렬한다.
 
 <p align="center">
-<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/204979075-003c4833-8dcf-488e-8433-e7000ff5c641.png">
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/204979075-003c4833-8dcf-488e-8433-e7000ff5c641.png">
 </p>
 
 - 1회전:
