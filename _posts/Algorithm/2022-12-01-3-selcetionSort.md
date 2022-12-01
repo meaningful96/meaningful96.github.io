@@ -56,6 +56,8 @@ last_modified_at: 2022-12-01
     - 네 번째 자료 9와 마지막에 있는 7을 비교하여 서로 교환한다.
 
 ### 2) Python Code
+
+#### Ex1)  
 **[Input]**  
 
 ```python
@@ -87,6 +89,41 @@ if __name__ == "__main__":
 # case 2
 [ 6 14 20 10 10  6 14 21  2 26] # input
 [ 2  6  6 10 10 14 14 20 21 26] # SelectionSort(input)
+```
+#### Ex2)  
+선택 정렬은 필요한 **교환 횟수를 최소화한 버블 정렬의 개량 버전**이다. 버블 정렬에서는 각 패스마다 가장 큰 값을 오른쪽으로 한 칸씩 움직이므로 크기가 N인 배열에서 교환은 N-1번 발생
+한다. 하지만 선택 정렬에서는 각 패스마다 가장 큰 값을 찾아내 맨 오른쪽으로 **바로** 이동시킨다. 첫 번째 패스 종료 후 가장 큰 값은 맨 오른쪽에, 두 번째 패스 종료 후 그 다음 큰 값은
+오른쪽에서 두 번째 자리에 위치하게 된다. 알고리즘이 진행됨에 따라 이후의 값들은 그 크기에 맞는 합당한 위치로 옮겨진다. 마지막 값은 N-1번째 패스 종류 후에 제 위치로 옮겨진다.  
+
+- 선택 정렬은 N개의 요소를 N-1번 패스를 사용해 정렬한다.
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/205014295-7b7e2736-84af-4b2a-89c8-a16178683ebf.png">
+</p>
+
+**[Input]**  
+```python
+def SelectionSort(list):
+    for fill_slot in range(len(list) - 1, 0, -1):
+        max_index = 0
+        for location in range(1, fill_slot + 1):
+            if list[location] > list[max_index]:
+                max_index = location
+        list[fill_slot], list[max_index] = list[max_index], list[fill_slot]
+    return list
+
+## Input
+if __name__ == "__main__":
+    InputList  = [70,15,25,19,34,44]
+    print(InputList)
+    OutputList = SelectionSort(InputList)
+    print(OutputList)
+```
+
+**[Output]**  
+```python
+[70, 15, 25, 19, 34, 44] # print(InputList)
+[15, 19, 25, 34, 44, 70] # print(OutputList)
 ```
 
 ## 2. 선택 정렬 알고리즘 특징
