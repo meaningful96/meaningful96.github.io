@@ -111,15 +111,22 @@ def InsertSort(arr):
 - 비교적 많은 레코드들의 이동을 포함한다.
 - 레코드 수가 많고 레코드 크기가 클 경우에 적합하지 않다.
 
-<p align = "center">
-<img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/204970630-457b087f-26af-487c-9491-366b1d04fcb7.png">
-</p>
-
 - 단순(구현 간단)하지만 비효율적인 방법
   - **삽입 정렬**, 선택 정렬, 버블 정렬
 - 복잡하지만 효율적인 방법
   - 퀵 정렬, 힙, 병합 정렬, 기수 정렬
 
 ## 3. 삽입 정렬의 시간 복잡도(Time Complexity)와 공간 복잡도(Space Complexity) 
+<p align = "center">
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/204970630-457b087f-26af-487c-9491-366b1d04fcb7.png">
+</p>
+
+대상 리스트가 이미 정렬된 상태라면 삽입 정렬은 매우 빠르게 동작합니다. 이 경우 삽입 정렬의 시간 복잡도는 선형 즉 O(N)이다. 이 경우가 아주 이상적인 경우이다.
+
+반대로 리스트를 순회할 때마다 모두 요소를 옮겨야만 하는 최악의 경우에는 어떨까? 만약 리스트의 모든 요소를 순회할 때마다 모든 요소를 옮겨야만 하는 최악의 경우가 나올 수 있다.
+알고리즘의 시간 복잡도는 이 Worst Case에서의 알고리즘 수행 시간이므로 O($$N^2$$)이다.
+$$w(N)$ = $\sum_{i=1}^{N-1} i$ = $\frac{N(N-1)}{2}$ = $\frac{N^2 - N}{2}$$ 
+$$w(N)$ \approx = $\frac{N^2)}{2}$ = $ O(N^2)$$
+
 
 
