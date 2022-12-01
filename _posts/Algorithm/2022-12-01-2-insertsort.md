@@ -1,5 +1,5 @@
 ---
-title: Chapter 1.2 Insert Sort
+title: Chapter 1.2 Insert Sort(삽입 정렬)
 
 categories: 
   - Algorithm
