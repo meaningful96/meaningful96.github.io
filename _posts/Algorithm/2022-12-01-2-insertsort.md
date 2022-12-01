@@ -116,7 +116,7 @@ def InsertSort(arr):
 - 복잡하지만 효율적인 방법
   - 퀵 정렬, 힙, 병합 정렬, 기수 정렬
 
-## 3. 삽입 정렬의 시간 복잡도(Time Complexity)와 공간 복잡도(Space Complexity) 
+## 3. 삽입 정렬의 시간 복잡도(Time Complexity)
 <p align = "center">
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/111734605/204970630-457b087f-26af-487c-9491-366b1d04fcb7.png">
 </p>
@@ -128,5 +128,5 @@ def InsertSort(arr):
 $$w(N) = \sum_{i=1}^{N-1} i = \frac{N(N-1)}{2} = \frac{N^2 - N}{2}$$ 
 $$w(N) \approx = \frac{N^2}{2} =  O(N^2)$$
 
-
+따라서 규모가 큰 배열에는 사용하지 않는것이 좋다.
 
