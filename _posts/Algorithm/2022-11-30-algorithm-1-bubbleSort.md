@@ -15,7 +15,7 @@ last_modified_at: 2022-11-30
 
 ## 1. 여러 가지 정렬(Sorting) 방법  
 아래의 링크를 참조하여 공부.
-- [버블 정렬](https://gmlwjd9405.github.io/2018/05/06/algorithm-bubble-sort.html)
+- [버블 정렬](https://gmlwjd9405.github.io/2018/05/06/algorithm-bubble-sort.html) #
 - [삽입 정렬](https://gmlwjd9405.github.io/2018/05/06/algorithm-insertion-sort.html)
 - [병합 정렬](https://gmlwjd9405.github.io/2018/05/08/algorithm-merge-sort.html)
 - [선택 정렬](https://gmlwjd9405.github.io/2018/05/06/algorithm-selection-sort.html)
