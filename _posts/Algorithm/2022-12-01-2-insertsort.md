@@ -34,9 +34,8 @@ last_modified_at: 2022-12-01
 </p>
 
 ### 2) Python 코드 실습
-#### Ex1)
-
-**[Input]**
+#### Ex1)  
+**[Input]**  
 ```python
 import numpy as np
 
@@ -57,7 +56,7 @@ if __name__ == "__main__":
     print(Out)
 ```
 
-**[Output]**
+**[Output]**  
 list_1을 random한 정수들로, size가 10인 리스트를 만들었으므로(정확히 말하면 Array가 생성됨) 실행마다 출력값이 다르다. 하지만, 모두 다 삽입 정렬이 제대로 된 것을 볼 수 있다.
 큰 값이 오른쪽으로 가게된다.
 ```python
