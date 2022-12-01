@@ -2,7 +2,7 @@
 title: Upper Triangular matrix(상삼각행렬)
 
 categories: 
-  - py, 
+  - py
 tags:
   - [py.Python]
 
