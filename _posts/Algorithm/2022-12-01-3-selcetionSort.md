@@ -44,4 +44,37 @@ last_modified_at: 2022-12-01
     - 세 번째 자료 7을 네 번째 자료부터 마지막 자료까지와 비교하여 가장 작은 값을 세 번째 위치에 옮겨 놓는다. 이 과정에서 자료를 2번 비교한다.
 - 4회전:
     - 네 번째 자료 9와 마지막에 있는 7을 비교하여 서로 교환한다.
-    - 
+
+## 2. Python Code
+**[Input]**  
+
+```python
+import numpy as np
+
+def SelectionSort(list):
+    for i in range(len(list) - 1):
+        min_idx = i
+        for j in range(i + 1, len(list)):
+            if list[j] < list[min_idx]:
+                min_idx = j
+        list[i], list[min_idx] = list[min_idx], list[i]
+
+
+
+if __name__ == "__main__":    
+    list_1 = np.random.randint(1,30,10)
+    print(list_1)
+    SelectionSort(list_1)
+    print(list_1)               
+```
+
+**[Output]**  
+```python
+# case 1
+[16  1  9 11 18  1 26 29  5 15] # input
+[ 1  1  5  9 11 15 16 18 26 29] # SelectionSort(input)
+
+# case 2
+[ 6 14 20 10 10  6 14 21  2 26] # input
+[ 2  6  6 10 10 14 14 20 21 26] # SelectionSort(input)
+```
