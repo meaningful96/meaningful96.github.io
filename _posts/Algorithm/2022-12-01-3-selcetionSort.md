@@ -14,6 +14,16 @@ last_modified_at: 2022-12-01
 ---
 
 ## 1. Selection Sort(선택 정렬)  
+
+아래의 링크를 참조하여 공부.
+- [버블 정렬](https://gmlwjd9405.github.io/2018/05/06/algorithm-bubble-sort.html)
+- [삽입 정렬](https://gmlwjd9405.github.io/2018/05/06/algorithm-insertion-sort.html)
+- [병합 정렬](https://gmlwjd9405.github.io/2018/05/08/algorithm-merge-sort.html)
+- [선택 정렬](https://gmlwjd9405.github.io/2018/05/06/algorithm-selection-sort.html) #
+- [셸 정렬](https://gmlwjd9405.github.io/2018/05/08/algorithm-shell-sort.html)
+- [퀵 정렬](https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html)
+- [힙 정렬](https://gmlwjd9405.github.io/2018/05/10/algorithm-heap-sort.html)
+- 
 ### 1) 선택 정렬의 기본 메커니즘  
 - 제자리 정렬(in-place sorting) 알고리즘의 하나  
   - 입력 배열(정렬되지 않은 값들) 이외에 다른 추가 메모리를 요구하지 않는 정렬 방법  
