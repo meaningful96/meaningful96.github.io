@@ -1,5 +1,5 @@
 ---
-title: Chapter 1.1 Bubble Sort
+title: Chapter 1.1 Bubble Sort(버블 정렬)
 
 categories: 
   - Algorithm
