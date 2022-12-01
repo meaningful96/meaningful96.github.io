@@ -1,5 +1,5 @@
 ---
-title: Chapter 1.1 Bubble Sort(버블 정령)
+title: Chapter 1.1 Bubble Sort
 
 categories: 
   - Algorithm
