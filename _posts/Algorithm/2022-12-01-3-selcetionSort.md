@@ -45,7 +45,7 @@ last_modified_at: 2022-12-01
 - 4회전:
     - 네 번째 자료 9와 마지막에 있는 7을 비교하여 서로 교환한다.
 
-## 2. Python Code
+### 2) Python Code
 **[Input]**  
 
 ```python
@@ -78,3 +78,30 @@ if __name__ == "__main__":
 [ 6 14 20 10 10  6 14 21  2 26] # input
 [ 2  6  6 10 10 14 14 20 21 26] # SelectionSort(input)
 ```
+
+## 2. 선택 정렬 알고리즘 특징
+### 1) 특징  
+- 장점  
+  - 자료 이동 횟수가 미리 결정된다.  
+- 단점  
+  - 안정성을 만족하지 않는다.  
+  - 즉, 값이 같은 레코드가 있는 경우에 상대적인 위치가 변경될 수 있다.  
+
+### 2) 시간 복잡도(Time Complexity)  
+시간 복잡도를 계산하면
+
+- 비교 횟수  
+  - 두 개의 for 루프의 실행  
+  - 외부 루프: (N-1)번  
+  - 내부 루프(최솟값 찾기): N-1, N-2, ..., 2, 1 번  
+- 교환 횟수  
+  - 외부 루프의 실행 횟수와 동일. 즉, 상수 시간 작업  
+  - 한 번 교환하기 위하여 3번의 이동이 발생 3(n-1)   
+ 
+따라서 시간 복잡도는 <span style = "color:aqua">**O($$N^2$$)**</span>
+
+- Time Complexity: **O(N^2)**
+
+<p align = "center">
+<img width="690" alt="image" src="https://user-images.githubusercontent.com/111734605/204984038-9021521d-48d4-41f3-b2af-6216ed965e52.png">
+</p>
