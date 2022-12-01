@@ -148,6 +148,7 @@ if __name__ == "__main__":
 따라서 시간 복잡도는 <span style = "color:aqua">**O($$N^2$$)**</span>
 
 - Time Complexity: **O(N^2)**
+- 버블 정렬과 시간 복잡도는 동일하지만, 교환을 더 적게 하기 때문에 평균 성능은 더 뛰어나다
 
 <p align = "center">
 <img width="690" alt="image" src="https://user-images.githubusercontent.com/111734605/204984038-9021521d-48d4-41f3-b2af-6216ed965e52.png">
