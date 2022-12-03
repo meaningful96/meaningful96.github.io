@@ -33,8 +33,72 @@ last_modified_at: 2022-12-03
 그럼 전체 경우의 수인 $7 \times 6 \times 5$을 이렇게 나오는 숫자인 $3!$로 나눠주면 가능한 "경우위 수"인 35가 나오게 된다.
 
 이를 2, 5, 7의 세 개의 공을 뽑을 확률이라면 $\frac{3!}{7 \times 6 \times 5} = \frac{6}{210} = \frac{1}{35}$
+
 ### 2) 순열(Permutation)
 
 서로 다른 n개의 원소에서 r개를 <span style = "color:aqua">**중복없이 순서에 상관있게**</span> 선택하는 혹은 나열하는 것을 순열(permutation)이라고 한다.
 
 $$_nP_r = \frac{n!}{(n-r)!}$$
+
+**[Input]**  
+```python
+from itertools import permutations
+
+arr = ['A','B','C']
+
+# 원소 중에서 2개를 뽑는 모든 순열 계산
+result1 = list(permutations(arr, 1))
+result2 = list(permutations(arr, 2))
+result3 = list(permutations(arr, 3))
+
+print(result1)
+print(result2)
+print(result3)
+```  
+**[Output]**  
+```python
+# print(result1)
+[('A',), ('B',), ('C',)] 
+
+# print(result2)
+[('A', 'B'), ('A', 'C'), ('B', 'A'), ('B', 'C'), ('C', 'A'), ('C', 'B')]
+
+# print(result3)
+[('A', 'B', 'C'), ('A', 'C', 'B'), ('B', 'A', 'C'), ('B', 'C', 'A'), ('C', 'A', 'B'), ('C', 'B', 'A')]
+```
+
+### 3) 조합(Combination)
+서로 다른 n개의 원소를 가지는 어떤 집합 에서 <span style = "color:aqua">**순서에 상관없이 r개의 원소를 선택**</span>하는 것이며, 이는 n개의 원소로 이루어진 집합에서 r개의 원소로 이루어진 부분집합을 만드는 것 혹은 찾는 것과 같다. 
+
+$$_nC_r = _nC_{n-r}=\frac{_nP_r}{r!} =\frac{1}{r!} \times \frac{n!}{(n-r)!}$$
+
+**[Input]**  
+```python
+from itertools import combinations
+
+arr = ['A','B','C']
+
+## Combination 조합 4C2 = (4x3)/(2x1)
+arr = ['A','B','C']
+result4 = list(combinations(arr, 1))
+result5 = list(combinations(arr, 2))
+result6 = list(combinations(arr, 3))
+
+print(result4)
+print(result5)
+print(result6)
+```  
+**[Output]**  
+```python
+# print(result4)
+[('A',), ('B',), ('C',)]
+
+# print(result5)
+[('A', 'B'), ('A', 'C'), ('B', 'C')]
+
+# print(result6)
+[('A', 'B', 'C')]
+```
+
+
+
