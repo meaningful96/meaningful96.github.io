@@ -106,7 +106,30 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-             
+            
+         <span class="nav__sub-title">Math</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "LinearAlgebra" %}
+                        <li><a href="/categories/linearalgebra" class="">선형 대수학 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Probability" %}
+                        <li><a href="/categories/probability" class="">확률(Probability) ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "AI Math" %}
+                        <li><a href="/categories/aimath" class="">수리 인공지능 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            
         <span class="nav__sub-title">Etc</span>
             <ul>
                 {% for category in site.categories %}
