@@ -33,4 +33,8 @@ last_modified_at: 2022-12-03
 그럼 전체 경우의 수인 $7 \times 6 \times 5$을 이렇게 나오는 숫자인 $3!$로 나눠주면 가능한 "경우위 수"인 35가 나오게 된다.
 
 이를 2, 5, 7의 세 개의 공을 뽑을 확률이라면 $\frac{3!}{7 \times 6 \times 5} = \frac{6}{210} = \frac{1}{35}$
-### 2)
+### 2) 순열(Permutation)
+
+서로 다른 n개의 원소에서 r개를 <span style = "color:aqua">**중복없이 순서에 상관있게**</span> 선택하는 혹은 나열하는 것을 순열(permutation)이라고 한다.
+
+$$_nP_r = \frac{n!}{(n-r)!}$$
