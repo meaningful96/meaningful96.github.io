@@ -32,13 +32,13 @@ last_modified_at: 2022-12-03
 가지(2의 경우 5와 7)이므로 3에 2를 곱하고, 마지막 공으로 가능한 건 6가지 경우마다 한가지씩(2->5의 경우 7)이므로 $3\times 2\times 1$을 하면 가능한 경우의 수가 나온다.
 그럼 전체 경우의 수인 $7 \times 6 \times 5$을 이렇게 나오는 숫자인 $3!$로 나눠주면 가능한 "경우위 수"인 35가 나오게 된다.
 
-이를 2, 5, 7의 세 개의 공을 뽑을 확률이라면 $\frac{3!}{7 \times 6 \times 5} = \frac{6}{210} = \frac{1}{35}$
+이를 2, 5, 7의 세 개의 공을 뽑을 확률이라면 <span style = "font-size:150%">$\frac{3!}{7 \times 6 \times 5} = \frac{6}{210} = \frac{1}{35}$</span>
 
 ### 2) 순열(Permutation)
 
 서로 다른 n개의 원소에서 r개를 <span style = "color:aqua">**중복없이 순서에 상관있게**</span> 선택하는 혹은 나열하는 것을 순열(permutation)이라고 한다.
 
-$$_nP_r = \frac{n!}{(n-r)!}$$
+<span style = "font-size:200%">$$_nP_r = \frac{n!}{(n-r)!}$$</span>
 
 **[Input]**  
 ```python
@@ -70,7 +70,7 @@ print(result3)
 ### 3) 조합(Combination)
 서로 다른 n개의 원소를 가지는 어떤 집합 에서 <span style = "color:aqua">**순서에 상관없이 r개의 원소를 선택**</span>하는 것이며, 이는 n개의 원소로 이루어진 집합에서 r개의 원소로 이루어진 부분집합을 만드는 것 혹은 찾는 것과 같다. 
 
-$$_nC_r = _nC_{n-r}=\frac{_nP_r}{r!} =\frac{1}{r!} \times \frac{n!}{(n-r)!}$$
+<span style = "font-size:200%">$$_nC_r = _nC_{n-r}=\frac{_nP_r}{r!} =\frac{1}{r!} \times \frac{n!}{(n-r)!}$$</span>
 
 **[Input]**  
 ```python
