@@ -1,5 +1,5 @@
 ---
-title: Chapter 1. Array & List
+title: Chapter 1.1 Array & List
 
 categories:
   - DataStructure
@@ -29,10 +29,14 @@ last_modified_at: 2022-11-25
 - 추가적으로 소모되는 메모리 양(오버헤드)이 거의 없음. (Why? 데이터의 양에 맞게 크기를 정해놓고 사용하기 때문)
 - 삽입 & 삭제의 경우 O(N)
 - 원소에 접근 O(1)
-- 기억 장소를 미리 확보해야 한다.
+- **기억 장소를 미리 확보**해야 한다.<span style = 'color:aqua'>(즉 배열의 크기를 미리 정해놓아야함!!)</span>
 - 높은 Cache Hit Rate를 보여준다.
   - Cache Hit Rate란 원하는 정보가 캐시 메모리에 기억되어 있을 때를 적중(Hit) 아닐 때를 실패했다고 한다. 적중률 = 적중 횟수/총 접근 
   - Array는 참조된 주소와 인접한 주소의 내용이 다시 참조되는 특성인 공간 지역성(Spacial Locality)가 좋아 Cache Hit Rate가 높은 것이다.
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/205734195-7b822b13-9754-497a-9aa9-623a035a382a.png">
+</p>
 
 ### 3) Array의 연산
 
