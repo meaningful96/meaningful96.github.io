@@ -35,7 +35,7 @@ last_modified_at: 2022-11-28
 #### (2) Array(배열)에서 삽입, 삭제  
 **삽입**  
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/205768579-f9e4e93b-9465-48ee-86f3-6e1d7301187d.png">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/205771610-8ac341cc-ecc2-46fc-b6a6-470e47236fa3.png">
 </p>
 - 최대 n개를 한 칸씩 밀어야 하기 때문에 O(N)이다.
 
