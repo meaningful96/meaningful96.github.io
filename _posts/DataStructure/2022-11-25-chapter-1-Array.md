@@ -1,5 +1,5 @@
 ---
-title: Chapter 1.1 Array & List
+title: Chapter 1 Array & List
 
 categories:
   - DataStructure
