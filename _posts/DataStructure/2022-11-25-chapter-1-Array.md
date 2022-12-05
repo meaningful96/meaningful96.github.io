@@ -1,5 +1,5 @@
 ---
-title: Chapter 1 Array & List
+title: Chapter 1 Array & List(배열과 리스트)
 
 categories:
   - DataStructure
