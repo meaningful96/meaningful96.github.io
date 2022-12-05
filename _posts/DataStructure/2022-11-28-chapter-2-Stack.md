@@ -1,5 +1,5 @@
 ---
-title: Chapter 2. Stack
+title: Chapter 2. Stack(스택)
 
 categories:
   - DataStructure
