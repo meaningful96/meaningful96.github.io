@@ -205,5 +205,5 @@ linked_list.show()
  - 삽입, 삭제 시간 조금 더 필요함!!
  
  <p align="center">
-<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/205992154-8ad9173c-7883-441d-a8e2-5cc9ea1db872.png">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/205992424-f7cb851d-e9f1-4256-ba65-2a01a0a197ce.png">
 </p>
