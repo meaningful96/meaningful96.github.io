@@ -74,13 +74,20 @@ last_modified_at: 2022-11-28
 </p>
 
 ### 1) 메서드(Method)
-두 가지 방법으로 클래스를 정의하고 파이썬 코딩을 해보겠다.
-#### Example (1)  
+
 - append(self, data): 가장 뒤에 노드 삽입  
 - show(self): 모든 노드를 하나씩 출력  
 - search(self, index): 특정 인덱스의 노드 찾기  
-- insert(self, index, data): 특정 인덱스에 노드 삽입  
-- remove(self, index): 특정 인덱스의 노드 삭제  
+- insert(self, index, data): 특정 인덱스에 노드 삽입, O(1)  
+  - 참고로 Insert 자체는 O(1)이지만,
+  - 그 인덱스까지 Search가 수반된다.
+  - 따라서, Insert[O(1)] + Search[O(N)] = O(N)이 된다. 
+  - 단, <span style = "color:aqua">Insert 자체는 상수시간</span>이다.
+  - 배열의 경우는 Insert가 O(N)  
+- remove(self, index): 특정 인덱스의 노드 삭제
+  - 마찬가지로 Remove 연산 자체는 O(1), 상수시간이다.
+
+### 2) Python 
 
 **[Input]**
 ```python
@@ -173,3 +180,30 @@ linked_list.show()
 전체 노드 출력: 3 5 9 8 4 5 6 7 
 전체 노드 출력: 3 5 9 8 4 5 6 2 7 
 ```
+
+## 3. 양방향 연결 리스트(Doubly Linked List)
+### 1) 양방향 연결 리스트란?
+- 양방향 연결 리스트는 한방향 연결 리스트의 단점을 보완한다.
+- 한방향 연결 리스트의 경우, Search연산에서 시간 복잡도가 O(N)이다.
+
+<p align="center">
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/205991344-bc09f483-8cd3-4e5a-9555-a145e86d5a05.png">
+</p>
+
+- 위의 그림은 한방향 연결리스트이다. 이때, tail 노드만 안다고 prev 노드는 알 수 없다. Why?
+- 만약 tail 노드를 지우고 싶다.
+  - tail 노드에서 prev 노드로 가는 링크 없다.
+  - Head부터 따라가야 함
+  - O(N) <span style = "color:aqua">**Bad!!**</span>
+ 
+ ### 2) 양방향 연결 리스트의 장단점
+ #### (1) Pros
+ - List에 Node가 주어져 양방향으로 navigate가능
+ - prev Node 주소가 없어도 삭제 가능!!
+ #### (2) Cons
+ - Extra pointer 필요, 더 많은 공간필요
+ - 삽입, 삭제 시간 조금 더 필요함!!
+ 
+ <p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/205992154-8ad9173c-7883-441d-a8e2-5cc9ea1db872.png">
+</p>
