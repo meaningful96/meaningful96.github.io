@@ -187,7 +187,7 @@ linked_list.show()
 - 한방향 연결 리스트의 경우, Search연산에서 시간 복잡도가 O(N)이다.
 
 <p align="center">
-<img width="200" alt="1" src="https://user-images.githubusercontent.com/111734605/205991344-bc09f483-8cd3-4e5a-9555-a145e86d5a05.png">
+<img width="400" alt="1" src="https://user-images.githubusercontent.com/111734605/205992528-f70bdece-b20f-4de6-b928-59355db93b43.png">
 </p>
 
 - 위의 그림은 한방향 연결리스트이다. 이때, tail 노드만 안다고 prev 노드는 알 수 없다. Why?
@@ -207,3 +207,7 @@ linked_list.show()
  <p align="center">
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/205992424-f7cb851d-e9f1-4256-ba65-2a01a0a197ce.png">
 </p>
+
+### 3) 원형 양방향 연결 리스트(Circular Doubly Linked List)
+#### (1)원형 연결리스트의 빈 리스트
+**Dummy Node**
