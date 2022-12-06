@@ -20,7 +20,7 @@ last_modified_at: 2022-11-28
 - 포인터: 다음 노드의 메모리 주소를 가리키는 목적으로 사용된다.
 
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/205756932-f43ea33b-dec8-4672-8101-db5141b6fc74.png">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/205756932-f43ea33b-dec8-4672-8101-db5141b6fc74.png">
 </p>
 
 - 즉, **연속적으로 메모리 할당을 받는것이 아니기 때문에** 현재 값의 다음값을 알기 위해 <span style = "color:aqua">**현재값(1.Key)**</span>과 다음값이 저장된 <span style = "color:aqua">**주소(2. Link)**</span>를 알아야 한다.
@@ -68,3 +68,108 @@ last_modified_at: 2022-11-28
 
 ## 2. 한반향 연결 리스트(단순 연결 리스트, Singly Linked List)
 앞서 보여줬던 노드 하나당 하나의 링크를 가지는 연결 리스트이다. 링크는 다음 노드의 주소를 가리킨다.
+
+<p align="center">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/205756932-f43ea33b-dec8-4672-8101-db5141b6fc74.png">
+</p>
+
+### 1) 메서드(Method)
+두 가지 방법으로 클래스를 정의하고 파이썬 코딩을 해보겠다.
+#### Example (1)  
+- append(self, data): 가장 뒤에 노드 삽입  
+- show(self): 모든 노드를 하나씩 출력  
+- search(self, index): 특정 인덱스의 노드 찾기  
+- insert(self, index, data): 특정 인덱스에 노드 삽입  
+- remove(self, index): 특정 인덱스의 노드 삭제  
+
+**[Input]**
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    # 가장 뒤에 노드 삽입
+    def append(self, data):
+        # 헤드(head)가 비어있는 경우
+        if self.head == None:
+            self.head = Node(data)
+            return
+        # 마지막 위치에 새로운 노드 추가
+        cur = self.head
+        while cur.next is not None:
+            cur = cur.next
+        cur.next = Node(data)
+
+    # 모든 노드를 하나씩 출력
+    def show(self):
+        cur = self.head
+        while cur is not None:
+            print(cur.data, end=" ")
+            cur = cur.next
+
+    # 특정 인덱스(index)의 노드 찾기
+    def search(self, index):
+        node = self.head
+        for _ in range(index):
+            node = node.next
+        return node
+
+    # 특정 인덱스(index)에 노드 삽입
+    def insert(self, index, data):
+        new = Node(data)
+        # 첫 위치에 추가하는 경우
+        if index == 0:
+            new.next = self.head
+            self.head = new
+            return
+        # 삽입할 위치의 앞 노드
+        node = self.search(index - 1)
+        next = node.next
+        node.next = new
+        new.next = next
+
+    # 특정 인덱스(index)의 노드 삭제
+    def remove(self, index):
+        # 첫 위치를 삭제하는 경우
+        if index == 0:
+            self.head = self.head.next
+            return
+        # 삭제할 위치의 앞 노드
+        front = self.search(index - 1)
+        front.next = front.next.next
+
+
+linked_list = LinkedList()
+data_list = [3, 5, 9, 8, 5, 6, 1, 7]
+
+for data in data_list:
+    linked_list.append(data)
+
+print("전체 노드 출력:", end=" ")
+linked_list.show()
+
+linked_list.insert(4, 4)
+print("\n전체 노드 출력:", end=" ")
+linked_list.show()
+
+linked_list.remove(7)
+print("\n전체 노드 출력:", end=" ")
+linked_list.show()
+
+linked_list.insert(7, 2)
+print("\n전체 노드 출력:", end=" ")
+linked_list.show()
+```
+**[Output]**
+```python
+전체 노드 출력: 3 5 9 8 5 6 1 7 
+전체 노드 출력: 3 5 9 8 4 5 6 1 7 
+전체 노드 출력: 3 5 9 8 4 5 6 7 
+전체 노드 출력: 3 5 9 8 4 5 6 2 7 
+```
