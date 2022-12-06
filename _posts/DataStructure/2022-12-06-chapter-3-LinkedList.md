@@ -65,3 +65,6 @@ last_modified_at: 2022-11-28
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/204203088-f1a85e22-9b92-48d9-9fe0-ce1f61179102.png">
 </p>
+
+## 2. 한반향 연결 리스트(단순 연결 리스트, Singly Linked List)
+앞서 보여줬던 노드 하나당 하나의 링크를 가지는 연결 리스트이다. 링크는 다음 노드의 주소를 가리킨다.
