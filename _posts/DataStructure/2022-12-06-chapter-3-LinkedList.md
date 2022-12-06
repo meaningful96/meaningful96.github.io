@@ -187,7 +187,7 @@ linked_list.show()
 - 한방향 연결 리스트의 경우, Search연산에서 시간 복잡도가 O(N)이다.
 
 <p align="center">
-<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/205991344-bc09f483-8cd3-4e5a-9555-a145e86d5a05.png">
+<img width="200" alt="1" src="https://user-images.githubusercontent.com/111734605/205991344-bc09f483-8cd3-4e5a-9555-a145e86d5a05.png">
 </p>
 
 - 위의 그림은 한방향 연결리스트이다. 이때, tail 노드만 안다고 prev 노드는 알 수 없다. Why?
@@ -205,5 +205,5 @@ linked_list.show()
  - 삽입, 삭제 시간 조금 더 필요함!!
  
  <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/205992154-8ad9173c-7883-441d-a8e2-5cc9ea1db872.png">
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/205992154-8ad9173c-7883-441d-a8e2-5cc9ea1db872.png">
 </p>
