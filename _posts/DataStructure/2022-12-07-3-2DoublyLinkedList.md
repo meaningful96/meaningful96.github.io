@@ -197,10 +197,12 @@ def __iter__(self): #
 ```
 
 위 함수를 generator라고 한다(yield가 있는 함수). 연결 리스트의 인스턴스에게 for문을 사용할 수 있게 해준다. 원래 연결리스트에클래스에 인스턴스는 iterator가 없다면
-```pyhon
+
+```python
 for i in linkedlist:
     print(i)
 ```
+
 를 할 경우, 에러가 나게 된다. 연결리스트에서는 일반적인 배열처럼 iter를 할 원소가 없기 때문이다. 이를 가능하게 해주는게 스페셜메서드로 
 __iter__(self)이다. 그리고 이 메서드처럼 yield가 있는 함수를 generator라고 부른다.
 
@@ -216,7 +218,10 @@ __iter__(self)이다. 그리고 이 메서드처럼 yield가 있는 함수를 ge
 ### 1) 양방향 연결 리스트란?
 - 양방향 연결 리스트는 한방향 연결 리스트의 단점을 보완한다.
 - 한방향 연결 리스트의 경우, Search연산에서 시간 복잡도가 O(N)이다.
-
+- 양방향 연결리스트는 각 노드가 next node와 prev의 노드정보를 담는다.
+- 따라서 한방향 연결리스트에 비해 시간복잡도가 크게 줄어든다.
+- head node와 tail  node는 항상 None인 Dummy노드이다.
+- 
 <p align="center">
 <img width="400" alt="1" src="https://user-images.githubusercontent.com/111734605/206078507-2415a107-d398-4239-9070-4d97558e2374.png">
 </p>
@@ -240,8 +245,29 @@ __iter__(self)이다. 그리고 이 메서드처럼 yield가 있는 함수를 ge
 </p>
 
 ### 3) 원형 양방향 연결 리스트(Circular Doubly Linked List)
-#### (1)원형 연결리스트의 빈 리스트
+#### (1) 원형 연결리스트의 빈 리스트
+
 **Dummy Node**
 - 원형 연결 리스트(양방향 연결 리스트)의 시작을 알리는 마커
 - key == None
 - Dummy node는 head역할도 함: Dummy node = Head node
+- **key, next, prev의 세가지 정보를 담는다.**
+- **양방향연결리스트의 기본 원칙은 빈 리스트라도 dummy node(None)이 있어야 한다는 것이다.
+- 양방향 연결 리스트는 원형이므로 어느게 Head인지 tail인지 모른다.
+- 이걸 구별해 주려고 Dummy node를 쓴다.
+
+<p align="center">
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/206087216-07b81548-8bac-41ff-80a3-3b112c2757eb.png">
+</p>
+
+```python
+class Node: #노드클래스는 리스트의 헤드노드가 Nond이라는 dummy node를 염두에두고 설정한다.
+    def __init__(self, key = None): #노드인스턴스 생성함수, 자동호출, key값 미설정시 None설정
+        self.key = key #키값은 선언되는 키값이된다.
+        self.next = self #미설정시, 자기자신
+        self.prev = self #미설정시, 자기자신
+
+    def __str__(self):
+        return str(self.key)
+```
+#### (2) 
