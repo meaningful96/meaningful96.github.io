@@ -477,5 +477,5 @@ def join(self, list):
 ```
 
 ## Reference
-[신천수 교수님 강의자료]("https://www.youtube.com/c/ChanSuShin/featured")
+[신천수 교수님 강의자료]("https://www.youtube.com/c/ChanSuShin/featured")  
 강의 내용의 모든 저작권은 신천수 교수님께 있습니다.
