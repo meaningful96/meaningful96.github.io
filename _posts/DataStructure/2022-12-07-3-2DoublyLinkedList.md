@@ -202,15 +202,15 @@ for i in linkedlist:
     print(i)
 ```
 를 할 경우, 에러가 나게 된다. 연결리스트에서는 일반적인 배열처럼 iter를 할 원소가 없기 때문이다. 이를 가능하게 해주는게 스페셜메서드로 
-> '__iter__(self)'이다. 그리고 이 메서드처럼 yield가 있는 함수를 generator라고 부른다.
+__iter__(self)이다. 그리고 이 메서드처럼 yield가 있는 함수를 generator라고 부른다.
 
 1. 파이썬에서 인스턴스에 for문을 돌린다고 인지를 하게되면
-2. 인스턴스에 선언된 클래스에서 > '__iter__(self)'를 자동으로 호출한다.
-3. > '__iter__'는 yeild로 v를 리턴한다.
+2. 인스턴스에 선언된 클래스에서 __iter__(self)를 자동으로 호출한다.
+3. __iter__는 yeild로 v를 리턴한다.
 4. while 문에서 v는 자동으로 다음 값이 할당된다.
 5. yeild된 값은 for문의 원소로 리턴이 가능하게된다.
 6. 다시 for문이 호출되고, 다음 v가 리턴되게된다.
-7. 만약 while문이 종료되고 > '__iter__(self)'에서 yeild가 명령되지 않으면 자동으로 StopIterator Errormessage가 출력되면서 for문이 종료된다.
+7. 만약 while문이 종료되고 __iter__(self)에서 yeild가 명령되지 않으면 자동으로 StopIterator Errormessage가 출력되면서 for문이 종료된다.
 
 ## 2. 양방향 연결 리스트(Doubly Linked List)
 ### 1) 양방향 연결 리스트란?
@@ -221,21 +221,21 @@ for i in linkedlist:
 <img width="400" alt="1" src="https://user-images.githubusercontent.com/111734605/206078507-2415a107-d398-4239-9070-4d97558e2374.png">
 </p>
 
-- 위의 그림은 한방향 연결리스트이다. 이때, tail 노드만 안다고 prev 노드는 알 수 없다. Why?
-- 만약 tail 노드를 지우고 싶다.
-  - tail 노드에서 prev 노드로 가는 링크 없다.
-  - Head부터 따라가야 함
-  - O(N) <span style = "color:aqua">**Bad!!**</span>
+- 위의 그림은 한방향 연결리스트이다. 이때, tail 노드만 안다고 prev 노드는 알 수 없다. Why?  
+- 만약 tail 노드를 지우고 싶다.  
+  - tail 노드에서 prev 노드로 가는 링크 없다.  
+  - Head부터 따라가야 함  
+  - O(N) <span style = "color:aqua">**Bad!!**</span>  
  
- ### 2) 양방향 연결 리스트의 장단점
- #### (1) Pros
- - List에 Node가 주어져 양방향으로 navigate가능
- - prev Node 주소가 없어도 삭제 가능!!
- #### (2) Cons
- - Extra pointer 필요, 더 많은 공간필요
- - 삽입, 삭제 시간 조금 더 필요함!!
+ ### 2) 양방향 연결 리스트의 장단점  
+ #### (1) Pros  
+ - List에 Node가 주어져 양방향으로 navigate가능  
+ - prev Node 주소가 없어도 삭제 가능!!  
+ #### (2) Cons  
+ - Extra pointer 필요, 더 많은 공간필요  
+ - 삽입, 삭제 시간 조금 더 필요함!!  
  
- <p align="center">
+<p align="center">
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/205992424-f7cb851d-e9f1-4256-ba65-2a01a0a197ce.png">
 </p>
 
