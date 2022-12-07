@@ -20,7 +20,7 @@ Stack은 한 쪽 끝에서만 자료를 넣거나 뺼 수 있는, <span style = 
 생산되어 만들어질 때는 가장 아래쪽부터 쌓인다.
 
 이러한 일반적인 후입선출 구조를 LIFO라고 한다.  
-- LIFO : Last-In-First-Out
+- <span style= "color:deepskyblue">**LIFO : Last-In-First-Out**</span>
 
 ### 2) Stack의 연산, Method
 - push()
