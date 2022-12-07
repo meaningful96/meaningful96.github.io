@@ -332,6 +332,50 @@ def splice(self, a, b, x):
     b.next = xn
 ```
 
+#### (4) Insert연산 & 이동연산  
+splice(a,b,x)란    
+a의 앞부터 b의 뒤 까지의 노드들을 떼어네어 x뒤에 붙이는 연산이다.
+
+1. splice 연산을 활용해 이동, 삽입연산을 간단하게 만들 수 있다.
+2. splice연산의 경우, (a,a,x)라면 단순히 a를 x앞뒤로 옮기는것에 불과하다.
+3. 하지만 a가 Node(key)로 바뀌면, 키값을 가진 노드를 생성하므로, 새로운 노드를 생성해 x 앞뒤에 붙일 수 있게 된다.
+4. pushfront,back의 경우, self.head가 더미노드로, 앞뒤로 리스트의 마지막값, 첫값을 가진다는 것을 이용한다.
+
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206089194-43bbf681-77df-4520-9bc2-cb061170548f.png">
 </p>
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206089658-80b74c5d-9256-4d07-b3b0-6b5da7dbc45a.png">
+</p>
+
+```python
+def moveAfter(self,a,x): #| ap a an | xp x xn 
+    # -> |ap an| xp x a xn
+    self.splice(a,a,x) #와 동일.
+        
+
+def moveBefore(self,a,x): #a를 x뒤로 붙이기
+    self.splice(a,a,x.prev) #와 동일
+
+def insertAfter(self, x, key): #새로운 노드를 생성해 x뒤에
+    self.moveAfter(self, Node(key), x) #키로 노드를 생성하면 초기에prev,next가 자기자신이다.
+
+def insertBefore(self, x, key):
+    self.moveBefore(self, Node(key), x)
+
+def pushfront(self, key):
+    self.insertAfter(self, self.head, key) #self.head는 더미노드.self.head의 다음값은 리스트의 처음 값
+
+
+def pushback(self, key):
+    self.insertBefore(self, self.head, key) #self.head는 더미노드.self.head의 이전값은 리스트의 마지막값
+```  
+만약 특정 노드 앞이나 뒤로 insertAfter나 moveAfter 등의 메서드를 사용하고 싶다면, 노드 x를 리턴받아야한다. 노드를 리턴받는 메서드를 search나 first, last로 만들 수 있다.
+
+#### (5) 삭제 연산  
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206089907-bcfb42da-e72b-4ea7-abef-d9cdf0527040.png">
+</p>
+
