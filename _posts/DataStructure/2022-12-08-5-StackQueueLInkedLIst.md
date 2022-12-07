@@ -142,7 +142,7 @@ while not stack.is_empty():
 
 - enqueue(삽입), dequeue(삭제)
 - front 연산은 dequeue를 했을 때, 실제 `self.items`의 value를 삭제하는 대신, `self.front_index`를 증가시킴으로써 dequeue한 값을 함수 상에서 얻는 값 취급을 했다.   
-  front연산은 삭제하지않고 리턴만하기 때문에 `self.items[self.fornt_index]`를 리턴해주기만 하면 된다.
+  front연산은 삭제하지 않고 리턴만하기 때문에 `self.items[self.fornt_index]`를 리턴해주기만 하면 된다.
 
 ### 2) 리스트를 이용한 큐 구현
 
