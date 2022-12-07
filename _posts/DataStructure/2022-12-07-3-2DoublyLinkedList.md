@@ -475,6 +475,18 @@ def join(self, list):
             list.head.prev.next = self.head #추가하고자하는 리스트의 마지막값의 다음값은 self리스트의 헤드값이되어 서로 원형 연결한다.
             self.head.prev = list.head.prev #self.head의 prev링크는 list의 마지막값이되어야한다.
 ```
+### 4) Doubly Linked List의 연산 수행 시간
+- moveAfter / moveBefore : O(1) # splice 활용
+-insertAfter / insertBefore: O(1) # splice 활용
+- pushFront / pushBack : O(1) # splice 활용
+- remove(x) : O(1)
+- popFront / popBack : O(1)
+- search(key) : O(n)
+- splice(a, b, x). : O(1)
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206137875-959aed0d-d529-4756-ae79-72bd48943693.png">
+</p>
 
 ## Reference
 [신천수 교수님 강의자료]("https://www.youtube.com/c/ChanSuShin/featured")   
