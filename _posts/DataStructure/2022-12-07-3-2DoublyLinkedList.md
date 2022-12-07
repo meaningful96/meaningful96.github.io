@@ -376,6 +376,6 @@ def pushback(self, key):
 #### (5) 삭제 연산  
 
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206089907-bcfb42da-e72b-4ea7-abef-d9cdf0527040.png">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206089907-bcfb42da-e72b-4ea7-abef-d9cdf0527040.png">
 </p>
 
