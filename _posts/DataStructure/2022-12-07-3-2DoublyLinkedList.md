@@ -379,3 +379,103 @@ def pushback(self, key):
 <img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/206089907-bcfb42da-e72b-4ea7-abef-d9cdf0527040.png">
 </p>
 
+1. 지우고자 하는 노드가 Head 노드이거나 None이면 제거하지 않는다.
+2. 노드 x의 앞, 뒤로 링크를 수정한다.
+3. del로 노드 x의 메모리를 삭제한다.
+
+```python
+def remove(self,x): #x노드를 삭제.
+    if x == None or x == self.head:
+        pass
+    else:
+        x.prev.next = x.next #노드 x의 이전 노드의 링크는 x.next
+        x.next.prev = x.prev #노드 x의 다음 노드의 prev링크는 x.prev
+        del x
+        
+def popFront(self):
+    if self.isEmpty():
+        return None
+
+    else:
+        key = self.head.next.key #헤드 노드의 다음 키값이 pop해야할 키값이다.
+        self.remove(self.head.next) #remove는 앞선노드와 뒷노드를 매개변수를 제외하고 연결해준다.
+        return key   
+
+def popback(self):
+    if self.isEmpty():
+        return None
+
+    else:
+        key = self.head.prev.key
+        self.remove(self.head.prev)
+        return key
+```
+
+#### (6) 탐색 연산
+```python
+def search(self, key):
+  v = self.head # dummy node
+  while v.next != self.head:
+    if v.key == key:
+      return v
+    v = v.next
+  return None
+```  
+강의에서는 while문으로 돌린 search의 경우(위의 코드), 리스트의 길이가 1인 경우 none-key-none으로 연결되어있어 while문의 return에 걸리지 않아 버그가 발생한다.  
+그래서 self.head를 yeild하지 않는 제너레이터함수가 선언되어 있으므로 for문을 사용해 key값을 찾아낸다. search의 시간복잡도는 while문은 쓰면 어차피 O(N)이 되기  
+떄문에, for문을 사용해도 상관 없을 거라고 예상된다.
+[참조]("https://koreanddinghwan.github.io/datastructurepy/doublylinkedlist/")
+  1. 키값을 매개변수로 입력받고 인스턴스 내에서 제너레이터로 각 노드를 리턴받는다.
+  2. 노드의 키값이 입력받은 키값과 일치한다면 제너레이터로 리턴된 노드를 리턴한다.
+  3. for ~ else문으로 for문이 끝났는데, if문에서 아무런 실행이 없다면 None을 리턴한다.
+
+```python
+def search(self,key):
+    for i in self:
+        if i.key == key:
+            return i
+    else:
+        return None
+```        
+
+#### (7) isEmpty  
+Head 노드는 Dummy 노드이므로 사이즈 계산에 포함되지 않는다.  
+```python
+def isEmpty(self):
+        if self.size != 0:
+            return False
+        else:
+            return True
+```
+
+#### (8) first, last  
+self.head는 리스트 상 첫 값이자 마지막값인 것을 이용한다.  
+
+```python
+def first(self):
+        ch = self.head
+        return ch.next #노드리턴
+
+def last(self):
+    ch = self.head
+    return ch.prev #노드리턴
+```
+
+#### (9) join
+
+```python
+def join(self, list):
+        if self.isEmpty():
+            self = list
+        elif list.isEmpty():
+            self = self
+        else:
+            self.head.prev.next = list.head.next #self 리스트의 마지막값의 링크는 추가하고자하는 list의 head노드 다음 값이다.
+            list.head.next.prev = self.head.prev #추가하고자하는 리스트의 첫값의 prev링크는 self리스트의 마지막값
+            list.head.prev.next = self.head #추가하고자하는 리스트의 마지막값의 다음값은 self리스트의 헤드값이되어 서로 원형 연결한다.
+            self.head.prev = list.head.prev #self.head의 prev링크는 list의 마지막값이되어야한다.
+```
+
+## Reference
+[신천수 교수님 강의자료]("https://www.youtube.com/c/ChanSuShin/featured")
+강의 내용의 모든 저작권은 신천수 교수님께 있습니다.
