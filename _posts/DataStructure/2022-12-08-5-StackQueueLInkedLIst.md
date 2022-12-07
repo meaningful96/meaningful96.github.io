@@ -3,7 +3,7 @@ title: Chapter 5. Stack과 Queue, Deque를 Linked List로 구현하기
 categories: 
   - DataStructure
 tags:
-  - [DataStruture, Stack, Queue, Deque, Linked List, LinearStructure]
+  - [DataStruture, Stack, Queue, Deque, Linked List]
 
 toc: true
 toc_sticky: true
