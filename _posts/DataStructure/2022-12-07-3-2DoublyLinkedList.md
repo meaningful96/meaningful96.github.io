@@ -302,3 +302,13 @@ class Doublylinkedlist:
 <p align="center">
 <img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/206088012-c50375ac-9605-4c95-a6bd-865407c89494.png">
 </p>
+
+조건 1. a는 slicing의 시작 노드, b는 마지막 노드이다. **(a,b)**  
+  - ap = a.prev, bn = b.next  
+조건 2. a와 b사이에 head 노드는 없다.  
+조건 3. a와 b사이에 x노드가 없어야 함.
+
+> <span style = "color:aqua">**Spclice 연산**</span>
+  >**a와 b사이에 있는 (a,b 포함) Cut 해서 어딘가에 있는 x노드와 x.next 노드 사이에 집어넣음!!**
+
+
