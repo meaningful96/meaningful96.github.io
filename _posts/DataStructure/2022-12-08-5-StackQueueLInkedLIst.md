@@ -14,7 +14,7 @@ last_modified_at: 2022-12-08
 
 ## 1. Stack with Linked List
 
-### 1) 스택에 쓰이는 연산
+### 1) 스택에 쓰이는 연산 
 
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206262118-299a7d22-1f04-4dca-b0a5-ec46b0f16bb9.JPG">
