@@ -180,35 +180,3 @@ linked_list.show()
 전체 노드 출력: 3 5 9 8 4 5 6 7 
 전체 노드 출력: 3 5 9 8 4 5 6 2 7 
 ```
-
-## 3. 양방향 연결 리스트(Doubly Linked List)
-### 1) 양방향 연결 리스트란?
-- 양방향 연결 리스트는 한방향 연결 리스트의 단점을 보완한다.
-- 한방향 연결 리스트의 경우, Search연산에서 시간 복잡도가 O(N)이다.
-
-<p align="center">
-<img width="400" alt="1" src="https://user-images.githubusercontent.com/111734605/206078507-2415a107-d398-4239-9070-4d97558e2374.png">
-</p>
-
-- 위의 그림은 한방향 연결리스트이다. 이때, tail 노드만 안다고 prev 노드는 알 수 없다. Why?
-- 만약 tail 노드를 지우고 싶다.
-  - tail 노드에서 prev 노드로 가는 링크 없다.
-  - Head부터 따라가야 함
-  - O(N) <span style = "color:aqua">**Bad!!**</span>
- 
- ### 2) 양방향 연결 리스트의 장단점
- #### (1) Pros
- - List에 Node가 주어져 양방향으로 navigate가능
- - prev Node 주소가 없어도 삭제 가능!!
- #### (2) Cons
- - Extra pointer 필요, 더 많은 공간필요
- - 삽입, 삭제 시간 조금 더 필요함!!
- 
- <p align="center">
-<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/205992424-f7cb851d-e9f1-4256-ba65-2a01a0a197ce.png">
-</p>
-
-### 3) 원형 양방향 연결 리스트(Circular Doubly Linked List)
-#### (1)원형 연결리스트의 빈 리스트
-**Dummy Node**
-
