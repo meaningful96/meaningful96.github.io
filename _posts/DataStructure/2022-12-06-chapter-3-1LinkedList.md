@@ -1,5 +1,5 @@
 ---
-title: Chapter 3. Linked List(연결 리스트)
+title: Chapter 3.1 Linked List(연결 리스트)
 
 categories:
   - DataStructure
