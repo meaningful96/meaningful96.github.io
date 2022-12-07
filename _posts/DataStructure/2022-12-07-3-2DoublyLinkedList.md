@@ -308,7 +308,7 @@ class Doublylinkedlist:
 조건 2. a와 b사이에 head 노드는 없다.  
 조건 3. a와 b사이에 x노드가 없어야 함.
 
-> <span style = "color:aqua">**Spclice 연산**</span>
-  >**a와 b사이에 있는 (a,b 포함) Cut 해서 어딘가에 있는 x노드와 x.next 노드 사이에 집어넣음!!**
+> <span style = "color:aqua">**Spclice 연산**</span>  
+  > **a와 b사이에 있는 (a,b 포함) Cut 해서 어딘가에 있는 x노드와 x.next 노드 사이에 집어넣음!!**
 
 
