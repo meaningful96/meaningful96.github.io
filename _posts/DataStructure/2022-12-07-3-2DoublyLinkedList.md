@@ -244,10 +244,9 @@ __iter__(self)이다. 그리고 이 메서드처럼 yield가 있는 함수를 ge
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/205992424-f7cb851d-e9f1-4256-ba65-2a01a0a197ce.png">
 </p>
 
-### 3) 원형 양방향 연결 리스트(Circular Doubly Linked List)
-#### (1) 원형 연결리스트의 빈 리스트
-
-**Dummy Node**
+### 3) 원형 양방향 연결 리스트(Circular Doubly Linked List)  
+#### (1) 원형 연결리스트의 빈 리스트  
+**Dummy Node**  
 - 원형 연결 리스트(양방향 연결 리스트)의 시작을 알리는 마커
 - key == None
 - Dummy node는 head역할도 함: Dummy node = Head node
@@ -270,4 +269,36 @@ class Node: #노드클래스는 리스트의 헤드노드가 Nond이라는 dummy
     def __str__(self):
         return str(self.key)
 ```
-#### (2) 
+#### (2) 원형 연결리스트의 클래스 정의
+
+1. __init__의 경우, self.head를 next와 prev가 노드 자기자신이고, key=None인 더미노드를 생성해야한다.
+2. 제너레이터는 유의해야할 점이 양방향연결리스트는 리스트의 시작과 끝이 연결되어있다는 것이다. 따라서 v가 self.head가 아닐때까지 반복해야한다.
+3. __str__은 __init__에서 만들어진 데이터를 출력한다.
+4. __len__은 node의 개수를 반환한다.
+
+```python
+class Doublylinkedlist:
+    def __init__(self):
+        self.head = Node()
+        self.size = 0
+
+    def __iter__(self): #제너레이터
+        v = self.head.next
+        while v != self.head: #양방향리스트는 연결되어있으므로 v가 None이 되면 yield되면 안된다.
+            yield v
+            v = v.next
+        
+    def __str__(self):
+        return "->".join(str(v) for v in self)
+        
+    def __len__(self):
+        return self.size
+```
+
+#### (3) <span style = "color:aqua">Splice 연산</span>**(매우 중요!!)**  
+- def splice(self, a, b, x)
+- 세 개의 노드 a, b, x(key값이 아니라 노드이다!!)
+
+<p align="center">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/206088012-c50375ac-9605-4c95-a6bd-865407c89494.png">
+</p>
