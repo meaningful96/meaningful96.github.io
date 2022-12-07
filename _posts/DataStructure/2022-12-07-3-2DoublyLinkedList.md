@@ -476,9 +476,9 @@ def join(self, list):
             self.head.prev = list.head.prev #self.head의 prev링크는 list의 마지막값이되어야한다.
 ```
 ### 4) Doubly Linked List의 연산 수행 시간
-- moveAfter / moveBefore : O(1) # splice 활용
--insertAfter / insertBefore: O(1) # splice 활용
-- pushFront / pushBack : O(1) # splice 활용
+- moveAfter / moveBefore : O(1)  splice 활용
+-insertAfter / insertBefore: O(1)  splice 활용
+- pushFront / pushBack : O(1)  splice 활용
 - remove(x) : O(1)
 - popFront / popBack : O(1)
 - search(key) : O(n)
