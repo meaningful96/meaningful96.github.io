@@ -298,6 +298,9 @@ class Doublylinkedlist:
 #### (3) <span style = "color:aqua">Splice 연산</span>**(매우 중요!!)**  
 - def splice(self, a, b, x)
 - 세 개의 노드 a, b, x(key값이 아니라 노드이다!!)
+- 총 6번의 연산이 필요하다
+- Case 1) a,b 앞뒤로 원래 리스트의 연결을 바꾸는 cut연산
+- Case 2) a,b를 붙인 paste 리스트에서 앞뒤로 링크를 수정
 
 <p align="center">
 <img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/206088012-c50375ac-9605-4c95-a6bd-865407c89494.png">
@@ -311,4 +314,24 @@ class Doublylinkedlist:
 > <span style = "color:aqua">**Spclice 연산**</span>  
   > **a와 b사이에 있는 (a,b 포함) Cut 해서 어딘가에 있는 x노드와 x.next 노드 사이에 집어넣음!!**
 
+```python
+def splice(self, a, b, x):
+    #경우(1) cut #| ap a .. .. b bn -> ap bn
+    ap = a.prev
+    bn = b.next
 
+    ap.next = bn
+    bn.prev = ap
+
+    #경우(2) paste #| x xn -> x a .. .. .. b xn
+    xn = x.next #원래 x의 다음 노드를 xn이라고 할당
+    x.next = a
+    a.prev = x
+
+    xn.prev = b
+    b.next = xn
+```
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206089194-43bbf681-77df-4520-9bc2-cb061170548f.png">
+</p>
