@@ -232,13 +232,15 @@ __iter__(self)이다. 그리고 이 메서드처럼 yield가 있는 함수를 ge
   - Head부터 따라가야 함  
   - O(N) <span style = "color:aqua">**Bad!!**</span>  
  
- ### 2) 양방향 연결 리스트의 장단점  
- #### (1) Pros  
- - List에 Node가 주어져 양방향으로 navigate가능  
- - prev Node 주소가 없어도 삭제 가능!!  
- #### (2) Cons  
- - Extra pointer 필요, 더 많은 공간필요  
- - 삽입, 삭제 시간 조금 더 필요함!!  
+### 2) 양방향 연결 리스트의 장단점 
+ 
+#### (1) Pros  
+- List에 Node가 주어져 양방향으로 navigate가능  
+- prev Node 주소가 없어도 삭제 가능!!  
+
+#### (2) Cons  
+- Extra pointer 필요, 더 많은 공간필요  
+- 삽입, 삭제 시간 조금 더 필요함!!  
  
 <p align="center">
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/205992424-f7cb851d-e9f1-4256-ba65-2a01a0a197ce.png">
