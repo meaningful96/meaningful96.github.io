@@ -14,6 +14,13 @@ last_modified_at: 2022-12-08
 ---
 
 ```python
+# Deep Learning for AI engineer
+"""
+Created on Youminkk
+
+
+Nil sine magno vitae labore dedit mortalibus
+"""
 
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -73,6 +80,36 @@ f2_ax2.plot(x2,y2,z2,'b.')
 f2_ax2.plot(x3,y3,z3,'g.')
 f2_ax2.plot(x4,y4,z4,'c.')
 f2_ax2.plot(x5,y5,z5,'m.')
+angle_1 = [] # 세타
+angle_2 = [] # 파이
+for i in range(0,489):
+    angle_1.append(np.random.rand()*2*np.pi)
+    angle_2.append(np.random.rand()*2*np.pi)
+x_n1 = np.sin(angle_1)*np.cos(angle_2)
+y_n1 = np.sin(angle_1)*np.sin(angle_2)
+z_n1 = np.cos(angle_1)
+lamb = 0.1
+tol = 1e-6
+i = 0
+#----------------------------------------------------------------------------------------------------------------------------#
+
+while True:
+    Xj = np.column_stack([x_n1, y_n1,z_n1]).T
+    mj1 = np.column_stack([x1,y1,z1]).T
+    K = np.triu(np.random.randn(3,3))
+    rj1 = K.dot(Xj) -mj1
+    Jk1 = np.kron(Xj, np.eye(3)).T
+    Hessian1 = 2*Jk1.T@Jk1
+    middle1 = np.linalg.inv(Hessian1 + 0.1*np.eye(9))
+    Delta_K_tmp = middle1@Jk1.T@rj1.T.reshape(1467,1)
+    Delta_K = Delta_K_tmp.reshape(3,3)
+    K -= np.triu(Delta_K)
+    Model_quality_1 = 2*(rj1.T.reshape(1,1467)).dot(Jk1).dot(Delta_K.T.reshape(9,1))
+    i += 1
+    print(i)
+    if Model_quality_1 <= tol:
+        break
+#----------------------------------------------------------------------------------------------------------------------------#
 
 result = K@Xj
 print(result[1])
@@ -81,6 +118,7 @@ ax1 = f3.add_subplot(121,projection = '3d')
 ax1.plot(result[0],result[1],result[2],'g.')
 ax2 = f3.add_subplot(122, projection = '3d')
 ax2.plot(x1,y1,z1,'b.')  
+
 #----------------------------------------------------------------------------------------------------------------------------#
 def costfunction1(self, K, Xj, b, mj):
     K = np.triu(np.random.randn(3,3))
@@ -97,6 +135,7 @@ def costfunction1(self, K, Xj, b, mj):
     
 def cost_grad1(self, K, Xj, b, mj):
     Jk1 = np.kron(Xj, np.eye(3)).T
+    
 ```
 <p align = "center">
 <img width="510" alt="image" src="https://user-images.githubusercontent.com/111734605/206401338-4beb869c-b568-4068-b74d-ca2c9c244fab.png">
