@@ -1,3 +1,18 @@
+---
+title: Day 3. K matrix Training
+
+categories: 
+  - optproject
+tags:
+  - [Optimization, Project Levenberg]
+
+toc: true
+toc_sticky: true
+
+date: 2022-12-08
+last_modified_at: 2022-12-08 
+---
+
 ```python
 """
 import matplotlib.pyplot as plt
