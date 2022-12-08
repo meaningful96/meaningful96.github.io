@@ -14,7 +14,6 @@ last_modified_at: 2022-12-08
 ---
 
 ```python
-"""
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
