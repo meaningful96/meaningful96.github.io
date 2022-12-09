@@ -44,7 +44,7 @@ last_modified_at: 2022-12-09
 #### (1) 하나의 리스트로 표현  
 
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206695097-ab5dc200-e65e-454b-acd4-9ba5fab26e7c.png">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206695097-ab5dc200-e65e-454b-acd4-9ba5fab26e7c.png">
 </p>
 
 
