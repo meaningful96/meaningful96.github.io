@@ -200,7 +200,7 @@ def heapify_down(self, k,n):
             아래 노드들에 대해 알아서 검증해주기 때문이다.
 ```
 
-#### make_heap과 heapify_down의 수행 시간
+#### make_heap & heapify_down의 수행 시간
 
 <p align="center">
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206711881-3e4d3e08-4b1b-44c9-851a-4be70083554e.png">
@@ -221,19 +221,42 @@ def heapify_down(self, k,n):
 
 #### (3) insert(삽입 연산)
 
-<p align = "center">
-<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206713261-04de9695-8e7e-44dd-85a9-c62163daae68.png")
+<p align="center">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206713261-04de9695-8e7e-44dd-85a9-c62163daae68.png">
 </p>
-  
-* insert(14) = A.append(14) -> heap 성질 불만족
 
-* Step 1) 부모 노드랑 비교해보니 부모 노드 키 값이 더 작다
-* Step 2) 부모 노드랑 자리 change
-* Step 3) 다시 바뀐 위치에서 부모 노드랑 키 값 비교, 부모 노드가 더 작음
-* Step 4) 부모 노드랑 자리 change
-* Step 5) 부모 노드랑 키 값 비교, 부모 노드가 더 큼 -> heap 성질 만족  
- 
-<p align = "center">
-<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206713749-c6083d96-9bc6-4358-a314-876c502ba39a.png")
+* insert(14) = A.append(14) -> heap 성질 불만족
+  - Step 1) 부모 노드랑 비교해보니 부모 노드 키 값이 더 작다
+  - Step 2) 부모 노드랑 자리 change
+  - Step 3) 다시 바뀐 위치에서 부모 노드랑 키 값 비교, 부모 노드가 더 작음
+  - Step 4) 부모 노드랑 자리 change
+  - Step 5) 부모 노드랑 키 값 비교, 부모 노드가 더 큼 -> heap 성질 만족  
+
+<p align="center">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206713749-c6083d96-9bc6-4358-a314-876c502ba39a.png">
+</p>
+
+heapifyup함수는 insert연산을 위한 함수이다. insert연산은 힙 리스트의 마지막에 값을 추가하고, 이 값이 힙 성질을 가지도록  
+부모노드들을 타고 올라가면서 정렬을해야한다. 따라서 시간복잡도는 $$**O(logN)**$$이다.
+
+```python
+def heapify_up(self, k):
+    #k가 양수이고, 현재노드의 부모노드의 값 < 현재노드일때 실행
+    while k > 0 and self.A[(k-1)//2] < self.A[k]:
+        #부모노드와 현재노드의 위치를 바꾸고
+        self.A[k], self.A[(k-1)//2] = self.A[(k-1)//2], self.A[k]
+        #k에 부모노드의 인덱스번호를 주고 while문 반복
+        k = (k-1) // 2
+    
+def insert(self, key):
+    #힙 리스트의 마지막에 값을 추가한다.
+    self.A.append(key)
+    #현재 리스트가 4개 -> len(A) = 4, indexnum = 3 이므로 -1해준다.
+    self.heapify_up(len(self.A) - 1)
+```
+####(4) find_max & delete_max
+
+<p align="center">
+<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/206717073-169e4ec6-8ba7-4503-b784-0713aea3955d.png">
 </p>
 
