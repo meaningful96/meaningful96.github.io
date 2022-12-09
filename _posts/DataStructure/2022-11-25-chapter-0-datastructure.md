@@ -4,7 +4,7 @@ title: Chapter 0. Data Structure의 개념
 categories:
   - DataStructure
 tags:
-  - [DS]
+  - [DataStructure]
 
 toc: true
 toc_sticky: true
