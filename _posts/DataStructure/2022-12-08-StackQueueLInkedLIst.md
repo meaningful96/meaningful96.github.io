@@ -1,5 +1,5 @@
 ---
-title: Chapter 5. Stack과 Queue, Deque를 Linked List로 구현하기
+title: Chapter 5. Linked List로 여러 구조 구현
 categories: 
   - DataStructure
 tags:
