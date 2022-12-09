@@ -167,3 +167,41 @@ class Heap:
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206709018-7137d6a8-1032-45d5-b06f-9f5e9e63be55.png">
 </p> 
 
+- k = Heap 리스트의 인덱스  
+- n = Heap 원소의 개수   
+```python
+H = [2,8,6,1,10,15,3,12,11]
+def makeheap(self):
+    n = len(self) 
+    #데이터의 각 요소에 대해서, 마지막 요소부터 heapify_down함수를 실행
+    for k in range(n-1, -1, -1):
+        self.heapify_down(k,n) #매개변수로 대상 노드의 인덱스와 전체 데이터의 길이가 주어진다.
+
+def heapify_down(self, k,n):
+    #두 자식노드의 값이 자기자신보다 작을거나 리프노드에 도달할때까지 반복
+    while 2*k + 1 < n:
+        #왼쪽 자식노드와 오른쪽 자식노드의 인덱스번호 계산
+        L, R = 2 * k + 1, 2 * k + 2
+        # 부모노드와 자식노드들 중 가장 큰 값의 인덱스 찾기
+        if self.A[L] > self.A[k]:
+            m = L
+        else:
+            m = k
+
+        if R < n and self.A[R] > self.A[m]:
+            m = R
+        
+        if m != k: #현재 k가 heap 성질 위배하는 경우
+            self.A[k], self.A[m] = self.A[m], self.A[k]
+            k = m #k에 m값을 줌으로써 m인덱스를 부모노드로하는 heap성질 검증 실행한다.
+        else:
+            break #현재 노드가 heap 성질을 만족한다면 break건다. 
+            왜냐하면 makeheap()에 의해 k가 작아지면서 윗 노드에서 heap성질을 위반하면 
+            아래 노드들에 대해 알아서 검증해주기 때문이다.
+```
+
+#### make_heap과 heapify_down의 수행 시간
+
+<p align="center">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206711881-3e4d3e08-4b1b-44c9-851a-4be70083554e.png">
+</p> 
