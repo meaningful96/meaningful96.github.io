@@ -4,7 +4,7 @@ title: Chapter 7. Tree & Heap(힙)
 categories: 
   - DataStructure
 tags:
-  - [Tree, Heap, Nonlinear Structure]
+  - [DataStructure, Tree, Heap, Nonlinear Structure]
 
 toc: true
 toc_sticky: true
