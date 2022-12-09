@@ -254,10 +254,10 @@ def insert(self, key):
     #현재 리스트가 4개 -> len(A) = 4, indexnum = 3 이므로 -1해준다.
     self.heapify_up(len(self.A) - 1)
 ```
-####(4) find_max & delete_max
+#### (4) find_max & delete_max
 
 <p align="center">
-<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206717073-169e4ec6-8ba7-4503-b784-0713aea3955d.png">
+<img width="1200" alt="1" src="https://user-images.githubusercontent.com/111734605/206717073-169e4ec6-8ba7-4503-b784-0713aea3955d.png">
 </p>
 
 * find_max는 무조건 루트 노드르르 리턴한다.
