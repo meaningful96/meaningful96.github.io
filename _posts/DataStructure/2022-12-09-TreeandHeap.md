@@ -257,6 +257,6 @@ def insert(self, key):
 ####(4) find_max & delete_max
 
 <p align="center">
-<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/206717073-169e4ec6-8ba7-4503-b784-0713aea3955d.png">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206717073-169e4ec6-8ba7-4503-b784-0713aea3955d.png">
 </p>
 
