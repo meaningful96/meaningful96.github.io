@@ -205,3 +205,21 @@ def heapify_down(self, k,n):
 <p align="center">
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206711881-3e4d3e08-4b1b-44c9-851a-4be70083554e.png">
 </p> 
+
+* make_heap
+  - k 번의 for 루프를 도는데, k에 대해서 1번씩 총 n 번 부르게 됨.
+  - $$O(n \times t) = O(n \times h)$$
+  - t는 heapify_down의 수행 시간이다.
+* hepify_down
+  - 루트 노드에서 밑으로 내려가면서 최악의 경우 리프 노드까지 도달
+  - 최악의 경우를 예로
+  - 1) A[k], A[L], A[R] 세 개 비교해야하고, 2) A[k]와 m을 비교해야하고 
+    3) A[k]와 m 을 swap해야함
+  - 하지만 이 세 가지 연산 모두 상수시간내에 됨
+  - 최악의 경우는 root node - leaf node 까지, Height !!
+  - Big $$O(h)$$, h = Height
+
+#### (3) 
+<p align = "center">
+![image](https://user-images.githubusercontent.com/111734605/206713261-04de9695-8e7e-44dd-85a9-c62163daae68.png)
+</p>
