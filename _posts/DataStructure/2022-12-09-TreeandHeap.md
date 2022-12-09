@@ -110,8 +110,8 @@ last_modified_at: 2022-12-09
  <span style = "color:aqua">보통 리스트의 데이터는 힙성질, 모양성질을 갖춘 데이터가 주어지지 않는다.</span>  
  따라서 힙 성질을 갖춘 데이터가 되도록 리스트의 데이터들을 **재정렬**해 주어야 한다.
  - makeheep() 함수 이용
-  
- ### 2) 힙의 그래프로 만드는 과정
+ 
+### 2) 힙의 그래프로 만드는 과정
 
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206703693-6b12933d-f927-4e57-8a86-fc03ab51a72c.png">
@@ -169,6 +169,7 @@ class Heap:
 
 - k = Heap 리스트의 인덱스  
 - n = Heap 원소의 개수   
+
 ```python
 H = [2,8,6,1,10,15,3,12,11]
 def makeheap(self):
