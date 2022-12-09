@@ -200,7 +200,7 @@ def heapify_down(self, k,n):
             아래 노드들에 대해 알아서 검증해주기 때문이다.
 ```
 
-#### make_heap & heapify_down의 수행 시간
+* make_heap & heapify_down의 수행 시간
 
 <p align="center">
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206711881-3e4d3e08-4b1b-44c9-851a-4be70083554e.png">
@@ -260,3 +260,66 @@ def insert(self, key):
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206717073-169e4ec6-8ba7-4503-b784-0713aea3955d.png">
 </p>
 
+* find_max는 무조건 루트 노드르르 리턴한다.
+
+* delete_max는 현재 힙 리스트의 값 중 가장 큰 값을 삭제하고 리턴한다.  
+  삭제하고 리턴 -> pop연산을 해야하므로 A[0]을 A[n-1]의 값으로 대체하고 pop,  
+  이후 0번 인덱스 노드부터 재배치한다-> heapify_down(0, len(A))
+
+```python 
+def delete_max(self):
+    if len(self.A) == 0:
+        return None
+    #리턴할 max값 저장
+    key = self.A[0]
+    #대체
+    self.A[0], self.A[len(self.A) - 1] = self.A[len(self.A) - 1],self.A[0]
+    #삭제
+    self.A.pop() 
+    self.heapify_down(0,len(self.A))
+    return key
+```
+#### (5) heap_sort  
+정렬알고리즘이다. 주어진 데이터를 make_heap으로 힙 정렬을 한다. heap정렬의 특징은 가장 큰 값이 root노드가 된다는 것이므로, `힙 리스트의 첫값을 마지막값과 대체, 그리고 마지막 값을 제외한 리스트에 대해 heapify_down으로 정렬` 을 반복한다.  
+
+* step 1) n개의 숫자를 입력으로 받음
+* step 2) make_heap 을 불러서 heap으로 구성 (O(nlogn))
+* step 3) n 번을 delete_max를 하면 됨.
+  (단, 마지막 값은 pop하지말고 진행)
+ 
+* make_heap => O(N)  
+* heapify_down => O(logN)   
+
+따라서  
+* **heap_sort => O(NlogN)**  
+
+```python
+def heap_sort(self):
+    n = len(self.A)
+    #현재 리스트의 길이의 인덱스번호를 큰값부터 -1부여
+    for k in range(len(self.A) - 1, -1, -1)
+        #대체
+        self.A[0], self.A[k] = self.A[k],self.A[0]
+        
+        #뒤로 대체된 값을 제외한 값들에 대해 heap정렬
+        n = n-1
+        heapify_down(0,n)
+```
+
+### 4) 연산시간 정리
+
+![image](https://user-images.githubusercontent.com/111734605/206718509-2bff6adb-aa17-4195-b074-d7d97f8afddf.png)
+
+* search 연산은 왜 없어?
+  - 찾는 값이 자식 노드의 왼쪽인지 오른쪽인지 구분 불가능
+  - heap 은 search 에 부적합
+  - 큰 값들을 찾거나 지우는 연산에 heap 을 쓰는 것이 좋음
+
+* find_min, delete_min은 왜 없어?
+  - 우리가 만든 heap은 max_heap임
+  - 따라서 heap 성질을 바꿔서 부모 노드가 더 작은 값이 오게 만들면 됨
+  - min_heap 은 두 함수를 구현할 수 있음
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206719389-a657a841-e897-4c6f-b28f-c7729e63e23c.png">
+</p>
