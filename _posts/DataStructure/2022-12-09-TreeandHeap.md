@@ -214,8 +214,9 @@ def heapify_down(self, k,n):
 * hepify_down
   - 루트 노드에서 밑으로 내려가면서 최악의 경우 리프 노드까지 도달
   - 최악의 경우를 예로
-  - 1) A[k], A[L], A[R] 세 개 비교해야하고, 2) A[k]와 m을 비교해야하고 
-    3) A[k]와 m 을 swap해야함
+    - 1) A[k], A[L], A[R] 세 개 비교해야하고 
+    - 2) A[k]와 m을 비교해야하고 
+    - 3) A[k]와 m 을 swap해야함
   - 하지만 이 세 가지 연산 모두 상수시간내에 됨
   - 최악의 경우는 root node - leaf node 까지, Height !!
   - Big $$O(h)$$, h = Height
