@@ -4,7 +4,7 @@ title: Chapter 3.1 Linked List(연결 리스트)
 categories:
   - DataStructure
 tags:
-  - [DS, DataStructure, Stack]
+  - [DataStructure, List, Linked List]
 
 toc: true
 toc_sticky: true
