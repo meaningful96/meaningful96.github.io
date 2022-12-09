@@ -57,8 +57,7 @@ last_modified_at: 2022-12-09
   - 오른쪽 자식노드: $$(Index)  \times  2 + 2$$ 
 * 부모 노드  
   - $$\frac{(Index) -1}{2}$$의 **몫**
-  - $$(Index) -1}$$ // 2
-
+  - (Index - 1)//2
 ```
 부모 노드의 인덱스가 0 (a 노드)
 이때 왼쪽 자식노드는 A[0*2 + 1] = A[1]이다. (b노드)
@@ -76,6 +75,6 @@ last_modified_at: 2022-12-09
 #### (2) 리스트를 중복해서 표현
 
 <p align="center">
-<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/206698098-ca7bf715-d071-4554-bf3e-edcf650a08dd.png">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206698717-8d1e749c-ae71-443b-a9e1-58507cadd18c.png">
 </p>  
 
