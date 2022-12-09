@@ -4,7 +4,7 @@ title: Chapter 3.2 Linked List(연결 리스트)- Singly Linked List & Doubly Li
 categories:
   - DataStructure
 tags:
-  - [DS, DataStructure, Stack]
+  - [DataStructure, List, Linked List]
 
 toc: true
 toc_sticky: true
