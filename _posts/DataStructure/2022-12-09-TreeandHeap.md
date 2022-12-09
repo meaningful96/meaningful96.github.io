@@ -27,6 +27,6 @@ last_modified_at: 2022-12-09
 ### 2) Tree 구조에서 쓰이는 용어
 
 <p align="center">
-<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206690396-257ca115-c14e-46df-af4f-75d745d1ef43.png">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206690396-257ca115-c14e-46df-af4f-75d745d1ef43.png">
 </p>
 
