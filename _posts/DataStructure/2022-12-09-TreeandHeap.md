@@ -148,6 +148,21 @@ class Heap:
   - <span style = "color:aqua">heapify-dwon 이라는 연산을 반복 수행</span>해야함
 
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206708227-42bf0fae-602f-47bf-8d62-3e6d6518f186.png">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206708227-42bf0fae-602f-47bf-8d62-3e6d6518f186.png">
 </p> 
 
+* List의 마지막에 저장된 값(None 제외하고)은 힙의 가장 마지막 레벨에 가장 오른쪽
+ 에 저장됨.
+* 이걸 밑으로 내려가면서, 자식 노드들로 내려가면서 힙 성질을 만족 시키도록 움직임.
+* 그 다음 값도 반복
+* 참고로 리프 노드는 볼 필요 없음. 자식 노드가 없기에 힙 성질 만족함.
+* A에서 11 -> 12 -> 3 -> 15 -> 10 까지는 리프 노드이므로 skip
+* 그 다음이 1인데, A[3] = 임, why? 루트 노드 = 0, 루트 노드 2배 + 1 =1, A[1] = 8
+* A[1]의 왼쪽 자식이므로 1 = A[1*2 + 1] = A[3] 
+* A[3]의 왼쪽, 오른쪽 자식 노드의 인덱스를 알아야 함
+* 왼쪽 자식 = A[7], 오른쪽 자식 = A[8] 
+* 근데 자식 노드가 1보다 크니깐 바꿔야됨. 뭐랑? 12 !!
+
+<p align="center">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206709018-7137d6a8-1032-45d5-b06f-9f5e9e63be55.png">
+</p> 
