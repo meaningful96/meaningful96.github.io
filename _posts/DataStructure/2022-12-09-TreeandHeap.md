@@ -119,5 +119,35 @@ last_modified_at: 2022-12-09
 
 * <span style = "color:aqua">**힙 성질(Heap Property): 모든 부모노드의 key 값은 자식노드의 key값보다 작지 않다.**</span>
 
+<p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206704155-dbc771c9-bf9e-488d-a5cb-459c3bf0bd03.png">
+</p> 
+
+### 3) 힙(Heap)에서 쓰이는 연산
+- `make_heap()`
+- `heapify_down`
+- `heapify_up`
+- `insert`
+- `finde_max`
+- `delete_max`
+
+#### (1) Heap 클래스
+
+```python
+class Heap:
+    def __init__(self, L): #L은 리스트
+        self.A = L
+        self.make_heap()
+
+    def __str__(self):
+        return str(self.A)
+```
+
+#### (2) make_heap(), heapify_down() 함수  
+* **make-heap : Heap 성질을 만족하도록 리스트를 재배치**
+  - <span style = "color:aqua">heapify-dwon 이라는 연산을 반복 수행</span>해야함
+
+<p align="center">
+<img width="8000" alt="1" src="https://user-images.githubusercontent.com/111734605/206708227-42bf0fae-602f-47bf-8d62-3e6d6518f186.png">
+</p> 
 
