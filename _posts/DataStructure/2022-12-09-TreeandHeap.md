@@ -321,5 +321,5 @@ def heap_sort(self):
   - min_heap 은 두 함수를 구현할 수 있음
 
 <p align="center">
-<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206719389-a657a841-e897-4c6f-b28f-c7729e63e23c.png">
+<img width="1200" alt="1" src="https://user-images.githubusercontent.com/111734605/206719678-e91c8077-4693-4718-b1e0-54eb316e725d.png">
 </p>
