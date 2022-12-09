@@ -148,6 +148,6 @@ class Heap:
   - <span style = "color:aqua">heapify-dwon 이라는 연산을 반복 수행</span>해야함
 
 <p align="center">
-<img width="8000" alt="1" src="https://user-images.githubusercontent.com/111734605/206708227-42bf0fae-602f-47bf-8d62-3e6d6518f186.png">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206708227-42bf0fae-602f-47bf-8d62-3e6d6518f186.png">
 </p> 
 
