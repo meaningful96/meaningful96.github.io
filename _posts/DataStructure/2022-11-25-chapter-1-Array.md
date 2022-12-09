@@ -4,7 +4,7 @@ title: Chapter 1 Array & List(배열과 리스트)
 categories:
   - DataStructure
 tags:
-  - [DS,DataStructure,Array, List]
+  - [DS, Array, List]
 
 toc: true
 toc_sticky: true
