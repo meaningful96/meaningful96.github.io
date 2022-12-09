@@ -38,5 +38,13 @@ last_modified_at: 2022-12-09
 <img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/206693671-eb9ea74d-83bd-4e53-a896-685cc417b82d.png">
 </p>
 
+### 4) 이진 트리의 표현법
+이진 트리를 표현하는 방법으로는 크게 **리스트**를 이용하는 방법과 **연결 리스트를 클래스를 정의**하는 방법이 있다.
+
+#### (1) 하나의 리스트로 표현  
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/206695097-ab5dc200-e65e-454b-acd4-9ba5fab26e7c.png">
+</p>
 
 
