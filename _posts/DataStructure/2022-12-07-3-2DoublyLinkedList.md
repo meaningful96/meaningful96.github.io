@@ -1,10 +1,10 @@
 ---
-title: Chapter 3.2 Linked List(연결 리스트)- Singly Linked List & Doubly Linked List
+title: Chapter 3.2 Linked List(연결 리스트)- Singly & Doubly Linked List
 
 categories:
   - DataStructure
 tags:
-  - [DataStructure, List, Linked List, Linear Structure]
+  - [DataStructure, Linked List, Linear Structure]
 
 toc: true
 toc_sticky: true
