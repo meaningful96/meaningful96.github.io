@@ -35,7 +35,7 @@ last_modified_at: 2022-12-09
 대부분의 실제 사용되는 트리 구조는 이진 트리 구조이다.
 
 <p align="center">
-<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206693671-eb9ea74d-83bd-4e53-a896-685cc417b82d.png">
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/206693671-eb9ea74d-83bd-4e53-a896-685cc417b82d.png">
 </p>
 
 
