@@ -209,7 +209,7 @@ def heapify_down(self, k,n):
 
 * make_heap
   - k 번의 for 루프를 도는데, k에 대해서 1번씩 총 n 번 부르게 됨.
-  - $$O(n \times t) = O(n \times h)$$
+  - $O(n \times t) = O(n \times h)$
   - t는 heapify_down의 수행 시간이다.
 * hepify_down
   - 루트 노드에서 밑으로 내려가면서 최악의 경우 리프 노드까지 도달
@@ -238,7 +238,7 @@ def heapify_down(self, k,n):
 </p>
 
 heapifyup함수는 insert연산을 위한 함수이다. insert연산은 힙 리스트의 마지막에 값을 추가하고, 이 값이 힙 성질을 가지도록  
-부모노드들을 타고 올라가면서 정렬을해야한다. 따라서 시간복잡도는 $$**O(logN)**$$이다.
+부모노드들을 타고 올라가면서 정렬을해야한다. 따라서 시간복잡도는 **$$O(logN)$$**이다.
 
 ```python
 def heapify_up(self, k):
