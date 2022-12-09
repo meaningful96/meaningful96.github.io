@@ -4,7 +4,7 @@ title: Chapter 2. Stack(스택)
 categories:
   - DataStructure
 tags:
-  - [DS, DataStructure, Stack]
+  - [DataStructure, Stack]
 
 toc: true
 toc_sticky: true
