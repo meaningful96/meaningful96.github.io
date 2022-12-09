@@ -1,5 +1,5 @@
 ---
-title: Chapter 7. Tree % Heap(힙)
+title: Chapter 7. Tree & Heap(힙)
 
 categories: 
   - DataStructure
