@@ -76,6 +76,6 @@ last_modified_at: 2022-12-09
 #### (2) 리스트를 중복해서 표현
 
 <p align="center">
-<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206698098-ca7bf715-d071-4554-bf3e-edcf650a08dd.png">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/206698098-ca7bf715-d071-4554-bf3e-edcf650a08dd.png">
 </p>  
 
