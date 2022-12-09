@@ -67,7 +67,9 @@ last_modified_at: 2022-12-09
 ```
 
 `단점`  
-불필요한 `메모리 낭비`가 발생한다
+불필요한 `메모리 낭비`가 발생한다. 
+- 연산 시간 \Leftrightarrow 메모리  `Trade-off`
+
 
 노드가 실제로는 비어있지만, 하나의 리스트로 표현해야 하기에, 그 빈 노드에 `None`을 채워넣게 되고  
 그에따라 차지하는 메모리는 증가한다.
@@ -78,3 +80,15 @@ last_modified_at: 2022-12-09
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206698717-8d1e749c-ae71-443b-a9e1-58507cadd18c.png">
 </p>  
 
+[루트, [루트의 **왼쪽** 부트리], [루트의 오른쪽 부트리]]형식으로 재귀적으로 정의
+
+#### (3) 연결 리스트로 표현
+
+<p align="center">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206700248-d884b578-da17-4ef8-a7dc-fb15ca0c4369.png">
+</p>  
+각 노드가 key, parent, left, right 에 대한 정보를 가진다. 단 루트 노드는 제외다.(루트 노드는 부모 노드가 없다.)
+
+
+## 2. Heap(힙)
+### 1) 힙의 개념
