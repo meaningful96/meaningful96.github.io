@@ -24,3 +24,9 @@ last_modified_at: 2022-12-09
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206685637-e37173d4-ed51-4931-b595-498f496f5f4d.png">
 </p>
 
+### 2) Tree 구조에서 쓰이는 용어
+
+<p align="center">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206690396-257ca115-c14e-46df-af4f-75d745d1ef43.png">
+</p>
+
