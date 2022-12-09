@@ -219,7 +219,21 @@ def heapify_down(self, k,n):
   - 최악의 경우는 root node - leaf node 까지, Height !!
   - Big $$O(h)$$, h = Height
 
-#### (3) 
+#### (3) insert(삽입 연산)
+
 <p align = "center">
-![image](https://user-images.githubusercontent.com/111734605/206713261-04de9695-8e7e-44dd-85a9-c62163daae68.png)
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206713261-04de9695-8e7e-44dd-85a9-c62163daae68.png")
 </p>
+  
+* insert(14) = A.append(14) -> heap 성질 불만족
+
+* Step 1) 부모 노드랑 비교해보니 부모 노드 키 값이 더 작다
+* Step 2) 부모 노드랑 자리 change
+* Step 3) 다시 바뀐 위치에서 부모 노드랑 키 값 비교, 부모 노드가 더 작음
+* Step 4) 부모 노드랑 자리 change
+* Step 5) 부모 노드랑 키 값 비교, 부모 노드가 더 큼 -> heap 성질 만족  
+ 
+<p align = "center">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206713749-c6083d96-9bc6-4358-a314-876c502ba39a.png")
+</p>
+
