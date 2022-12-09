@@ -111,4 +111,13 @@ last_modified_at: 2022-12-09
  따라서 힙 성질을 갖춘 데이터가 되도록 리스트의 데이터들을 **재정렬**해 주어야 한다.
  - makeheep() 함수 이용
   
-  
+ ### 2) 힙의 그래프로 만드는 과정
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206703693-6b12933d-f927-4e57-8a86-fc03ab51a72c.png">
+</p> 
+
+* <span style = "color:aqua">**힙 성질(Heap Property): 모든 부모노드의 key 값은 자식노드의 key값보다 작지 않다.**</span>
+
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206704155-dbc771c9-bf9e-488d-a5cb-459c3bf0bd03.png">
+
