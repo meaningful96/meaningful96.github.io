@@ -72,9 +72,8 @@ last_modified_at: 2022-12-09
 - 연산 시간 ⇋ 메모리  `Trade-off`
 
 <p align="center">
-<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206702163-339e86df-c774-4d05-b782-2f8e957f4003.png">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206702907-46470b0e-a3a0-4287-860d-67a68536d3a9.png">
 </p>  
-
 
 노드가 실제로는 비어있지만, 하나의 리스트로 표현해야 하기에, 그 빈 노드에 `None`을 채워넣게 되고  
 그에따라 차지하는 메모리는 증가한다.
