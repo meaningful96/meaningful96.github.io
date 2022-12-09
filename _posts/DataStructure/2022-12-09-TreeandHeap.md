@@ -143,7 +143,7 @@ class Heap:
         return str(self.A)
 ```
 
-#### (2) make_heap(), heapify_down() 함수  
+#### (2) make_heap, heapify_down 함수  
 * **make-heap : Heap 성질을 만족하도록 리스트를 재배치**
   - <span style = "color:aqua">heapify-dwon 이라는 연산을 반복 수행</span>해야함
 
@@ -209,7 +209,7 @@ def heapify_down(self, k,n):
 
 * make_heap
   - k 번의 for 루프를 도는데, k에 대해서 1번씩 총 n 번 부르게 됨.
-  - $O(n \times t) = O(n \times h)$
+  - $$O(n \times t) = O(n \times h)$$
   - t는 heapify_down의 수행 시간이다.
 * hepify_down
   - 루트 노드에서 밑으로 내려가면서 최악의 경우 리프 노드까지 도달
