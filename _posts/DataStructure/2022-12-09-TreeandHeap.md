@@ -14,3 +14,13 @@ last_modified_at: 2022-12-09
 ---
 
 ## 1. Tree(트리)
+### 1) Tree(트리)란?
+연결리스트나 힙, 스택등의 앞서 공부한 자료구조들은 모두 선형 자료구조(Linear Data Structure)이다. 
+
+반면, 트리는 <span style = "color:aqua">부모(parents)-자식(child) 관계를 **계층적**으로 표현</span>한 **비선형 자료구조(Nonlinear Data Structure)**이다.
+
+
+<p align="center">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206685637-e37173d4-ed51-4931-b595-498f496f5f4d.png">
+</p>
+
