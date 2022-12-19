@@ -1,3 +1,3 @@
-## 블로그 포스팅과 커스터마이징 하는 공간입니다. 😀💛
+## Deeplearning 과 AI를 공부하는 블로그 !! ##
 
-<https://ansohxxn.github.io>
+<https://meaningful.github.io>
