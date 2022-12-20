@@ -1,5 +1,5 @@
 ---
-title: Chapter 8. Binary Tree & Binary Search Tree(이진트리, 이진 탐색트리)
+title: Chapter 8. Binary & Binary Search Tree(이진트리, 이진 탐색트리)
 
 categories: 
   - DataStructure
@@ -57,4 +57,44 @@ Binary 클래스에서 선언된 노드들의 key값을 모두 출력하고 싶�
 - postorder: LRM 방식
 (M = 자기 자신, L = 왼쪽 자식노드, R = 오른쪽 자식 노드)
 **이 방식은 각 노드들에서** <span style = "color:aqua">**재귀적**</span>**으로 적용한다.**
+
+<p align="center">
+<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/208728948-d7a76e9b-7799-4ffd-99a9-d083641edf5d.png">
+</p>  
+(왼: preorder, 중: inorder, 오: postorder)
+
+##### 순회 구현  
+```python
+class Node:
+  def __init__(self, key):
+    self.key = key
+    self.parent = self.left = self.right = None
+  def __str__(self):
+    return str(self.key)
+    
+  def preorder(self): #현재 방문중인 노드 == self
+    if self != None: # MLR
+      print(self.key)
+      if self.left:
+        self.left.preorder()
+      if self.right:
+        self.right.preorder()
+        
+  def inorder(self):
+    if self != None: # LMR
+      if self.left:
+        self.left.inorder()
+      print(self.key)
+      if self.right:
+        self.right.inorder()
+        
+  def postorder(self):
+    if self != None: # LRM
+      if self.left:
+        self.left.postorder()
+      if self.right:
+        self.right.postorder()
+      print(self.key)
+```  
+print 문의 위치에 따라 MLR인지, LMR인지, LRM인지 나뉜다.
 
