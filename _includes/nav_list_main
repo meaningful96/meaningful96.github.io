@@ -78,6 +78,20 @@
             </ul>
             <ul>
                 {% for category in site.categories %}
+                    {% if category[0] == "NLP" %}
+                        <li><a href="/categories/nlp" class="">자연어 처리 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Graph" %}
+                        <li><a href="/categories/graph" class=""> 그래프 이론 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
                     {% if category[0] == "PaperReview" %}
                         <li><a href="/categories/paperreview" class="">논문 리뷰 ({{category[1].size}})</a></li>
                     {% endif %}
