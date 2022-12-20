@@ -85,8 +85,8 @@
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "CoputerVision" %}
-                        <li><a href="/categories/computervision" class="">컴퓨터  ({{category[1].size}})</a></li>
+                    {% if category[0] == "ComputerVision" %}
+                        <li><a href="/categories/computervision" class="">컴퓨터 비젼  ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>            
