@@ -85,6 +85,13 @@
             </ul>
             <ul>
                 {% for category in site.categories %}
+                    {% if category[0] == "CoputerVision" %}
+                        <li><a href="/categories/computervision" class="">컴퓨터  ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>            
+            <ul>
+                {% for category in site.categories %}
                     {% if category[0] == "Graph" %}
                         <li><a href="/categories/graph" class=""> 그래프 이론 ({{category[1].size}})</a></li>
                     {% endif %}
