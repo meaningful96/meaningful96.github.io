@@ -4,7 +4,7 @@ title: Chapter 8.1 Binary & Binary Search Tree(이진트리, 이진 탐색트리
 categories: 
   - DataStructure
 tags:
-  - [DataStructure, Tree, Binary Tree, Nonlinear Structure]
+  - [DataStructure, Tree, Nonlinear Structure]
 
 toc: true
 toc_sticky: true
