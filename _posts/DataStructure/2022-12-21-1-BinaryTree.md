@@ -59,7 +59,7 @@ Binary 클래스에서 선언된 노드들의 key값을 모두 출력하고 싶�
 **이 방식은 각 노드들에서** <span style = "color:aqua">**재귀적**</span>**으로 적용한다.**
 
 <p align="center">
-<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/208728948-d7a76e9b-7799-4ffd-99a9-d083641edf5d.png">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/208728948-d7a76e9b-7799-4ffd-99a9-d083641edf5d.png">
 </p>  
 (왼: preorder, 중: inorder, 오: postorder)
 
@@ -117,7 +117,7 @@ print 문의 위치에 따라 MLR인지, LMR인지, LRM인지 나뉜다.
 즉, 시간 복잡도가 트리 높이에 dependent하다.
 
 <p align="center">
-<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/208811015-2c820b36-d078-412e-90c6-28bd8c31e5b5.png">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/208811015-2c820b36-d078-412e-90c6-28bd8c31e5b5.png">
 </p>
 
 ```
@@ -269,7 +269,7 @@ x라는 노드를 지울 때, x노드가 키값을 찾아야하는데, `find_loc
 - 왼쪽 subtree에서 가장 큰 노드 m의 오른쪽 자식 노드로 오르쪽 subtree를 연결한다.
 
 <p align="center">
-<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/208811015-2c820b36-d078-412e-90c6-28bd8c31e5b5.png">
+<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/208818157-169f0763-caad-481d-9f11-6b4d800459f1.png">
 </p>
 
 
