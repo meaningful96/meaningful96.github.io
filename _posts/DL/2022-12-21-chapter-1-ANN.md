@@ -1,5 +1,5 @@
 ---
-title: Chapter 1. Artificial Neural Net(ANN), 인공 신경망
+title: Chapter 1.1 Artificial Neural Net(ANN), 인공 신경망
 
 categories: 
   - DeepLearning
