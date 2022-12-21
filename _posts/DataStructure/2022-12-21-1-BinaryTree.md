@@ -20,7 +20,7 @@ last_modified_at: 2022-12-21
 
 이진트리를 표현하는 방법 중 가장 먼저 공부한 방법은 배열 또는 리스트에 저장하는 방식이다. 이는 앞선 포스팅인 [Heap 자료구조](https://meaningful96.github.io/datastructure/TreeandHeap/)에서 다뤘다.
 힙(Heap)은 이진 트리의 특이 케이스로, 이진 트리의 모양 성질과 힙성질 모두를 만족시켜야 하기때문에 <span style = "color:aqua">**makeheap**</span>이라는 함수를 구현했다.
-- Python에서는 **headq 모듈**을 이용해 사용가능
+- Python에서는 **headq 모듈**을 이용해 사용가능 
 
 하지만, 이렇게 배열 또는 리스트로 나열을하면은 메모리 관점에서 굉장한 낭비가 된다. 이는 연결 리스트를 이용하면 해결 가능하다.
 
