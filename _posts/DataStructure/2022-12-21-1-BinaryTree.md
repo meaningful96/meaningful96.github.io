@@ -269,7 +269,7 @@ x라는 노드를 지울 때, x노드가 키값을 찾아야하는데, `find_loc
 - 왼쪽 subtree에서 가장 큰 노드 m의 오른쪽 자식 노드로 오르쪽 subtree를 연결한다.
 
 <p align="center">
-<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/208818157-169f0763-caad-481d-9f11-6b4d800459f1.png">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/208818157-169f0763-caad-481d-9f11-6b4d800459f1.png">
 </p>
 
 
