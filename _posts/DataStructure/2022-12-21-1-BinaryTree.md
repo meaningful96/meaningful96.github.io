@@ -59,7 +59,7 @@ Binary 클래스에서 선언된 노드들의 key값을 모두 출력하고 싶�
 **이 방식은 각 노드들에서** <span style = "color:aqua">**재귀적**</span>**으로 적용한다.**
 
 <p align="center">
-<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/208728948-d7a76e9b-7799-4ffd-99a9-d083641edf5d.png">
+<img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/208728948-d7a76e9b-7799-4ffd-99a9-d083641edf5d.png">
 </p>  
 (왼: preorder, 중: inorder, 오: postorder)
 
