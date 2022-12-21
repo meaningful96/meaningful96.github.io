@@ -1,5 +1,5 @@
 ---
-title: Chapter 8. Binary & Binary Search Tree(이진트리, 이진 탐색트리)
+title: Chapter 8.1 Binary & Binary Search Tree(이진트리, 이진 탐색트리)
 
 categories: 
   - DataStructure
@@ -266,12 +266,153 @@ x라는 노드를 지울 때, x노드가 키값을 찾아야하는데, `find_loc
 제거 후 만약 삭제노드가 leaf노드가 아닌경우, 연결된 subtree노드들의 부모 노드를 다시 설정해 주어야 한다.
 - 여기서 merging 과 copying의 차이점이 생김
 - mearging은 삭제된 노드의 왼쪽 subtree를 삭제된 노드로 옮김
-- 왼쪽 subtree에서 가장 큰 노드 m의 오른쪽 자식 노드로 오르쪽 subtree를 연결한다.
+- 왼쪽 subtree에서 가장 큰 노드 m의 오른쪽 자식 노드로 오른쪽 subtree를 연결한다.
 
 <p align="center">
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/208818157-169f0763-caad-481d-9f11-6b4d800459f1.png">
 </p>
 
+위 방식을 적용할 때 2가지 경우로 나뉜다.
 
+- 삭제할 x가 루트노드인 경우
+  - left subtree에서 가장 큰 값 m의 right subtree로 삭제한 x의 right subtree가 위친한다. 그리고 left subtree의 최상단 노드가 새로운 root 노드가 된다.
+  - 만약 left subtree가 None이라면 x의 right subtree가 새로운 루트가되고, right subtree의 최상단 노드가 새로운 root 노드가 된다.
+
+- 삭제할 x가 루트노드가 아닌 경우
+  - x의 부모노드에 left subtree를 연결한다. 그리고 left subtree에서 가장 큰값 m에 right subtree를 연결한다.
+  - 만약 left subtree가 None이라면 right subtree가 x의 부모노드에 직접 연결된다.
+
+**Psuedo 코드**  
+코드로 구현할 때 고려사항으로 <span style = "color:aqua">**left subtree의 존재유무**</span>와 <span style = "color:aqua">**삭제한 노드 x가 root인지 아닌지**</span>로 나뉜다.
+```python
+def deleteByMerging(self, x):
+    a = x.left
+    b = x.right
+    pt = x.parent
+    #c =  #x 자리를 대체할 노드
+    #m =  #Left에서 가장 큰 노드
+
+    #left subtree가 None일때
+    if a == None:
+        #x자리에 right subtree b를 직접 넣는다.
+        c = b
+        
+
+    #left subtree가 None이 아닐때
+    else:
+        c = a
+
+        #a에서 가장 큰 key값 가진 노드 m 찾기
+        m = a
+        while m.right:
+            m = m.right
+        
+        # right subtree가 존재한다면 
+        if b:
+            # b와 m을 연결
+            b.parent = m
+            m.right = b
+
+    
+    #삭제한 x노드의 부모가 None인경우
+    if pt == None:
+        #x가 root노드였으므로, c를 root로 업데이트
+        if c:
+            c.parent = None
+        self.root = c
+
+    #x노드의 부모가 None이 아닌경우
+    else:
+        # x자리를 대체할 노드 c에 pt를 연결한다.
+        if c:
+            c.parent = pt
+
+        # pt와 c의 key값을 비교해 연결한다.
+        if pt.key > c.key:
+            pt.left = c
+        else:
+            pt.right = c
+
+    self.size -= 1
+
+    # 리턴은 다음에 다시 설명
+ ```
 
 2. **copying**
+
+merging과는 다르게 **copying**은 <span style = "color:aqua">left subtree에서 가장 큰값 m을 찾아 삭제된 노드 x의 자리에 대체</span>한다.
+
+m이 left subtree에서 가장 큰 값이므로 m의 right subtree는 없다는 것이 보장되므로,
+m의 right subtree로 x의 right subtree를 연결한다.
+
+m의 원래 left subtree와 m의 부모노드가 끊긴 상태이므로, 이 둘을 연결한다.
+m이 x의 위치로 올라갔으므로 m과 left subtree의 최상단 노드를 연결한다.
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/208823286-34544296-cb8d-4af7-8169-d8f0a3dc53ee.png">
+</p>
+
+**Pseudo 코드**
+```python
+def deleteByCoping(self,key):
+    a = x.left
+    b = x.right
+    pt = x.parent
+    #c =  #x 자리를 대체할 노드
+    #m =  #Left에서 가장 큰 노드
+
+    if a == None:
+        #a가 None이면 m이 없으므로 x의 right subtree를 직접대체해야한다.
+        c = b
+    else:
+        #a가 None이 아니라면 m 이 존재한다.
+        m = a
+        while m.right:
+            m = m.right
+        #m이 x의 자리를 대체한다.
+        c = m
+
+        #만약 x의 right subtree가 존재한다면 둘을 연결
+        if b:
+            m.right = b
+            b.parent = m
+
+        #m이 존재할때, m의 right subtree는 없는 것이 보장되나, left subtree는 있을수도있다.
+        if m.left:
+            #m의 parent와 연결한다.
+            m.left.parent = m.parent.right
+            m.parent.right = m.left
+
+
+    #삭제한 x가 root인경우
+    if pt == None:
+        if c:
+            c.parent = None
+        self.root = c
+
+
+    #x가 root가 아닌경우
+    else:
+        # x자리를 대체할 노드 c에 pt를 연결한다.
+        if c:
+            c.parent = pt
+
+        # pt와 c의 key값을 비교해 연결한다.
+        if pt.key > c.key:
+            pt.left = c
+        else:
+            pt.right = c
+```
+
+### 3) 시간 복잡도
+search 연산은 최악의 경우, 노드의 가장 깊은 곳까지 비교해야하므로 트리의 높이에 비례하는 수행시간을 가진다. ➜O(h)
+
+insert 연산또한 search연산을 이용하므로 O(h)가 걸린다.
+
+delete연산 또한 m을 찾기위해 최악의 경우 h만큼 비교하기 때문에 O(h) 시간이 걸린다.
+
+트리의 높이 h는 최악의 경우 right subtree로만 연결되기때문에 n-1까지 가능하므로
+모든 연산시간은 <span style = "color:aqua">O(n)</span> 만큼 걸린다.
+
+따라서 트리의 높이를 최적화해야 탐색 수행시간이 줄어든다.
+이를 위해 균형이진탐색트리(AVL)가 존재한다.
