@@ -139,7 +139,7 @@ TD learning(Temporal-Difference learning)에서 첫 번째 step으로 Q-function
 <center>$$Q(s,a) \leftarrow Q(s,a) + \alpha[r + \gamma \underset{\alpha^\prime }{\operatorname{max}} Q(s^\prime , a^\prime) - Q(s,a)]$$</center>
 
 중요한 것은, **reward shaping에 대한 접근법은, reward function이나 받은 reward 인 $$r$$을 수정하는 것이 아닌,** <span style = "color:aqua">**몇몇 action에 대해 추가적인 shaped reward를 주는 것**</span>이다.  
-$$Q(s,a) \leftarrow Q(s,a) + \alpha[r + \underset{=addtional \ shaped \ reward}{\operatorname{F(s, s^\prime)}} +\gamma \underset{\alpha^\prime }{\operatorname{max}} Q(s^\prime , a^\prime) - Q(s,a)]$$
+<span style = "font-size:120%"><center>$$Q(s,a) \leftarrow Q(s,a) + \alpha[r + \underset{=addtional \ shaped \ reward}{\operatorname{F(s, s^\prime)}} +\gamma \underset{\alpha^\prime }{\operatorname{max}} Q(s^\prime , a^\prime) - Q(s,a)]$$</center></span>
 
 
 ## Reference
