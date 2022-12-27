@@ -119,12 +119,13 @@ Q-function approximation을 강화학습에서 사용하기 위해서는 원래�
 <span style = "font-size:120%">**Update**</span>  
 Q-table 값들 대신에 가중치를 업데이트해야한다.
 - Update Rule
-  - For each state-action featrue $$i$$
+  - For each state-action featrue $$i$$  
     $$w_i^a \; \leftarrow \; w_i^a + \alpha \cdot \delta \cdot f_i(s,a) $$
 
+$$\delta$$는 우리가 사용하는 알고리즘에 dependent하다. 결론적으로 이 식은 Linear하기에, Convex하다.
+따라서 가중치는 결국 Converging된다.
 
-
-
-
-
+```
+Note that this has the effect of updating Q-values to states that have never been visited!
+```
 
