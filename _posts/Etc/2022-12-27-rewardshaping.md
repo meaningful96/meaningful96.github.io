@@ -51,7 +51,7 @@ f_{n \times|A|}(s,a)
 \end{pmatrix}$$</center>
 
 - 이걸 표현하기 위해선, 두가지 벡터가 필요하다.
-  1. Feature Vector, $$f(s,a)$$이다. $$n|A|$$ different fuction의 벡터이다. $$n$$은 state feature의 수이고, $$|A|$$은 action의 수이다. 각각의 함수는 state-action pair(s,a)의 값(value)을 추출한다.
+  1. Feature Vector, $$f(s,a)$$는 $$n|A|$$ different fuction의 벡터이다. $$n$$은 state feature의 수이고, $$|A|$$은 action의 수이다. 각각의 함수는 state-action pair(s,a)의 값(value)을 추출한다.
   2. 함수 $$f_i(s,a)$$는 state-action pair (s,a)에서 i번째 feature를 추출한다.  
   3. weight vector $$w$$ of size $$$n \times |A|,$$ 각각의 feature-action 쌍에 대해 하나의 weight이다. $$w_i^a$$는 action $$a$$에 대한 i feature의 가중치이다.
 
