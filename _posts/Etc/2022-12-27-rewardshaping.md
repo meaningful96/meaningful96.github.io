@@ -107,7 +107,21 @@ Q(s,a)\quad &=\quad f_1(s,a) \cdot w_1^a + f_2(s,a) \cdot w_2^a + \dots + f_n(s,
 &= \quad  \displaystyle\sum_{i = 0}^nf_i(s,a)w_i^a
 \end{aligned}$$</center>  
 
-#### (4) Linear Q-function Update
+#### (4) Linear Q-function Update  
+Q-function approximation을 강화학습에서 사용하기 위해서는 원래의 알고리즘에서 두 가지 과정을 바꿔야 한다.
+
+- Initialization
+- update
+
+<span style = "font-size:120%">**Initialization**</span>  
+모든 가중치를 **0**으로 initialization 해야한다. 아마 특정한 가중치를 두고 업데이트 해보면 알 것이다.
+
+<span style = "font-size:120%">**Update**</span>  
+Q-table 값들 대신에 가중치를 업데이트해야한다.
+- Update Rule
+  - For each state-action featrue $$i$$
+    $$w_i^a \; \leftarrow \; w_i^a + \alpha \cdot \delta \cdot f_i(s,a) $$
+
 
 
 
