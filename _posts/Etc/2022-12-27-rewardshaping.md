@@ -43,8 +43,7 @@ Linear Q-learning에서, feature들과 weight들을 저장한다. **state는 저
 각각의 feature나 weight가 학습에 얼마나 중요한지를 알아야 한다.</span>
 
 - 이걸 표현하기 위해선, 두가지 벡터가 필요하다.
-  1. Feature Vector, $$f(s,a)$$이다. $$n|A|$$ different fuction의 벡터이다. $$n$$은 state feature의 수이고, $$|A|$$은 action의 수이다. 
-     각각의 함수는 state-action pair(s,a)의 값(value)을 추출한다.
+  1. Feature Vector, $$f(s,a)$$이다. $$n|A|$$ different fuction의 벡터이다. $$n$$은 state feature의 수이고, $$|A|$$은 action의 수이다. 각각의 함수는 state-action pair(s,a)의 값(value)을 추출한다.
   2. $$f_i(s,a)$$는 state-action pair (s,a)에서 i번째 feature를 추출한다.
 
 $$f(s,a) =
