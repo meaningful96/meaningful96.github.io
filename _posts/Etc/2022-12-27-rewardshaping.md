@@ -46,13 +46,15 @@ Linear Q-learning에서, feature들과 weight들을 저장한다. **state는 저
   1. Feature Vector, $$f(s,a)$$이다. $$n|A|$$ different fuction의 벡터이다. $$n$$은 state feature의 수이고, $$|A|$$은 action의 수이다. 
      각각의 함수는 state-action pair(s,a)의 값(value)을 추출한다.
   2. $$f_i(s,a)$$는 state-action pair (s,a)에서 i번째 feature를 추출한다.
-  <center>$$f(s,a) =
-  \begin{pmatrix}
-  f_1(s,a) \\
-  f_2(s,a) \\
-  \dots  & \\
-  f_{n \times|A|}(s,a) 
-  \end{pmatrix}$$</center>  
+
+$$f(s,a) =
+\begin{pmatrix}
+f_1(s,a) \\
+f_2(s,a) \\
+\dots  & \\
+f_{n \times|A|}(s,a) 
+\end{pmatrix}$$ 
+  
   3. weight vector $$w$$ of size $$n \times |A|$$: 각각의 feature-action 쌍에 대해 하나의 weight이다. $$w_i^a$$는 action $$a$$에 대한 i feature의 가중치이다.
 
 <span style = "font-size:120%">**Defining State-Action Featrues**</span>   
