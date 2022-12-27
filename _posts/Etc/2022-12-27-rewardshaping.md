@@ -38,7 +38,7 @@ he key idea is to approximate the Q-function using a linear combination of featu
 - $$Q(s,a)$$를 feature들과 weight들이 합으로 추정한다. 
 - $$Q(s,a)$$에서 s는 state, a는 applied action이다.
 
-<span style = "font-size:120%">**Linear Q-function Representation**</span>    
+#### (1) Linear Q-function Representation 
 Linear Q-learning에서, feature들과 weight들을 저장한다. **state는 저장하지 않는다.** <span style = "color:aqua">각각의 action마다
 각각의 feature나 weight가 학습에 얼마나 중요한지를 알아야 한다.</span>
 
@@ -57,7 +57,7 @@ f_{n \times|A|}(s,a)
   4) weight vector $$w$$ of size $$n \times \vert A \vert$$, 각각의 feature-action 쌍에 대해 하나의 weight이다.  
   5) $$w_i^a$$는 action $$a$$에 대한 i feature의 가중치이다.  
 
-<span style = "font-size:120%">**Defining State-Action Featrues**</span>   
+#### (2) Defining State-Action Featrues
 종종 각 state마다 feature를 정의하는게 state-action 쌍을 정의하는것보다 쉽다. feature란 $$f_i(s)$$form의 $$n$$함수의 벡터이다.
 
 어쨋든, 많은 application에서 feature의 가중치는 action과 연관(related)되어 있다.
@@ -99,7 +99,7 @@ f_{2,a_2}(s,a) \\
 \vdots
 \end{pmatrix}\; \dots$$</center>
 
-<span style = "font-size:120%">**Q-Values from linear Q-functions**<\span>  
+#### (3) Q-Values from linear Q-functions
 feature vector인 $$f$$와 weight vector인 $$w$$가 주어지면, state의 Q-value는 간단히 feature와 weight들의 linear combination으로 표현이된다.  
 <center>
 $$\begin{aligned} 
@@ -107,7 +107,7 @@ Q(s,a)\quad &=\quad f_1(s,a) \cdot w_1^a + f_2(s,a) \cdot w_2^a + \dots + f_n(s,
 &= \quad  \displaystyle\sum_{i = 0}^nf_i(s,a)w_i^a
 \end{aligned}$$</center>  
 
-<span style = "font-size:120%">**Linear Q-function Update**</span>  
+#### (4) Linear Q-function Update
 
 
 
