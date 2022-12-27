@@ -50,7 +50,7 @@ f_2(s,a) \\
 f_{n \times|A|}(s,a) 
 \end{pmatrix}$$</center>
 
-- **이걸 표현하기 위해선, 두가지 벡터가 필요하다.**
+- **이걸 표현하기 위해선, 두가지 벡터가 필요하다.**  
   1) Feature Vector, $$f(s,a)$$는 $$n \times \vert A \vert$$ different fuction의 벡터이다.   
   2) $$n$$은 state feature의 수이고, $$\vert A \vert$$은 action의 수이다. 각각의 함수는 state-action pair(s,a)의 값(value)을 추출한다.  
   3) 함수 $$f_i(s,a)$$는 state-action pair (s,a)에서 i번째 feature를 추출한다.    
@@ -62,10 +62,55 @@ f_{n \times|A|}(s,a)
 
 어쨋든, 많은 application에서 feature의 가중치는 action과 연관(related)되어 있다.
 
-However, for most applications, the weight of a feature is related to the action.
-The weight of being one step away from the end in Freeway is different if we go Up to if we go Right.
 <center>$$ f_{i,k}(s,a)=
 \begin{cases}
 f_i(s),\;if\;a = a_k\\
 0,\;otherwise\;1\leq i \leq n, 1\leq k \leq |A|
 \end{cases}$$</center>
+
+
+이는 $$\vert A \vert$$ 다른 weight vector들을 효과적으로 야기한다.  
+<center>$$f(s,a_1) =
+\begin{pmatrix}
+f_{1,a_1}(s,a) \\
+f_{2,a_2}(s,a) \\
+0\\
+0\\
+0\\
+0\\
+\vdots
+\end{pmatrix}\; f(s,a_2) =
+\begin{pmatrix}
+0\\
+0\\
+f_{1,a_1}(s,a) \\
+f_{2,a_2}(s,a) \\
+0\\
+0\\
+\vdots
+\end{pmatrix}\;  f(s,a_3) =
+\begin{pmatrix}
+0\\
+0\\
+0\\
+0\\
+f_{1,a_1}(s,a) \\
+f_{2,a_2}(s,a) \\
+\vdots
+\end{pmatrix}\; \dots$$</center>
+
+<span style = "font-size:120%">**Q-Values from linear Q-functions**<\span>  
+feature vector인 $$f$$와 weight vector인 $$w$$가 주어지면, state의 Q-value는 간단히 feature와 weight들의 linear combination으로 표현이된다.  
+<center>
+$$\begin{aligned} 
+Q(s,a)\quad &=\quad f_1(s,a) \cdot w_1^a + f_2(s,a) \cdot w_2^a + \dots + f_n(s,a) \cdot w_n^a\\  
+&= \quad  \displaystyle\sum_{i = 0}^nf_i(s,a)w_i^a
+\end{aligned}$$</center>  
+
+<span style = "font-size:120%">**Linear Q-function Update**</span>  
+
+
+
+
+
+
