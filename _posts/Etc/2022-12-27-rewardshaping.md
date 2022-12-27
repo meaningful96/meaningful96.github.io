@@ -42,18 +42,17 @@ he key idea is to approximate the Q-function using a linear combination of featu
 Linear Q-learning에서, feature들과 weight들을 저장한다. **state는 저장하지 않는다.** <span style = "color:aqua">각각의 action마다
 각각의 feature나 weight가 학습에 얼마나 중요한지를 알아야 한다.</span>
 
-- 이걸 표현하기 위해선, 두가지 벡터가 필요하다.
-  1. Feature Vector, $$f(s,a)$$이다. $$n|A|$$ different fuction의 벡터이다. $$n$$은 state feature의 수이고, $$|A|$$은 action의 수이다. 각각의 함수는 state-action pair(s,a)의 값(value)을 추출한다.
-  2. $$f_i(s,a)$$는 state-action pair (s,a)에서 i번째 feature를 추출한다.
-
-$$f(s,a) =
+<center>$$f(s,a) =
 \begin{pmatrix}
 f_1(s,a) \\
 f_2(s,a) \\
 \dots  & \\
 f_{n \times|A|}(s,a) 
-\end{pmatrix}$$ 
-  
+\end{pmatrix}$$</center>
+
+- 이걸 표현하기 위해선, 두가지 벡터가 필요하다.
+  1. Feature Vector, $$f(s,a)$$이다. $$n|A|$$ different fuction의 벡터이다. $$n$$은 state feature의 수이고, $$|A|$$은 action의 수이다. 각각의 함수는 state-action pair(s,a)의 값(value)을 추출한다.
+  2. $$f_i(s,a)$$는 state-action pair (s,a)에서 i번째 feature를 추출한다.  
   3. weight vector $$w$$ of size $$n \times |A|$$: 각각의 feature-action 쌍에 대해 하나의 weight이다. $$w_i^a$$는 action $$a$$에 대한 i feature의 가중치이다.
 
 <span style = "font-size:120%">**Defining State-Action Featrues**</span>   
