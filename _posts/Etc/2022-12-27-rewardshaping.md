@@ -50,12 +50,12 @@ f_2(s,a) \\
 f_{n \times|A|}(s,a) 
 \end{pmatrix}$$</center>
 
-**이걸 표현하기 위해선, 두가지 벡터가 필요하다.**
-1. Feature Vector, $$f(s,a)$$는 $$n \times \vert A \vert$$ different fuction의 벡터이다.   
-2. $$n$$은 state feature의 수이고, $$\vert A \vert$$은 action의 수이다. 각각의 함수는 state-action pair(s,a)의 값(value)을 추출한다.  
-3. 함수 $$f_i(s,a)$$는 state-action pair (s,a)에서 i번째 feature를 추출한다.    
-4. weight vector $$w$$ of size $$n \times \vert A \vert$$, 각각의 feature-action 쌍에 대해 하나의 weight이다.  
-5. $$w_i^a$$는 action $$a$$에 대한 i feature의 가중치이다.  
+- **이걸 표현하기 위해선, 두가지 벡터가 필요하다.**
+  1. Feature Vector, $$f(s,a)$$는 $$n \times \vert A \vert$$ different fuction의 벡터이다.   
+  2. $$n$$은 state feature의 수이고, $$\vert A \vert$$은 action의 수이다. 각각의 함수는 state-action pair(s,a)의 값(value)을 추출한다.  
+  3. 함수 $$f_i(s,a)$$는 state-action pair (s,a)에서 i번째 feature를 추출한다.    
+  4. weight vector $$w$$ of size $$n \times \vert A \vert$$, 각각의 feature-action 쌍에 대해 하나의 weight이다.  
+  5. $$w_i^a$$는 action $$a$$에 대한 i feature의 가중치이다.  
 
 <span style = "font-size:120%">**Defining State-Action Featrues**</span>   
 종종 각 state마다 feature를 정의하는게 state-action 쌍을 정의하는것보다 쉽다. feature란 $$f_i(s)$$form의 $$n$$함수의 벡터이다.
