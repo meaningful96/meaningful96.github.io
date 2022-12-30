@@ -49,11 +49,32 @@ Qusetion: What types are the film starred by actors in the *nine lives of fritz 
 
 <span style = "font-size:120%">**참고**</span>  
 KBQA task에서 Input data
-- Ideal Case: <*question, relation path*>
-- In this Paper: <*question, answer*>
+- Ideal Case: <*question, relation path* >
+- In this Paper: <*question, answer* >
+
+<span style = "font-size:120%">**What we need to solve?**</span>  
+Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training되게 한다.
 
 ## Method
 - Teacher & Student Network
 - Neural State Machine(NSM)
 - Bidirectional Reasoning Mechanism
 
+### 1. Teacher - Student Network
+#### Student Network
+선생-학생 네트워크에서 학생 네트워크(Student Network)가 Main model이다. 학생 네트워크의 목표는 Visual question answering으로부터 정답을 찾는 것이다. 
+학생 네트워크에서는 NSM(Neural State Machine) 아키텍쳐를 이용한다.
+
+**NSM(Neural State Machine)**  
+
+<p align="center">
+<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/210039631-566268db-fd27-44e2-968d-f72b0f42b541.png">
+</p>
+
+
+
+
+## Related Work
+- Knowledge Base Question Answering
+- Multi-hop Reasoning
+- Teacher-Student Network
