@@ -103,8 +103,8 @@ Student Network은 NSM 아키텐쳐를 바탕으로 구성된다. NSM 아키텍�
   1. Natural Language Question이 주어지면 이걸 Series of instruction vector로 바꾸고, 이 Instruction vector는 resoning process를 control한다.
   2. Instruction Component 🡄 query embedding + instruction vector
   3. instruction vector의 초기값은 zero vector이다.
-  4. GloVe 아키텍쳐를 통해 query 단어들을 임베딩하고, 이를 LSTM 인코더에 넣어 Hidden state를 뽑아낸다.
-  5. Hidden State식 $$\{{h_j}\}_{j=1}^l$$, $$l$$은 query의 길이
+  4. GloVe 아키텍쳐를 통해 query 단어들을 임베딩하고, 이를 LSTM 인코더에 넣어 Hidden state를 뽑아낸다.  
+  (Hidden State식 $$ \{{h_j}\}_{j=1}^l $$, $$ l $$은 query의 길이이다.)
 
 The input of the instruction
 component consists of a query embedding and an instruction vector
@@ -112,6 +112,7 @@ from the previous reasoning step. The initial instruction vector is
 set as zero vector. We utilize GloVe [26] to obtain the embeddings
 of the query words. Then we adopt a standard LSTM encoder to
 obtain a set of hidden states 
+
 ## Related Work
 - Knowledge Base Question Answering
 - Multi-hop Reasoning
