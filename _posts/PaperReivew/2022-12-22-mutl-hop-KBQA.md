@@ -74,7 +74,7 @@ intermediate reasoning steps for improving the student network.
 선생-학생 네트워크에서 학생 네트워크(Student Network)가 Main model이다. 학생 네트워크의 목표는 Visual question answering으로부터 정답을 찾는 것이다. 
 학생 네트워크에서는 NSM(Neural State Machine) 아키텍쳐를 이용한다.
 
-<span style = "font-size:120%">**NSM(Neural State Machine)**</span>  
+##### (1) NSM(Neural State Machine)
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/210039872-680ef240-219b-4a2c-9e81-421ab3d22fa5.png">
@@ -99,7 +99,7 @@ Student Network은 NSM 아키텐쳐를 바탕으로 구성된다. NSM 아키텍�
 <center><span style = "font-size:80%">Student Network Equation Table</span></center>
 
 
-##### Instruction Component    
+##### (2-1) Instruction Component    
 1. Natural Language Question이 주어지면 이걸 Series of instruction vector로 바꾸고, 이 Instruction vector는 resoning process를 control한다.  
 2. Instruction Component 🡄 query embedding + instruction vector  
 3. instruction vector의 초기값은 zero vector이다.  
@@ -119,9 +119,24 @@ Student Network은 NSM 아키텐쳐를 바탕으로 구성된다. NSM 아키텍�
 
 Insteruction vector를 학습하는데 가장 중요한 것은 매 Time step마다 query의 특정한 부분에 center><span style = "font-size:110%">**Attention**</span>을 취하는 것이다.
 
-##### Attention Fuction이란?  
+##### (2-2)Attention Fuction이란?  
 
+<p align="center">
+<img width="" alt="500" src="https://user-images.githubusercontent.com/111734605/210244763-6df0807b-7e7f-4d4a-a73b-f100734ee83e.png">
+</p>     
+<center><span style = "font-size:80%">Instruction Component</span></center>
 
+어텐션 함수는 Query, Key, Value로 구성된 함수이다.  
+<center>$$Attention(Q,K,V) \; = Attention \, - \, Value $$</center>  
+<center>
+$$\begin{aligned}
+Q &: Query  \\
+K &: Key\\
+V &: Value\\
+\end{aligned}$$
+</center>
+
+어텐션 함수는 주어진 **'쿼리(Query)'**에 대해 모든 **'키(Key)'**의 유사도를 각각 구합니다. 그리고, 이 유사도를 키(Key)와 매핑되어 있는 각각의 **'값(Value)'**에 반영해줍니다. 그리고 '유사도가 반영된'값을 모두 더해서 리턴하고, 어텐션 값을 반환한다.
 
 ## Related Work
 - Knowledge Base Question Answering
