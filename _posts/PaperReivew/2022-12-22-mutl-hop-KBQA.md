@@ -177,8 +177,22 @@ Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. �
 - $$E^{(k)}$$는 결국 (5)번 식으로부터 Update된 Entity Embedding 행렬이다. 
 - $$w$$는 Entity Distribution인 $$p^{(k)}$$로부터 유도된 파라미터이다.
 
-  
+##### Discussion
+- Student Network의 NSM model은 Two-fold이다.  
+  1. Teacher Network로 부터 <span style = "color:aqua">**중간 엔티티 분포(Intermediate entity distribution)을 Supervision signal로**</span> Student Network에 이용한다 
+    - 기존의 KBQA 연구들은 이런 중간 단계에서 엔티티 분포를 이용하지 않음!!
+  2. NSM은 주어진 **Knowledge graph**에 대해 엄청난 <span style = "color:aqua">**추론 능력(reasoning capacity)**</span>을 보여주는 GNN 모델이다. 
+    - 엔티티 분포와 엔티티 임베딩을 학습하는 것은 결국 GNN의 일반적인 <span style = "color:aqua">"전사 후 집계(*propagate-then-aggregate*)" 메커니즘</span>을 잘 반영해준다.
 
+- NSM은 Scene graph와 instruction vector를 이용해 추상적인 잠재 공간에서 시각적 추론을 하기위한 모델이다. 이를 Multi-hop KBQA에 사용하기 위해 두 가지 방법을 사용하였다.
+  1. 엔티티들에 관련된 **관계 임베딩(relation embedding)**을 집계하여 노드 임베딩을 초기화한다.
+    - 식 (2), 엔티티의 초기값 방법은 결국 좀 더 유의미한 엔티티의 relation에 초점을 맞춰, 노이즈 엔티티의 영향력을 감소시킨다.
+  2. **이전 임베딩** $$e^{(k-1)}$$와 **relation-aggregated 임베딩** $$\widetilde{e}^{(k)}$$와 통합해서 엔티티 임베딩을 업데이트 한다.
+    (Original NSM은 두 factor를 각각 모델링함.)
+  
+#### Teacher-Network    
+  
+  
 ## Related Work
 - Knowledge Base Question Answering
 - Multi-hop Reasoning
