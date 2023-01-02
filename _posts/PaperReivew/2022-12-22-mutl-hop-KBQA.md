@@ -54,7 +54,7 @@ KBQA task에서 Input data
 
 <span style = "font-size:120%">**What we need to solve?**</span>  
 Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training되게 한다.
-
+  
 ## Method
 - Teacher & Student Network
 - Neural State Machine(NSM)
