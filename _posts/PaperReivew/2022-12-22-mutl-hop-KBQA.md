@@ -70,7 +70,7 @@ intermediate reasoning steps for improving the student network.
 학생 네트워크는 multi-hop KBQA를 학습하는 한편, 선생 네트워크에서는 <span style ="color:aqua">Intermediate Supervision Signal</span>을 만들어 학생 네트워크로 넘겨준다.
 이렇게 함으로써 학생 네트워크에서 더 학습이 잘되게끔 한다.
 
-#### - Student Network
+#### Student Network
 선생-학생 네트워크에서 학생 네트워크(Student Network)가 Main model이다. 학생 네트워크의 목표는 Visual question answering으로부터 정답을 찾는 것이다. 
 학생 네트워크에서는 NSM(Neural State Machine) 아키텍쳐를 이용한다.
 
@@ -190,7 +190,7 @@ Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. �
   2. **이전 임베딩** $$e^{(k-1)}$$와 **relation-aggregated 임베딩** $$\widetilde{e}^{(k)}$$와 통합해서 엔티티 임베딩을 업데이트 한다.
     (Original NSM은 두 factor를 각각 모델링함.)
   
-#### - Teacher-Network    
+#### Teacher-Network    
   
   
 ## Related Work
