@@ -163,16 +163,16 @@ Triple($$<e^{\prime}, r, e>$$)이 주어졌을때 Match vector $$m_{<e^{\prime},
 
 <span style = "font-size:110%">**(4)번 식**</span>      
 Match vector들을 통해서 올바른 Enge를 찾고난 후 우리는 <span style = "color:aqua">**이웃 Triple들로부터 matching message를 집계(aggregate)**한다. 그리고 마지막 추론 단계에서 얼마나 많은 **어텐션**을 받는지에 따라 **가중치를 할당**</span>한다. $$p_{e^{\prime}}^{(k-1)}$$은 $$e^{\prime}$$는 마지막 추론 스탭에서 Entity에 할당된 확률이다.      
-<center>(4) $$\widetilde{e} \, = \, \sum_{<e^{\prime}, r,e> \in {\mathscr{N}_e}}p_{e^\prime}^{(k-1)} \ㅊdot m_{<e^{\prime}, r, e>}^{(k)}$$,</center>
+<center>$$(4) \; \widetilde{e} \, = \, \sum_{<e^{\prime}, r,e> \in {\mathscr{N}_e}}p_{e^\prime}^{(k-1)} \cdot m_{<e^{\prime}, r, e>}^{(k)}$$</center>
 
 <span style = "font-size:110%">**(5)번 식 Entity Embedding Update**</span>    
 Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. 이 FFN은 input으로 이전 임베딩 값인 $$e^{k-1}$$와 relation-aggregate 임베딩인 $$\widetilde{e}^{(k)}$$
 두 값을 받는다.   
-<center>(5) $$e^{(k)} = FFN([e^{(k-1)};\widetilde{e}^{(k)}])$$,</center>
+<center>$$(5) \; e^{(k)} = FFN([e^{(k-1)};\widetilde{e}^{(k)}])$$</center>
 
 <span style = "font-size:110%">**(6)번 식 **</span>    
 이러한 프로세스를 통해 relation path(Topic Entity  ➜ Answer Entity)와 질문의 일치 정도(Matching degree with question) 모두  노드 임베딩(Node Embedding)으로 인코딩 될 수 있다.  
-<center>(6) $$p^{k} = softmax(E^{(k)^T}w),$$</center>  
+<center> $$(6) \; p^{k} = softmax(E^{(k)^T}w)$$</center>  
 - $$E^{(k)}$$는 k번째 step에서 엔티티들의 임베딩 벡터들을 column방향으로 concatenation한 것이다. 
 - $$E^{(k)}$$는 결국 (5)번 식으로부터 Update된 Entity Embedding 행렬이다. 
 - $$w$$는 Entity Distribution인 $$p^{(k)}$$로부터 유도된 파라미터이다.
