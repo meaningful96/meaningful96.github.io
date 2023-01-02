@@ -99,19 +99,29 @@ Student Network은 NSM 아키텐쳐를 바탕으로 구성된다. NSM 아키텍�
 <center><span style = "font-size:80%">Student Network Equation Table</span></center>
 
 
-- Instruction Component
-  1. Natural Language Question이 주어지면 이걸 Series of instruction vector로 바꾸고, 이 Instruction vector는 resoning process를 control한다.
-  2. Instruction Component 🡄 query embedding + instruction vector
-  3. instruction vector의 초기값은 zero vector이다.
-  4. GloVe 아키텍쳐를 통해 query 단어들을 임베딩하고, 이를 LSTM 인코더에 넣어 Hidden state를 뽑아낸다.  
-  (Hidden State식 $$ h_l $$이고, $$l$$은 query의 길이)
+##### Instruction Component    
+1. Natural Language Question이 주어지면 이걸 Series of instruction vector로 바꾸고, 이 Instruction vector는 resoning process를 control한다.  
+2. Instruction Component 🡄 query embedding + instruction vector  
+3. instruction vector의 초기값은 zero vector이다.  
+4. GloVe 아키텍쳐를 통해 query 단어들을 임베딩하고, 이를 LSTM 인코더에 넣어 Hidden state를 뽑아낸다.    
+   (Hidden State식 $$ h_l $$이고, $$l$$은 query의 길이)  
 
-The input of the instruction
-component consists of a query embedding and an instruction vector
-from the previous reasoning step. The initial instruction vector is
-set as zero vector. We utilize GloVe [26] to obtain the embeddings
-of the query words. Then we adopt a standard LSTM encoder to
-obtain a set of hidden states 
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210238256-d1c12915-e213-4515-a9b3-c00299c14956.png">
+</p>     
+<center><span style = "font-size:80%">Instruction Component</span></center>  
+
+- query Embedding과 j번째 hidden state를 element wise product해서 Softmax를 먹인다.
+  - $$q^{(k)}$$의 식은 Instruction vector에 weighted 처리된 것이다.
+  - 즉, 가중치를 곱하여 처리한 것이다.
+  - 그러면 Instruction vector에서 영향력 큰 부분만 뽑아내겠다.
+  - 즉, query에 큰값이 있는걸 뽑아내는 것 
+
+Insteruction vector를 학습하는데 가장 중요한 것은 매 Time step마다 query의 특정한 부분에 center><span style = "font-size:110%">**Attention**</span>을 취하는 것이다.
+
+##### Attention Fuction이란?  
+
+
 
 ## Related Work
 - Knowledge Base Question Answering
