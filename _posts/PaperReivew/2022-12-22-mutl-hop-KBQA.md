@@ -170,7 +170,7 @@ Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. �
 두 값을 받는다.   
 <center>$$(5) \; e^{(k)} = FFN([e^{(k-1)};\widetilde{e}^{(k)}])$$</center>
 
-<span style = "font-size:110%">**(6)번 식 **</span>    
+<span style = "font-size:110%">**(6)번 식**</span>    
 이러한 프로세스를 통해 relation path(Topic Entity  ➜ Answer Entity)와 질문의 일치 정도(Matching degree with question) 모두  노드 임베딩(Node Embedding)으로 인코딩 될 수 있다.  
 <center> $$(6) \; p^{k} = softmax(E^{(k)^T}w)$$</center>  
 - $$E^{(k)}$$는 k번째 step에서 엔티티들의 임베딩 벡터들을 column방향으로 concatenation한 것이다. 
