@@ -53,7 +53,7 @@ KBQA task에서 Input data
 - In this Paper: <*question, answer* >
 
 <span style = "font-size:120%">**What we need to solve?**</span>  
-Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training되게 한다.
+<span style ="color:aqua">**Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training**</span>되게 한다.
   
 ## Method
 - Teacher & Student Network
@@ -67,7 +67,7 @@ The main idea is to train a student network that focuses on the multi-hop KBQA t
 network is trained to provide (pseudo) supervision signals (i.e., inferred entity distributions in our task) at 
 intermediate reasoning steps for improving the student network.
 ```
-학생 네트워크는 multi-hop KBQA를 학습하는 한편, 선생 네트워크에서는 Intermediate Supervision Signal을 만들어 학생 네트워크로 넘겨준다.
+학생 네트워크는 multi-hop KBQA를 학습하는 한편, 선생 네트워크에서는 <span style ="color:aqua">Intermediate Supervision Signal</span>을 만들어 학생 네트워크로 넘겨준다.
 이렇게 함으로써 학생 네트워크에서 더 학습이 잘되게끔 한다.
 
 #### Student Network
@@ -107,7 +107,7 @@ Student Network은 NSM 아키텐쳐를 바탕으로 구성된다. NSM 아키텍�
    (Hidden State식 $$ h_l $$이고, $$l$$은 query의 길이)  
 
 <p align="center">
-<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210238256-d1c12915-e213-4515-a9b3-c00299c14956.png">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210257037-542d9aaa-ec19-46e6-be97-9a4d61354f16.png">
 </p>     
 <center><span style = "font-size:80%">Instruction Component</span></center>  
 
@@ -118,6 +118,8 @@ Student Network은 NSM 아키텐쳐를 바탕으로 구성된다. NSM 아키텍�
   - 즉, query에 큰값이 있는걸 뽑아내는 것 
 
 Insteruction vector를 학습하는데 가장 중요한 것은 매 Time step마다 query의 특정한 부분에 center><span style = "font-size:110%">**Attention**</span>을 취하는 것이다.
+이러한 과정이 결국 query representation을 동적으로 업데이트 할 수 있게되고 따라서 **이전의 Instruction vector들에 대한 정보를 잘 취합**할 수 있다. 얻은 Instruction
+vector들을 리스트로 표현하면 $$[i_{k=1}^j]$$이다. 
 
 ##### (2-2)Attention Fuction이란?  
 
@@ -137,6 +139,31 @@ V &: Value\\
 </center>
 
 어텐션 함수는 주어진 **'쿼리(Query)'**에 대해 모든 **'키(Key)'**의 유사도를 각각 구합니다. 그리고, 이 유사도를 키(Key)와 매핑되어 있는 각각의 **'값(Value)'**에 반영해줍니다. 그리고 '유사도가 반영된'값을 모두 더해서 리턴하고, 어텐션 값을 반환한다.
+
+##### (3) Reasoning Component
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210257533-069772df-1a82-4dca-9b02-bc8bcb8bfd00.png">
+</p>     
+<center><span style = "font-size:80%">Reasoning Component</span></center>  
+
+Reasoning Component(추론 요소)를 구조와 그 수식은 위와 같다. 먼저, Instruction Vector $$i^{(k)}$$를 Instruction Component 과정을 통해 얻었고 이를 Reasoning Component에서
+Guide Signal로서 사용가능하다. Reasoning Component의 Input과 Output은 다음과 같다.
+- Input : **현재 step의 instruction vector** + **이전 step의 entity distribution와 entitiy embedding**
+- Output: entity distribution $$p^{(k)}$$ + entitiy embedding $$e^{(k)}$$
+  - Entity Embedding의 초기값인 $$e^{(0)}$$은 2번식이다.
+  - $$\sigma$$는 표준편차를 의미(entity distribution이므로)
+  - $$<e^{\prime}, r, e>$$는 Triple이라한다. 노드(Entity), 엣지, 노드 순서이다.
+
+<span style = "font-size:110%">**(2)번 식 Entity Embedding의 초기값**</span>  
+2번식을 자세히보면 Entity의 임베딩식은 결국 Weight Sum의 표준편차를 구한 것이다. 이전의 연구들과는 다르게 이 논문에서는 **엔티티를 인코딩하는데 <span style ="color:aqua">트리플(노드와 노드, 엣지로 표현된 Relation)의 정보</span>를 적극적으로 사용**한다. 게다가 이렇게 정보를 활용하면 **엔티티 노이즈에 대한 영향력이 줄어든다.** 추론 경로를 따라 중간 엔터티의 경우 이러한 엔터티의 식별자가 중요하지 않기 때문에 e(0)를 초기화할 때 e의 원래 임베딩을 사용하지 않는다. 왜냐하면 중간 엔티티들의 **relation**만이 중요하기 때문이다.
+
+<span style = "font-size:110%">**(3)번 식 Match vector**</span>  
+Triple($$<e^{\prime}, r, e>$$)이 주어졌을때 Match vector $$m_{<e^{\prime}, r, e>}^{(k)}$$는 (3)번 식과 같다. Instruction vector와 Edge(Relation)에 가중치를 곱한 값과 Element wise product한 값의 표준편차값이다. 이 식의 의미를 보자면, Match vector라는 것은 결국 <span style = "color:aqua">올바른 Relation을 나타내는, 올바른 Edge에 대해서 더 높은 값을 부여해 엔티티가 그 엣지를 따라가게끔 값을 부여하는 것</span>이다. 따라서, '올바른 Edge를 매칭한다'라는 의미로 Match vector라고 한다. 
+
+<span style = "font-size:110%">**(4)번 식**</span>  
+
+
 
 ## Related Work
 - Knowledge Base Question Answering
