@@ -104,7 +104,7 @@ Student Network은 NSM 아키텐쳐를 바탕으로 구성된다. NSM 아키텍�
   2. Instruction Component 🡄 query embedding + instruction vector
   3. instruction vector의 초기값은 zero vector이다.
   4. GloVe 아키텍쳐를 통해 query 단어들을 임베딩하고, 이를 LSTM 인코더에 넣어 Hidden state를 뽑아낸다.  
-  (Hidden State식 $$ \{{h_j}\}_{j=1}^l $$, $$ l $$은 query의 길이이다.)
+  (Hidden State식 $$ h_l $$이고, $$l$$은 query의 길이)
 
 The input of the instruction
 component consists of a query embedding and an instruction vector
