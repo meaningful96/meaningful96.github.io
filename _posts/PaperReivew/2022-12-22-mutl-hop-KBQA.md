@@ -26,7 +26,7 @@ last_modified_at: 2022-12-22
 - [GNN](https://meaningful96.github.io/deeplearning/GNN/)
 - [Various Types of Supervision in Machine Learning](https://meaningful96.github.io/etc/supervision/)
 - [End-to-end deep neural network](https://meaningful96.github.io/deeplearning/1-ETE/)
-- [NSM(Neural State Machine)]()
+- [NSM(Neural State Machine)](https://meaningful96.github.io/etc/NSM/)
 
 ## 문제 정의(Problem Set)
 ### Lack of Supervision signals at Intermediate steps.
@@ -93,12 +93,17 @@ Student Network은 NSM 아키텐쳐를 바탕으로 구성된다. NSM 아키텍�
 <img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/209019844-d2d7e641-295f-4721-b589-da131f5dde9d.png">
 </p>
 
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210233075-7c40808e-0e59-4c22-981a-ce481268fd48.png">
+</p>
+
+
 - Instruction Component
   1. Natural Language Question이 주어지면 이걸 Series of instruction vector로 바꾸고, 이 Instruction vector는 resoning process를 control한다.
-  2. Instruction Component = query embedding + instruction vector
+  2. Instruction Component 🡄 query embedding + instruction vector
   3. instruction vector의 초기값은 zero vector이다.
   4. GloVe 아키텍쳐를 통해 query 단어들을 임베딩하고, 이를 LSTM 인코더에 넣어 Hidden state를 뽑아낸다.
-
+ 
 
 The input of the instruction
 component consists of a query embedding and an instruction vector
