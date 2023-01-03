@@ -14,8 +14,8 @@ date: 2022-12-22
 last_modified_at: 2022-12-22 
 ---
 
-# 1. 문제 정의(Problem Set)
-## Lack of Supervision signals at Intermediate steps.
+## 1. 문제 정의(Problem Set)
+### Lack of Supervision signals at Intermediate steps.
 Multi-hop Knowledge base question answering(KBQA)의 목표는 Knowledge base(Knowledge graph)에서 여러 홉 떨어져 있는 Answer entity(node)를 찾는 것이다.
 기존의 KBQA task는 <span style = "color:aqua">Training 중간 단계(Intermediate Reasoning Step) Supervision signal을 받지 못한다.</span> 다시말해, 
 feedback을 final answer한테만 받을 수 있다는 것이고 이는 결국 학습을 unstable하고 ineffective하게 만든다.
@@ -41,16 +41,16 @@ KBQA task에서 Input data
 <span style = "font-size:120%">**What we need to solve?**</span>  
 <span style ="color:aqua">**Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training**</span>되게 한다.
 
----------
 
-# 2. Method  
-## 1) Modeling 
+
+## 2. Method  
+### 1) Modeling 
 - Teacher & Student Network
 - Neural State Machine(NSM)
 - Bidirectional Reasoning Mechanism
 
-## 2) Teacher - Student Network  
-### (1) Overview    
+### 2) Teacher - Student Network  
+#### (1) Overview    
 ```
 The main idea is to train a student network that focuses on the multi-hop KBQA task itself, while another teacher
 network is trained to provide (pseudo) supervision signals (i.e., inferred entity distributions in our task) at 
@@ -59,11 +59,11 @@ intermediate reasoning steps for improving the student network.
 학생 네트워크는 multi-hop KBQA를 학습하는 한편, 선생 네트워크에서는 <span style ="color:aqua">Intermediate Supervision Signal</span>을 만들어 학생 네트워크로 넘겨준다.
 이렇게 함으로써 학생 네트워크에서 더 학습이 잘되게끔 한다.
 
-## 3) Student Network  
+### 3) Student Network  
 선생-학생 네트워크에서 학생 네트워크(Student Network)가 Main model이다. 학생 네트워크의 목표는 Visual question answering으로부터 정답을 찾는 것이다. 
 학생 네트워크에서는 NSM(Neural State Machine) 아키텍쳐를 이용한다.
 
-### (1) NSM(Neural State Machine)
+#### (1) NSM(Neural State Machine)
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/210039872-680ef240-219b-4a2c-9e81-421ab3d22fa5.png">
@@ -88,7 +88,7 @@ Student Network은 NSM 아키텐쳐를 바탕으로 구성된다. NSM 아키텍�
 <center><span style = "font-size:80%">Student Network Equation Table</span></center>
 
 
-### (2-1) Instruction Component    
+#### (2-1) Instruction Component    
 1. Natural Language Question이 주어지면 이걸 Series of instruction vector로 바꾸고, 이 Instruction vector는 resoning process를 control한다.  
 2. Instruction Component 🡄 query embedding + instruction vector  
 3. instruction vector의 초기값은 zero vector이다.  
@@ -110,7 +110,7 @@ Insteruction vector를 학습하는데 가장 중요한 것은 매 Time step마�
 이러한 과정이 결국 query representation을 동적으로 업데이트 할 수 있게되고 따라서 **이전의 Instruction vector들에 대한 정보를 잘 취합**할 수 있다. 얻은 Instruction
 vector들을 리스트로 표현하면 $$[i_{k=1}^j]$$이다. 
 
-### (2-2)Attention Fuction이란?  
+#### (2-2)Attention Fuction이란?  
 
 <p align="center">
 <img width="" alt="500" src="https://user-images.githubusercontent.com/111734605/210244763-6df0807b-7e7f-4d4a-a73b-f100734ee83e.png">
@@ -129,7 +129,7 @@ V &: Value\\
 
 어텐션 함수는 주어진 **'쿼리(Query)'**에 대해 모든 **'키(Key)'**의 유사도를 각각 구합니다. 그리고, 이 유사도를 키(Key)와 매핑되어 있는 각각의 **'값(Value)'**에 반영해줍니다. 그리고 '유사도가 반영된'값을 모두 더해서 리턴하고, 어텐션 값을 반환한다.
 
-### (3) Reasoning Component
+#### (3) Reasoning Component
 
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210257533-069772df-1a82-4dca-9b02-bc8bcb8bfd00.png">
@@ -166,7 +166,7 @@ Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. �
 - $$E^{(k)}$$는 결국 (5)번 식으로부터 Update된 Entity Embedding 행렬이다. 
 - $$w$$는 Entity Distribution인 $$p^{(k)}$$로부터 유도된 파라미터이다.
 
-### (4) Discussion
+#### (4) Discussion
 - Student Network의 NSM model은 Two-fold이다.  
   1. Teacher Network로 부터 <span style = "color:aqua">**중간 엔티티 분포(Intermediate entity distribution)을 Supervision signal로**</span> Student Network에 이용한다 
     - 기존의 KBQA 연구들은 이런 중간 단계에서 엔티티 분포를 이용하지 않음!!
@@ -179,13 +179,13 @@ Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. �
   2. **이전 임베딩** $$e^{(k-1)}$$와 **relation-aggregated 임베딩** $$\widetilde{e}^{(k)}$$와 통합해서 엔티티 임베딩을 업데이트 한다.
     (Original NSM은 두 factor를 각각 모델링함.)
   
-## 4) Teacher-Network    
+### 4) Teacher-Network    
 Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다르다. Teacher Network는 <span stlye = "color:aqua">**중간 추론 단계에서 신뢰가능한 엔티티(reliable entity)를 학습하거나 추론**</span>한다. 참고로, Teacher Network를 학습할때는 Unlabeling 된 데이터들을 사용한다.
  
 이러한 이유로 논문에서는 Bidirectional Search 알고리즘을 참고해 <span style = "color:aqua">**Bidirectional reasoning mechanism**</span>을 도입했다. 이 메커니즘을 활용하여
 중간 추론 단계에서의 Teacher Network 학습을 향상시켰다. Bidirectional reasoning mechanism을 *forward reasoning*이라고 한다.
   
-### (1) Bidirectional Reasoning for Multi-hop KBQA
+#### (1) Bidirectional Reasoning for Multi-hop KBQA
 기존의 Knowledge Graph에서는 Topic entity에서 Answer entity로 한방향 탐색을 통해 정답에 접근했다. 하지만, 논문에서는 **양방향 탐색(Bidirectional Search)**를 응용해 양방향 추론
 을 구현했다.  
 - Bidirectional Reasoning Mechanism
@@ -196,17 +196,17 @@ Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다�
 forward 방향에서 k번째 엔티티 분포인 $$p_f^{(k)}$$와 backward 방향의 (n-k)번째 엔티티 분포인 $$p_b^{(n-k)}$$일 때, 만약 두 추론 프로세스가 안정적이고 정확하다면 두 분포는
 그 값이 비슷하거나 일정할 것이다. ➜ $$p_f^{(k)} \approx p_b^{(n-k)}$$
 
-### (2) Reasoning Architecture  
+#### (2) Reasoning Architecture  
 <p align="center">
 <img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/210313258-d7bfb2f5-11e8-4bce-8631-105c23e8afce.png">
 </p>
 
-### (3) Parallel Reasoning
+#### (3) Parallel Reasoning
 Figure 3에 (a)번째와 같이 Instruction vector를 공유하지 않고 **서로 다른 NSM**을 사용해 forward와 backward reasoning을 **각각** 진행한다. 두 NSM network는 반드시 Isolated하며
 **서로 어떠한 파라미터도 공유하지 않는다.** 단지 그 두 프로세스 사이의 중간 엔티티 분포에 서로 대응 제약(Correspondence Constraint)만 통합하는 것만 고려한다.
   
 
-### (4) Hybrid Reasoning
+#### (4) Hybrid Reasoning
 
 Hybrid Reasoning 방법에서는 Instruction Component를 공유하고, Cycle Pipeline(원형 파이프라인 모듈)로 구성했다. 또한 대응 제약 외에도, 같은 Instruction Vector를 받는다.
 **forward reasoning의 마지막 스텝은 backward reasoning의 첫번째 값이 된다.** 이를 식으로 정리하면 다음과 같다.
@@ -222,13 +222,13 @@ Figure 3에서 볼 수 있듯이, Parallel reasoning이 좀 더 느슨한 통합
 이러한 점을 고려할때, <span style = "color:aqua">forward의 마지막 추론 단계의 값을 backward의 초기값으로 **재활용**하고</span> 이러한 방식은 결국 backward reasoning에서 forward reasoning에 관한 정보를
 더 많이 받는것이되므로 forward reasoning을 추적하는데 더 큰 도움이 된다.
   
-## 5) Teacher-Student framework 이용한 학습
+### 5) Teacher-Student framework 이용한 학습
 
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210330914-04d911e8-85f9-4741-b296-c46344177007.png">
 </p>
 
-### (1) Teacher Network 최적화
+#### (1) Teacher Network 최적화
 Teacher Network의 두가지 추론 아키텍쳐는 같은 방식으로 최적화할 수 있다. 이를 1) Reaspning loss 와 2) Correspondence loss이다. 
 
 - Reasoning Loss [식 (9)]
@@ -242,7 +242,7 @@ Teacher Network의 두가지 추론 아키텍쳐는 같은 방식으로 최적�
 - Correspondence Loss [식 (10)]
   - 잰슨-셰넌 divergence를 이용한다. JS Divergence는 symmetric한 방법이다. 이를 Lagrange Multiplier를 이용해 표현하면 (10)식과 같이 된다.
    
-### (2) Student Network 최적화
+#### (2) Student Network 최적화
 NSM 모델을 Student Network 모델에 적용해 forward reasoning을 수행했다. 게다라 reasoning loss를 고려하여, student network의 prediction과 teacher network의 
 supervision signal의 loss를 통합한다. 이를 식으로 나타내면  (12)식이 된다.
   
@@ -250,17 +250,17 @@ Teacher Network의 최적화가 완료되면 두 추론 프로세스로부터 �
 Supervision signal로 여기고 평균을 취하면 (11)식이 된다. 
 - $$p_t^{(k)}$$와 $$p_s^{(k)}$$는 k번째 스텝에서 Student network와 Teacher network의 중간 엔티티 분포이다. $$\lambda$$ Lagrange Multiplier다. 
 
-### (3) Discussion
+#### (3) Discussion
 실제로 많은 KBQA 모델들은 중간 추론 단계에서 labeled data는 거의 사용되지 못한다. 즉, Supervision signal이 부족하다. 이 논문의 핵심은, 추가적으로 Labeled data를
 사용하지 않고, <span style = "color:aqua">Teacher Network의 **Bidirectional Reasoning Mechanism**을 이용해서 **중간 엔티티 분포**를 만들어내고, 이를 Supervision signal로 Student Network에서 이용하여 학습 효율을 높이는 것</span>이다. 
 
-# 3. Result
-## 1) Data Set  
+## 3. Result
+### 1) Data Set  
 <p align="center">
 <img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/210343881-5c3a8b83-b814-4236-87f0-a8ce29977c37.png">
 </p>  
  
-## 2) Experimental Setting
+### 2) Experimental Setting
 - KV-Mem
 - GraftNet
 - PullNet
@@ -268,7 +268,7 @@ Supervision signal로 여기고 평균을 취하면 (11)식이 된다.
 - EmbedKGQA
 - $$NSM_{+p}$$, $$NSM_{+h}$$, NSM  
 
-## 3) Result
+### 3) Result
 
 <p align="center">
 <img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/210346566-3b68287f-a1eb-4e05-9e26-0d731b7039b9.png">
@@ -290,14 +290,14 @@ Supervision signal로 여기고 평균을 취하면 (11)식이 된다.
 <img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/210348674-43f52d7d-4a5f-473d-ba39-404c13a62250.png">
 </p>  
 
-# 4. Contribution
+## 4. Contribution
 - NSM model을 KBQA에 성공적으로 적용하였다.
 - Supervision Signal(Intermediate Entity Distribution)을 Teacher-Student Network를 통해 성공적으로 이용하여 Performance를 높였다.
 - KBQA에 양방향 탐색(Bidirectional Search)을 성공적으로 적용하여 학습 효율을 높였다.
 
-# 5. Reference
+## 5. Reference
   
-## 1) 논문을 위한 Basic Knowledge
+### 1) 논문을 위한 Basic Knowledge
 - [Graph의 개념](https://meaningful96.github.io/datastructure/2-Graph/)
 - [Cross Entropy, Jensen-Sharnnon Divergence](https://drive.google.com/file/d/18qhdvC_2B9LG7paPdAONARqj3DWxxa8h/view?usp=sharing)
 - [Knowledge Based Learning](https://meaningful96.github.io/etc/KB/)
@@ -311,10 +311,10 @@ Supervision signal로 여기고 평균을 취하면 (11)식이 된다.
 - [End-to-end deep neural network](https://meaningful96.github.io/deeplearning/1-ETE/)
 - [NSM(Neural State Machine)](https://meaningful96.github.io/etc/NSM/)
   
-## 2) Related Work
+### 2) Related Work
 - Knowledge Base Question Answering
 - Multi-hop Reasoning
 - Teacher-Student Network
 
-## 3) Reference  
+### 3) Reference  
 [Paper](https://arxiv.org/pdf/2101.03737.pdf)
