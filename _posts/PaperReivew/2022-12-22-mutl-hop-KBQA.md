@@ -256,6 +256,7 @@ Teacher Network의 두가지 추론 아키텍쳐는 같은 방식으로 최적�
 ### (2) Student Network 최적화
 Teacher Network의 최적화가 완료되면 두 추론 프로세스로부터 중간 엔티티 분포(Intermediate Entity Distribution)를 얻게 된다. 이 두 중간 엔티티 분포를
 Supervision signal로 여기고 평균을 취하면 (11)식이 된다.
+ 
   
 ## Related Work
 - Knowledge Base Question Answering
