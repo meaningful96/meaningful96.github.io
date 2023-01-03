@@ -55,13 +55,13 @@ KBQA task에서 Input data
 <span style = "font-size:120%">**What we need to solve?**</span>  
 <span style ="color:aqua">**Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training**</span>되게 한다.
   
-## Method
+## Model Mechanism
 - Teacher & Student Network
 - Neural State Machine(NSM)
 - Bidirectional Reasoning Mechanism
 
-### 1. Teacher - Student Network
-#### Overview  
+## Teacher - Student Network
+### Overview  
 ```
 The main idea is to train a student network that focuses on the multi-hop KBQA task itself, while another teacher
 network is trained to provide (pseudo) supervision signals (i.e., inferred entity distributions in our task) at 
@@ -70,11 +70,11 @@ intermediate reasoning steps for improving the student network.
 학생 네트워크는 multi-hop KBQA를 학습하는 한편, 선생 네트워크에서는 <span style ="color:aqua">Intermediate Supervision Signal</span>을 만들어 학생 네트워크로 넘겨준다.
 이렇게 함으로써 학생 네트워크에서 더 학습이 잘되게끔 한다.
 
-#### Student Network
+## Student Network
 선생-학생 네트워크에서 학생 네트워크(Student Network)가 Main model이다. 학생 네트워크의 목표는 Visual question answering으로부터 정답을 찾는 것이다. 
 학생 네트워크에서는 NSM(Neural State Machine) 아키텍쳐를 이용한다.
 
-##### (1) NSM(Neural State Machine)
+### (1) NSM(Neural State Machine)
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/210039872-680ef240-219b-4a2c-9e81-421ab3d22fa5.png">
@@ -99,7 +99,7 @@ Student Network은 NSM 아키텐쳐를 바탕으로 구성된다. NSM 아키텍�
 <center><span style = "font-size:80%">Student Network Equation Table</span></center>
 
 
-##### (2-1) Instruction Component    
+### (2-1) Instruction Component    
 1. Natural Language Question이 주어지면 이걸 Series of instruction vector로 바꾸고, 이 Instruction vector는 resoning process를 control한다.  
 2. Instruction Component 🡄 query embedding + instruction vector  
 3. instruction vector의 초기값은 zero vector이다.  
@@ -121,7 +121,7 @@ Insteruction vector를 학습하는데 가장 중요한 것은 매 Time step마�
 이러한 과정이 결국 query representation을 동적으로 업데이트 할 수 있게되고 따라서 **이전의 Instruction vector들에 대한 정보를 잘 취합**할 수 있다. 얻은 Instruction
 vector들을 리스트로 표현하면 $$[i_{k=1}^j]$$이다. 
 
-##### (2-2)Attention Fuction이란?  
+### (2-2)Attention Fuction이란?  
 
 <p align="center">
 <img width="" alt="500" src="https://user-images.githubusercontent.com/111734605/210244763-6df0807b-7e7f-4d4a-a73b-f100734ee83e.png">
@@ -129,7 +129,7 @@ vector들을 리스트로 표현하면 $$[i_{k=1}^j]$$이다.
 <center><span style = "font-size:80%">Instruction Component</span></center>
 
 어텐션 함수는 Query, Key, Value로 구성된 함수이다.  
-<center>$$Attention(Q,K,V) \; = Attention \, - \, Value $$</center>  
+<center>$$Attention(Q,K,V) \; = Attention \, Value $$</center>  
 <center>
 $$\begin{aligned}
 Q &: Query  \\
@@ -140,7 +140,7 @@ V &: Value\\
 
 어텐션 함수는 주어진 **'쿼리(Query)'**에 대해 모든 **'키(Key)'**의 유사도를 각각 구합니다. 그리고, 이 유사도를 키(Key)와 매핑되어 있는 각각의 **'값(Value)'**에 반영해줍니다. 그리고 '유사도가 반영된'값을 모두 더해서 리턴하고, 어텐션 값을 반환한다.
 
-##### (3) Reasoning Component
+### (3) Reasoning Component
 
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210257533-069772df-1a82-4dca-9b02-bc8bcb8bfd00.png">
@@ -177,7 +177,7 @@ Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. �
 - $$E^{(k)}$$는 결국 (5)번 식으로부터 Update된 Entity Embedding 행렬이다. 
 - $$w$$는 Entity Distribution인 $$p^{(k)}$$로부터 유도된 파라미터이다.
 
-##### (4) Discussion
+### (4) Discussion
 - Student Network의 NSM model은 Two-fold이다.  
   1. Teacher Network로 부터 <span style = "color:aqua">**중간 엔티티 분포(Intermediate entity distribution)을 Supervision signal로**</span> Student Network에 이용한다 
     - 기존의 KBQA 연구들은 이런 중간 단계에서 엔티티 분포를 이용하지 않음!!
@@ -190,7 +190,7 @@ Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. �
   2. **이전 임베딩** $$e^{(k-1)}$$와 **relation-aggregated 임베딩** $$\widetilde{e}^{(k)}$$와 통합해서 엔티티 임베딩을 업데이트 한다.
     (Original NSM은 두 factor를 각각 모델링함.)
   
-#### Teacher-Network    
+## Teacher-Network    
 Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다르다. Teacher Network는 <span stlye = "color:aqua">**중간 추론 단계에서 신뢰가능한 엔티티(reliable entity)를 학습하거나 추론**</span>한다. 참고로, Teacher Network를 학습할때는 Unlabeling 된 데이터들을 사용한다.
  
 이러한 이유로 논문에서는 Bidirectional Search 알고리즘을 참고해 <span style = "color:aqua">**Bidirectional reasoning mechanism**</span>을 도입했다. 이 메커니즘을 활용하여
