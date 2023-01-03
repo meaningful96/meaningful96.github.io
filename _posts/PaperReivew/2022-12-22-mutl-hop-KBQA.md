@@ -206,10 +206,33 @@ Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다�
 기존의 연구는 모두 1번을 기준으로 진행되었다. 이 논문에서는 2번을 활용한 것이다. 아이디어는 두 추론 프로세스가 중간 단계에서 서로 동기화되도록 하는 것이다. 다시 말해,
 forward 방향에서 k번째 엔티티 분포인 $$p_f^{(k)}$$와 backward 방향의 (n-k)번째 엔티티 분포인 $$p_b^{(n-k)}$$일 때, 만약 두 추론 프로세스가 안정적이고 정확하다면 두 분포는
 그 값이 비슷하거나 일정할 것이다. ➜ $$p_f^{(k)} \approx p_b^{(n-k)}$$
-  
+
+### (2) Reasoning Architecture  
 <p align="center">
-<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210312781-b4dfe445-b5c6-40cc-ad99-1e537324504f.png">
+<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/210313258-d7bfb2f5-11e8-4bce-8631-105c23e8afce.png">
 </p>
+
+### (3) Parallel Reasoning
+Figure 3에 (a)번째와 같이 Instruction vector를 공유하지 않고 **서로 다른 NSM**을 사용해 forward와 backward reasoning을 **각각** 진행한다. 두 NSM network는 반드시 Isolated하며
+**서로 어떠한 파라미터도 공유하지 않는다.** 단지 그 두 프로세스 사이의 중간 엔티티 분포에 서로 대응 제약(Correspondence Constraint)만 통합하는 것만 고려한다.
+  
+
+### (4) Hybrid Reasoning
+
+Hybrid Reasoning 방법에서는 Instruction Component를 공유하고, Cycle Pipeline(원형 파이프라인 모듈)로 구성했다. 또한 대응 제약 외에도, 같은 Instruction Vector를 받는다.
+**forward reasoning의 마지막 스텝은 backward reasoning의 첫번째 값이 된다.** 이를 식으로 정리하면 다음과 같다.
+
+<p align="center">
+<img width="350" alt="1" src="https://user-images.githubusercontent.com/111734605/210319909-88e3450a-3069-411f-9f3c-9a8823c76433.png">
+</p>
+  
+Figure 3에서 볼 수 있듯이, Parallel reasoning이 좀 더 느슨한 통합을 가진 반면, Hybrid reasoning은 forward와 backward reasoning 과정의 정보 사이에 더 깊은 통합을
+필요로 한다. 여기서 주의할 것은, 일반적인 BFS와는 다르게 역방향 추론이 정방향 추론의 완벽한 역과정은 아니라는 것이다. 왜냐하면 두 과정은 서로 다른 semantic(의미론)에 대해 
+해당한다. 즉, multi-hop에서 같은 **entity를 같은 edge를 통해 간다고 하더라도, 방향이 반대이면 그 의미는 다르다.**
+
+이러한 점을 고려할때, <span style = "color:aqua">forward의 마지막 추론 단계의 값을 backward의 초기값으로 **재활용**하고</span> 이러한 방식은 결국 backward reasoning에서 forward reasoning에 관한 정보를
+더 많이 받는것이되므로 forward reasoning을 추적하는데 더 큰 도움이 된다.
+  
   
 ## Related Work
 - Knowledge Base Question Answering
