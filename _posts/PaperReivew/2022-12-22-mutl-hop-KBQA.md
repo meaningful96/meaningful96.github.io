@@ -15,7 +15,7 @@ last_modified_at: 2022-12-22
 ---
 
 # 1. 문제 정의(Problem Set)
-### Lack of Supervision signals at Intermediate steps.
+## Lack of Supervision signals at Intermediate steps.
 Multi-hop Knowledge base question answering(KBQA)의 목표는 Knowledge base(Knowledge graph)에서 여러 홉 떨어져 있는 Answer entity(node)를 찾는 것이다.
 기존의 KBQA task는 <span style = "color:aqua">Training 중간 단계(Intermediate Reasoning Step) Supervision signal을 받지 못한다.</span> 다시말해, 
 feedback을 final answer한테만 받을 수 있다는 것이고 이는 결국 학습을 unstable하고 ineffective하게 만든다.
