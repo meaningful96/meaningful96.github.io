@@ -14,21 +14,7 @@ date: 2022-12-22
 last_modified_at: 2022-12-22 
 ---
 
-## 1. 논문을 들어가기 앞서 알면 좋은 Basic Knowledge
-- [Graph의 개념](https://meaningful96.github.io/datastructure/2-Graph/)
-- [Cross Entropy, Jensen-Sharnnon Divergence](https://drive.google.com/file/d/18qhdvC_2B9LG7paPdAONARqj3DWxxa8h/view?usp=sharing)
-- [Knowledge Based Learning](https://meaningful96.github.io/etc/KB/)
-- [Reward Shaping](https://meaningful96.github.io/etc/rewardshaping/#4-linear-q-function-update)
-- [Action Dropout](https://meaningful96.github.io/deeplearning/dropout/#4-test%EC%8B%9C-drop-out)
-- [GloVe]()
-- [BFS, DFS](https://meaningful96.github.io/datastructure/2-BFSDFS/)
-- [Bidirectional Search in Graph](https://meaningful96.github.io/datastructure/3-Bidirectionalsearch/)
-- [GNN](https://meaningful96.github.io/deeplearning/GNN/)
-- [Various Types of Supervision in Machine Learning](https://meaningful96.github.io/etc/supervision/)
-- [End-to-end deep neural network](https://meaningful96.github.io/deeplearning/1-ETE/)
-- [NSM(Neural State Machine)](https://meaningful96.github.io/etc/NSM/)
-
-## 2. 문제 정의(Problem Set)
+# 1. 문제 정의(Problem Set)
 ### Lack of Supervision signals at Intermediate steps.
 Multi-hop Knowledge base question answering(KBQA)의 목표는 Knowledge base(Knowledge graph)에서 여러 홉 떨어져 있는 Answer entity(node)를 찾는 것이다.
 기존의 KBQA task는 <span style = "color:aqua">Training 중간 단계(Intermediate Reasoning Step) Supervision signal을 받지 못한다.</span> 다시말해, 
@@ -54,14 +40,15 @@ KBQA task에서 Input data
 
 <span style = "font-size:120%">**What we need to solve?**</span>  
 <span style ="color:aqua">**Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training**</span>되게 한다.
-  
-## 3. Modeling 
+
+# 2. Method  
+## 1) Modeling 
 - Teacher & Student Network
 - Neural State Machine(NSM)
 - Bidirectional Reasoning Mechanism
 
-## 4. Teacher - Student Network
-### Overview  
+## 2) Teacher - Student Network  
+### (1) Overview    
 ```
 The main idea is to train a student network that focuses on the multi-hop KBQA task itself, while another teacher
 network is trained to provide (pseudo) supervision signals (i.e., inferred entity distributions in our task) at 
@@ -70,7 +57,7 @@ intermediate reasoning steps for improving the student network.
 학생 네트워크는 multi-hop KBQA를 학습하는 한편, 선생 네트워크에서는 <span style ="color:aqua">Intermediate Supervision Signal</span>을 만들어 학생 네트워크로 넘겨준다.
 이렇게 함으로써 학생 네트워크에서 더 학습이 잘되게끔 한다.
 
-## 5. Student Network
+## 3) Student Network  
 선생-학생 네트워크에서 학생 네트워크(Student Network)가 Main model이다. 학생 네트워크의 목표는 Visual question answering으로부터 정답을 찾는 것이다. 
 학생 네트워크에서는 NSM(Neural State Machine) 아키텍쳐를 이용한다.
 
@@ -190,7 +177,7 @@ Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. �
   2. **이전 임베딩** $$e^{(k-1)}$$와 **relation-aggregated 임베딩** $$\widetilde{e}^{(k)}$$와 통합해서 엔티티 임베딩을 업데이트 한다.
     (Original NSM은 두 factor를 각각 모델링함.)
   
-## 6. Teacher-Network    
+## 4) Teacher-Network    
 Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다르다. Teacher Network는 <span stlye = "color:aqua">**중간 추론 단계에서 신뢰가능한 엔티티(reliable entity)를 학습하거나 추론**</span>한다. 참고로, Teacher Network를 학습할때는 Unlabeling 된 데이터들을 사용한다.
  
 이러한 이유로 논문에서는 Bidirectional Search 알고리즘을 참고해 <span style = "color:aqua">**Bidirectional reasoning mechanism**</span>을 도입했다. 이 메커니즘을 활용하여
@@ -233,7 +220,7 @@ Figure 3에서 볼 수 있듯이, Parallel reasoning이 좀 더 느슨한 통합
 이러한 점을 고려할때, <span style = "color:aqua">forward의 마지막 추론 단계의 값을 backward의 초기값으로 **재활용**하고</span> 이러한 방식은 결국 backward reasoning에서 forward reasoning에 관한 정보를
 더 많이 받는것이되므로 forward reasoning을 추적하는데 더 큰 도움이 된다.
   
-## 7. Teacher-Student framework 이용한 학습
+## 5) Teacher-Student framework 이용한 학습
 
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210330914-04d911e8-85f9-4741-b296-c46344177007.png">
@@ -242,7 +229,7 @@ Figure 3에서 볼 수 있듯이, Parallel reasoning이 좀 더 느슨한 통합
 ### (1) Teacher Network 최적화
 Teacher Network의 두가지 추론 아키텍쳐는 같은 방식으로 최적화할 수 있다. 이를 1) Reaspning loss 와 2) Correspondence loss이다. 
 
-- Reasoning Loss ((9)번 식)
+- Reasoning Loss [식 (9)]
   <center>![image](https://user-images.githubusercontent.com/111734605/210331487-bbdc9df2-2a34-4e91-babb-2828535082fb.png)</center>
   - reasoing loss는 엔티티를 얼마나 정확하게 나타내는가를 의미하며, 이는 두 direction으로 분해된다.
   - $$p_f^{(n)}$$ 와 $$p_b^{(n)}$$은 각각 forward와 backward 추론 프로세스의 마지막 엔티티 분포이다.
@@ -250,13 +237,36 @@ Teacher Network의 두가지 추론 아키텍쳐는 같은 방식으로 최적�
   - $$p_f^{*}$$ 와 $$p_b^{*}$$를 구하기 위해서 원래의 엔티티(ground-truth entity)를 주파수 정규화 엔티티로 변환해야 한다.
   - 더 정확하게는 그래프에서 $$ k $$ 엔티티가 ground-truth entity이면 마지막 분포에 $$\frac{1}{k}$$의 확률이 할당된다. 
 
-- Correspondence Lostt((10) 식)
-  - 잰슨-셰넌 divergence를 이용한다. JS Divergence는 symmetric한 방법이다. 이를 Lagrangue Multiplier를 이용해 표현하면 (10)식과 같이 된다.
+- Correspondence Loss [식 (10)]
+  - 잰슨-셰넌 divergence를 이용한다. JS Divergence는 symmetric한 방법이다. 이를 Lagrange Multiplier를 이용해 표현하면 (10)식과 같이 된다.
   - 
 ### (2) Student Network 최적화
+NSM 모델을 Student Network 모델에 적용해 forward reasoning을 수행했다. 게다라 reasoning loss를 고려하여, student network의 prediction과 teacher network의 
+supervision signal의 loss를 통합한다. 이를 식으로 나타내면  (12)식이 된다.
+  
 Teacher Network의 최적화가 완료되면 두 추론 프로세스로부터 중간 엔티티 분포(Intermediate Entity Distribution)를 얻게 된다. 이 두 중간 엔티티 분포를
-Supervision signal로 여기고 평균을 취하면 (11)식이 된다.
- 
+Supervision signal로 여기고 평균을 취하면 (11)식이 된다. 
+- $$p_t^{(k)}$$와 $$p_s^{(k)}$$는 k번째 스텝에서 Student network와 Teacher network의 중간 엔티티 분포이다. $$\lambda$$ Lagrange Multiplier다. 
+
+### (3) Discussion
+실제로 많은 KBQA 모델들은 중간 추론 단계에서 labeled data는 거의 사용되지 못한다. 즉, Supervision signal이 부족하다. 이 논문의 핵심은, 추가적으로 Labeled data를
+사용하지 않고, <span style = "color:aqua">Teacher Network의 **Bidirectional Reasoning Mechanism**을 이용해서 **중간 엔티티 분포**를 만들어내고, 이를 Supervision signal로 Student Network에서 이용하여 학습 효율을 높이는 것</span>이다. 
+
+# Result
+  
+## 논문을 들어가기 앞서 알면 좋은 Basic Knowledge
+- [Graph의 개념](https://meaningful96.github.io/datastructure/2-Graph/)
+- [Cross Entropy, Jensen-Sharnnon Divergence](https://drive.google.com/file/d/18qhdvC_2B9LG7paPdAONARqj3DWxxa8h/view?usp=sharing)
+- [Knowledge Based Learning](https://meaningful96.github.io/etc/KB/)
+- [Reward Shaping](https://meaningful96.github.io/etc/rewardshaping/#4-linear-q-function-update)
+- [Action Dropout](https://meaningful96.github.io/deeplearning/dropout/#4-test%EC%8B%9C-drop-out)
+- [GloVe]()
+- [BFS, DFS](https://meaningful96.github.io/datastructure/2-BFSDFS/)
+- [Bidirectional Search in Graph](https://meaningful96.github.io/datastructure/3-Bidirectionalsearch/)
+- [GNN](https://meaningful96.github.io/deeplearning/GNN/)
+- [Various Types of Supervision in Machine Learning](https://meaningful96.github.io/etc/supervision/)
+- [End-to-end deep neural network](https://meaningful96.github.io/deeplearning/1-ETE/)
+- [NSM(Neural State Machine)](https://meaningful96.github.io/etc/NSM/)
   
 ## Related Work
 - Knowledge Base Question Answering
