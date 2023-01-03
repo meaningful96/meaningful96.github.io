@@ -41,6 +41,8 @@ KBQA task에서 Input data
 <span style = "font-size:120%">**What we need to solve?**</span>  
 <span style ="color:aqua">**Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training**</span>되게 한다.
 
+---------
+
 # 2. Method  
 ## 1) Modeling 
 - Teacher & Student Network
