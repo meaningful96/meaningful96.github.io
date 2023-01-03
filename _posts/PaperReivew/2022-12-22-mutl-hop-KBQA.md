@@ -14,7 +14,7 @@ date: 2022-12-22
 last_modified_at: 2022-12-22 
 ---
 
-# 논문을 들어가기 앞서 알면 좋은 Basic Knowledge
+## 1. 논문을 들어가기 앞서 알면 좋은 Basic Knowledge
 - [Graph의 개념](https://meaningful96.github.io/datastructure/2-Graph/)
 - [Cross Entropy, Jensen-Sharnnon Divergence](https://drive.google.com/file/d/18qhdvC_2B9LG7paPdAONARqj3DWxxa8h/view?usp=sharing)
 - [Knowledge Based Learning](https://meaningful96.github.io/etc/KB/)
@@ -28,7 +28,7 @@ last_modified_at: 2022-12-22
 - [End-to-end deep neural network](https://meaningful96.github.io/deeplearning/1-ETE/)
 - [NSM(Neural State Machine)](https://meaningful96.github.io/etc/NSM/)
 
-# 문제 정의(Problem Set)
+## 2. 문제 정의(Problem Set)
 ### Lack of Supervision signals at Intermediate steps.
 Multi-hop Knowledge base question answering(KBQA)의 목표는 Knowledge base(Knowledge graph)에서 여러 홉 떨어져 있는 Answer entity(node)를 찾는 것이다.
 기존의 KBQA task는 <span style = "color:aqua">Training 중간 단계(Intermediate Reasoning Step) Supervision signal을 받지 못한다.</span> 다시말해, 
@@ -55,12 +55,12 @@ KBQA task에서 Input data
 <span style = "font-size:120%">**What we need to solve?**</span>  
 <span style ="color:aqua">**Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training**</span>되게 한다.
   
-# Modeling 
+## 3. Modeling 
 - Teacher & Student Network
 - Neural State Machine(NSM)
 - Bidirectional Reasoning Mechanism
 
-# Teacher - Student Network
+## 4. Teacher - Student Network
 ### Overview  
 ```
 The main idea is to train a student network that focuses on the multi-hop KBQA task itself, while another teacher
@@ -70,7 +70,7 @@ intermediate reasoning steps for improving the student network.
 학생 네트워크는 multi-hop KBQA를 학습하는 한편, 선생 네트워크에서는 <span style ="color:aqua">Intermediate Supervision Signal</span>을 만들어 학생 네트워크로 넘겨준다.
 이렇게 함으로써 학생 네트워크에서 더 학습이 잘되게끔 한다.
 
-## Student Network
+## 5. Student Network
 선생-학생 네트워크에서 학생 네트워크(Student Network)가 Main model이다. 학생 네트워크의 목표는 Visual question answering으로부터 정답을 찾는 것이다. 
 학생 네트워크에서는 NSM(Neural State Machine) 아키텍쳐를 이용한다.
 
@@ -190,7 +190,7 @@ Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. �
   2. **이전 임베딩** $$e^{(k-1)}$$와 **relation-aggregated 임베딩** $$\widetilde{e}^{(k)}$$와 통합해서 엔티티 임베딩을 업데이트 한다.
     (Original NSM은 두 factor를 각각 모델링함.)
   
-# Teacher-Network    
+## 6. Teacher-Network    
 Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다르다. Teacher Network는 <span stlye = "color:aqua">**중간 추론 단계에서 신뢰가능한 엔티티(reliable entity)를 학습하거나 추론**</span>한다. 참고로, Teacher Network를 학습할때는 Unlabeling 된 데이터들을 사용한다.
  
 이러한 이유로 논문에서는 Bidirectional Search 알고리즘을 참고해 <span style = "color:aqua">**Bidirectional reasoning mechanism**</span>을 도입했다. 이 메커니즘을 활용하여
@@ -198,7 +198,7 @@ Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다�
   
   
   
-# Related Work
+## Related Work
 - Knowledge Base Question Answering
 - Multi-hop Reasoning
 - Teacher-Student Network
