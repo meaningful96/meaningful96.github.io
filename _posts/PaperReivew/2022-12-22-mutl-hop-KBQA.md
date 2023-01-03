@@ -239,7 +239,7 @@ Teacher Network의 두가지 추론 아키텍쳐는 같은 방식으로 최적�
 
 - Correspondence Loss [식 (10)]
   - 잰슨-셰넌 divergence를 이용한다. JS Divergence는 symmetric한 방법이다. 이를 Lagrange Multiplier를 이용해 표현하면 (10)식과 같이 된다.
-  - 
+   
 ### (2) Student Network 최적화
 NSM 모델을 Student Network 모델에 적용해 forward reasoning을 수행했다. 게다라 reasoning loss를 고려하여, student network의 prediction과 teacher network의 
 supervision signal의 loss를 통합한다. 이를 식으로 나타내면  (12)식이 된다.
@@ -252,9 +252,50 @@ Supervision signal로 여기고 평균을 취하면 (11)식이 된다.
 실제로 많은 KBQA 모델들은 중간 추론 단계에서 labeled data는 거의 사용되지 못한다. 즉, Supervision signal이 부족하다. 이 논문의 핵심은, 추가적으로 Labeled data를
 사용하지 않고, <span style = "color:aqua">Teacher Network의 **Bidirectional Reasoning Mechanism**을 이용해서 **중간 엔티티 분포**를 만들어내고, 이를 Supervision signal로 Student Network에서 이용하여 학습 효율을 높이는 것</span>이다. 
 
-# Result
+# 3. Result
+## 1) Data Set  
+<p align="center">
+<img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/210343881-5c3a8b83-b814-4236-87f0-a8ce29977c37.png">
+</p>  
+ 
+## 2) Experimental Setting
+- KV-Mem
+- GraftNet
+- PullNet
+- SRN
+- EmbedKGQA
+- $$NSM_{+p}$$, $$NSM_{+h}$$, NSM  
+
+## 3) Result
+
+<p align="center">
+<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/210346566-3b68287f-a1eb-4e05-9e26-0d731b7039b9.png">
+</p>  
+
+- 대체적으로 MetaQA Dataset이 우수한 성적을 보임. MetaQA는 데이터 수가 매우 많다.
+- Hybrid reasoning이 람다 값이 작을 때(e.g 0.05) performance가 좋다. 반면 Parallel reasoning은 큰 람다 값(e.g. 1.00)에서 performance가 좋다.
   
-## 논문을 들어가기 앞서 알면 좋은 Basic Knowledge
+<p align="center">
+<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/210346821-fd37bb43-60bb-4887-ada6-21376263593c.png">
+</p>   
+예측: Intermediate Entity를 얻는데 Student net보다 Teacher net이 더 신뢰성 있을 것이다.
+  
+- Figure 5
+  - intermediat entity를 찾는데 teacher net이 더 우수했다. 하지만, 2nd-hop에서 performance는 student net에 비해 살짝 떨어졌다.
+  - Student Network는 forward reasoning만 이용하기에, 1st-hop이 다른 subsequent-hop보다 중요하다.
+
+<p align="center">
+<img width="100%" alt="1" src="https://user-images.githubusercontent.com/111734605/210348674-43f52d7d-4a5f-473d-ba39-404c13a62250.png">
+</p>  
+
+# 4. Contribution
+- NSM model을 KBQA에 성공적으로 적용하였다.
+- Supervision Signal(Intermediate Entity Distribution)을 Teacher-Student Network를 통해 성공적으로 이용하여 Performance를 높였다.
+- KBQA에 양방향 탐색(Bidirectional Search)을 성공적으로 적용하여 학습 효율을 높였다.
+
+# 5. Reference
+  
+## 1) 논문을 위한 Basic Knowledge
 - [Graph의 개념](https://meaningful96.github.io/datastructure/2-Graph/)
 - [Cross Entropy, Jensen-Sharnnon Divergence](https://drive.google.com/file/d/18qhdvC_2B9LG7paPdAONARqj3DWxxa8h/view?usp=sharing)
 - [Knowledge Based Learning](https://meaningful96.github.io/etc/KB/)
@@ -268,8 +309,10 @@ Supervision signal로 여기고 평균을 취하면 (11)식이 된다.
 - [End-to-end deep neural network](https://meaningful96.github.io/deeplearning/1-ETE/)
 - [NSM(Neural State Machine)](https://meaningful96.github.io/etc/NSM/)
   
-## Related Work
+## 2) Related Work
 - Knowledge Base Question Answering
 - Multi-hop Reasoning
 - Teacher-Student Network
-    
+
+## 3) Reference  
+[Paper](https://arxiv.org/pdf/2101.03737.pdf)
