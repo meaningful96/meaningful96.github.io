@@ -233,6 +233,29 @@ Figure 3에서 볼 수 있듯이, Parallel reasoning이 좀 더 느슨한 통합
 이러한 점을 고려할때, <span style = "color:aqua">forward의 마지막 추론 단계의 값을 backward의 초기값으로 **재활용**하고</span> 이러한 방식은 결국 backward reasoning에서 forward reasoning에 관한 정보를
 더 많이 받는것이되므로 forward reasoning을 추적하는데 더 큰 도움이 된다.
   
+## 7. Teacher-Student framework 이용한 학습
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210330914-04d911e8-85f9-4741-b296-c46344177007.png">
+</p>
+
+### (1) Teacher Network 최적화
+Teacher Network의 두가지 추론 아키텍쳐는 같은 방식으로 최적화할 수 있다. 이를 1) Reaspning loss 와 2) Correspondence loss이다. 
+
+- Reasoning Loss ((9)번 식)
+  <center>![image](https://user-images.githubusercontent.com/111734605/210331487-bbdc9df2-2a34-4e91-babb-2828535082fb.png)</center>
+  - reasoing loss는 엔티티를 얼마나 정확하게 나타내는가를 의미하며, 이는 두 direction으로 분해된다.
+  - $$p_f^{(n)}$$ 와 $$p_b^{(n)}$$은 각각 forward와 backward 추론 프로세스의 마지막 엔티티 분포이다.
+  - KL divergence는 asymmetric한 방법이다.
+  - $$p_f^{*}$$ 와 $$p_b^{*}$$를 구하기 위해서 원래의 엔티티(ground-truth entity)를 주파수 정규화 엔티티로 변환해야 한다.
+  - 더 정확하게는 그래프에서 $$ k $$ 엔티티가 ground-truth entity이면 마지막 분포에 $$\frac{1}{k}$$의 확률이 할당된다. 
+
+- Correspondence Lostt((10) 식)
+  - 잰슨-셰넌 divergence를 이용한다. JS Divergence는 symmetric한 방법이다. 이를 Lagrangue Multiplier를 이용해 표현하면 (10)식과 같이 된다.
+  - 
+### (2) Student Network 최적화
+Teacher Network의 최적화가 완료되면 두 추론 프로세스로부터 중간 엔티티 분포(Intermediate Entity Distribution)를 얻게 된다. 이 두 중간 엔티티 분포를
+Supervision signal로 여기고 평균을 취하면 (11)식이 된다.
   
 ## Related Work
 - Knowledge Base Question Answering
