@@ -204,8 +204,8 @@ Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다�
   2. Answer Entity ➜ Topic Entity
 
 기존의 연구는 모두 1번을 기준으로 진행되었다. 이 논문에서는 2번을 활용한 것이다. 아이디어는 두 추론 프로세스가 중간 단계에서 서로 동기화되도록 하는 것이다. 다시 말해,
-forward 방향에서 k번째 엔티티 분포인 $$p^_f^{(k)}$$와 backward 방향의 (n-k)번째 엔티티 분포인 $$p_b^{(n-k)}$$일 때, 만약 두 추론 프로세스가 안정적이고 정확하다면 두 분포는
-그 값이 비슷하거나 일정할 것이다. ➜ $$p^_f^{(k)} \approx p_b^{(n-k)}$$
+forward 방향에서 k번째 엔티티 분포인 $$p_f^{(k)}$$와 backward 방향의 (n-k)번째 엔티티 분포인 $$p_b^{(n-k)}$$일 때, 만약 두 추론 프로세스가 안정적이고 정확하다면 두 분포는
+그 값이 비슷하거나 일정할 것이다. ➜ $$p_f^{(k)} \approx p_b^{(n-k)}$$
   
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/210312781-b4dfe445-b5c6-40cc-ad99-1e537324504f.png">
