@@ -191,6 +191,11 @@ Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. �
     (Original NSM은 두 factor를 각각 모델링함.)
   
 #### Teacher-Network    
+Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다르다. Teacher Network는 <span stlye = "color:aqua">**중간 추론 단계에서 신뢰가능한 엔티티(reliable entity)를 학습하거나 추론**</span>한다. 참고로, Teacher Network를 학습할때는 Unlabeling 된 데이터들을 사용한다.
+ 
+이러한 이유로 논문에서는 Bidirectional Search 알고리즘을 참고해 <span style = "color:aqua">**Bidirectional reasoning mechanism**</span>을 도입했다. 이 메커니즘을 활용하여
+중간 추론 단계에서의 Teacher Network 학습을 향상시켰다.
+  
   
   
 ## Related Work
