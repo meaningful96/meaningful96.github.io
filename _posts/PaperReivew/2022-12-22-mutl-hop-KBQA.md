@@ -141,13 +141,13 @@ Guide Signal로서 사용가능하다. Reasoning Component의 Input과 Output은
 - Input : **현재 step의 instruction vector** + **이전 step의 entity distribution와 entitiy embedding**
 - Output: entity distribution $$p^{(k)}$$ + entitiy embedding $$e^{(k)}$$
   - Entity Embedding의 초기값인 $$e^{(0)}$$은 (2)번식이다.
-  - $$\sigma$$는 표준편차를 의미(entity distribution이므로)
+  - $$\sigma$$는 Nonlinearity를 의미(Nonlinear fuction)
   - $$<e^{\prime}, r, e>$$는 Triple이라한다. 노드(Entity), 엣지, 노드 순서이다.
 
 
-**(2)번 식 Entity Embedding의 초기값**: 2번식을 자세히보면 Entity의 임베딩식은 결국 Weight Sum의 표준편차를 구한 것이다. 이전의 연구들과는 다르게 이 논문에서는 **엔티티를 인코딩하는데 <span style ="color:aqua">트리플(노드와 노드, 엣지로 표현된 Relation)의 정보</span>를 적극적으로 사용**한다. 게다가 이렇게 정보를 활용하면 **엔티티 노이즈에 대한 영향력이 줄어든다.** 추론 경로를 따라 중간 엔터티의 경우 이러한 엔터티의 식별자가 중요하지 않기 때문에 e(0)를 초기화할 때 e의 원래 임베딩을 사용하지 않는다. 왜냐하면 중간 엔티티들의 **relation**만이 중요하기 때문이다.
+**(2)번 식 Entity Embedding의 초기값**: 2번식을 자세히보면 Entity의 임베딩식은 결국 Weight Sum에 Nonlinear function을 먹인 것이다. 이전의 연구들과는 다르게 이 논문에서는 **엔티티를 인코딩하는데 <span style ="color:aqua">트리플(노드와 노드, 엣지로 표현된 Relation)의 정보</span>를 적극적으로 사용**한다. 게다가 이렇게 정보를 활용하면 **엔티티 노이즈에 대한 영향력이 줄어든다.** 추론 경로를 따라 중간 엔터티의 경우 이러한 엔터티의 식별자가 중요하지 않기 때문에 e(0)를 초기화할 때 e의 원래 임베딩을 사용하지 않는다. 왜냐하면 중간 엔티티들의 **relation**만이 중요하기 때문이다.
  
-**(3)번 식 Match vector**: Triple($$<e^{\prime}, r, e>$$)이 주어졌을때 Match vector $$m_{<e^{\prime}, r, e>}^{(k)}$$는 (3)번 식과 같다. Instruction vector와 Edge(Relation)에 가중치를 곱한 값과 Element wise product한 값의 표준편차값이다. 이 식의 의미를 보자면, Match vector라는 것은 결국 <span style = "color:aqua">올바른 Relation을 나타내는, 올바른 Edge에 대해서 더 높은 값을 부여해 엔티티가 그 엣지를 따라가게끔 값을 부여하는 것</span>이다. 따라서, '올바른 Edge를 매칭한다'라는 의미로 Match vector라고 한다. 
+**(3)번 식 Match vector**: Triple($$<e^{\prime}, r, e>$$)이 주어졌을때 Match vector $$m_{<e^{\prime}, r, e>}^{(k)}$$는 (3)번 식과 같다. Instruction vector와 Edge(Relation)에 가중치를 곱한 값과 Element wise product한 값을 Nonlinear function을 먹인 것이다. 이 식의 의미를 보자면, Match vector라는 것은 결국 <span style = "color:aqua">올바른 Relation을 나타내는, 올바른 Edge에 대해서 더 높은 값을 부여해 엔티티가 그 엣지를 따라가게끔 값을 부여하는 것</span>이다. 따라서, '올바른 Edge를 매칭한다'라는 의미로 Match vector라고 한다. 
 
 **(4)번 식**: Match vector들을 통해서 올바른 Enge를 찾고난 후 우리는 <span style = "color:aqua">**이웃 Triple들로부터 matching message를 집계(aggregate)**한다. 그리고 마지막 추론 단계에서 얼마나 많은 **어텐션**을 받는지에 따라 **가중치를 할당**</span>한다. $$p_{e^{\prime}}^{(k-1)}$$은 $$e^{\prime}$$는 마지막 추론 스탭에서 Entity에 할당된 확률이다.      
 <center>$$(4) \; \widetilde{e} \, = \, \sum_{<e^{\prime}, r,e> \in {\mathscr{N}_e}}p_{e^\prime}^{(k-1)} \cdot m_{<e^{\prime}, r, e>}^{(k)}$$</center>
