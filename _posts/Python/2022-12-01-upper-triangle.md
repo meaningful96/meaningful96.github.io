@@ -4,7 +4,7 @@ title: Upper Triangular matrix(상삼각행렬)
 categories: 
   - py
 tags:
-  - [py.Python]
+  - [py,Python]
 
 toc: true
 toc_sticky: true
