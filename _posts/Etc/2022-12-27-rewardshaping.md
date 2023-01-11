@@ -1,5 +1,5 @@
 ---
-title: Reward Shaping
+title: (강화학습)Reward Shaping
 
 categories: 
   - Etc
