@@ -2,7 +2,7 @@
 title: Various Types of Supervision in Machine Learning(Supervision의 여러 종류)
 
 categories:
-  - Etc
+  - DeepLearning
 tags:
   - [DL,ML, DeepLearning]
 
