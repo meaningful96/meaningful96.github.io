@@ -63,7 +63,7 @@ Transductive Learning을 다시 말하면, 하나의 Dataset으로 Training과 T
 Transductive Learning은 예측 모델을 만드는 것이 아니다. 만약, 새로운 데이터가 유입되면, Model training을 처음부터 다시 돌려야한다.  
 이를 통해 결국은 가지고 있는 데이터를 training과 test에 모두 사용한다는 것을 알 수 있다.
 
-**Trnasductive learning**은 <span stlye = "color:gold">Training에서 데이터의 label을 쓰고, 그 데이터들이 가지고 있는 다른 attribute로 Test를 진행하는 것이다. 다시 말해, **Training과 Test에서 데이터가 분리되어 있지 않다.**</span>
+**Trnasductive learning**은 <span style = "color:gold">Training에서 데이터의 label을 쓰고, 그 데이터들이 가지고 있는 다른 attribute로 Test를 진행하는 것이다. 다시 말해, **Training과 Test에서 데이터가 분리되어 있지 않다.**</span>
 
 ## 3. Example & Summary 
 
