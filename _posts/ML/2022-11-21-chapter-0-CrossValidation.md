@@ -1,5 +1,5 @@
 ---
-title: Chapter 0.Cross Validation
+title: Chapter 0. Cross Validation
 
 categories:
   - MachineLearning
