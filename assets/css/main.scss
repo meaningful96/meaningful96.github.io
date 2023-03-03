@@ -8,13 +8,12 @@
 @import "minimal-mistakes"; // main partials
 
 
-@import url('https://fonts.googleapis.com/css2?family=Gideon+Roman&display=swap');
 
 
 // "Cafe24Oneprettynight"
-//@font-face {
-//    font-family: 'Cafe24Oneprettynight';
-//    src: local('Cafe24Oneprettynight'), url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
-//    font-weight: normal;
-//    font-style: normal;
-//}
+@font-face {
+    font-family: 'Cafe24Oneprettynight';
+    src: local('Cafe24Oneprettynight'), url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
