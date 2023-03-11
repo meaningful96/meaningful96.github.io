@@ -61,8 +61,8 @@ Polynomial하지 않은 어떠한 연속함수를 이용해서 Weight와 bias를
 </p>
 각 layer에 속한 뉴런이 이전 layer의 모든 뉴런과 연결된 구조를 의미한다. 각 뉴런은 이전 layer에서 출력한 데이터를 동일하게 전달 받기 때문에 <span style = "color:aqua">같은 입력 데이터에서 뉴런마다 서로 다른 특징을 추출</span>한다. 이러한 사실때문에 데이터에 특징(feature)이 많을 수록 더 많은 노드가 늘어나야 그 특징들을 모두 추출할 수 있다.
 
-각 뉴런에서 추출된 특징은 계층 단위로 출력되어 다음 layer에 전달된다. 
 
+각 뉴런에서 추출된 특징은 계층 단위로 출력되어 다음 layer에 전달된다. 
 -  Input Data ➜ Input layer(Previous layer): 데이터를 입력받음
 - Input layer ➜ Hidden layer: 데이터에서 특징이 추출되고 변환됨
 - Hidden layer ➜ Output layer: 가장 추상화된 특징을 이용하여 예측
