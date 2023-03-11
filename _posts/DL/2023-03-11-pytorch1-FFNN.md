@@ -1,5 +1,6 @@
 ---
 title: [Pytorch] - 1. Feedforward Neural Network(FFNN)
+
 categories: 
   - DeepLearning
 tags:
@@ -11,7 +12,6 @@ toc_sticky: true
 date: 2023-03-11
 last_modified_at: 2023-03-11 
 ---
-
 
 
 ## 1. 순방향 신경망
