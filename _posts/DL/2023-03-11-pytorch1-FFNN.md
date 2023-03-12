@@ -1,5 +1,5 @@
 ---
-title: (Pytorch) - 1. Feedforward Neural Network(FFNN)
+title: (Pytorch) - 1. Feedforward Neural Network(FFNN), Fully-Connectec Neural Network(FC)
 
 categories: 
   - DeepLearning
@@ -54,7 +54,7 @@ Polynomial하지 않은 어떠한 연속함수를 이용해서 Weight와 bias를
 
 ### 1) 정의
 
-순방향 신경망은 모든 계층이 완전히 연결된 구성을 의미한다.
+순방향 신경망에서 모든 계층이 완전히 연결된 구성을 의미한다.
 
 <p align="center">
 <img width="400" alt="1" src="https://user-images.githubusercontent.com/111734605/224473882-65e13318-5c5a-4420-938a-6a04f80d4c2e.png">
@@ -77,13 +77,13 @@ Polynomial하지 않은 어떠한 연속함수를 이용해서 Weight와 bias를
 
 이 때, 특징을 추출할 때 영향력이 크면 Weight값이 크고, 영향력이 작으면 Weight값이 작게 설정된다.
 
-### 3) 순방향 신경망(FFNN) 설계 항목
+### 3) FFNN과 FC설계 항목
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224495829-7664695c-7c9f-4de4-bae6-18638216965d.png">
 </p>
 
-FFNN을 설계하기 위해서는 다음과 같이 4가지의 Parameter를 설정해줘야 한다.
+FFNN과 FC를 설계하기 위해서는 다음과 같이 4가지의 Parameter를 설정해줘야 한다.
 
 1. 모델의 입력 형태(Size)
 2. 출력 형태(Size)
@@ -92,7 +92,24 @@ FFNN을 설계하기 위해서는 다음과 같이 4가지의 Parameter를 설�
 
 데이터와 신경망 모델의 종류가 결정되면 입력과 출력의 형태는 어느 정도 결정된다. 하지만, 모델의 크기나 activiation function의 종류는 모델 최적화가 최대로 되도록 탐색해야 하며 모델 검증 단계에서 Hyperparameter 탐색을 통해 최적의 모델을 찾는 과정이 필요하다.
 
-## 3. Python으로 구현하기
+### 4) Feedforward VS Fully connected
+둘은 굳이 말하자면 사용하는 도메인이 다르다. FFNN은 RNN과 대비되어 나오는 신경망이기에, RNN기반의 재귀적인 구조가 있는 모델에서 재귀적인 구조가 없는 순방향 네트워크를 정의할 때 사용하고, FC의 경우는 반면에 연결이 듬성 듬성되어있는 CNN과 대비하여 나오는 신경망이다. 다시 말해, <span style = "color:aqua">RNN기반의 모델에서 순방향 신경망은 FFNN이라하고, CNN기반의 모델에서 순방향 신경망은 FC</span>라고 한다.
+
+- Feedforward Neural Network
+  - 순방향 전파
+  - 재귀적인 구조가 없음 즉, RNN에 대비되는 신경망
+  - RNN과 대비되어 재귀적인 구조가 없기에 Gradient값이 명확하게 정의됨
+  - 역전파에의해 Gradient 계산이 쉬움
+
+- Fully-Connected Neural Network
+  - 순방향 전파
+  - 입력층의 모든 노드들이 히든 레이어의 모든 노드들과 연결됨
+  - CNN과 대비되는 구조로, CNN은 Pooling과 Stride로 듬성듬성 연결된것과 대비된다.
+
+
+## 4. Python으로 구현하기
+
+### 1) Feedforward Neural Network
 
 ```python
 import torch
@@ -234,9 +251,176 @@ Iteration: 2500. Loss: 0.13824449479579926. Accuracy: 94.5999984741211
 Iteration: 3000. Loss: 0.22502899169921875. Accuracy: 94.8499984741211
 ```
 
+### 2) Fully Connected Neural Network
+```python
+'''
+Fully Connected Neural Network(FC) using PyTorch
+- MNIST Handwriting dataset
 
+In this code we go through
+how to create the network as well as initialize 
+a loss function, optimizer, check accuracy and more.
+'''
+
+import torch
+import torch.nn.functional as F # Parameterless functions, like (some) activation functions
+import torchvision.datasets as datasets # Standard datasets
+import torchvision.transforms as transforms # Transformations we can perform on our dataset for augmentation
+
+from torch import optim # For optimizers like SGD, Adam, etc.
+from torch import nn # All neural network modules
+from torch.utils.data import DataLoader # Gives easier dataset managment by creating mini batches etc.
+from tqdm import tqdm  # For nice progress bar!
+
+#---------------------------------------------------------------------------------------------------------------------#
+# 간단한 Neural network를 만들 것 
+# subclassing(하위 분류) and inheriting(상속)을 이용해 만드는 것이 가장 일반적인 방법
+# nn.Module을 이용해 subclassing과 inheriting을 하면 유연성이 향상된다.
+
+class NN(nn.Module):
+    def __init__(self, input_size, num_classes):
+        
+        '''
+        Here we define the layers of the network. We create two fully connected layers
+        
+        Parameters:
+            input_size: the size of the input, in this case 784 (28x28)
+            num_classes: the number of classes we want to predict, in this case 10 (0-9)       
+        '''
+        
+        super(NN, self).__init__()
+        # Our first linear layer take input_size, in this case 784 nodes to 50
+        # and our second linear layer takes 50 to the num_classes we have, in
+        # this case 10.        
+        self.fc1 = nn.Linear(input_size, 50)
+        self.fc2 = nn.Linear(50, num_classes)
+        
+    def forward(self, x):
+        """
+        1. x = MNIST images, run it through fc1, fc2 that we created above.
+        2. ReLU activation using nn.functional(F)
+            - ReLU has no parameters
+            
+        Parameters:
+            x: mnist images
+            
+        Returnes:
+            out: the output of the network
+        """
+        
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+#---------------------------------------------------------------------------------------------------------------------#
+# GPU 사용 가능 여부 Check
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# Hyperparameter
+input_size = 784
+num_classes = 10
+learning_rate = 0.001
+batch_size = 64
+num_epochs = 3
+
+# Load data
+train_dataset = datasets.MNIST(
+    root = "dataset/", train = True, transform = transforms.ToTensor(), download = True)
+
+test_dataset = datasets.MNIST(
+    root = "dataset/", train = False, transform = transforms.ToTensor(), download = True)
+
+train_loader = DataLoader(dataset = train_dataset, batch_size = batch_size, shuffle = True)
+test_loader = DataLoader(dataset = test_dataset, batch_size = batch_size, shuffle = True)
+
+# Initialize network
+model = NN(input_size = input_size, num_classes = num_classes).to(device)
+
+# Loss and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr = learning_rate)
+
+# Train Network
+for epoch in range(num_epochs):
+    for batch_idx, (data, targets) in enumerate(tqdm(train_loader)):
+        # Data를 cuda에서 얻는다.
+        data = data.to(device = device)
+        targets = targets.to(device = device)
+        
+        # Get to correct shape
+        data = data.reshape(data.shape[0], -1)
+        
+        # Forward
+        scores = model(data)
+        loss = criterion(scores, targets)
+        
+        # Backward
+        optimizer.zero_grad()
+        loss.backward()
+        
+        # Gradient Descent or Adam step
+        optimizer.step()
+#---------------------------------------------------------------------------------------------------------------------#
+
+# Training & Test error
+def check_accuracy(loader, model):
+    """
+    Check accuracy of our trained model given a loader and a model
+    
+    Parameters:
+        loader: torch.utils.data.DataLoader
+            A loader for the dataset you want to check accuracy on
+        model: nn.Module
+            The model you want to check accuracy on
+    
+    Returns:
+        acc: float
+            The accuracy of the model on the dataset given by the loader
+    """
+    num_correct = 0
+    num_samples = 0
+    model.eval()
+    
+    # We don't need to keep track of gradients here so we wrap it in torch.no_grad()
+    with torch.no_grad():
+        # Loop through the data
+        for x, y in loader:
+            
+            # Move data to device
+            x = x.to(device = device)
+            y = y.to(device = device)
+            
+            # Get to correct shape
+            x = x.reshape(x.shape[0], -1)
+            
+            # Forward pass
+            scores = model(x)
+            _, predictions = scores.max(1)
+            
+            # Check how many we got correct
+            num_correct += (predictions == y).sum()
+            
+            # Keep track of number of samples
+            num_samples += predictions.size(0)
+            
+    model.train()
+    return num_correct / num_samples
+
+# Check accuracy
+print(f"Accuracy on training set: {check_accuracy(train_loader, model)*100:.2f}")
+print(f"Accuracy on test set: {check_accuracy(test_loader, model)*100:.2f}")
+
+```
+```
+100%|██████████| 938/938 [00:11<00:00, 79.30it/s]
+100%|██████████| 938/938 [00:08<00:00, 115.45it/s]
+100%|██████████| 938/938 [00:08<00:00, 104.69it/s]
+Accuracy on training set: 96.21
+Accuracy on test set: 95.95
+```
 
 ## Reference
 
 [[DL] 순방향 신경망(feedforward neural network)]("https://velog.io/@cha-suyeon/DL-%EC%88%9C%EB%B0%A9%ED%96%A5-%EC%8B%A0%EA%B2%BD%EB%A7%9Dfeedforward-neural-network#fc-layerfully-connected-layer")  
+[Stack Tensorflow]("https://stackoverflow.com/questions/45933670/whats-the-difference-between-feed-forward-network-and-fully-connected-networ")
+
 
