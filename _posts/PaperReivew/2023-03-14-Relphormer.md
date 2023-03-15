@@ -119,7 +119,7 @@ Transformer의 input은 Sequential 하고, 이러한 Sequential input의 구조�
 
 이를 극복하기위해 **Attention Bias**를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 노드쌍 사이의 구조적 정보를 포착할 수 있다
 
-<center><span style = "font-size:120%">(4)$ \; \; a_{ij} =  \frac{(h_iW_Q)(h_jW_K)}{\sqrt{d}} + \phi(i,j), \; \; \; \; \phi(i,j) = f_{structure}(\tilde{A}^1, \tilde{A}^2, \cdots, \tilde{A}^m)$</span></center>
+<center><span style = "font-size:120%">(4)$$ \; \; a_{ij} =  \frac{(h_iW_Q)(h_jW_K)}{\sqrt{d}} + \phi(i,j), \; \; \; \; \phi(i,j) = f_{structure}(\tilde{A}^1, \tilde{A}^2, \cdots, \tilde{A}^m)$$</span></center>
 
 - $$\phi(i,j)$$ : Attention bias between node $$v_i$$ and node $$v_j$$
 - $$\tilde{A}$$ : Normalized adjacency matrix
@@ -133,7 +133,7 @@ Transformer의 input은 Sequential 하고, 이러한 Sequential input의 구조�
 
 Contextual contrrastive strategy는 모델이 비슷한 예측을 수행하도록 강제하는 것으로 Epoch마다 같은 중심 triple에 대해 다른 Contexualized sub-graph를 사용하는 전략이다. Contextual loss는 다음과 같다.
 
-<span style = "font-size:120%">(5)$ \;\; \mathscr{L_{contextual} = -log\frac{exp(sim(c_t, c_{t-1}/\tau))}{exp(sim(c_t, c_{t-1}/\tau)) + \sum_{j}exp(sim(c_t, c_{j}/\tau))}}$</span>
+<center><span style = "font-size:120%">(5)$$ \;\; \mathscr{L_{contextual} = -log\frac{exp(sim(c_t, c_{t-1}/\tau))}{exp(sim(c_t, c_{t-1}/\tau)) + \sum_{j}exp(sim(c_t, c_{j}/\tau))}}$$</span></center>
 
 - $$sim(c_t, c_{t-1}/\tau)$$ = Cosine 유사도
 - $$c_t$$ t 번째 epoch의 hidden state representation
