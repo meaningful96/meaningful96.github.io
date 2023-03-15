@@ -207,7 +207,7 @@ Reasoning(추론) 중에는 Multi-sampling strategy를 사용한다.
 
 KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA의 경우의 수식은 다음과 같다.
 
-$$(9) \; \; f: Q_M, M(\theta) \rightarrow Y$$ - Fine-tuning for Question Answering Task
+- $$ f: Q_M, M(\theta) \rightarrow Y$$ - Fine-tuning for Question Answering Task
 <br/>
 <br/>
 
@@ -222,8 +222,8 @@ $$(9) \; \; f: Q_M, M(\theta) \rightarrow Y$$ - Fine-tuning for Question Answeri
         - $$\bf{h}$$: $$h \in \mathbb{R}^d$$, Masked head derived from multi-head attention layer
         - $$W$$: Vocab token embedding, $$W \in \mathbb{R}^{d \times N}$$ & $$N = |\mathscr{E}| + |\mathscr{R}|$$ 
     - 수식화
-        - <span style = "font-size:110%">$$(10) \; \; sigmoid\displaystyle\sum^{|\mathscr{E}|}v_{object_i}g(v_{object}, v_{predicate}, [MASK])$$ </span>이다.
-    - 이 때 <span style = "font-size:110%">$$ (11) \; \; f(\cdot) \approx v_{object_i}g(\cdot)$$</span>을 score function role로 정의한다. 
+        - <span style = "font-size:110%">$$ sigmoid\displaystyle\sum^{|\mathscr{E}|}v_{object_i}g(v_{object}, v_{predicate}, [MASK])$$ </span>이다.
+    - 이 때 <span style = "font-size:110%">$$ f(\cdot) \approx v_{object_i}g(\cdot)$$</span>을 score function role로 정의한다. 
     - 이로써, <span style = "color:aqua">Masked knowledge Modeling은 일종의 score function approximator</span>가 된다.
 
 # 3. Experiment
