@@ -1,15 +1,17 @@
 ---
-title: 7. Relphormer : Relational Graph Transformer for Knowledge Graph Representation (arXiv, 2022)
+title: 7. Relphormer: Relational Graph Transformer for Knowledge Graph Representation
+
 categories: 
   - PaperReview
+  
 tags:
   - [KG Completion]
-
+  
 toc: true
 toc_sticky: true
 
-date: 2023-03-13
-last_modified_at: 2023-03-13
+date: 2023-03-14
+last_modified_at: 2023-03-14
 ---
 
 ## 1. Problem Statement
