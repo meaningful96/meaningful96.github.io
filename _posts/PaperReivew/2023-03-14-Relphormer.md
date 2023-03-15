@@ -83,7 +83,7 @@ Triple2Seq의 목적은 <span style = "color:gold">**Edge들의 Heterogeneity를
 
 
 
-<span style = "font-size:110%">$$ (1) \; \; T_G = T \; \cup \; T_{context} $$</span>
+<span style = "font-size:110%">$$ - \; \; (1) \; \; T_G = T \; \cup \; T_{context} $$</span>
 
 
 
@@ -91,7 +91,7 @@ Triple2Seq의 목적은 <span style = "color:gold">**Edge들의 Heterogeneity를
 
 
 
-<span style = "font-size:110%">$$ (2) \;\;T_{context} = \{vㅣv = v_s \; or \; v_p \; or \; v_o, \; \exists \;(v_s, v_p, v_o) \; \in \; \mathscr{N} \}$$</span>
+<span style = "font-size:110%">$$ - \; \;(2) \;\;T_{context} = \{vㅣv = v_s \; or \; v_p \; or \; v_o, \; \exists \;(v_s, v_p, v_o) \; \in \; \mathscr{N} \}$$</span>
 
 
 
