@@ -82,13 +82,17 @@ Triple2Seq의 목적은 <span style = "color:gold">**Edge들의 Heterogeneity를
 모델의 Input sequence로 **Contextualized Sub-graphs**를 사용하는 방식이다. Contextualized sub-graph를 사용하여 local structure information을 집어넣을 수 있다. Contextualized Sub-Graph는 $$T_G$$이다.
 
 --------------------------------------------------------------------------------------
+
 <span style = "font-size:120%">$$ (1) \; \; T_G = T \; \cup \; T_{context} $$ </span>
+
 --------------------------------------------------------------------------------------
 
 이 때, $$T$$는 Center triplet이고, $$T$$의 이웃 노드 집합이 $$T_{context}$$이다.  즉, Contextualized Sub-Graph $$T_G$$는 center triplet과 그 이웃 노드들의 triplet으로 구성되어 있다. $$T_{context}$$
 
 --------------------------------------------------------------------------------------
+
 <span style = "font-size:120%">$$ (2) \;\;T_{context} = \{vㅣv = v_s \; or \; v_p \; or \; v_o, \; \exists \;(v_s, v_p, v_o) \; \in \; \mathscr{N} \}$$</span>
+
 --------------------------------------------------------------------------------------
 
 $$\mathscr{N}$$은 $$T$$의 고정된 크기의 이웃 triple의 집합이다.(fixed-size neighborhood triple set of the triple $$T$$)
