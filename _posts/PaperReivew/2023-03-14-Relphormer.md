@@ -107,7 +107,7 @@ Knowledge Graph에서 Relation의 수는 압도적으로 Entity수보다 훨씬 
 
 논문에서는 추가적으로 Global information을 보존하기 **global node**를 추가한다. global node는 자연어 처리의 pre-training 모델에서 [CLS] 토큰과 유사한 역할을 수행한다. 이 global node를 기존의 contextualized subgraph와 <span style= "color:aqua">학습가능한 가상의 거리(virtual distance) 또는 고정된 거리를 통하여 연결</span>한다.
 
-<span style = "font-size:120%">$$ (3) \; \; \{v_{cls}, v_1, v_2, \cdots, v_i\}$$</span>
+<span style = "font-size:120%"><center>$$ (3) \; \; \{v_{cls}, v_1, v_2, \cdots, v_i\}$$</center></span>
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224576605-64e7ef8a-a6d9-4312-8b77-fc62dfaab744.png">
@@ -119,7 +119,7 @@ Transformer의 input은 Sequential 하고, 이러한 Sequential input의 구조�
 
 이를 극복하기위해 **Attention Bias**를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 노드쌍 사이의 구조적 정보를 포착할 수 있다
 
-<span style = "font-size:120%">(4)$ \; \; a_{ij} =  \frac{(h_iW_Q)(h_jW_K)}{\sqrt{d}} + \phi(i,j), \;\;\;\; \phi(i,j) = f_{structure}(\tilde{A}^1, \tilde{A}^2, \cdots, \tilde{A}^m)$</span>
+<center><span style = "font-size:120%">(4)$ \; \; a_{ij} =  \frac{(h_iW_Q)(h_jW_K)}{\sqrt{d}} + \phi(i,j), \; \; \; \; \phi(i,j) = f_{structure}(\tilde{A}^1, \tilde{A}^2, \cdots, \tilde{A}^m)$</span></center>
 
 - $$\phi(i,j)$$ : Attention bias between node $$v_i$$ and node $$v_j$$
 - $$\tilde{A}$$ : Normalized adjacency matrix
