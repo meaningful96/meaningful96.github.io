@@ -219,8 +219,10 @@ KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA�
         - $$T_M$$: Masked Triplet
         - $$\bf{h}$$: $$h \in \mathbb{R}^d$$, Masked head derived from multi-head attention layer
         - $$W$$: Vocab token embedding, $$W \in \mathbb{R}^{d \times N}$$ & $$N = ㅣmathscr{E}ㅣ + ㅣ\mathscr{R}ㅣ$$ 
+
     - 수식화
         - <span style = "font-size:110%">$$ sigmoid\displaystyle\sum^{ㅣ\mathscr{E}ㅣ}v_{object_i}g(v_{object}, v_{predicate}, [MASK])$$ </span>이다.
+
     - 이 때 <span style = "font-size:110%">$$ f(\cdot) \approx v_{object_i}g(\cdot)$$</span>을 score function role로 정의한다. 
     - 이로써, <span style = "color:aqua">Masked knowledge Modeling은 일종의 score function approximator</span>가 된다.
 
@@ -303,6 +305,10 @@ Subgraph의 개수가 4개에서부터 늘어날수록 점점 성능이 좋아�
 - Figure 4
     - Structure-enhanced attention이 없을 때 두 dataset모두 성능 저하가 눈에띄게 나타남
     - Structure-enhanced attention, optimization object, MKM, Global node가 하나씩 없을경우의 성능을 보여줌
+    - global node가 없으면 모델의 정확성이 감소
+      - global node가 전역적인 정보인 global information을 유지하는데 도움이 된다.
+
+
 - Figure 5
     - (L) Structure-enhanced self attetion 있을때
     - 구조 정보를 Structure-enhanced self attention을 통해 주입해 줌
