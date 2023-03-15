@@ -111,7 +111,7 @@ Triple2Seq에서는 edges(relations)를 일반적인 노드로 여기며, 이렇
 
 ### 2.1) global node
 
-Relphormer의 선행 연구인 HittER을 통해 <u>**Entity-Relation 쌍의 정보가 Knowledge Graph에 있어서 필수적인 정보**</u>라는 것이 밝혀졌다. 앞서 Contextualized Sub-graph를 사용한 Triple2Seq를 통해 Entity-Relation 쌍의 정보와 더불어 Entity-Entity, Relation-Relation쌍의 정보 또한 얻을 수 있다.(이게 가능한 이유는, Contextualized Subgraph에서 relation도 하나의 **normal node**로 보고 subgraph를 생성하기 때문이다.) 
+Relphormer의 선행 연구인 HittER을 통해 <u>Entity-Relation 쌍의 정보가 Knowledge Graph에 있어서 필수적인 정보</u>라는 것이 밝혀졌다. 앞서 Contextualized Sub-graph를 사용한 Triple2Seq를 통해 Entity-Relation 쌍의 정보와 더불어 Entity-Entity, Relation-Relation쌍의 정보 또한 얻을 수 있다.(이게 가능한 이유는, Contextualized Subgraph에서 relation도 하나의 **normal node**로 보고 subgraph를 생성하기 때문이다.) 
 
 Knowledge Graph에서 Relation의 수는 압도적으로 Entity수보다 훨씬 적기 때문에 Relation edge로 contextualized subgraph 사이의 globally semantic information을 유지할 수 있다. 수가 더 적기 때문에 각각의 위치가 나타내는 구조적 정보가 효력이 있는 것이다.
 
@@ -143,7 +143,7 @@ Transformer의 input은 Sequential 하고, 이러한 Sequential input의 구조�
 
 ### 2.3) Contrastive learning strategy
 
-모델을 학습하는 동안 <u>**하나의 Center Triple에 대해서만 sub-graph를 사용하면 Inconsistency가 생긴다**.</u> 즉, 하나의 중심 노드에 대한 하위 그래프들에 대해서만 학습되므로 전체적인 그래프의 정보에 대한 <u>비일관적이고 모순적인 정보가 가공</u>된다. 이러한 모순을 해결하기 위해 논문에서 Dynamic sampling을 하면서 동시에 <span style = "color:gold">**Contextual Contrastive Strategy**</span>를 사용했다. 
+모델을 학습하는 동안 <u>하나의 Center Triple에 대해서만 sub-graph를 사용하면 Inconsistency가 생긴다.</u> 즉, 하나의 중심 노드에 대한 하위 그래프들에 대해서만 학습되므로 전체적인 그래프의 정보에 대한 <u>비일관적이고 모순적인 정보가 가공</u>된다. 이러한 모순을 해결하기 위해 논문에서 Dynamic sampling을 하면서 동시에 <span style = "color:gold">**Contextual Contrastive Strategy**</span>를 사용했다. 
 
 Contextual contrrastive strategy는 모델이 비슷한 예측을 수행하도록 강제하는 것으로 Epoch마다 같은 중심 triple에 대해 다른 Contexualized subgraph를 사용하는 전략이다. Contextual loss는 다음과 같다.
 
