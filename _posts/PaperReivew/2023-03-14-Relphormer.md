@@ -136,8 +136,6 @@ Transformer의 input은 Sequential 하고, 이러한 Sequential input의 구조�
 <br/>
 <br/>
 <span style = "font-size:110%">$$(4) \; \; a_{ij} =  \frac{(h_iW_Q)(h_jW_K)}{\sqrt{d}} + \phi(i,j), \; \; \; \; \phi(i,j) = f_{structure}(\tilde{A}^1, \tilde{A}^2, \cdots, \tilde{A}^m)$$</span>
-<br/>
-<br/>
 
 - $$\phi(i,j)$$ : Attention bias between node $$v_i$$ and node $$v_j$$
 - $$\tilde{A}$$ : Normalized adjacency matrix
@@ -154,8 +152,6 @@ Contextual contrrastive strategy는 모델이 비슷한 예측을 수행하도�
 <br/>
 <br/>
 <span style = "font-size:110%">$$(5) \;\; \mathscr{L_{contextual} = -log\frac{exp(sim(c_t, c_{t-1}/\tau))}{exp(sim(c_t, c_{t-1}/\tau)) + \sum_{j}exp(sim(c_t, c_{j}/\tau))}}$$</span>
-<br/>
-<br/>
 
 - $$sim(c_t, c_{t-1}/\tau)$$ = Cosine 유사도
 - $$c_t$$ t 번째 epoch의 hidden state representation
@@ -198,16 +194,12 @@ Masked Knowledge Modeling은 매개 변수의, Parametric한 score function의 a
 <br/>
 <br/>
 <span style = "font-size:110%">$$(7) \;\;\mathscr{L}_{all} = \mathscr{L}_{MKM} +\lambda\, \mathscr{L}_{contextual}$$</span>
-<br/>
-<br/>
 
 Reasoning(추론) 중에는 Multi-sampling strategy를 사용한다.
 
 <br/>
 <br/>
 <span style ="font-size:110%">$$(8) \;\; \tilde{y} = \frac{1}{K} \displaystyle\sum_{k}\bf{y}_k $$</span>
-<br/>
-<br/>
 
 - $$y_k \in \mathbb{R}^{ㅣVㅣ \times 1}$$ : 하나의 Contextualized subgraph의 예측 결과
 
@@ -215,8 +207,6 @@ Reasoning(추론) 중에는 Multi-sampling strategy를 사용한다.
 
 KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA의 경우의 수식은 다음과 같다.
 
-<br/>
-<br/>
 $$(9) \; \; f: Q_M, M(\theta) \rightarrow Y$$ - Fine-tuning for Question Answering Task
 <br/>
 <br/>
