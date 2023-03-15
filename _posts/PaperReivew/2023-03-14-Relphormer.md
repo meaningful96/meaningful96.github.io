@@ -69,7 +69,7 @@ Knowledge Graphs는 triple($$head, relation, tail$$)로 구성된다. 논문에�
 - 주의깊게 봐야할 Notation
   - Relational Graph $$G = (\mathscr{E}, R)$$
   - Node Set $$V = \mathscr{E} \; \cup \; R$$
-  - Adjacency Matrix =  $$ A \in [0,1]^{|V| \times |V|}$$
+  - Adjacency Matrix =  $$ A \in \{0,1\}^{|V| \times |V|}$$
 
 - Knowledge Graph Completion
   - Triple $$(v_{subject}, v_{predicate}, v_{object}) = (v_s, v_p, v_o) = T$$  
