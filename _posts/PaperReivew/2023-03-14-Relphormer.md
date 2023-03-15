@@ -280,6 +280,7 @@ KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA�
 </p>
 - *Full~, Filter~* setting은 appendix에 있다.
 - BERT와 HittER 모델에 비해서 QA Task에서 더 높은 정확성을 보여준다.
+- <u>pre-trained된 textual representation을 넣어주는 것이 QA Task 정확성을 향상</u>시킨다.
 
 ## 5) Recommendation
 
@@ -292,7 +293,7 @@ KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA�
 <img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/224580077-8eae82fa-e9c3-4442-b611-d6d3716d26f4.png">
 </p>
 
-Subgraph의 개수가 4개에서부터 늘어날수록 점점 성능이 좋아지지만 16개 이후로는 결과가 수렴하게된다. 그 이유는, Subgraph의 개수가 아무리 많아져도 결국 Center triplet에 대해 중복된 정보만 생성되기에 성능향상이 일어나지 않는다.
+Subgraph의 개수가 4개에서부터 늘어날수록 점점 성능이 좋아지지만 16개 이후로는 결과가 수렴하게된다. 그 이유는, Subgraph의 개수가 아무리 많아져도 결국 Center triplet에 대해 중복된 정보만 생성되기에 성능향상이 일어나지 않는다. 또한 아무리 이웃 노드들에 대한 정보가 유의미해도, <u>subgraph의 수가 너무 많으면 불필요한 Noise signal을 유발</u>하기 때문이다.
 
 ## Ablation Study 2 : structure-enhanced self attention, optimization object, Global node
 
