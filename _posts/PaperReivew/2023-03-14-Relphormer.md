@@ -54,8 +54,6 @@ Pure Graph와는 다르게 Knowledge Graph는 여러 가지의 노드 타입이 
 
 1. KG representation을 통합시키기위함
 
-
-
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224571721-9fe510b4-85f0-45a7-a91c-ce50a21defbc.png">
 </p>
@@ -71,11 +69,11 @@ Knowledge Graphs는 triple($$head, relation, tail$$)로 구성된다. 논문에�
 - 주의깊게 봐야할 Notation
   - Relational Graph $$G = (\mathscr{E}, R)$$
   - Node Set $$V = \mathscr{E} \; \cup \; R$$
-  - Adjacency Matrix $$A \in [0,1]^{|V| \times |V|}$$
+  - Adjacency Matrix $$ A \in [0,1]^{|V| \times |V|} $$
 
 - Knowledge Graph Completion
   - Triple $$(v_{subject}, v_{predicate}, v_{object}) = (v_s, v_p, v_o) = T$$  
-  - As the label set $$T$$, $$f: T_M,A_G \rightarrow Y$$, $ Y \in \mathbb{R}^{|\mathscr{E}| \times |R|}$ 로 정의된다.
+  - As the label set $$T$$, $$f: T_M,A_G \rightarrow Y$$, $$ Y \in \mathbb{R}^{|\mathscr{E}| \times |R|} $$ 로 정의된다.
 
 ### 1) Triple2Seq
 
@@ -83,7 +81,7 @@ Triple2Seq의 목적은 <span style = "color:gold">**Edge들의 Heterogeneity를
 
 모델의 Input sequence로 **Contextualized Sub-graphs**를 사용하는 방식이다. Contextualized sub-graph를 사용하여 local structure information을 집어넣을 수 있다. Contextualized Sub-Graph는 $$T_G$$이다.
 
-<span style = "font-size:120%">(1)$ \; \; T_G = T \; \cup \; T_{context}$ </span>
+<span style = "font-size:120%">(1)$$ \; \; T_G = T \; \cup \; T_{context} $$ </span>
 
 이 때, $$T$$는 Center triplet이고, $$T$$의 이웃 노드 집합이 $$T_{context}$$이다.  즉, Contextualized Sub-Graph $$T_G$$는 center triplet과 그 이웃 노드들의 triplet으로 구성되어 있다. $$T_{context}$$
 
