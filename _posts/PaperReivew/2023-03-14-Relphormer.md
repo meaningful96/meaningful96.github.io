@@ -183,7 +183,7 @@ Reasoning(추론) 중에는 Multi-sampling strategy를 사용한다.
 
 <span style ="font-size:120%">$$ (8) \;\; \tilde{y} = \frac{1}{K} \displaystyle\sum_{k}\bold{y}_k $$</span>
 
-- $$y_k \in \mathbb{R}^{|V| \times 1}$$ : 하나의 Contextualized subgraph의 예측 결과
+- $$y_k \in \mathbb{R}^{ㅣVㅣ \times 1}$$ : 하나의 Contextualized subgraph의 예측 결과
 
 #### 5) Fine-tuning for KG-based Task
 
