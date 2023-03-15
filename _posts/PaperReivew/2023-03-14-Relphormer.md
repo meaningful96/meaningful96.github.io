@@ -131,7 +131,7 @@ Knowledge Graph에서 Relation의 수는 압도적으로 Entity수보다 훨씬 
 
 Transformer의 input은 Sequential 하고, 이러한 Sequential input의 구조적 정보는 Fully-connected attention을 하면 정보가 손실될 수 있다. 그 이유는 Fully-connected라는 것이 Dense-layer의 형태이고 모든 노드를 한 번에 분석하여 encode하는 것이기 때문에 Sequential input의 구조적 정보가 반영되지 못할 수도 있다는 것이다.
 
-이를 극복하기위해 **Attention Bias**를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 노드쌍 사이의 구조적 정보를 포착할 수 있다
+이를 극복하기위해 **Attention Bias**를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 노드쌍 사이의 구조적 정보를 포착할 수 있다. Structure-enhanced self attention의 경우 기본적인 모델 아키텍쳐는 기존의 Scaled dot product self attention과 유사하지만, softmax를 먹이기 전, Subgraph를 통해 뽑아낸 구조 정보도 같이 넣어주는 형태이다.
 
 <br/>
 <br/>
