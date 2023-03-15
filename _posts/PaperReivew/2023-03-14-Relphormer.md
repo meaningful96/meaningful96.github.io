@@ -48,7 +48,7 @@ Pure Graph와는 다르게 Knowledge Graph는 여러 가지의 노드 타입이 
   
     
   
-    ➜ <span style = "font-size:120%">**How to unite Knowledge Graph Representation for KG-based tasks**</span>
+    ➜ <span style = "font-size:120%">**How to unite Knowledge Graph Representation for KG-based tasks?**</span>
   
 
 # 2. Method
