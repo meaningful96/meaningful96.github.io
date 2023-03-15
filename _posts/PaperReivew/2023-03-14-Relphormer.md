@@ -220,9 +220,9 @@ KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA�
     - $$T_M$$이 tail entity가 마스킹된 triplet이고 $$g(\cdot)$$ 함수가 multy-head attention module을 나타내며 $$V_{object} \subset W$$ 인 Tail entity의 후보자 임베딩(candidate embedding)일 때 출력은 $$sigmoid(W\bf{h})$$이고 이는 근사적으로 $$sigmoid{(V_{object}\bf{h})}$$와 동일하다.
         - $$T_M$$: Masked Triplet
         - $$\bf{h}$$: $$h \in \mathbb{R}^d$$, Masked head derived from multi-head attention layer
-        - $$W$$: Vocab token embedding, $$W \in \mathbb{R}^{d \times N}$$ & $$N = |\mathscr{E}| + |\mathscr{R}|$$ 
+        - $$W$$: Vocab token embedding, $$W \in \mathbb{R}^{d \times N}$$ & $$N = ㅣmathscr{E}ㅣ + ㅣ\mathscr{R}ㅣ$$ 
     - 수식화
-        - <span style = "font-size:110%">$$ sigmoid\displaystyle\sum^{|\mathscr{E}|}v_{object_i}g(v_{object}, v_{predicate}, [MASK])$$ </span>이다.
+        - <span style = "font-size:110%">$$ sigmoid\displaystyle\sum^{ㅣ\mathscr{E}ㅣ}v_{object_i}g(v_{object}, v_{predicate}, [MASK])$$ </span>이다.
     - 이 때 <span style = "font-size:110%">$$ f(\cdot) \approx v_{object_i}g(\cdot)$$</span>을 score function role로 정의한다. 
     - 이로써, <span style = "color:aqua">Masked knowledge Modeling은 일종의 score function approximator</span>가 된다.
 
