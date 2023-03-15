@@ -73,7 +73,7 @@ Knowledge Graphs는 triple($$head, relation, tail$$)로 구성된다. 논문에�
 
 - Knowledge Graph Completion
   - Triple $$(v_{subject}, v_{predicate}, v_{object}) = (v_s, v_p, v_o) = T$$  
-  - As the label set $$T$$, $$f: T_M,A_G \rightarrow Y$$, $$ Y \in \mathbb{R}^{|\mathscr{E}| \times |R|} $$ 로 정의된다.
+  - As the label set $$T$$, $$f: T_M,A_G \rightarrow Y$$, $$ Y \in \mathbb{R}^{ㅣ\mathscr{E}ㅣ \times ㅣRㅣ} $$ 로 정의된다.
 
 ### 1) Triple2Seq
 
