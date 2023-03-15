@@ -20,15 +20,15 @@ last_modified_at: 2023-03-14
 <img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/224568729-8133ac85-90ce-4ca0-8ec4-c5e9a6cdc78a.png">
 </p>
 
-Pure Graph와는 다르게 Knowledge Graph는 여러 가지의 노드 타입이 존재하는 Heterogeneous Graph이다. Transformer가 Computer vision이나, Natural Language Process등의 분야에서 성공적이였다면 아직 **Knowledge Graph modeling에서는 적합한지 의문**이다. 구체적으로 두 가지 nontrivial challenge가 있다.
+Pure Graph와는 다르게 Knowledge Graph는 여러 가지의 노드 타입이 존재하는 Heterogeneous Graph이다. Transformer가 Computer vision이나, Natural Language Process등의 분야에서 성공적이였다면 아직 <u>Knowledge Graph modeling에서는 적합한지 의문</u>이다. 구체적으로 두 가지 nontrivial challenge가 있다.
 
 - **1. Heterogeneity for edges and nodes**
   
   -  Knowledge Graph는 일종의 Semantic-Enrich entity로 구성된 relational graph이다.
     - Multiple edges have different relational information
     
-  - 또한 Knowledge Graph는 일종의 Text-Rich network이다.
-    -  각각의 노드가 서로 다른 topological structure와 textual description을 갖는다.
+  - 또한 Knowledge Graph는 일종의 **Text-Rich network**이다.
+    - 각각의 노드가 서로 다른 topological structure와 textual description을 갖는다.
     
   - Vanilla Transformer는 <span style = "color:gold">모든 엔티티와 릴레이션을 plain token으로 간주하기 때문에 필수적인 구조 정보가 유실</span>된다.
   
