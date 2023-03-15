@@ -60,9 +60,9 @@ Pure Graph와는 다르게 Knowledge Graph는 여러 가지의 노드 타입이 
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224571721-9fe510b4-85f0-45a7-a91c-ce50a21defbc.png">
 </p>
 
-	### 0) Preliminaries
+### 0) Preliminaries
 
-Knowledge Graphs는 triple($$head, relation, tail$$)로 구성된다. 논문에서는 **Knowledge Graph Completion** Task와 **Knowledge Graph-Enhanced Downstream **Task를 푸는 것을 목표로 한다. 모델을 살펴보기 전 Notation을 살펴봐야 한다.
+Knowledge Graphs는 triple($$head, relation, tail$$)로 구성된다. 논문에서는 **Knowledge Graph Completion** Task와 **Knowledge Graph-Enhanced Downstream Task**를 푸는 것을 목표로 한다. 모델을 살펴보기 전 Notation을 살펴봐야 한다.
 
 <p align="center">
 <img width="500" alt="1" src="https://user-images.githubusercontent.com/111734605/224572006-9fcb2f52-8504-43c1-b8ef-b04e1cd4db07.png">
@@ -71,11 +71,11 @@ Knowledge Graphs는 triple($$head, relation, tail$$)로 구성된다. 논문에�
 - 주의깊게 봐야할 Notation
   - Relational Graph $$G = (\mathscr{E}, R)$$
   - Node Set $$V = \mathscr{E} \; \cup \; R$$
-  - Adjacency Matrix $$A \in [0,1]^{|V| \times |V|}$$
+  - Adjacency Matrix $A \in [0,1]^{|V| \times |V|}$
 
 - Knowledge Graph Completion
   - Triple $$(v_{subject}, v_{predicate}, v_{object}) = (v_s, v_p, v_o) = T$$  
-  - As the label set $$T$$, $$f: T_M,A_G \rightarrow Y$$, $$Y \in \mathbb{R}^{|\mathscr{E}| \times |R|}$$ 로 정의된다.
+  - As the label set $$T$$, $$f: T_M,A_G \rightarrow Y$$, $ Y \in \mathbb{R}^{|\mathscr{E}| \times |R|}$ 로 정의된다.
 
 ### 1) Triple2Seq
 
