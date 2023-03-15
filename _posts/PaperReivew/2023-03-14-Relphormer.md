@@ -146,9 +146,7 @@ Contextual contrrastive strategy는 모델이 비슷한 예측을 수행하도�
 - $$sim(c_t, c_{t-1}/\tau)$$ = Cosine 유사도
 - $$c_t$$ t 번째 epoch의 hidden state representation
 
-Input sequence를 인코딩하고 난 후 hidden vector $$h_{mask}$$를 current epoch t에서의 contextual representation $$c_t$$로 취한다. <span style ="color:aqua">Contextual loss의 목적은 **서로 다른 sub graph들 사이의 차이를 최소화** 하는 것</span>이다.
-
-$$c_t$$는 다시 말해서 $$h_{mask}$$를 contextual representation 형태로 나타낸 것이고, 이는 다른 중심 트리플들에 속한 t-epoch에서의 hidden state representation이다.
+Input sequence를 인코딩하고 난 후 hidden vector $$h_{mask}$$를 current epoch t에서의 contextual representation $$c_t$$로 취한다. <span style ="color:aqua">Contextual loss의 목적은 **서로 다른 sub graph들 사이의 차이를 최소화** 하는 것</span>이다. $$c_t$$는 다시 말해서 $$h_{mask}$$를 contextual representation 형태로 나타낸 것이고, 이는 다른 중심 트리플들에 속한 t-epoch에서의 hidden state representation이다.
 
 기존의 atttention operation은 단순히 전체 그래프 안에서 노드와 의미있는 relation사이에서 계산을 진행하는것에 반해, <span style = "color:gold">Structure-enhances self attention은 **Contextualized Sub-graph** 구조를 이용한 Locality 정보와 Semantic feature들에 대해도 유의미한 영향을 주는 유연성을 이끌어내며 이를 통해 Transformer 모델에 구조적 정보(Structural information)와 의미론적 정보(Semantic feature)를 동시에 줄 수 있다</span>는 것이 특징이다. 
 
@@ -165,9 +163,9 @@ $$c_t$$는 다시 말해서 $$h_{mask}$$를 contextual representation 형태로 
 
 마스킹을 수식화하면 다음과 같다.
 
-<span style = "font-size:120%">(6)$\begin{align} \;\; &T_M = MASK(T_G)\\
+<span style = "font-size:120%">$$(6)\begin{align} \;\; &T_M = MASK(T_G)\\
 &Relphormer(T_M, A_G) \rightarrow Y, Y \in \mathbb{R}^{|\mathscr{E}|\times |R|}
-\end{align}$</span>
+\end{align}$$</span>
 
 Sequence에서 단 **하나의 토큰만 랜덤하게 마스킹**한다. 그 이유는 <span style = "color:gold">Contextualized Sub-graph 의 유니크한 구조적 정보로 Conxtextual information을 더 잘 통합</span>하기 위함이다 .  
 
@@ -179,11 +177,11 @@ Masked Knowledge Modeling은 매개 변수의, Parametric한 score function의 a
 
 학습에는 Masked Knowledge loss와 Contrastive Learning Object를 같이 사용한다.(Joint Optimization)
 
-<span style = "font-size:120%">(7)$  \;\;\mathscr{L}_{all} = \mathscr{L}_{MKM} +\lambda\, \mathscr{L}_{contextual}$</span>
+<span style = "font-size:120%">$$(7) \;\;\mathscr{L}_{all} = \mathscr{L}_{MKM} +\lambda\, \mathscr{L}_{contextual}$$</span>
 
 Reasoning(추론) 중에는 Multi-sampling strategy를 사용한다.
 
-<span style ="font-size:120%">(8)$  \;\; \tilde{y} = \frac{1}{K} \displaystyle\sum_{k}\bold{y}_k $</span>
+<span style ="font-size:120%">$$ (8) \;\; \tilde{y} = \frac{1}{K} \displaystyle\sum_{k}\bold{y}_k $$</span>
 
 - $$y_k \in \mathbb{R}^{|V| \times 1}$$ : 하나의 Contextualized subgraph의 예측 결과
 
@@ -191,7 +189,7 @@ Reasoning(추론) 중에는 Multi-sampling strategy를 사용한다.
 
  KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA의 경우의 수식은 다음과 같다.
 
-(9) $$f: Q_M, M(\theta) \rightarrow Y$$ - Fine-tuning for Question Answering Task
+$$(9) \; \; f: Q_M, M(\theta) \rightarrow Y$$ - Fine-tuning for Question Answering Task
 
 
 
