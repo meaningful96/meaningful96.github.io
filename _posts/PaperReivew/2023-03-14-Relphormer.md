@@ -320,4 +320,4 @@ Subgraph의 개수가 4개에서부터 늘어날수록 점점 성능이 좋아�
 1. Transformer 기반의 새로운 모델인 Relphormer를 제안
 2. 6개의 Benchmark Dataset에 대하여 기존의 Graph Embedding 모델들과 Transformer 기반 모델들에 비해 우수한 성능을 보여줌
 3. <span style ="color:gold">Attention bias를 이용해 그래프의 구조적 정보를 보존하고 Knowledge Graph에 적합한 Self-attention mechanism을 제시(Structure enhanced self-attention)</span>
-    - 특히<span style = "color:gold"> $\phi(i, j)$</span>를 제시한 Structure-enhanced Self-attention이 가장 큰 Contribution이다.
+    - 특히<span style = "color:gold"> $$ \phi(i, j)$$</span>를 제시한 Structure-enhanced Self-attention이 가장 큰 Contribution이다.
