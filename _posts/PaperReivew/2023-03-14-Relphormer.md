@@ -84,7 +84,7 @@ Triple2Seq의 목적은 <span style = "color:gold">**Edge들의 Heterogeneity를
 
 <br/>
 <br/>
-<span style = "font-size:110%">$$ - \; \; (1) \; \; T_G = T \; \cup \; T_{context} $$</span>
+<span style = "font-size:110%">$$(1) \; \; T_G = T \; \cup \; T_{context} $$</span>
 <br/>
 <br/>
 
@@ -92,9 +92,11 @@ Triple2Seq의 목적은 <span style = "color:gold">**Edge들의 Heterogeneity를
 이 때, $$T$$는 Center triplet이고, $$T$$의 이웃 노드 집합이 $$T_{context}$$이다.  즉, Contextualized Sub-Graph $$T_G$$는 center triplet과 그 이웃 노드들의 triplet으로 구성되어 있다.
 
 
-
-<span style = "font-size:110%">$$ - \; \;(2) \;\;T_{context} = \{vㅣv = v_s \; or \; v_p \; or \; v_o, \; \exists \;(v_s, v_p, v_o) \; \in \; \mathscr{N} \}$$</span>
-
+<br/>
+<br/>
+<span style = "font-size:110%">$$(2) \;\;T_{context} = \{vㅣv = v_s \; or \; v_p \; or \; v_o, \; \exists \;(v_s, v_p, v_o) \; \in \; \mathscr{N} \}$$</span>
+<br/>
+<br/>
 
 
 $$\mathscr{N}$$은 $$T$$의 고정된 크기의 이웃 triple의 집합이다.(fixed-size neighborhood triple set of the triple $$T$$)
@@ -115,18 +117,27 @@ Knowledge Graph에서 Relation의 수는 압도적으로 Entity수보다 훨씬 
 
 논문에서는 추가적으로 Global information을 보존하기 **global node**를 추가한다. global node는 자연어 처리의 pre-training 모델에서 [CLS] 토큰과 유사한 역할을 수행한다. 이 global node를 기존의 contextualized subgraph와 <span style= "color:aqua">학습가능한 가상의 거리(virtual distance) 또는 고정된 거리를 통하여 연결</span>한다.
 
+<br/>
+<br/>
 <span style = "font-size:110%">$$(3) \; \; \{v_{cls}, v_1, v_2, \cdots, v_i\}$$</span>
+<br/>
+<br/>
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224576605-64e7ef8a-a6d9-4312-8b77-fc62dfaab744.png">
 </p>
+
 ### 2.2) Structure enhanced self attention
 
 Transformer의 input은 Sequential 하고, 이러한 Sequential input의 구조적 정보는 Fully-connected attention을 하면 정보가 손실될 수 있다. 그 이유는 Fully-connected라는 것이 Dense-layer의 형태이고 모든 노드를 한 번에 분석하여 encode하는 것이기 때문에 Sequential input의 구조적 정보가 반영되지 못할 수도 있다는 것이다.
 
 이를 극복하기위해 **Attention Bias**를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 노드쌍 사이의 구조적 정보를 포착할 수 있다
 
+<br/>
+<br/>
 <span style = "font-size:110%">$$(4) \; \; a_{ij} =  \frac{(h_iW_Q)(h_jW_K)}{\sqrt{d}} + \phi(i,j), \; \; \; \; \phi(i,j) = f_{structure}(\tilde{A}^1, \tilde{A}^2, \cdots, \tilde{A}^m)$$</span>
+<br/>
+<br/>
 
 - $$\phi(i,j)$$ : Attention bias between node $$v_i$$ and node $$v_j$$
 - $$\tilde{A}$$ : Normalized adjacency matrix
@@ -140,7 +151,11 @@ Transformer의 input은 Sequential 하고, 이러한 Sequential input의 구조�
 
 Contextual contrrastive strategy는 모델이 비슷한 예측을 수행하도록 강제하는 것으로 Epoch마다 같은 중심 triple에 대해 다른 Contexualized sub-graph를 사용하는 전략이다. Contextual loss는 다음과 같다.
 
+<br/>
+<br/>
 <span style = "font-size:110%">$$(5) \;\; \mathscr{L_{contextual} = -log\frac{exp(sim(c_t, c_{t-1}/\tau))}{exp(sim(c_t, c_{t-1}/\tau)) + \sum_{j}exp(sim(c_t, c_{j}/\tau))}}$$</span>
+<br/>
+<br/>
 
 - $$sim(c_t, c_{t-1}/\tau)$$ = Cosine 유사도
 - $$c_t$$ t 번째 epoch의 hidden state representation
@@ -162,9 +177,13 @@ Input sequence를 인코딩하고 난 후 hidden vector $$h_{mask}$$를 current 
 
 마스킹을 수식화하면 다음과 같다.
 
+<br/>
+<br/>
 <span style = "font-size:110%">$$(6)\begin{align} \;\; &T_M = MASK(T_G)\\
 &Relphormer(T_M, A_G) \rightarrow Y, Y \in \mathbb{R}^{|\mathscr{E}|\times |R|}
 \end{align}$$</span>
+<br/>
+<br/>
 
 Sequence에서 단 **하나의 토큰만 랜덤하게 마스킹**한다. 그 이유는 <span style = "color:gold">Contextualized Sub-graph 의 유니크한 구조적 정보로 Conxtextual information을 더 잘 통합</span>하기 위함이다 .  
 
@@ -176,19 +195,31 @@ Masked Knowledge Modeling은 매개 변수의, Parametric한 score function의 a
 
 학습에는 Masked Knowledge loss와 Contrastive Learning Object를 같이 사용한다.(Joint Optimization)
 
+<br/>
+<br/>
 <span style = "font-size:110%">$$(7) \;\;\mathscr{L}_{all} = \mathscr{L}_{MKM} +\lambda\, \mathscr{L}_{contextual}$$</span>
+<br/>
+<br/>
 
 Reasoning(추론) 중에는 Multi-sampling strategy를 사용한다.
 
-<span style ="font-size:110%">$$ (8) \;\; \tilde{y} = \frac{1}{K} \displaystyle\sum_{k}\bf{y}_k $$</span>
+<br/>
+<br/>
+<span style ="font-size:110%">$$(8) \;\; \tilde{y} = \frac{1}{K} \displaystyle\sum_{k}\bf{y}_k $$</span>
+<br/>
+<br/>
 
 - $$y_k \in \mathbb{R}^{ㅣVㅣ \times 1}$$ : 하나의 Contextualized subgraph의 예측 결과
 
 ### 5) Fine-tuning for KG-based Task
 
- KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA의 경우의 수식은 다음과 같다.
+KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA의 경우의 수식은 다음과 같다.
 
+<br/>
+<br/>
 $$(9) \; \; f: Q_M, M(\theta) \rightarrow Y$$ - Fine-tuning for Question Answering Task
+<br/>
+<br/>
 
 ### Pseudo Code
 
