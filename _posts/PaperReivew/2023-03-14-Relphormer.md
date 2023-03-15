@@ -111,7 +111,7 @@ Triple2Seq에서는 edges(relations)를 일반적인 노드로 여기며, 이렇
 
 ### 2.1) global node
 
-Relphormer의 선행 연구인 HittER을 통해 Entity-Relation 쌍의 정보가 Knowledge Graph에 있어서 필수적인 정보라는 것이 밝혀졌다. 앞서 Contextualized Sub-graph를 사용한 Triple2Seq를 통해 Entity-Relation 쌍의 정보와 더불어 Entity-Entity, Relation-Relation쌍의 정보 또한 얻을 수 있다.(이게 가능한 이유는, Contextualized Subgraph에서 relation도 하나의 normal node로 보고 subgraph를 생성하기 때문이다.) 
+Relphormer의 선행 연구인 HittER을 통해 Entity-Relation 쌍의 정보가 Knowledge Graph에 있어서 필수적인 정보라는 것이 밝혀졌다. 앞서 Contextualized Sub-graph를 사용한 Triple2Seq를 통해 Entity-Relation 쌍의 정보와 더불어 Entity-Entity, Relation-Relation쌍의 정보 또한 얻을 수 있다.(이게 가능한 이유는, Contextualized Subgraph에서 relation도 하나의 **normal node**로 보고 subgraph를 생성하기 때문이다.) 
 
 Knowledge Graph에서 Relation의 수는 압도적으로 Entity수보다 훨씬 적기 때문에 Relation edge로 contextualized subgraph 사이의 globally semantic information을 유지할 수 있다. 수가 더 적기 때문에 각각의 위치가 나타내는 구조적 정보가 효력이 있는 것이다.
 
