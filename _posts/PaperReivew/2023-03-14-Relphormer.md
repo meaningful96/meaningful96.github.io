@@ -81,11 +81,15 @@ Triple2Seq의 목적은 <span style = "color:gold">**Edge들의 Heterogeneity를
 
 모델의 Input sequence로 **Contextualized Sub-graphs**를 사용하는 방식이다. Contextualized sub-graph를 사용하여 local structure information을 집어넣을 수 있다. Contextualized Sub-Graph는 $$T_G$$이다.
 
-<center><span style = "font-size:120%">$$ (1) \; \; T_G = T \; \cup \; T_{context} $$ </span></center>
+--------------------------------------------------------------------------------------
+<span style = "font-size:120%">$$ (1) \; \; T_G = T \; \cup \; T_{context} $$ </span>
+--------------------------------------------------------------------------------------
 
 이 때, $$T$$는 Center triplet이고, $$T$$의 이웃 노드 집합이 $$T_{context}$$이다.  즉, Contextualized Sub-Graph $$T_G$$는 center triplet과 그 이웃 노드들의 triplet으로 구성되어 있다. $$T_{context}$$
 
-<center><span style = "font-size:120%">$$ (2) \;\;T_{context} = \{vㅣv = v_s \; or \; v_p \; or \; v_o, \; \exists \;(v_s, v_p, v_o) \; \in \; \mathscr{N} \}$$</span></center>
+--------------------------------------------------------------------------------------
+<span style = "font-size:120%">$$ (2) \;\;T_{context} = \{vㅣv = v_s \; or \; v_p \; or \; v_o, \; \exists \;(v_s, v_p, v_o) \; \in \; \mathscr{N} \}$$</span>
+--------------------------------------------------------------------------------------
 
 $$\mathscr{N}$$은 $$T$$의 고정된 크기의 이웃 triple의 집합이다.(fixed-size neighborhood triple set of the triple $$T$$)
 
@@ -107,7 +111,7 @@ Knowledge Graph에서 Relation의 수는 압도적으로 Entity수보다 훨씬 
 
 논문에서는 추가적으로 Global information을 보존하기 **global node**를 추가한다. global node는 자연어 처리의 pre-training 모델에서 [CLS] 토큰과 유사한 역할을 수행한다. 이 global node를 기존의 contextualized subgraph와 <span style= "color:aqua">학습가능한 가상의 거리(virtual distance) 또는 고정된 거리를 통하여 연결</span>한다.
 
-<span style = "font-size:120%"><center>$$ (3) \; \; \{v_{cls}, v_1, v_2, \cdots, v_i\}$$</center></span>
+<span style = "font-size:120%">$$ (3) \; \; \{v_{cls}, v_1, v_2, \cdots, v_i\}$$</span>
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224576605-64e7ef8a-a6d9-4312-8b77-fc62dfaab744.png">
@@ -119,7 +123,7 @@ Transformer의 input은 Sequential 하고, 이러한 Sequential input의 구조�
 
 이를 극복하기위해 **Attention Bias**를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 노드쌍 사이의 구조적 정보를 포착할 수 있다
 
-<center><span style = "font-size:120%">(4)$$ \; \; a_{ij} =  \frac{(h_iW_Q)(h_jW_K)}{\sqrt{d}} + \phi(i,j), \; \; \; \; \phi(i,j) = f_{structure}(\tilde{A}^1, \tilde{A}^2, \cdots, \tilde{A}^m)$$</span></center>
+<span style = "font-size:120%">$$(4) \; \; a_{ij} =  \frac{(h_iW_Q)(h_jW_K)}{\sqrt{d}} + \phi(i,j), \; \; \; \; \phi(i,j) = f_{structure}(\tilde{A}^1, \tilde{A}^2, \cdots, \tilde{A}^m)$$</span>
 
 - $$\phi(i,j)$$ : Attention bias between node $$v_i$$ and node $$v_j$$
 - $$\tilde{A}$$ : Normalized adjacency matrix
@@ -133,7 +137,7 @@ Transformer의 input은 Sequential 하고, 이러한 Sequential input의 구조�
 
 Contextual contrrastive strategy는 모델이 비슷한 예측을 수행하도록 강제하는 것으로 Epoch마다 같은 중심 triple에 대해 다른 Contexualized sub-graph를 사용하는 전략이다. Contextual loss는 다음과 같다.
 
-<center><span style = "font-size:120%">(5)$$ \;\; \mathscr{L_{contextual} = -log\frac{exp(sim(c_t, c_{t-1}/\tau))}{exp(sim(c_t, c_{t-1}/\tau)) + \sum_{j}exp(sim(c_t, c_{j}/\tau))}}$$</span></center>
+<span style = "font-size:120%">$$(5) \;\; \mathscr{L_{contextual} = -log\frac{exp(sim(c_t, c_{t-1}/\tau))}{exp(sim(c_t, c_{t-1}/\tau)) + \sum_{j}exp(sim(c_t, c_{j}/\tau))}}$$</span>
 
 - $$sim(c_t, c_{t-1}/\tau)$$ = Cosine 유사도
 - $$c_t$$ t 번째 epoch의 hidden state representation
