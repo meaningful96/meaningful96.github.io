@@ -181,7 +181,7 @@ Input sequence를 인코딩하고 난 후 hidden vector $$h_{mask}$$를 current 
 
 Sequence에서 단 **하나의 토큰만 랜덤하게 마스킹**한다. 그 이유는 <span style = "color:gold">Contextualized Sub-graph 의 유니크한 구조적 정보로 Conxtextual information을 더 잘 통합</span>하기 위함이다 .  
 
-다만, 마스킹을 한 후 head와 tail entity의 이웃들을 동시에 sampling하면 label leakage 문제가 발생할 수 있다. (만약 relation이 masking되고 동시에 head와 tail을 추출할경우 둘이 구분이 안될 수도 있다.)  Label leakage를 극복하고 Training과 Test의 간극을 줄이기 위해서는 <span style = "color:aqua"> **target entity의 context node를 제거**하여 공정한 비교(fair comparison)를 보장</span>할 수 있게 만든다.
+다만, 마스킹을 한 후 head와 tail entity의 이웃들을 동시에 sampling하면 label leakage 문제가 발생할 수 있다. (만약 relation이 masking되고 동시에 head와 tail의 이웃들을 추출할경우 Neighbor Entity와 True-Tail Entity 가 구분이 안될 수 있다.)  Label leakage를 극복하고 Training과 Test의 간극을 줄이기 위해서는 <span style = "color:aqua"> **target entity의 context node를 제거**하여 공정한 비교(fair comparison)를 보장</span>할 수 있게 만든다.
 
 Masked Knowledge Modeling은 매개 변수의, Parametric한 score function의 approximator이다. 이는 더 나은 Link prediction을 목표로 적합한 최적화값을 자동으로 찾아낸다.
 
