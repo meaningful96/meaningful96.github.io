@@ -1,5 +1,5 @@
 ---
-title: (7)Relphormer-Relational Graph Transformer for Knowledge Graph Representation
+title: (7) Relphormer-Relational Graph Transformer for Knowledge Graph Representation
 
 categories: 
   - PaperReview
