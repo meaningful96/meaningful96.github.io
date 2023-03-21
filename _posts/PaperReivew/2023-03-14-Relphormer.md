@@ -158,7 +158,7 @@ Input sequence를 인코딩하고 난 후 hidden vector $$h_{mask}$$를 current 
 
 기존의 atttention operation은 단순히 전체 그래프 안에서 노드와 의미있는 relation사이에서 계산을 진행하는것에 반해, <span style = "color:gold">Structure-enhances self attention은 **Contextualized Sub-graph** 구조를 이용한 Locality 정보와 Semantic feature들에 대해도 유의미한 영향을 주는 유연성을 이끌어내며 이를 통해 Transformer 모델에 구조적 정보(Structural information)와 의미론적 정보(Semantic feature)를 동시에 줄 수 있다</span>는 것이 특징이다. 
 
-### 3) Masked Knowledge Modeling
+## 3) Masked Knowledge Modeling
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224577501-d11de3de-c587-4b19-8832-e6567f4b8573.png">
@@ -185,7 +185,7 @@ Sequence에서 단 **하나의 토큰만 랜덤하게 마스킹**한다. 그 이
 
 Masked Knowledge Modeling은 매개 변수의, Parametric한 score function의 approximator이다. 이는 더 나은 Link prediction을 목표로 적합한 최적화값을 자동으로 찾아낸다.
 
-### 4) Optimization and Inference
+## 4) Optimization and Inference
 
 학습에는 Masked Knowledge loss와 Contrastive Learning Object를 같이 사용한다.(Joint Optimization)
 
@@ -201,7 +201,7 @@ Reasoning(추론) 중에는 Multi-sampling strategy를 사용한다.
 
 - $$y_k \in \mathbb{R}^{ㅣVㅣ \times 1}$$ : 하나의 Contextualized subgraph의 예측 결과
 
-### 5) Fine-tuning for KG-based Task
+## 5) Fine-tuning for KG-based Task
 
 KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA의 경우의 수식은 다음과 같다.
 
@@ -209,7 +209,7 @@ KBQA 같은 문제를 풀려면 Fine-tuning을 해야한다. 예를 들어 KBQA�
 <br/>
 <br/>
 
-### Pseudo Code
+## Pseudo Code
 
 <p align="center">
 <img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/224578800-fc733695-8b05-4f43-b38e-6db50a1a2e26.png">
