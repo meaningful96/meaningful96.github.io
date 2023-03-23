@@ -118,7 +118,7 @@ $$pos$$는 position이고, $$i$$는 차원이다. 중요한 것은 Postional Enc
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227325573-f5ca67b9-3b5a-4e51-bab8-dbeefffa36e8.png">
 </p>
 
-논문에서는 head의 수는 8개이고, $$d_k = d_v = d_{model}/h$$ = 64이다. 각 head의 차원수가 감소했기 때문에 Total Computational Cost가 full dimensionality일 때의 single-head attention가 같다. 다시 말해서, Multi-head attention에서 d의 차원이 줄어든 것의 결과는 Single-head attention에서 d의 차원을 늘렸을때랑 계산 결과가 수렴한다.
+논문에서는 head의 수는 8개이고, $$d_k = d_v = d_{model}/h$$ = 64이다. 각 head의 차원수가 감소했기 때문에 Total Computational Cost가 full dimensionality일 때의 single-head attention가 같다. 다시 말해서, Multi-head attention에서 d의 차원이 줄어든 것의 결과는 Single-head attention에서 d의 차원을 늘렸을때랑 계산 결과가 수렴한다. 또한 Multi-head Attention에서 중요한 것은 <span style = "gold">**어텐션을 수행한 뒤에도 입력과 차원이 동일하게 유지**</span>된다는 것이다.
 
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227327896-7e526443-5d28-44b4-9fc1-d06cffe1f440.png">
@@ -153,14 +153,53 @@ $$pos$$는 position이고, $$i$$는 차원이다. 중요한 것은 Postional Enc
 
 두 번째 Sub layer는 'Fully Connected Feedforward Layer'와 'Add + Norm Layer'로 구성된다. 또한 여기서도 마찬가지로 Residual Connection을 한다. Residual Connection을 하는 이유는 어떤 Layer를 거쳤을 때 변환되서 나온 값에 실제 Data의 Input을 더해줘서 Input을 좀 더 반영하게 해주는 것이다. 이렇게하면 결론적으로 성능이 향상된다.
 
-인코더는 총 6개의 Layer로 구성된다. 다시 말해서 2개의 Sub Layer가 포함된 하나의 Layer가 6개(N = 6)인 것이고 같은 Operation이 총 6번이라는 것이다. 그리고 이는 Input Sequence가 인코더에서 결론적으로 총 12개의 Sub layer를 거치는 것이다.
+인코더는 총 6개의 Layer로 구성된다. 다시 말해서 2개의 Sub Layer가 포함된 하나의 Layer가 6개(N = 6)인 것이고 같은 Operation이 총 6번이라는 것이다. 그리고 이는 Input Sequence가 인코더에서 결론적으로 총 12개의 Sub layer를 거치는 것이다. <u>6개의 Layer는 서로 다른 파라미터를 가진다.</u>
 
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227334714-702e866b-a05f-482a-a7b9-bf6daa115f10.png">
 </p>
 
 ## 5) Decoder
+디코더의 입력은 총 두개이며 디코더는 총 세 개의 Sub layer로 구성된다. 먼저 트랜스포머가 학습을 할 때, Epoch마다 나오는 Output Embedding Matrix가 출력 단어의 상대적인 위치를 나타내는 Positional Encoding과 더해져서 디코더의 입력으로 들어간다. 즉, 출력 단어에 대한 정보와 상대적인 위치정보를 더해서 입력으로 들어가고 이 값은 **Maksed Multi-Head Attention**을 거치게 된다.  
+
+Masked Self-Attention을 하는 이유는, 학습과 추론과정에 정보가 새는(Information Leakage)것을 방지하기 위함이다. 트랜스포머에서 마스킹된 Self Attention은 모델이 <u>한 번에 하나씩 출력 토큰을 생성할 수 있도록 하면서 모델이 미래의 토큰이 아닌 이전에 생성된 토큰에만 주의를 기울이도록 하기 위함</u>이다. 이를 더 자세히 말하자면, Encoder-Decoder로 이루어진 모델들의 경우 입력을 순차적으로 전달받기 때문에 t + 1 시점의 예측을 위해 사용할 수 있는 데이터가 t 시점까지로 한정된다. 하지만 트랜스포머의 현재 시점의 출력값을 만들어 내는데 미래 시점의 입력값까지 사용할 수 있게되는 문제가 발생하기 때문이다.
+
+이 이유는 트랜스포머의 초기값, 1 Epoch을 생각해보면 이해하기 쉽다. 처음에 입력으로 들어가 인코더를 거친 값이 디코더로 들어가는데, 디코더로 들어가는 또 다른 입력은 이전 Epoch에서의 출력 임베딩값이다. 하지만 1 Epoch에서는 과거의 값은 존재하지 않아 초기에 설정해준 값이 들어간다. 즉, 1 Epoch에서 이미 출력값을 입력으로 요구하기 때문에 시점이 미래라 할 수 있는 것이고, 결국은 현재의 출력 값을 예측하는데 미래의 값을 이용한다고 말할 수 있다. 이러한 문제를 방지하기 위해 **Look-Ahead Mask** 기법이 나왔다. 
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227343660-9676f01e-c7d1-4973-b005-6db96d06753a.png">
+</p>
+
+트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 $$i<j$$인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
+
+이렇게 Maksed Multi-head Attention을 거친후 Residual Connection과 함께 <u>'Add + Norm' Layer를 거치면 그 출력값이 인코더의 출력값과 함께 두 번째 Sub Layer인 **Multi-Head Attention**의 입력</u>으로 들어간다. 이는 의미적으로 Seq2Seq에서의 인코더-디코더 어텐션과 동일하다. <span style = "color:aqua">출력 단어가 입력 단어와 얼마나 연관이 있는지를 나타내기 위함</span>이다.
+
+예를 들어서, 입력 단어가 'I am a teacher'이고 출력 단어가 '나는 선생님 입니다' 일 때, '선생님'이라는 단어를 번역한다고 했을때 I, am, a, teacher들 중 어느 단어와 가장 큰 관계가 있는지 구하는 것이 바로 두 번째 Sub layer의 역할이며 이를 **Encoder-Decoder Attention**이라고 하는 것이다. 따라서 인코더의 출력이 Key가되고 디코더의 첫 번째 Sub layer의 출력이 Query가 된다.
+
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227349449-5f2879f4-4879-4d92-b14f-0c5cad134215.png">
+</p>
+
+마찬가지로 디코더의 경우 총 6개(N = 6)의 Layer로 구성되므로 총 18개의 Sub layer로 구성된 것이다. 또한 인코더의 출력의 경우 모든 디코더 레이어의 입력으로 들어가게 된다. 다시 말해, 인코더의 출력값은 총 6개의 Layer로 똑같이 들어가 Encoder-Decoder Attention을 수행하게 된다.
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227349573-880ed1ee-f418-4add-946f-c41254dce991.png">
+</p>
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227351382-068b514e-1afd-46bb-a0b5-1b4e1412761b.png">
+</p>
+
+## 6) Why Self-Attention
+Recurrent, Convo
 
 # Experiment & Result
-
+## 1) DataSet
+- WMT 2014 English-German: 4.5 millons sentence pairs
 # Contribution
+
+# Reference
+[Paper]("https://arxiv.org/abs/1706.03762")  
+[나동빈 Youtube]("https://www.youtube.com/watch?v=AA621UofTUA&t=2664s")  
+[Github]("https://github.com/ndb796/Deep-Learning-Paper-Review-and-Practice")  
