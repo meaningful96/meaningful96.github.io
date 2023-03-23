@@ -1,5 +1,5 @@
 ---
-title: (0.1) Transformer-Attention Is All You Need
+title: (0.1) Transformer - Attention Is All You Need
 
 categories: 
   - PaperReview
