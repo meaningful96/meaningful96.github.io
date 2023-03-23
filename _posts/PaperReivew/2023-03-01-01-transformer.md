@@ -85,7 +85,7 @@ Postional Encoding은 주기 함수를 활용한 공식을 사용하며 <span st
 <img width="400" alt="1" src="https://user-images.githubusercontent.com/111734605/227283915-f70f70a0-da08-4f5d-8097-75de375a9779.png">
 </p>
 
-$$PE_{(pos, 2i)} = sin(pos/10000^{\frac{2i}{d_{model}}})$$
+<span style = "font-size:110%">$$PE_{(pos, 2i)} = sin(pos/10000^{\frac{2i}{d_{model}}})$$</span>
 
 ### 3) Multi-head Attention
 먼저 Attention Mechanism에 대해 살펴보면 다음과 같다. Attention mechanism의 목적은 한 토큰
