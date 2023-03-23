@@ -85,11 +85,38 @@ Postional Encoding은 주기 함수를 활용한 공식을 사용하며 <span st
 <img width="400" alt="1" src="https://user-images.githubusercontent.com/111734605/227283915-f70f70a0-da08-4f5d-8097-75de375a9779.png">
 </p>
 
-<span style = "font-size:110%">$$PE_{(pos, 2i)} = sin(pos/10000^{\frac{2i}{d_{model}}})$$</span>
+$$pos$$는 position이고, $$i$$는 차원이다. 중요한 것은 Postional Encoding은 임베딩으로서의 $$d_{model}$$과 차원수가 동일하다는 것이다.
 
 ### 3) Multi-head Attention
-먼저 Attention Mechanism에 대해 살펴보면 다음과 같다. Attention mechanism의 목적은 한 토큰
 
+먼저 Attention Mechanism에 대해 살펴보면 다음과 같다. Attention mechanism의 목적은 한 토큰이 다른 토큰과 얼마나 연관성이 있는지를 나타내기 위한 수학적 방법으로서, Query와 Key, Value를 통해 연산을 한다.
+- Query: 비교의 주체 대상. 입력 시퀀스에서 초점을 둔 토큰으로 트랜스포머에서는 Decoder 또는 Encoder Layer의 숨겨진 상태(Hidden state)를 변환하여 형성된다.
+- Key: 비교의 객체. 입력 시퀀스에 있는 모든 토큰이다. Query와 입력 시퀀스의 각 항목 간의 관련성을 결정하는데 사용된다.
+- Value: 입력 시퀀스의 각 토큰과 관련된 실제 정보를 수치로 나타낸 실제 값이다. 각 요소의 중요도를 결정했을 때 모델에 필요한 정보를 제공하는 데 사용된다.
+
+트랜스포머에서 Self-Attention은 <span style = "color:aqua">Scaled-Dot Product</span>로 이름에서도 알 수 있듯, 행렬곱과 스케일링으로 이루어진 연산이다. 그림으로 나타내면 다음과 같다.
+
+<p align="center">
+<img width="300" alt="1" src="https://user-images.githubusercontent.com/111734605/227312790-3e8d658a-737a-41c3-be42-6d8b4a71ea40.png">
+</p>
+
+**Scaled-Dot Product Self-Attention**
+- Attention <span style = "color:aqua">**Energy**</span> = **Dot-Product** of (Query & Key) = <span style = "font-size:120%">$$QK^T$$</span> = $$e_{ij}$$.
+- Attention <span style = "color:aqua">**Score**</span> = **Scailing** of Key's Dimension = <span style = "font-size:120%">$$\frac{QK^T}{\sqrt{d_k}}$$</span>. 
+- Attention <span style = "color:aqua">**Weight**</span> = **Softmax**(Attention Score) = <span style = "font-size:120%">$$softmax(\frac{QK^T}{\sqrt{d_k}})$$</span> = $$a_{ij}$$. 
+
+<span style = "color:gold"><span style = "font-size:120%">➜ Attention(Query, Key, Value) = $$softmax(\frac{QK^T}{\sqrt{d_k}})V$$ </span></span>이다.
+
+트랜스포머에서는 인코더와 디코더 모두에서 <span style = "color:aqua">**Multi-head Attention**</span>을 사용한다. 병렬로 Head의 개수만큼 한 번에 어텐션을 진행하는 것으로, 동시에 여러 개의 Attention value값을 추출해 낼 수 있다. Multi-Head Attention을 사용하는 이유는 여러가지이다.
+
+**Multi-head Attention**
+- Improved representation learning: 모델이 입력 시퀀스의 다양한 측면에 어텐션할 수 있으므로 데이터를 더 포괄적으로, 미묘한 차이도 이해할 수 있다.
+- Increased model capacity: 모델이 Key와 Query의 더 복잡하고 다양한 interaction을 학습할 수 있다. 이로써 더 복잡한 관계를 포착해낸다.
+- Efficient Parallelization: 병렬화를 통해 빠른 학습과 추론이 가능하다.
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227321498-291215cc-3256-4d84-b346-faecca3c349b.png">
+</p>
 
 # Experiment & Result
 
