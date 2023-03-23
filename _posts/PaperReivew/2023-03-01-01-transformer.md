@@ -101,9 +101,9 @@ $$pos$$는 position이고, $$i$$는 차원이다. 중요한 것은 Postional Enc
 </p>
 
 **Scaled-Dot Product Self-Attention**
-- Attention <span style = "color:aqua">**Energy**</span> = **Dot-Product** of (Query & Key) = <span style = "font-size:120%">$$QK^T$$</span> = $$e_{ij}$$.
-- Attention <span style = "color:aqua">**Score**</span> = **Scailing** of Key's Dimension = <span style = "font-size:120%">$$\frac{QK^T}{\sqrt{d_k}}$$</span>. 
-- Attention <span style = "color:aqua">**Weight**</span> = **Softmax**(Attention Score) = <span style = "font-size:120%">$$softmax(\frac{QK^T}{\sqrt{d_k}})$$</span> = $$a_{ij}$$. 
+- Attention <span style = "color:aqua">**Energy**</span> = **Dot-Product** of (Query & Key) = <span style = "font-size:110%">$$QK^T$$</span> = $$e_{ij}$$
+- Attention <span style = "color:aqua">**Score**</span> = **Scailing** of Key's Dimension = <span style = "font-size:120%">$$\frac{QK^T}{\sqrt{d_k}}$$</span> 
+- Attention <span style = "color:aqua">**Weight**</span> = **Softmax**(Attention Score) = <span style = "font-size:120%">$$softmax(\frac{QK^T}{\sqrt{d_k}})$$</span> = $$a_{ij}$$ 
 
 <span style = "color:gold"><span style = "font-size:120%">➜ Attention(Query, Key, Value) = $$softmax(\frac{QK^T}{\sqrt{d_k}})V$$ </span></span>이다.
 
