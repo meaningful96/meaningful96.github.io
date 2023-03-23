@@ -87,7 +87,7 @@ Postional Encoding은 주기 함수를 활용한 공식을 사용하며 <span st
 
 $$pos$$는 position이고, $$i$$는 차원이다. 중요한 것은 Postional Encoding은 임베딩으로서의 $$d_{model}$$과 차원수가 동일하다는 것이다.
 
-### 3) Multi-head Attention
+## 3) Multi-head Attention
 
 먼저 Attention Mechanism에 대해 살펴보면 다음과 같다. Attention mechanism의 목적은 한 토큰이 다른 토큰과 얼마나 연관성이 있는지를 나타내기 위한 수학적 방법으로서, Query와 Key, Value를 통해 연산을 한다.
 - Query: 비교의 주체 대상. 입력 시퀀스에서 초점을 둔 토큰으로 트랜스포머에서는 Decoder 또는 Encoder Layer의 숨겨진 상태(Hidden state)를 변환하여 형성된다.
@@ -145,6 +145,21 @@ $$pos$$는 position이고, $$i$$는 차원이다. 중요한 것은 Postional Enc
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227329824-4e53276c-35f4-4775-93a8-87359d436d72.png">
 </p>
+
+## 4) Encoder
+트랜스포머의 인코더는 두 가지의 Sub layer로 구성된다. Sub-layer를 보기 전 앞서 말했듯, Input Embedding Matrix에 Positional Encoding이 더해진 값이 첫 번째 Sub layer인 Multi-head Attention에 Input으로 들어간다. 그 이후, Attention의 결과와 Multi-head Attention의 Input이 더해지고 정규화를 거친다. 이 때, Multi-head Attention의 Input이
+'Add + Norm'의 인풋으로 가는 것을 <span style = "color:aqua">**Residual Connection**</span>이라고 하고, 이러한 학습 방식을 '**잔여학습(Residual Learning)**' 이라고 한다.
+첫 번째 Sub layer는 결국 'Multi-head Attention Layer'와 'Add + Norm Layer'로 구성된다.
+
+두 번째 Sub layer는 'Fully Connected Feedforward Layer'와 'Add + Norm Layer'로 구성된다. 또한 여기서도 마찬가지로 Residual Connection을 한다. Residual Connection을 하는 이유는 어떤 Layer를 거쳤을 때 변환되서 나온 값에 실제 Data의 Input을 더해줘서 Input을 좀 더 반영하게 해주는 것이다. 이렇게하면 결론적으로 성능이 향상된다.
+
+인코더는 총 6개의 Layer로 구성된다. 다시 말해서 2개의 Sub Layer가 포함된 하나의 Layer가 6개(N = 6)인 것이고 같은 Operation이 총 6번이라는 것이다. 그리고 이는 Input Sequence가 인코더에서 결론적으로 총 12개의 Sub layer를 거치는 것이다.
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227334714-702e866b-a05f-482a-a7b9-bf6daa115f10.png">
+</p>
+
+## 5) Decoder
 
 # Experiment & Result
 
