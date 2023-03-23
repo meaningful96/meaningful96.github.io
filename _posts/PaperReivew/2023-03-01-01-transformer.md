@@ -115,7 +115,35 @@ $$pos$$는 position이고, $$i$$는 차원이다. 중요한 것은 Postional Enc
 - Efficient Parallelization: 병렬화를 통해 빠른 학습과 추론이 가능하다.
 
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227321498-291215cc-3256-4d84-b346-faecca3c349b.png">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227325573-f5ca67b9-3b5a-4e51-bab8-dbeefffa36e8.png">
+</p>
+
+논문에서는 head의 수는 8개이고, $$d_k = d_v = d_{model}/h$$ = 64이다. 각 head의 차원수가 감소했기 때문에 Total Computational Cost가 full dimensionality일 때의 single-head attention가 같다. 다시 말해서, Multi-head attention에서 d의 차원이 줄어든 것의 결과는 Single-head attention에서 d의 차원을 늘렸을때랑 계산 결과가 수렴한다.
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227327896-7e526443-5d28-44b4-9fc1-d06cffe1f440.png">
+</p>
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227328122-057ad1b2-71d9-4152-bb8f-7ce55413c9c6.png">
+</p>
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227328526-af54acf1-accd-44de-bc44-91e2e60b1873.png">
+</p>
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227328797-5656e5ad-92ec-4562-a811-651b6957a960.png">
+</p>
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227329001-6d267496-3759-4cd8-a2fb-6d1c522af08b.png">
+</p>
+
+트랜스포머에는 총 세 가지 종류의 어텐션(Attention) 레이어가 사용된다. 
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227329824-4e53276c-35f4-4775-93a8-87359d436d72.png">
 </p>
 
 # Experiment & Result
