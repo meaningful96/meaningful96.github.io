@@ -59,7 +59,7 @@ last_modified_at: 2023-03-01
 ## 1) Overview
 
 <p align="center">
-<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/227272230-fe6bdd47-1dc7-4389-be26-cda76efd7e37.png">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/227331054-832086ea-5c2f-4e58-abc3-290db460a0aa.png">
 </p>
 
 - Encoder
