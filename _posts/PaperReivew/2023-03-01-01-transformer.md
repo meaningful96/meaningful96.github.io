@@ -192,11 +192,50 @@ Masked Self-Attention을 하는 이유는, 학습과 추론과정에 정보가 �
 </p>
 
 ## 6) Why Self-Attention
-Recurrent, Convo
+Recurrent, Convolution layer와 Self-Attention의 시간 복잡도를 비교하였다.
+1. Layer당 전체 계산 복잡도(Computational Complexity)
+2. Sequential Paralize 할 수 있는 계산의 양
+3. 네트워크에서 Long-range Dependency 사이의 path 길이
+  - Sequence Transduction 문제에서 Long-range dependency를 학습하는 것이 major challenge이다.
+  - 이러한 학습에 영향을 주는 한 가지 요인은 네트워크에서 forwad와 backward 시그널이 순회해야하는 Path length이다.
+  - 입력과 출력 시퀀스의 위치조합사이 path가 짧을수록, Long-range dependency를 학습하기 쉬움
+    - Input과 Output Position 사이의 최대 Path 길이를 비교 
 
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227423400-4e4f8813-8541-4fbc-971a-a5bd0f764613.png">
+</p>
+
+- <u>Self-Attention layer는 모든 Postion을 상수 시간만에 연결</u> 가능하다. 반면 Recurrent layer의 경우 $$O(n)$$이 소요된다.
+- <u>계산 복잡도 측면에서 $$n < d$$일때 Self-attention 층이 Recurrent 층보다 빠르다.</u>
+  - n: Sequence Length
+  - d: Representation Dimensionality
+  - 기계 번역 대부분이 $$n<d$$인 경우에 속한다.
+
+- 아주 긴 Sequence의 경우 계산 성능을 개선하기 위해 Self-attention은 입력 시퀀스의 neighborhood size를 r로 제한할 수 있다. 
+  - 이를 통해 Maximum path의 길이를 $$O(n/r)$$로 증가시킬 수 있다.
+
+- $$k<n$$인 kernel width 의 single convolutional layer는 input 과 output의 모든 쌍을 연결하지 않는다.
+  - contiguous kernel의 경우  $$O(n/k)$$의 stack이 필요
+  - dilated convolution의 경우 $$O(log_k(n))$$이 필요
+
+- Convolution layer는 일반적으로 recurrent layer보다 더 비용이 많이 든다.
+  - Separable Convolution의 경우 복잡도를 $$O(knd + nd^2)$$ 까지 줄일 수 있다.
+  - 그러나<span style = "color:gold"> $$k = n$$인 경우 트랜스포머와 마찬가지로 Self-attention layer와 Point-wise Feedforward layer의 조합과 복잡도가 같다.</span>
+
+결론적으로 Self-attention을 통해 더 Interpretable한 모델을 만들 수 있다. Attention head들은 다양한 task를 잘 수행해내고, 문장의 구조적, 의미적 구조를 잘 연관시키는 성질을 보이기도 한다. 
+  
 # Experiment & Result
 ## 1) DataSet
-- WMT 2014 English-German: 4.5 millons sentence pairs
+1. WMT 2014 English-German
+  - 4.5백만의 Sequence Pair
+  - 문장들을 byte-pair 인코딩 되어있음
+  
+2. English-French
+  - 36M 개의 문장과 32000개의 word-peice vocabulary로 쪼개진 토큰들
+  
+## 2) Experiment
+  
+
 # Contribution
 
 # Reference
