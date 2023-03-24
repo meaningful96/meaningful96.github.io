@@ -36,9 +36,7 @@ Pure Graph와는 다르게 Knowledge Graph는 여러 가지의 노드 타입이 
   
     ➜<span style = "font-size:120%"> **How to treat heterogeneous information using Transformer architecture?**</span>
   
-
-
-
+<br/>
 - **2. Task Optimization University**
   
   - 기존의 연구들은 Knowledge Embedding을 위해 사전에 정의된 scoring function을 사용함.
