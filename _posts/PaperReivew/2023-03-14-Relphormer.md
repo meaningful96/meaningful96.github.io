@@ -31,12 +31,9 @@ Pure Graph와는 다르게 Knowledge Graph는 여러 가지의 노드 타입이 
     - 각각의 노드가 서로 다른 topological structure와 textual description을 갖는다.
     
   - Vanilla Transformer는 <span style = "color:gold">모든 엔티티와 릴레이션을 plain token으로 간주하기 때문에 필수적인 구조 정보가 유실</span>된다.
-  
-    
-  
-    ➜<span style = "font-size:120%"> **How to treat heterogeneous information using Transformer architecture?**</span>
-  
-<br/>
+    ➜<span style = "font-size:120%"> **How to treat heterogeneous information using Transformer architecture?**</span>  
+<br/>  
+<br/>  
 
 - **2. Task Optimization University**
   
