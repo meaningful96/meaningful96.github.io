@@ -226,7 +226,9 @@ Recurrent, Convolution layer와 Self-Attention의 시간 복잡도를 비교하�
   - 그러나<span style = "color:gold"> $$k = n$$인 경우 트랜스포머와 마찬가지로 Self-attention layer와 Point-wise Feedforward layer의 조합과 복잡도가 같다.</span>
 <br/>
 결론적으로 Self-attention을 통해 더 Interpretable한 모델을 만들 수 있다. Attention head들은 다양한 task를 잘 수행해내고, 문장의 구조적, 의미적 구조를 잘 연관시키는 성질을 보이기도 한다. 
-  
+
+<br/>
+
 # Experiment & Result
 ## 1) DataSet
 1. WMT 2014 English-German
@@ -237,11 +239,44 @@ Recurrent, Convolution layer와 Self-Attention의 시간 복잡도를 비교하�
   - 36M 개의 문장과 32000개의 word-peice vocabulary로 쪼개진 토큰들
   
 ## 2) Experiment
-  
+- Optimizer
+  - Adam
+  - learning rate = $$lrate = d_{model}^{-0.5} /cdot min(stepnum^{-0.5}, stepnum /cdot warmupsteps^{-1.5})$$ 이다.
+<br/>
+- Regularization
+  1. Residual Dropout
+    - 각 Sub-layer의 output에 dropout 적용
+    - 임베딩의 합과 positional 인코딩에 dropout 적용
+  2. Label Smoothing
+    - One-hot encoding은 출력 시퀀스에서 단 하나만 1이고 나머지는 0
+    - 이렇게 할 경우 다른 출력값의 영향력을 완전히 무시하기 때문에 정보의 편협 발생
+    - 따라서, <u>정답이 아닌 Label에 대해서도 조금의 확률</u>을 부여 ex) 0.9/0.025/0.025/0.025/0.025
+    - ($\epsilon_{ls} = 0.1$)
+## 3) Result
+
+1. Machine Translation: SOTA 달성
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227427547-c3efea78-0595-4e5f-8d59-3e15ec25e2d4.png">
+</p>   
+
+2. Model Variation
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227427738-919ad9bc-4d28-4977-98d9-ea3f349a5d0e.png">
+</p>
+
+3. English Constituency Parsing
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227427796-67b959fa-4bf8-4237-96d8-516e92427057.png">
+</p>
+
+English Constituency Parsing에서도 잘 일반화해서 사용할 수 있는지 실험하였다. 구체적인 tuning 없이도 놀라운 성능을 보였다.
 
 # Contribution
+1. Recurrent Model을 사용하지않고 오직 <span style = "color:gold">Attention Mechanism만을 이용해서 새로운 모델을 제시</span>하였다.
+2. Benchmark Dataset에 대하여 SOTA 달성
 
 # Reference
 [Paper]("https://arxiv.org/abs/1706.03762")  
 [나동빈 Youtube]("https://www.youtube.com/watch?v=AA621UofTUA&t=2664s")  
-[Github]("https://github.com/ndb796/Deep-Learning-Paper-Review-and-Practice")  
+[Github]("https://github.com/ndb796/Deep-Learning-Paper-Review-and-Practice")    
+[Blog: Transformer 논문 리뷰]("https://wandukong.tistory.com/19")
