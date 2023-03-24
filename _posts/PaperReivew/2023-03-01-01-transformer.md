@@ -172,7 +172,7 @@ Masked Self-Attention을 하는 이유는, 학습과 추론과정에 정보가 �
 
 트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 $$i<j$$인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
 
-이렇게 Maksed Multi-head Attention을 거친후 Residual Connection과 함께 <u>'Add + Norm' Layer를 거치면 그 출력값이 인코더의 출력값과 함께 두 번째 Sub Layer인 **Multi-Head Attention**의 입력</u>으로 들어간다. 이는 의미적으로 Seq2Seq에서의 인코더-디코더 어텐션과 동일하다. <span style = "color:aqua">출력 단어가 입력 단어와 얼마나 연관이 있는지를 나타내기 위함</span>이다.
+이렇게 Maksed Multi-head Attention을 거친후 Residual Connection과 함께 <u>'Add + Norm' Layer를 거치면 그 출력값이 인코더의 출력값과 함께 두 번째 Sub Layer인 <b>Multi-Head Attention</b>의 입력</u>으로 들어간다. 이는 의미적으로 Seq2Seq에서의 인코더-디코더 어텐션과 동일하다. <span style = "color:aqua">출력 단어가 입력 단어와 얼마나 연관이 있는지를 나타내기 위함</span>이다.
 
 예를 들어서, 입력 단어가 'I am a teacher'이고 출력 단어가 '나는 선생님 입니다' 일 때, '선생님'이라는 단어를 번역한다고 했을때 I, am, a, teacher들 중 어느 단어와 가장 큰 관계가 있는지 구하는 것이 바로 두 번째 Sub layer의 역할이며 이를 **Encoder-Decoder Attention**이라고 하는 것이다. 따라서 인코더의 출력이 Key가되고 디코더의 첫 번째 Sub layer의 출력이 Query가 된다.
 
@@ -206,22 +206,25 @@ Recurrent, Convolution layer와 Self-Attention의 시간 복잡도를 비교하�
 </p>
 
 - <u>Self-Attention layer는 모든 Postion을 상수 시간만에 연결</u> 가능하다. 반면 Recurrent layer의 경우 $$O(n)$$이 소요된다.
-- <u>계산 복잡도 측면에서 $$n < d$$일때 Self-attention 층이 Recurrent 층보다 빠르다.</u>
+- <u>계산 복잡도 측면에서 n < d일때 Self-attention 층이 Recurrent 층보다 빠르다.</u>
   - n: Sequence Length
   - d: Representation Dimensionality
-  - 기계 번역 대부분이 $$n<d$$인 경우에 속한다.
+  - 기계 번역 대부분이 n < d인 경우에 속한다.
 
+<br/>
 - 아주 긴 Sequence의 경우 계산 성능을 개선하기 위해 Self-attention은 입력 시퀀스의 neighborhood size를 r로 제한할 수 있다. 
   - 이를 통해 Maximum path의 길이를 $$O(n/r)$$로 증가시킬 수 있다.
 
+<br/>
 - $$k<n$$인 kernel width 의 single convolutional layer는 input 과 output의 모든 쌍을 연결하지 않는다.
   - contiguous kernel의 경우  $$O(n/k)$$의 stack이 필요
   - dilated convolution의 경우 $$O(log_k(n))$$이 필요
-
+           
+<br/>
 - Convolution layer는 일반적으로 recurrent layer보다 더 비용이 많이 든다.
   - Separable Convolution의 경우 복잡도를 $$O(knd + nd^2)$$ 까지 줄일 수 있다.
   - 그러나<span style = "color:gold"> $$k = n$$인 경우 트랜스포머와 마찬가지로 Self-attention layer와 Point-wise Feedforward layer의 조합과 복잡도가 같다.</span>
-
+<br/>
 결론적으로 Self-attention을 통해 더 Interpretable한 모델을 만들 수 있다. Attention head들은 다양한 task를 잘 수행해내고, 문장의 구조적, 의미적 구조를 잘 연관시키는 성질을 보이기도 한다. 
   
 # Experiment & Result
