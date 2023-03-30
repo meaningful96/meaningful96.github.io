@@ -15,7 +15,6 @@
 minimal_mistakes_skin    : "dark" # "default"  "air", "aqua", "contrast", , "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
-future                   : true
 locale                   : "ko-KR"
 title                    : " DataScientist로 성장하기!! "
 title_separator          : "-"
