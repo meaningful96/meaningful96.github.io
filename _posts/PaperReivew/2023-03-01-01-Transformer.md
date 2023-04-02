@@ -251,7 +251,7 @@ Recurrent, Convolution layer와 Self-Attention의 시간 복잡도를 비교하�
     - One-hot encoding은 출력 시퀀스에서 단 하나만 1이고 나머지는 0
     - 이렇게 할 경우 다른 출력값의 영향력을 완전히 무시하기 때문에 정보의 편협 발생
     - 따라서, <u>정답이 아닌 Label에 대해서도 조금의 확률</u>을 부여 ex) 0.9/0.025/0.025/0.025/0.025
-    - ($\epsilon_{ls} = 0.1$)
+    - ($$\epsilon_{ls} = 0.1$$)
 ## 3) Result
 
 1. Machine Translation: SOTA 달성
