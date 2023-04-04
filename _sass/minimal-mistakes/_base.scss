@@ -39,6 +39,13 @@ p {
   word-break: break-all;
 }
 
+p {
+  img {
+    display: block; // 이미지를 블록 요소로 설정하여 가로 중앙 정렬
+    margin: 0 auto; // margin을 사용하여 세로 중앙 정렬
+  }
+}
+
 h1 {
   margin-top: 0;
   font-size: $h-size-1;
