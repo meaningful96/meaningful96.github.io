@@ -18,4 +18,9 @@ Contrastive Learning이란 입력 샘플 간의 **비교**를 통해 학습을 �
 
 <span style = "font-size:110%"><center><b><i>"A Contrast is a great difference between two or more things which is clear when you compare them."</i></b></center></span>
 
-**Contrastive learning**이란 다시 말해 <span style = "color:aqua">**대상들의 차이를 좀 더 명확하게 보여줄 수 있도록 학습**</span>하는 방법을 말한다. 차이라는 것은 어떤 **기준**과 비교하여 만들어지는 것이다. 
+**Contrastive learning**이란 다시 말해 <span style = "color:aqua">**대상들의 차이를 좀 더 명확하게 보여줄 수 있도록 학습**</span>하는 방법을 말한다. 차이라는 것은 어떤 **기준**과 비교하여 만들어지는 것이다. 예를 들어, 어떤 이미지들이 유사한지 판단하게 하기 위해서 **Similar**에 대한 기준을 명확하게 해줘야 한다.
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/231803381-c9c0d8e0-da54-45cc-982e-a1d4347909b4.png">
+</p>
+
