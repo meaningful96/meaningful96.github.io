@@ -103,7 +103,7 @@ Regression Similarity Learning과 식은 유사하다. 다만 다른 점은 이�
 데이터들의 차원수가 높을 경우, 서로 간의 유사도를 Euclidean Distance를 통해 구하는 것은 매우 힘들다. 그 이유는, **'Curse of Dimension'**으로 인해 의미 있는 **manifold를 찾미 못하기 때문**이다. 즉, 실제 Euclidean Distance는 manifold 상에서 구해야 하기 때문에, **manifold를 잘 찾는 것이 두 데이터간 유의미한 Similarity를 구하는데 결정적인 역할**을 할 수 있다.
 
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/232100220-f5602e72-9217-4563-9afb-a6624a3f2623.png">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/232100220-f5602e72-9217-4563-9afb-a6624a3f2623.png">
 </p>
 
 유의미한 manifold를 찾기 위해서는 <span style = "color:aqua">**demension reduction**</span>(차원축소 e.g. PCA, SVD, LDA) 방식이 필요하고, 그 방식이 바로 <span style = "color:aqua">**Deep Neural Network**</span>이다. 결국 특정 metric을 기준으로 한 유사도를 찾기 위해 딥러닝 모델들의 파라미터가 학습된다면, 이는 해당 metric을 찾기 위한 <span style = "color:aqua">**manifold를 찾는 과정이며, 이 과정 자체가 Estimate from data를 의미 한다.**</span>
