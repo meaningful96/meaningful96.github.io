@@ -87,7 +87,13 @@ Regression Similarity Learning과 식은 유사하다. 다만 다른 점은 이�
 
 ### 2.1 Metric of Two Types
 
+거리를 측정하는 metric 방식에도 크게 두 가지 종류가 있다.
+- Pre-Defined Metrics
+  - 단순히 데이터들을 정의 된 metric 공식에 입력하고 거리값을 도출하여 유사도를 비교
+- Leraned Metrics
+  - 데이터들로부터 추정할 수 있는 다른 지표들을 metric 공식에 적용하여 거리값을 도출
 
+### 2.2 Deep Metric Learning(Feat. Contrastive Loss)
 
 <br/>
 <br/>
