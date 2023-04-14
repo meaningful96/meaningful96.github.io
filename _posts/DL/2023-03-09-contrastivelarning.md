@@ -24,8 +24,6 @@ Contrastive Learning이란 입력 샘플 간의 **비교**를 통해 학습을 �
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/231803381-c9c0d8e0-da54-45cc-982e-a1d4347909b4.png">
 </p>
 
-<br/>
-<br/>
 
 ## 1. Similarity learning
 이러한 **유사도**를 이용해 학습하는 방식을 Similarity learning이라고 한다. Similarity learning의 사전적 정의는 다음과 같고, 크게 3가지 종류가 있다.
@@ -33,6 +31,8 @@ Contrastive Learning이란 입력 샘플 간의 **비교**를 통해 학습을 �
 <span style = "font-size:110%"><center><b><i>"Similarity learning is closely realted to regresison and classification, but the goal is to learn a similarity funciton that measures <span style = "color:aqua">how similar or related two objects are</span>.</i></b></center></span>
 
 결국, Constrastive learning과 similarity learnig모두 다 <span style = "color:aqua">**어떤 객체들에 대한 유사도**</span>와 관련이 있다는 걸 알 수 있다.
+
+<br/>
 
 ### 1.1 Regression Similarity Learning
 
@@ -62,8 +62,30 @@ Regression Similarity Learning과 식은 유사하다. 다만 다른 점은 이�
 - Classification: $$y \in {0,1}$$
   - 두 객체가 <span style = "color:aqua">**유사한지 아닌지만 알려줌**</span>(마치 NSP: Next Sentence Prediction과 비슷). 어느 정도로 유사한지는 알 수 없음.
 
+<br/>
+
 ### 1.3 Ranking Similarity Learning
 
+<p align="center">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/231970703-9f41daff-e19f-4b24-82bf-a4648412b5f3.png">
+</p>
+
+앞선 두 가지 방식과 다른 점은 **Input이 3개(Triplet of objects)라는 점이다.** 일반적인 데이터 $$x$$와 유사한 데이터 $$x^{+}$$, 유사하지 않은 데이터 $$x^{-}$$가 입력으로 들어간다. 이런식으로 <span style = "color:aqua">**유사한 데이터들 간의 유사도와 유사하지 않은 데이터들 간의 유사도 차이를 설정하여 학습**</span>하게 된다.
+
+데이터들끼리 유사도가 높다는 것을 <span style = "color:aqua">**거리(Distance)**</span>관점에서 해석할 수 있다. **유사한 데이터는 (상대적인) 거리가 가깝다**는 식으로 해석 가능하다. 이와 비슷한 것이 이전 Graph Embedding 모델들이다. head와 relation의 상대적인 위치를 통해 벡터 임베딩 형태로 표현하고, tail과의 상대적인 거리가 좁아질수록 정답인 True triple이 되는 것이다. 
+
+거리를 이용한 해석 방식은 **Distance Metric Learning**이라고 한다. 
+
+## 2 Distance Metric Learning
+
+유사도를 판단하는 방법 중 거리의 관점에서 해석하는 방식이다. 보통 거리라는 개념을 단순히 점과 점 사이의 최단 거리로만 이해하는 경우가 있지만, 거리를 측정하는 다양한 방법이 존재한다. 또한 진짜 물리적인 거리만이 아니라, 여러 가지 트릭을 이용해 **상대적인**거리로 표현할 수도 있다. **Metric Learning**은 <span style = "color:aqua">**객체(데이터)들 간의 거리(or 유사도)를 수량화**</span>하는 방법이다. Metric Learning에서는 다음과 같은 4가지 속성을 반영한다.
+
+- Non-negativity: $$f(x,y) \geq 0$$ = 두 데이터 간의 거리는 음수가 될 수 없다.
+- Identity of Discernile: $$f(x,y) = 0 \Leftrightarrow x = y$$ = 두 데이터 간의 거리가 0이면 x와 y는 동일하다.
+- Symmetry: $$f(x,y) = f(y,x)$$ = <x,y>간의 거리나 <y,x>
+- Triangle Inequality: $$f(x,z) \leq f(x,y) + f(y,z)$$ = <x,z>간의 거리는 <x,y>간의 거리와 <y,z>간의 거리를 합한 것보다 클 수 없다.
+
+### 2.1 Metric of Two Types
 
 <br/>
 <br/>
