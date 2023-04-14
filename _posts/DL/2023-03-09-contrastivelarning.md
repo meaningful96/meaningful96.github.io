@@ -51,7 +51,7 @@ Contrastive Learning이란 입력 샘플 간의 **비교**를 통해 학습을 �
 ### 1.2 Classification Similarity Learning
 
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/231951745-0f01afda-a228-4411-a64d-c8f4288d4a15.png">
+<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/231951745-0f01afda-a228-4411-a64d-c8f4288d4a15.png">
 </p>
 
 Regression Similarity Learning과 식은 유사하다. 다만 다른 점은 이름에서 알 수 있다. Regression은 연속된 데이터를 분류하는 것을 말한다(ex) Linear Regression). 반면 Classification은 이산적인 분류를 하는 것을 말한다(ex) Binary Classification). 따라서, **Classification Similarity Learning**은 두 객체가 유사한지 아닌지만 알 수 있다.
