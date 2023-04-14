@@ -51,7 +51,7 @@ Contrastive Learning이란 입력 샘플 간의 **비교**를 통해 학습을 �
 ### 1.2 Classification Similarity Learning
 
 <p align="center">
-<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/231951745-0f01afda-a228-4411-a64d-c8f4288d4a15.png">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/231978599-9e80ecb1-8145-480b-b23b-81d14c703740.png">
 </p>
 
 Regression Similarity Learning과 식은 유사하다. 다만 다른 점은 이름에서 알 수 있다. Regression은 연속된 데이터를 분류하는 것을 말한다(ex) Linear Regression). 반면 Classification은 이산적인 분류를 하는 것을 말한다(ex) Binary Classification). 따라서, **Classification Similarity Learning**은 두 객체가 유사한지 아닌지만 알 수 있다.
@@ -67,7 +67,7 @@ Regression Similarity Learning과 식은 유사하다. 다만 다른 점은 이�
 ### 1.3 Ranking Similarity Learning
 
 <p align="center">
-<img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/231970703-9f41daff-e19f-4b24-82bf-a4648412b5f3.png">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/231981078-7a301fc1-ce63-4e48-95ec-787544ff2e6d.png">
 </p>
 
 앞선 두 가지 방식과 다른 점은 **Input이 3개(Triplet of objects)라는 점이다.** 일반적인 데이터 $$x$$와 유사한 데이터 $$x^{+}$$, 유사하지 않은 데이터 $$x^{-}$$가 입력으로 들어간다. 이런식으로 <span style = "color:aqua">**유사한 데이터들 간의 유사도와 유사하지 않은 데이터들 간의 유사도 차이를 설정하여 학습**</span>하게 된다.
@@ -86,6 +86,8 @@ Regression Similarity Learning과 식은 유사하다. 다만 다른 점은 이�
 - Triangle Inequality: $$f(x,z) \leq f(x,y) + f(y,z)$$ = <x,z>간의 거리는 <x,y>간의 거리와 <y,z>간의 거리를 합한 것보다 클 수 없다.
 
 ### 2.1 Metric of Two Types
+
+
 
 <br/>
 <br/>
