@@ -40,7 +40,7 @@ Contrastive Learning이란 입력 샘플 간의 **비교**를 통해 학습을 �
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/231949535-f5aa3f86-50ff-4bcc-bdb8-c8be9f671226.png">
 </p>
 
-**Regression Similarity Learning**은 두 객체 간의 유사도를 알고 있다는 전제하에 **Supervised Learning 학습**을 시키는 방법이다. 유사도는 Pre-defined된 어떤 기준에 의해 설정되고, 기준에 따라 모델이 학습된다. 위의 <b>$$y$$</b>가 **유사도**를 나타낸다. 유사도가 높으면 y값이 높게 설정된다. 앞의 설정한 유사도에 따라 모델이 학습되면, <span style = "color:aqua">**학습된 모델에 test 데이터인 두 객체가 입력 될 때 pre-defined 기준에 따라 유사도를 결정**</span>된다.
+**Regression Similarity Learning**은 두 객체 간의 유사도를 알고 있다는 전제하에 **Supervised Learning 학습**을 시키는 방법이다. 유사도는 Pre-defined된 어떤 기준에 의해 설정되고, 기준에 따라 모델이 학습된다. 위의 <b>$$y$$</b>가 **유사도**를 나타낸다. 유사도가 높으면 $$y$$값이 높게 설정된다. 앞의 설정한 유사도에 따라 모델이 학습되면, <span style = "color:aqua">**학습된 모델에 test 데이터인 두 객체가 입력 될 때 pre-defined 기준에 따라 유사도를 결정**</span>된다.
 
 예를 들어, 강아지 이미지 데이터들 끼리는 모두 강한 유사도를 주고, 강아지 이미지 데이터와 고양이 이미지 데이터들의 유사도는 매우 낮은 값으로 설정해주어 학습 시키면, 학습 한 모델은 강아지 이미지들끼리에 대해서 높은 유사도 값을 regression할 것이다.
 
