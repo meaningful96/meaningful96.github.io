@@ -24,3 +24,9 @@ Contrastive Learning이란 입력 샘플 간의 **비교**를 통해 학습을 �
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/231803381-c9c0d8e0-da54-45cc-982e-a1d4347909b4.png">
 </p>
 
+## 1. Similarity learning
+이러한 **유사도**를 이용해 학습하는 방식을 Similarity learning이라고 한다. Similarity learning의 사전적 정의는 다음과 같다.
+
+<span style = "font-size:110%"><center><b><i>"Similarity learning is closely realted to regresison and classification, but the goal is to learn a similarity funciton that measures how similar or related two objects are.</i></b></center></span>
+
+
