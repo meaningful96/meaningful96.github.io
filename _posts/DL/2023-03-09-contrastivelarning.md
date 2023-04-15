@@ -106,8 +106,34 @@ Regression Similarity Learning과 식은 유사하다. 다만 다른 점은 이�
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/232100220-f5602e72-9217-4563-9afb-a6624a3f2623.png">
 </p>
 
-유의미한 manifold를 찾기 위해서는 <span style = "color:aqua">**demension reduction**</span>(차원축소 e.g. PCA, SVD, LDA) 방식이 필요하고, 그 방식이 바로 <span style = "color:aqua">**Deep Neural Network**</span>이다. 결국 특정 metric을 기준으로 한 유사도를 찾기 위해 딥러닝 모델들의 파라미터가 학습된다면, 이는 해당 metric을 찾기 위한 <span style = "color:aqua">**manifold를 찾는 과정이며, 이 과정 자체가 Estimate from data를 의미 한다.**</span>
+유의미한 manifold를 찾기 위해서는 <span style = "color:aqua">**demension reduction**</span>(차원축소 e.g. PCA, SVD, LDA) 방식이 필요하고, 그 방식이 바로 <span style = "color:aqua">**Deep Neural Network**</span>이다. 결국 특정 metric을 기준으로 한 유사도를 찾기 위해 딥러닝 모델들의 파라미터가 학습된다면, 이는 해당 metric을 찾기 위한 <span style = "color:aqua">**manifold를 찾는 과정이며, 이 과정 자체가 Estimate from data를 의미**</span>한다. 
 
+
+## 3 Contrastive Learning 
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/232206814-1bb5b197-b7f1-421c-8c11-1d4c7ba59353.png">
+</p>
+
+위의 그림을 먼저 보면, 유사한 이미지를 한 쌍으로 한 **Positive pair끼리는 Euclidian Loss가 최소화** 되도록 학습시키면, <span style = "color:aqua">**DNN(Deep Neural Network)은 고차원의 Positive pair 데이터의 거리가 가깝도록 low dimension으로 차원 축소(Dimension reduction or embedding)**</span>한다. 반면 **Negative pair끼리는 Euclidian Loss값이 커지도록 설정**해줄 수 있다. 이로 인해 <b>margin(m)</b>이라는 개념이 도입되고, <span style = "color:aqua">**margin은 negative pair간의 최소한의 거리**</span>를 의미한다. 
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/232207762-a89577d7-d885-4753-97be-2a0e2972995e.png">
+</p>
+
+예를 들어, loss값이 최소가 되기를 바라는데, negative pair($$x_n, x_q$$)의 거리가 m보다 작다면 계속해서 loss값을 생성해낼 것이다. 하지만, 학습을 통해 negative pair간의 거리가 m보다 크게 되면 loss값을 0으로 수렴시킬 수 있다. 이 두식이 결합되어 하나의 loss, <span style = "color:gold">**Contrastive loss**</span>라 한다. 
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/232207966-9a8e1b6e-c485-45f6-9015-1da2c974cf16.png">
+</p>
+
+## 4. Knowledge Graph관점에서 Contrastive Learning
+
+Contrastive Loss는 Negative pair loss와 Positive pair loss의 합으로 구성된다. Knowledge Graph에서 종종 학습의 성능을 높여주기 위해 <span style = "color:gold">**Negative Sampling**</span>을 자주 사용한다. 여기서 Negative sampling은 KG에서 실제로 정의가 된 Triple이 아닌, <u>실제로는 연결관계가 없는 Triple</u>을 말한다. 즉, 어떤 head와 tail이 실제로는 어떤 릴레이션으로 연결이 안되어 있는 Triple을 말한다. 
+
+따라서 학습이 Positive pair에게는 점수를 더 주며, Negative pair에게는 점수를 덜 주는 방향으로 Loss가 구성되어 학습이 진행된다. 대표적인 모델로 SimKGC가 있다.
+
+[SimKGC]("https://arxiv.org/pdf/2203.02167.pdf")
 
 
 <br/>
