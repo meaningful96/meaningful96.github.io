@@ -59,3 +59,22 @@ conda install -c anaconda tensorflow-gpu=1.12 keras==2.2.4
 conda env create -f keggutils_env.yml
 ```
 
+- yml 파일 예시
+```bash
+name: Relphormer
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - numpy=1.21.5
+  - pytorch==1.13.1
+  - torchvision=0.14.1
+  - torchaudio=0.13.1
+  - pytorch-cuda=11.6
+  - pytorch-lightning=1.9.4
+  - transformers=4.26.1
+  - faiss-gpu=1.7.2
+  - tensorboard=2.12.0
+  - tensorboardx=2.6
+```
