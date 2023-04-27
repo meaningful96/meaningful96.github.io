@@ -139,7 +139,7 @@ plt.show()
 - 딥러닝에서 말하는 <span style = "color:aqua">**Standardization(표준화)이 보통 Standard Scaling**</span>을 말한다.
 
 <p align="center">
-<img width="300" alt="1" src="https://user-images.githubusercontent.com/111734605/234773396-0cd24834-d2f7-42ca-beb3-437aa14979c7.png">
+<img width="200" alt="1" src="https://user-images.githubusercontent.com/111734605/234773396-0cd24834-d2f7-42ca-beb3-437aa14979c7.png">
 </p>
 
 ```python
