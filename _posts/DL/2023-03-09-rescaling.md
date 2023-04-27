@@ -224,6 +224,9 @@ plt.show()
 
 ### 2) Scikit-learn 라이브러리 사용
 
+- Scikit-learn 패키지를 이용해서 만들 수 있다.
+- <span style = "color:gold">**Scailing 값을 조정하는 과정이기 때문에 수치형 변수에만 적용**</span>
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
