@@ -1,5 +1,5 @@
 ---
-title: (Pytorch) - 1. Feedforward Neural Network(FFNN), Fully-Connectec Neural Network(FC)
+title: "[Pytorch] - 1. Feedforward Neural Network(FFNN), Fully-Connectec Neural Network(FC)"
 
 categories: 
   - DeepLearning
