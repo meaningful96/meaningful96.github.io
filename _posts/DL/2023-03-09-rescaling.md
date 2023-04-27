@@ -59,6 +59,8 @@ f1 = plt.figure(1)
 ax1 = f1.add_subplot(131)
 ax1.plot(x,y,'r-', label = "Before", alpha = 0.7)
 ax1.plot(x,rescale_minMax,'b-', label = "y only", alpha = 0.7)
+ax1.legend(loc='upper right')
+plt.show()
 
 ax2 = f1.add_subplot(132)
 ax2.plot(x,rescale_minMax,'b-', label = "y only", alpha = 0.7)
@@ -68,10 +70,12 @@ plt.show()
 
 ax3 = f1.add_subplot(133)
 ax3.plot(x_rescale, rescale_minMax, 'c-', label = "x & y", alpha = 0.7)
+ax3.legend(loc='upper right')
+plt.show()
 ```
 
 <p align="center">
-<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/234778437-64094b6d-6953-4bd8-9155-9e2f9fa28b76.png">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/234779649-be68299f-b377-4731-be80-9d34a8e14c6a.png">
 </p>
 
 <br/>
