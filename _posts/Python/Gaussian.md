@@ -1,6 +1,5 @@
 ---
-title: 정규분포
-subtitle: 파이썬, 그리고 숫자형 자료형
+title: Python으로 정규분포 구현하기
 
 categories:
   - py
