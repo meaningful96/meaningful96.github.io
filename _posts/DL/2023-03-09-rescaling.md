@@ -1,5 +1,5 @@
 ---
-title: "[Data 전처리] min-MAX Scailing, Standard Scailing"
+title: "[데이터 전처리] min-MAX Scailing, Standard Scailing"
 
 categories: 
   - DeepLearning
