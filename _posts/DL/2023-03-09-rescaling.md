@@ -21,7 +21,7 @@ last_modified_at: 2023-04-24
 ## 1. min-Max Scailing(Normalization)
 
 <p align="center">
-<img width="300" alt="1" src="https://user-images.githubusercontent.com/111734605/234765198-531ec9c3-9907-44c9-8cd2-78e311222db8.png">
+<img width="200" alt="1" src="https://user-images.githubusercontent.com/111734605/234765198-531ec9c3-9907-44c9-8cd2-78e311222db8.png">
 </p>
 
 - 변수의 범위를 바꿔주는 정규화 스케일링 기법 \[0, 1\]
