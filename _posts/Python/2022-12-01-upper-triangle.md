@@ -1,5 +1,5 @@
 ---
-title: Upper Triangular matrix(상삼각행렬)
+title: "[Python] Upper Triangular matrix(상삼각행렬)"
 
 categories: 
   - py
