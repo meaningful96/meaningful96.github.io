@@ -1,5 +1,5 @@
 ---
-title: map함수와 lambda 함수
+title: "[Python] map함수와 lambda 함수"
 
 categories:
   - py
