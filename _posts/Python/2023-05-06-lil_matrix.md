@@ -21,19 +21,19 @@ Scipy는 기본적으로 Numpy, Matplotlib, Pandas, Sympy등 과 함께 동작�
 SciPy는 NumPy위에서 구동되는 라이브러리 정도로 이해해도 무방하다. SciPy는 기본적으로 NumPy의 ndarray를 기본 자료형으로 사용한다. 
 일부 패키지는 중복되지만 SciPy가 보다 풍부한 기능을 제공한다. SciPy는 다른 과학 컴퓨팅 영역을 다루는 하위 패키지로 구성다.
 
-- scipy.cluster: 계층적, K-평균 군집화 등 클러스터링 알고리즘을 제공
-- scipy.constants: 물리 상수를 제공
-- scipy.fftpack: FFT(Fast Fourier Transform) 알고리즘을 제공
-- scipy.integrate: 수치적 적분을 위한 여러 함수를 제공
-- scipy.interpolate: 데이터 보간을 위한 함수를 제공
-- scipy.linalg: 선형 대수 연산을 위한 함수를 제공
-- scipy.ndimage: 다차원 이미지 처리를 위한 함수를 제공
-- scipy.optimize: 최적화 문제를 위한 함수를 제공
-- scipy.signal: 시그널 처리를 위한 함수를 제공
-- scipy.sparse: 희소 행렬 처리를 위한 함수를 제공
-- scipy.spatial: 공간 데이터 처리를 위한 함수를 제공
-- scipy.special: 특수 함수를 제공
-- scipy.stats: 통계 분석을 위한 함수를 제공
+- `scipy.cluster`: 계층적, K-평균 군집화 등 클러스터링 알고리즘을 제공
+- `scipy.constants`: 물리 상수를 제공
+- `scipy.fftpack`: FFT(Fast Fourier Transform) 알고리즘을 제공
+- `scipy.integrate`: 수치적 적분을 위한 여러 함수를 제공
+- `scipy.interpolate`: 데이터 보간을 위한 함수를 제공
+- `scipy.linalg`: 선형 대수 연산을 위한 함수를 제공
+- `scipy.ndimage`: 다차원 이미지 처리를 위한 함수를 제공
+- `scipy.optimize`: 최적화 문제를 위한 함수를 제공
+- `scipy.signal`: 시그널 처리를 위한 함수를 제공
+- `scipy.sparse`: 희소 행렬 처리를 위한 함수를 제공
+- `scipy.spatial`: 공간 데이터 처리를 위한 함수를 제공
+- `scipy.special`: 특수 함수를 제공
+- `scipy.stats`: 통계 분석을 위한 함수를 제공
 
 ## Scipy.sparse: 희소 행렬(Sparse Matrix)처리
 행렬의 값이 대부분 non-zero인 행렬을 밀집행렬(Dense Matrix)라고 한다. 반면, 행렬의 요소들 대부분이<span style = "color:gold">**zero('0')인 행렬을 희소 행렬(Sparse Matrix)**</span>라고 한다. 
