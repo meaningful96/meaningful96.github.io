@@ -1,5 +1,5 @@
 ---
-title: "[Python] Scipy 모듈의 LIL matrix"
+title: "[Python] Scipy 모듈의 LIL matrix, isspars수함수"
 
 categories:
   - py
@@ -57,4 +57,29 @@ print(matrix)
 [[0. 2. 0.]
  [0. 0. 3.]
  [4. 0. 0.]]
+```
+
+## issparse()함수
+sp.issmatrix 함수는 행렬을 input으로 받아 input행렬이 sparse matrix인지 아닌지를 <span style = "color:gold">**Boolean 값**</span>으로 리턴한다. 만약 Sparse matrix가 맞다면 True, 아니면 False를 리턴한다.
+
+```python
+import numpy as np
+from scipy import sparse
+
+# create a sparse matrix using the COO format
+data = np.array([1, 2, 3])
+row = np.array([0, 1, 2])
+col = np.array([0, 1, 2])
+sparse_matrix = sparse.coo_matrix((data, (row, col)))
+
+# check if the matrix is sparse
+is_sparse = sparse.issparse(sparse_matrix)
+print(is_sparse)  # Output: True
+
+# create a dense matrix
+dense_matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+# check if the matrix is sparse
+is_sparse = sparse.issparse(dense_matrix)
+print(is_sparse)  # Output: False
 ```
