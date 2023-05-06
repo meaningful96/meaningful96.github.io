@@ -50,3 +50,51 @@ tensor([[ 1,  2,  3,  7,  8,  9],
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/235976058-d23f9b75-401c-4547-9e17-6655f3baf957.png">
 </p>
+
+<br/>
+
+### 2) Stack함수
+cat함수는 원하는 dimension방향으로 텐서를 나란히 쌓아준다. 반면 stack함수는 <span style = "color:gold">**텐서를 새로운 차원에 차곡차곡**</span>쌓아준다. 
+예를 들어, (x,y,z)사이즈를 가지는 텐서에 dim = 2에 텐서 3개를 쌓는다면 (x,y,3,z)가 된다.(**같은 사이즈의 텐서끼리만 쌓을 수 있다.**)
+
+```python
+import torch
+
+a = torch.tensor([[1, 2, 3],
+                  [4, 5, 6]])
+
+b = torch.tensor([[7, 8, 9],
+                  [10, 11, 12]])
+
+print(torch.stack([a, b], dim = 0))
+'''
+tensor([[[ 1,  2,  3],
+         [ 4,  5,  6]],
+
+        [[ 7,  8,  9],
+         [10, 11, 12]]]), size = (2, 2, 3)'''
+
+print(torch.stack([a, b], dim = 1))
+'''
+tensor([[[ 1,  2,  3],
+         [ 7,  8,  9]],
+
+        [[ 4,  5,  6],
+         [10, 11, 12]]]), size = (2, 2, 3)'''
+
+print(torch.stack([a, b], dim = 2))
+'''
+tensor([[[ 1,  7],
+         [ 2,  8],
+         [ 3,  9]],
+
+        [[ 4, 10],
+         [ 5, 11],
+         [ 6, 12]]]), size = (2, 3, 2)'''
+
+```
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/236613569-481af5a6-d401-4d09-8ccc-bcb7485c2bb1.png">
+</p>
+
