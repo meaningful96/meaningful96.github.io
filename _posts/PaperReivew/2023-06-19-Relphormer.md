@@ -19,7 +19,31 @@ Bi, Z. (2022, May 22). Relphormer: Relational Graph Transformer for Knowledge Gr
 이 포스터는 3월 14일에 포스팅된 [Relphormer]("https://meaningful96.github.io/paperreview/Relphormer/")
 
 # Problem Statement
+
+
+
+<br/>
+<br/>
+
 # Related Work
+
+
+
+<br/>
+<br/>
+
 # Method
+
+
+
+<br/>
+<br/>
+
 # Experiment & Result
+
+
+
+<br/>
+<br/>
+
 # Contribution
