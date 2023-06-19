@@ -10,8 +10,8 @@ tags:
 toc: true
 toc_sticky: true
 
-date: 2023-03-14
-last_modified_at: 2023-03-14
+date: 2023-06-19
+last_modified_at: 2023-06-19
 ---
 
 Bi, Z. (2022, May 22). *Relphormer: Relational Graph Transformer for Knowledge Graph Representations*. arXiv.org. https://arxiv.org/abs/2205.10852
