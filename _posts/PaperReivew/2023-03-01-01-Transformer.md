@@ -20,8 +20,7 @@ last_modified_at: 2023-03-01
   - 최근 연구에서 factorization trick이나 conditional computation을 통해 계산 효율성을 많이 개선
   - 특히 Conditional Computation은 모델 성능도 개선
   - 하지만, 여전히 계산 복잡도 문제 존재
-
-<center><span style = "font-size:80%">LSTM의 문제점: Input Sequence를 하나의 Context Vector로 압축➜병목현상</span></center>
+  - LSTM의 문제점: Input Sequence를 하나의 Context Vector로 압축➜병목현상
 
 2. <span style = "font-size:110%">Attention Mechanism이 다양한 분야의 Sequence Modeling에 사용되지만, 그럼에도 <span style = "color:aqua">RNN을 사용</span>.</span>
   - Attention Mechainsm은 Input과 Output간 Sequence의 길이를 신경쓰지 않아도 됨.
