@@ -5,7 +5,7 @@ categories:
   - PaperReview
   
 tags:
-  - [KG Completion, NLP]
+  - [NLP, Transformer]
   
 toc: true
 toc_sticky: true
@@ -15,19 +15,19 @@ last_modified_at: 2023-03-01
 ---
 
 # 1. Problem Statement
-<span style = "font-size:110%">1. Sequential 모델들의 <span style = "color:aqua">Computational Complexity</span>가 너무 높음</span>
+1. <span style = "font-size:120%">Sequential 모델들의 <span style = "color:aqua">Computational Complexity</span>가 너무 높음</span>
   - Recurrent model(RNN)을 기반으로 한 여러가지 Architecture들이 존재: RNN, LSTM, Seq2Seq
   - 최근 연구에서 factorization trick이나 conditional computation을 통해 계산 효율성을 많이 개선
   - 특히 Conditional Computation은 모델 성능도 개선
   - 하지만, 여전히 계산 복잡도 문제 존재
   - LSTM의 문제점: Input Sequence를 하나의 Context Vector로 압축➜병목현상
 
-2. <span style = "font-size:110%">Attention Mechanism이 다양한 분야의 Sequence Modeling에 사용되지만, 그럼에도 <span style = "color:aqua">RNN을 사용</span>.</span>
+2. <span style = "font-size:120%">Attention Mechanism이 다양한 분야의 Sequence Modeling에 사용되지만, 그럼에도 <span style = "color:aqua">RNN을 사용</span>.</span>
   - Attention Mechainsm은 Input과 Output간 Sequence의 길이를 신경쓰지 않아도 됨.
 
-3. 기존의 RNN모델들은 Parallelization이 불가능 ➜ Training에 많은 시간 소요
+3. <span style = "font-size:120%">기존의 RNN모델들은 Parallelization이 불가능 ➜ Training에 많은 시간 소요</span>
 
-4. Sequ2Seq의 문제점
+4. <span style = "font-size:120%">Sequ2Seq의 문제점</span>
   - 하나의 Context Vector에 모든 정보를 압축해야 하므로 정보의 타당성이 떨어져 성능 저하 발생
 
 <p align="center">
