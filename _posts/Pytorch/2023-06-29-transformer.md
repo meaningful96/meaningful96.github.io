@@ -16,9 +16,7 @@ last_modified_at: 2023-05-07
 
 논문 리뷰: [\[논문리뷰\]Transformer: Attention Is All You Need]("https://meaningful96.github.io/paperreview/01-Transformer/")
 
-# [Pytorch] Transformer 구현
-
-## 1. Why Transformer?
+# Why Transformer?
 
 Transformer의 가장 큰 contribution은 <span style = "color:gold">**기존의 RNN 모델이 불가능했던 병렬 처리를 가능**</span>케했다는 것이다.. GPU를 사용함으로써 얻는 가장 큰 이점은 병렬 처리를 한다는 것. RNN(Recurrent Neural Network)은 recursive하기 때문에 병렬 연산이 불가능하다. 
 다시 말해 Next layer의 입력이 이전 layer의 hidden state를 받아야 하기 때문이다. Recurrent network를 사용하는 이유는 sequential할 데이터를 처리하기 위함인데, sequential하다는 것은 등장 시점(또는 위치)를 하나의 정보로 취급한다는 것이다. 
@@ -26,9 +24,11 @@ Transformer의 가장 큰 contribution은 <span style = "color:gold">**기존의
 
 따라서 앞 시점의 연산이 끝나지 않을 경우, 그 뒤의 연산을 수행할 수 없다. 이러한 이유로 RNN 계열의 model은 병렬 처리를 수행할 수 없다. 또한 RNN기반의 모델들(RNN, LSTM, Seq2Seq…)의 단점 중 하나는, 하나의 고정된 사이즈의 context vector에 정보를 압축한다는 사실이다. 이럴 경우 필연적으로 입력이 길어지면 정보 손실이 가속화된다. 또한, sequential data의 특성상 위치에 따른 정보가 중요한데, 이러한 위치 정보가 손실되는 Long term dependency가 발생한다. 
 
-## 2. Model 구조
+<br/>
+<br/>
 
-### 1) Overview
+# Model 구조
+## 1. Overview
 
 <p align="center">
 <img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/b4052cb7-3c59-427f-b2db-b0cd0f3bc2f3">
@@ -45,7 +45,7 @@ Transformer는 전형적인 Encoder-Decoder 모델이다. 즉, 전체 모델은 
     - 세 개의 Sub layer는 **Masked Multi-head attention**, **Multi-head attention**, **position-wise fully connected feed-forward network**이다.
     - Residual Connection 존재
 
-### 2) Encode-Decoder
+## 2. Encode-Decoder
 
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/b8174595-a0ff-4184-8e65-5d9581609fcb">
@@ -79,9 +79,9 @@ class Transformer(nn.Module):
         return y
 ```
 
-<span style = "font-size:110%"><b>Encoder</b></span>  
+## 3. Encoder
 
-Encoder는 
+### 1) Encoder 구조
 
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/4f76e416-6bc6-4f61-ac65-aa9479d67e7f">
@@ -119,9 +119,14 @@ class Encoder(nn.Module):
 전통적인 Langauge Model의 경우 입력 시퀀스에 대해 Input Embedding matrix만 만들어 모델의 입력으로 보냈다. 하지만, Transformer의 경우는 입력 시퀀스의 각각의 Token들에 대해 위치 정보까지 주기위해 Positional Encoding도 이용한다. 
 단, 이 **Positional Encoding**은 <u>각 단어의 상대적인 위치 정보를 네트워크</u>에 입력하는 것이며 sin 또는 cos함수로 이루어져있다.
 
-###  Attention?
+<br/>
+
+### 2) Sub-Layer1: Multi-head Attention
 
 Encoder block의 첫 번째 Sub layer에 해당하는 것은 Multi-head attention이다. 
 
 
+<br/>
+
+### 3) Sub-Layer2: Position-wise Feed Forward Neural Network(FFNN)
 
