@@ -84,7 +84,7 @@ class Transformer(nn.Module):
 Encoder는 
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/171271fd-1e15-4a23-a9e9-ac37bb847162">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/4f76e416-6bc6-4f61-ac65-aa9479d67e7f">
 </p>
 
 Encoder는 N=6이다. 즉 6개의 층이 쌓여져 있다.  이러한 구조를 통해 할 수 있는 사실은, Input와 Output의 shape이 똑같다는 사실이다. 다시 말해 <u>입출력에 있어서 shape은 완전히 동일한 matrix가되며</u> Encoder block은 shape에 대해 멱등하다 할 수 있다.
