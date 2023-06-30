@@ -140,6 +140,8 @@ Attention이 그럼 무슨 역할을 하는 건지를 이해하는 것이 중요
 #### RNN vs Self-Attention
 RNN 계열의 모델들을 다시 생각해보면, 이전 시점까지 나온 Token들의 hidden state 내부에 이전 정보들을 저장한다. 하지만 순차적으로 입력이 들어가기 때문에 모든 Token을 동시에 처리하는 것이 불가능하다. 다시 말해 $$h_i$$를 구하기 위해서는 $$h_0, h_1, h_2, \cdots, h_{i_1}$$까지 모두 순서대로 거쳐야 구할 수 있다는 것이다.
 
+반면 Self-Attention의 경우는 한 문장내에서 기준이 되는 Token을 바꿔가며 모든 Token에 대한 attention을 <u>행렬 곱을 통해 한 번에 계산</u>한다. 이 행렬 곱 계산이 가능하기에 병럴 처리가 손쉽게 가능하다.
+
 <br/>
 
 ### 3) Sub-Layer2: Position-wise Feed Forward Neural Network(FFNN)
