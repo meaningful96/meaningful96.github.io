@@ -119,16 +119,17 @@ class Encoder(nn.Module):
 전통적인 Langauge Model의 경우 입력 시퀀스에 대해 Input Embedding matrix만 만들어 모델의 입력으로 보냈다. 하지만, Transformer의 경우는 입력 시퀀스의 각각의 Token들에 대해 위치 정보까지 주기위해 Positional Encoding도 이용한다. 
 
 <p align="center">
-<img width="500" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/1742a87c-f7dd-4e0a-ae81-dad8981807bb">
+<img width="400" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/1742a87c-f7dd-4e0a-ae81-dad8981807bb">
 </p>
 
-단, 이 **Positional Encoding**은 <u>각 단어의 상대적인 위치 정보를 네트워크</u>에 입력하는 것이며 sin 또는 cos함수로 이루어져있다.
+단, 이 **Positional Encoding**은 <u>각 단어의 상대적인 위치 정보를 네트워크</u>에 입력하는 것이며 sin 또는 cos함수로 이루어져있다. 
 
 <br/>
 
 ### 2) Sub-Layer1: Multi-head Attention
 
-Encoder block의 첫 번째 Sub layer에 해당하는 것은 Multi-head attention이다. 
+Encoder block의 첫 번째 Sub layer에 해당하는 것은 Multi-head attention이다. Attention mechanism을 이루는 방법에는 여러 가지가 있지만, Transformer의 경우는 <span style = "color:gold"><b>Scaled Dot-Product Attention</b></span>을 병렬적으로 여러 번 수행한다. Transformer이후 Scaled Dot-Product attention 방식을 통상적으로 attention이라고 사용한다.
+
 
 
 <br/>
