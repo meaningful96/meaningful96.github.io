@@ -133,7 +133,9 @@ Encoder block의 첫 번째 Sub layer에 해당하는 것은 Multi-head attentio
 
 Attention이 그럼 무슨 역할을 하는 건지를 이해하는 것이 중요하다. Attention Mechanism을 사용하는 목적은 생각보다 간단하다. <span style = "color:gold"><b>Token들이 서로서로 얼마나 큰 영향력을 가졌는지를 구하는 것</b></span>이다.
 
-또한 1)한 문장 내에서 Token들의 attention을 구하는지 2)서로 다른 문장에서 Token들의 attention을 구하는지에 따라 각각 1)**Self-Attention** 과 2)**Cross-Attention**으로 구분된다.
+
+- **Self-Attention** = 한 문장 내에서 Token들의 attention을 구함.
+- **Cross-Attention** = 서로 다른 문장에서 Token들의 attention을 구함. 
 
 #### RNN vs Self-Attention
 RNN 계열의 모델들을 다시 생각해보면, 이전 시점까지 나온 Token들의 hidden state 내부에 이전 정보들을 저장한다. 하지만 순차적으로 입력이 들어가기 때문에 모든 Token을 동시에 처리하는 것이 불가능하다. 다시 말해 $$h_i$$를 구하기 위해서는 $$h_0, h_1, h_2, \cdots, h_{i_1}$$까지 모두 순서대로 거쳐야 구할 수 있다는 것이다.
