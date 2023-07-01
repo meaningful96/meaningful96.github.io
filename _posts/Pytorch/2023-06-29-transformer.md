@@ -51,7 +51,7 @@ Transformer는 전형적인 Encoder-Decoder 모델이다. 즉, 전체 모델은 
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/b8174595-a0ff-4184-8e65-5d9581609fcb">
 </p>
 
-간단하게 정리하면 <span style = "color:gold">**Encoder**</span>의 역할은 <u>문장(Sentence)를 받아와 하나의 Vector를 생성</u>해내는 함수이며 이 과정을 흔히 **Encoding**이라고 한다. 이렇게 Encoding을 통해 생성된 벡터를  Context라고 한다. 
+간단하게 정리하면 <span style = "color:gold">**Encoder**</span>의 역할은 <u>문장(Sentence)를 받아와 하나의 벡터터를 생성</u>해내는 함수이며 이 과정을 흔히 **Encoding**이라고 한다. 이렇게 Encoding을 통해 생성된 벡터를  Context라고 한다. 
 반면 <span style = "color:gold">**Decoder**</span>의 역할은 Encoder와 반대이다. <u>Context와 right shift된 문장을 입력으로 받아 sentence를 생성</u>해낸다. 이 과정을 Decoding이라고 한다.
 
 ```python
@@ -116,7 +116,7 @@ class Encoder(nn.Module):
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/033133ae-424c-424f-8e0b-71aa4f0e792c">
 </p>
 
-전통적인 Langauge Model의 경우 입력 시퀀스에 대해 Input Embedding matrix만 만들어 모델의 입력으로 보냈다. 하지만, Transformer의 경우는 입력 시퀀스의 각각의 Token들에 대해 위치 정보까지 주기위해 Positional Encoding도 이용한다. 
+전통적인 Langauge Model의 경우 입력 시퀀스에 대해 Input Embedding matrix만 만들어 모델의 입력으로 보냈다. 하지만, Transformer의 경우는 입력 시퀀스의 각각의 토큰들에 대해 위치 정보까지 주기위해 Positional Encoding도 이용한다. 
 
 <p align="center">
 <img width="400" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/1742a87c-f7dd-4e0a-ae81-dad8981807bb">
@@ -131,16 +131,34 @@ class Encoder(nn.Module):
 #### Attention의 이해
 Encoder block의 첫 번째 Sub layer에 해당하는 것은 Multi-head attention이다. Attention mechanism을 이루는 방법에는 여러 가지가 있지만, Transformer의 경우는 <span style = "color:gold"><b>Scaled Dot-Product Attention</b></span>을 병렬적으로 여러 번 수행한다. Transformer이후 Scaled Dot-Product attention 방식을 통상적으로 attention이라고 사용한다.
 
-Attention이 그럼 무슨 역할을 하는 건지를 이해하는 것이 중요하다. Attention Mechanism을 사용하는 목적은 생각보다 간단하다. <span style = "color:gold"><b>Token들이 서로서로 얼마나 큰 영향력을 가졌는지를 구하는 것</b></span>이다.
+Attention이 그럼 무슨 역할을 하는 건지를 이해하는 것이 중요하다. Attention Mechanism을 사용하는 목적은 생각보다 간단하다. <span style = "color:gold"><b>토큰들이 서로서로 얼마나 큰 영향력을 가졌는지를 구하는 것</b></span>이다.
 
 
-- **Self-Attention** = 한 문장 내에서 Token들의 attention을 구함.
-- **Cross-Attention** = 서로 다른 문장에서 Token들의 attention을 구함. 
+- **Self-Attention** = 한 문장 내에서 토큰들의 attention을 구함.
+- **Cross-Attention** = 서로 다른 문장에서 토큰들의 attention을 구함. 
 
 #### RNN vs Self-Attention
-RNN 계열의 모델들을 다시 생각해보면, 이전 시점까지 나온 Token들의 hidden state 내부에 이전 정보들을 저장한다. 하지만 순차적으로 입력이 들어가기 때문에 모든 Token을 동시에 처리하는 것이 불가능하다. 다시 말해 $$h_i$$를 구하기 위해서는 $$h_0, h_1, h_2, \cdots, h_{i_1}$$까지 모두 순서대로 거쳐야 구할 수 있다는 것이다.
+RNN 계열의 모델들을 다시 생각해보면, 이전 시점까지 나온 토큰들의 hidden state 내부에 이전 정보들을 저장한다. 하지만 순차적으로 입력이 들어가기 때문에 모든 토큰을 동시에 처리하는 것이 불가능하다. 다시 말해 $$h_i$$를 구하기 위해서는 $$h_0, h_1, h_2, \cdots, h_{i_1}$$까지 모두 순서대로 거쳐야 구할 수 있다는 것이다. 이러한 이유로 Input sequence의 길이가 길어지면, 오래된 시점의 토큰들의 의미는 점점 더 퇴색되어 제대로 반영이 되지 못하는 **Long term dependency**가 발생하는 것이다.
 
-반면 Self-Attention의 경우는 한 문장내에서 기준이 되는 Token을 바꿔가며 모든 Token에 대한 attention을 <u>행렬 곱을 통해 한 번에 계산</u>한다. 이 행렬 곱 계산이 가능하기에 병럴 처리가 손쉽게 가능하다.
+반면 Self-Attention의 경우는 한 문장내에서 기준이 되는 토큰을 바꿔가며 모든 토큰에 대한 attention을 <u>행렬 곱을 통해 한 번에 계산</u>한다. 이 행렬 곱 계산이 가능하기에 병럴 처리가 손쉽게 가능하다. 즉, 문장에 n개의 토큰이 있다면 $$n \times n$$ 번 연산을 수행해 모든 토큰들 사이의 연관된 정도를 한 번에 구해낸다. 중간 과정 없이 direct하게 한 번에 구하므로 토큰간의 의미가 퇴색되지 않는다.
+
+#### Attention 구하기(Query, Key, Value)
+Attention을 계산할 때는 **Query, Key, Value** 세 가지 벡터가 사용되며 각각의 정의는 다음과 같다.
+
+- Query(쿼리): 현재 시점의 Token, 비교의 주체
+- Key(키): 비교하려는 대상, 객체이다. 입력 시퀀스의 모든 토큰
+- Value(벨류): 입력 시퀀스의 각 토큰과 관련된 실제 정보를 수치로 나타낸 실제 값, Key와 동일한 토큰을 지칭
+
+예를 들어 I am a teacher라는 문장이 있다. 이 문장을 가지고 Attention을 구한다고 하면 다음과 같이 정리할 수 있다. 
+
+- if Query = 'I'
+  - Key = 'I', 'am', 'a', 'teacher'
+  - Query-key의 사이의 연관성을 구한다 = Attention
+
+그러면 Query, Key, Value 이 세 벡터가 어떤식으로 추출되는지도 알아야한다. 이 벡터들은 입력으로 들어오는 Token embedding을 <span style = "color:gold">**Fully Connected Layer(FC)**</span>에 넣어 생성된다. 세 벡터를 생성해내는 FC layer는 모두 다르기 때문에 self-attention에서는 <u>Query, Key, Value를 위한 3개의 서로 다른 FC layer가 존재</u>한다. 각각이 개별적으로 구해지는 것과는 달리
+**세 벡터의 Shape은 동일**하다. (<span style = "font-size:110%">$$d_{key} = d_{value} = d_{query} = d_k$$</span>)
+
+#### Scaled Dot-Product Attention
 
 <br/>
 
