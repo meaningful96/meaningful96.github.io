@@ -169,7 +169,7 @@ Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 
 
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/80a2f928-b4bb-48da-bd70-11332f0142ea">
+<img width="650" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/80a2f928-b4bb-48da-bd70-11332f0142ea">
 </p>
 
 
