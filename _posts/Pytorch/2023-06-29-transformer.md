@@ -161,7 +161,7 @@ Attention을 계산할 때는 **Query, Key, Value** 세 가지 벡터가 사용�
 #### Scaled Dot-Product Attention
 
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/33421eba-f11e-4de4-95a4-6d94793e259a">
+<img width="300" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/33421eba-f11e-4de4-95a4-6d94793e259a">
 </p>
 
 Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 Query와 Key 벡터의 행렬곱을 수행하고 Scaling을 한 후 Softmax를 통해 확률값으로 만들어 버린다. 이후 이 값을 Value와 곱하면된다.
