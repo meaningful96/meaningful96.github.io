@@ -204,6 +204,8 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/881383b6-b941-4d58-8b7e-7334bec0772c">
 </p>
 
+<br/>
+
 행렬로 확장해 Attention을 진행하면 위와 같이 된다. 최종적으로 Query에 대한 Attention value역시 행렬로 출력된다. 다시 한 번 강조하면 **Self-Attention은 Input Query(Q)의 Shape에 대해 멱등(Idemopotent)**하다.
 
 <p align="center">
@@ -211,14 +213,28 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 </p>
 <center><span style = "font-size:80%">멱등(Idemopotent)성을 설명하는 그림</span></center>
 
-위의 Self-Attention의 과정을 수식으로서 정리하면 아래와 같이 정리할 수 있다.
+<br/>
+<br/>
+
+Self-Attention의 과정을 수식으로서 정리하면 아래와 같이 정리할 수 있다.
 
 <p align="center">
-<img width="650" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/80a2f928-b4bb-48da-bd70-11332f0142ea">
+<img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/80a2f928-b4bb-48da-bd70-11332f0142ea">
 </p>
 
 #### Masked Self-Attention(Masking)
-Scaled Dot-Product Attention을 설명하면서 한 부분을 설명하지 않았다. 바로 Masking이다. Masking은 
+Scaled Dot-Product Attention을 설명하면서 한 부분을 설명하지 않았다. 바로 Masking이다. Masking을 함으로써 Masked Self-Attention이 되는데 이 과정을 거치는 이유는 학습과 추론과정에서 정보가 새는 것을 방지하기 위함이다. Transformer에서 <u>한 번에 하나씩 출력 토큰을 생성할 수 있도록 하면서 모델이 미래의 토큰이 아닌 이전에 생성된 토큰에만 attention을 기울이도록 하기 위함</u>이다. 좀 더 구체적으로, Encoder-Decoder로 이루어진 모델들의 경우 입력을 순차적으로 전달받기 때문에 t + 1 시점의 예측을 위해 사용할 수 있는 데이터가 t 시점까지로 한정된다. 하지만 Transformer는 현재 시점의 출력값을 만들어 내는데 미래 시점의 입력값까지 사용할 수 있게되기 때문이다. 
+
+이걸 예를 들어 설명하면 초깃값, 1 Epoch을 생각해보면 이해하기 쉽다. 처음에 입력으로 들어가 인코더를 거친 값이 디코더로 들어가는데,  또 다른 입력은 이전 Epoch에서의 출력 임베딩값이다. 하지만 1 Epoch에서는 과거의 값은 존재하지 않아 초기에 설정해준 값이 들어간다. 즉, 1 Epoch에서 이미 출력값을 입력으로 요구하기 때문에 시점이 미래라 할 수 있는 것이고, 결국은 현재의 출력 값을 예측하는데 미래의 값을 이용한다고 말할 수 있다. 이러한 문제를 방지하기 위해 **Look-Ahead Mask** 기법이 나왔다.
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227343660-9676f01e-c7d1-4973-b005-6db96d06753a.png">
+</p>
+
+트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 $$i<j$$인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
+
+이렇게 Maksed Multi-head Attention을 거친후 Residual Connection과 함께 <u>'Add + Norm' Layer를 거치면 그 출력값이 인코더의 출력값과 함께 두 번째 Sub Layer인 <b>Multi-Head Attention</b>의 입력</u>으로 들어간다. 이는 의미적으로 Seq2Seq에서의 인코더-디코더 어텐션과 동일하다. <span style = "color:aqua">출력 단어가 입력 단어와 얼마나 연관이 있는지를 나타내기 위함</span>이다.
+
 
 <br/>
 
