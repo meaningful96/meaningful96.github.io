@@ -196,18 +196,29 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/9fcccd13-ebad-407c-8641-9fc95b6757f4">
 </p>
 
-앞서 구한 과정은 모두 하나의 Query에 대해서 1:1, 1:N 관계로 확장하며 구한 것이다. 또한 한 번의 행렬 연산으로 구해진 것이다. 하지만 실제로 Query역시 모든 토큰들이 돌아가면서 각각의 토큰들에 대한 Query attention value를 구해야 하므로 Concatenation을 이용해 **행렬**로 확장해야한다. 이를 그림으로 표현하면 위와 같다.
+앞서 구한 과정은 모두 하나의 Query에 대해서 1:1, 1:N 관계로 확장하며 구한 것이다. 또한 한 번의 행렬 연산으로 구해진 것이다. 하지만 실제로 Query역시 모든 토큰들이 돌아가면서 각각의 토큰들에 대한 Query attention value를 구해야 하므로 Concatenation을 이용해 **행렬**로 확장해야한다. 이를 그림으로 표현하면 위와 같다. Masking에 대해서는 
+
+<br/>
 
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/881383b6-b941-4d58-8b7e-7334bec0772c">
 </p>
 
-행렬로 확장해 Attention을 진행하면 위와 같다.
+행렬로 확장해 Attention을 진행하면 위와 같이 된다. 최종적으로 Query에 대한 Attention value역시 행렬로 출력된다. 다시 한 번 강조하면 **Self-Attention은 Input Query(Q)의 Shape에 대해 멱등(Idemopotent)**하다.
+
+<p align="center">
+<img width="650" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/bb93c589-6630-4fb3-8d84-dec0c0c1f828">
+</p>
+<center><span style = "font-size:80%">멱등(Idemopotent)성을 설명하는 그림</span></center>
+
+위의 Self-Attention의 과정을 수식으로서 정리하면 아래와 같이 정리할 수 있다.
 
 <p align="center">
 <img width="650" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/80a2f928-b4bb-48da-bd70-11332f0142ea">
 </p>
 
+#### Masked Self-Attention(Masking)
+Scaled Dot-Product Attention을 설명하면서 한 부분을 설명하지 않았다. 바로 Masking이다. Masking은 
 
 <br/>
 
