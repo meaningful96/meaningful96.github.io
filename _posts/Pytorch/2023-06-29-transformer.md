@@ -189,7 +189,7 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 이로써 최종적으로 Query에 대한 <span style = "color:gold">**Attention Value**</span>가 나오게 된다. 여기서 알아야 할 중요한 포인트는 연산의 최종 결과인 <u>Query의 Attention Value의 크기(차원)이 Input Query 임베딩과 동일</u>하다는 것이다. Attention Mechanism입장에서 입력은 Query, Key, Value로 세 가지이지만, 의미상으로 Semantic한 측면에서 고려하면 출력이 Query의 attention이므로 입력도 Query로 생각할 수 있다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/94b93dcd-ed63-4b2b-917f-d5c2954c4aa0">
+<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/94b93dcd-ed63-4b2b-917f-d5c2954c4aa0">
 </p>
 
 <p align="center">
