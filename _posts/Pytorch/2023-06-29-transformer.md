@@ -31,7 +31,7 @@ Transformer의 가장 큰 contribution은 <span style = "color:gold">**기존의
 ## 1. Overview
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/b4052cb7-3c59-427f-b2db-b0cd0f3bc2f3">
+<img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/b4052cb7-3c59-427f-b2db-b0cd0f3bc2f3">
 </p>
 
 Transformer는 전형적인 Encoder-Decoder 모델이다. 즉, 전체 모델은 Encoder와 Decoder 두 개의 partition으로 나눠진다.  Transformer의 입력은 Sequence 형태로 들어간다. 또한 출력도 마찬가지로 Sequence를 만들어 낸다. 
@@ -159,6 +159,19 @@ Attention을 계산할 때는 **Query, Key, Value** 세 가지 벡터가 사용�
 **세 벡터의 Shape은 동일**하다. (<span style = "font-size:110%">$$d_{key} = d_{value} = d_{query} = d_k$$</span>)
 
 #### Scaled Dot-Product Attention
+
+<p align="center">
+<img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/33421eba-f11e-4de4-95a4-6d94793e259a">
+</p>
+
+Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 Query와 Key 벡터의 행렬곱을 수행하고 Scaling을 한 후 Softmax를 통해 확률값으로 만들어 버린다. 이후 이 값을 Value와 곱하면된다.
+
+
+
+<p align="center">
+<img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/80a2f928-b4bb-48da-bd70-11332f0142ea">
+</p>
+
 
 <br/>
 
