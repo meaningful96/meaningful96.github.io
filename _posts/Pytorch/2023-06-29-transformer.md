@@ -196,7 +196,7 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/9fcccd13-ebad-407c-8641-9fc95b6757f4">
 </p>
 
-앞서 구한 과정은 모두 하나의 Query에 대해서 1:1, 1:N 관계로 확장하며 구한 것이다. 또한 한 번의 행렬 연산으로 구해진 것이다. 하지만 실제로 Query역시 모든 토큰들이 돌아가면서 각각의 토큰들에 대한 Query attention value를 구해야 하므로 Concatenation을 이용해 **행렬**로 확장해야한다. 이를 그림으로 표현하면 위와 같다. Masking에 대해서는 
+앞서 구한 과정은 모두 하나의 Query에 대해서 1:1, 1:N 관계로 확장하며 구한 것이다. 또한 한 번의 행렬 연산으로 구해진 것이다. 하지만 실제로 Query역시 모든 토큰들이 돌아가면서 각각의 토큰들에 대한 Query attention value를 구해야 하므로 Concatenation을 이용해 **행렬**로 확장해야한다. 이를 그림으로 표현하면 위와 같다. 
 
 <br/>
 
@@ -223,7 +223,30 @@ Self-Attention의 과정을 수식으로서 정리하면 아래와 같이 정리
 </p>
 
 #### Masked Self-Attention(Masking)
-Scaled Dot-Product Attention을 설명하면서 한 부분을 설명하지 않았다. 바로 Masking이다. Masking을 하는 <span style = "color:gold">**이유는 특정 값들을 가려서 실제 연산에 방해가 되지 않도록 하기 위함**</span>이다. Masking에는 크게 두 가지 방법이 존재한다. Padding Masking(패딩 마스킹)과 Look-ahead Masking(룩 어헤드 마스킹)이다.
+Scaled Dot-Product Attention을 설명하면서 한 부분을 설명하지 않았다. 바로 Masking이다. Masking을 하는 <span style = "color:gold">**이유는 특정 값들을 가려서 실제 연산에 방해가 되지 않도록 하기 위함**</span>이다. Masking에는 크게 두 가지 방법이 존재한다. Padding Masking(패딩 마스킹)과 Look-ahead Masking(룩 어헤드 마스킹)이다. 
+
+<span style = "font-size:110%">패딩(Padding)</span>  
+mini-batch마다 입력되는 문장은 모두 다르다. 이 말을 다시 해석하면, 입력되는 모든 문장의 길이는 다르다. 그러면 모델은 이 <u>다른 문장 길이를 조율해주기 위해 모든 문장의 길이를 동일하게 해주는 전처리 과정이 필요</u>하다. 짧은 문장과 긴 문장이 섞인 경우, 짧은 문장을 기준으로 연산을 해버리면 긴 문장에서는 일부 손실이 발생한다. 반대로, 긴 문장을 기준으로 연산을 해버리면 짧은 문장에서 Self-Attention을 할 경우 연산에 오류가 발생한다.(토큰 개수 부족)
+
+따라서 짧은 문장의 경우 0을 채워서 문장의 길이를 맞춰줘야 한다. 중요한 것은 0을 채워주지만 그 zero Token들의 경우 실제로 의미를 가지지 않는다. 따라서 <span style = "color:gold">**실제 attention 연산시에도 제외할 필요**</span>가 있다. 숫자 0의 위치를 체크해주는 것이 바로 패딩 마스킹(Padding Masking)이다.
+
+<span style = "font-size:110%">패딩 마스킹(Padding Masking)</span> 
+
+Scaled Dot-Product Attention을 구현할 때 어텐션 함수에서 mask를 인자로 받아 이 값에다 아주 작은 음수값을 곱해 어텐션 스콜어를 더해준다.
+
+```python
+def scaled_dot_product_attention(query, key, value, mask):
+... 중략 ...
+    logits += (mask * -1e9) # 어텐션 스코어 행렬인 logits에 mask*-1e9 값을 더해주고 있다.
+... 중략 ...
+```
+
+이건 Input Sentence에 \[PAD\] 토큰이 있을 경우 어텐션을 제외하기 위한 연산이다. \[PAD\]가 포함된 입력 문장의 Self-Attention을 구하는 과정은 다음과 같다.
+
+<p align="center">
+<img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/8116f845-e6d6-4da3-a2e2-1798414e215d">
+</p>
+
 
 
 <br/>
