@@ -225,12 +225,12 @@ Self-Attention의 과정을 수식으로서 정리하면 아래와 같이 정리
 #### Masked Self-Attention(Masking)
 Scaled Dot-Product Attention을 설명하면서 한 부분을 설명하지 않았다. 바로 Masking이다. Masking을 하는 <span style = "color:gold">**이유는 특정 값들을 가려서 실제 연산에 방해가 되지 않도록 하기 위함**</span>이다. Masking에는 크게 두 가지 방법이 존재한다. Padding Masking(패딩 마스킹)과 Look-ahead Masking(룩 어헤드 마스킹)이다. 
 
-<span style = "font-size:110%">패딩(Padding)</span>  
+<span style = "font-size:110%"><b>패딩(Padding)</b></span>  
 mini-batch마다 입력되는 문장은 모두 다르다. 이 말을 다시 해석하면, 입력되는 모든 문장의 길이는 다르다. 그러면 모델은 이 <u>다른 문장 길이를 조율해주기 위해 모든 문장의 길이를 동일하게 해주는 전처리 과정이 필요</u>하다. 짧은 문장과 긴 문장이 섞인 경우, 짧은 문장을 기준으로 연산을 해버리면 긴 문장에서는 일부 손실이 발생한다. 반대로, 긴 문장을 기준으로 연산을 해버리면 짧은 문장에서 Self-Attention을 할 경우 연산에 오류가 발생한다.(토큰 개수 부족)
 
 따라서 짧은 문장의 경우 0을 채워서 문장의 길이를 맞춰줘야 한다. 중요한 것은 0을 채워주지만 그 zero Token들의 경우 실제로 의미를 가지지 않는다. 따라서 <span style = "color:gold">**실제 attention 연산시에도 제외할 필요**</span>가 있다. 숫자 0의 위치를 체크해주는 것이 바로 패딩 마스킹(Padding Masking)이다.
 
-<span style = "font-size:110%">패딩 마스킹(Padding Masking)</span> 
+<span style = "font-size:110%"><b>패딩 마스킹(Padding Masking)</b></span> 
 
 Scaled Dot-Product Attention을 구현할 때 어텐션 함수에서 mask를 인자로 받아 이 값에다 아주 작은 음수값을 곱해 Attention Score행렬에 더해준다.
 
@@ -251,11 +251,11 @@ def scaled_dot_product_attention(query, key, value, mask):
 
 마스킹을 하는 방법은 사실 간단한데, 매우 작은 음수값을 넣어주면된다. 이 Attention Score가 SoftMax함수를 지나 Value 행렬과 곱해지는데, SoftMax 통과시 PAD부분이 0에 매우 가까운 값이 되어 유사도를 구할 때 반영이 되지 않는다.
 
-<span style = "font-size:110%">룩어헤드 마스킹(Look-Ahead Masking</span> 
+<span style = "font-size:110%"><b>룩어헤드 마스킹(Look-Ahead Masking)</b></span> 
 
 RNN이나 트랜스포머, GPT는 문장을 입력받을 때 단방향으로 학습한다. 즉, 하나의 방향으로만 문장을 읽고 트랜스포머는 RNN가 달리 한 step에 모든 문장을 나타내는 행렬이 들어가기 때문에 추가적인 마스킹이 필요하다.
 
-Masked Self-Attention을 하는 이유는, <u>학습과 추론과정에 정보가 새는(Information Leakage)것을 방지</u>하기 위함이다. 트랜스포머에서 마스킹된 Self Attention은 모델이 <u>한 번에 하나씩 출력 토큰을 생성할 수 있도록 하면서 모델이 미래의 토큰이 아닌 이전에 생성된 토큰에만 주의를 기울이도록 하기 위함</u>이다. 이를 더 자세히 말하자면, Encoder-Decoder로 이루어진 모델들의 경우 입력을 순차적으로 전달받기 때문에 t + 1 시점의 예측을 위해 사용할 수 있는 데이터가 t 시점까지로 한정된다. 하지만 트랜스포머의 현재 시점의 출력값을 만들어 내는데 미래 시점의 입력값까지 사용할 수 있게되는 문제가 발생하기 때문이다.
+Masked Self-Attention을 하는 이유는, **학습과 추론과정에 정보가 새는(Information Leakage)것을 방지**하기 위함이다. 트랜스포머에서 마스킹된 Self Attention은 모델이 <u>한 번에 하나씩 출력 토큰을 생성할 수 있도록 하면서 모델이 미래의 토큰이 아닌 이전에 생성된 토큰에만 주의를 기울이도록 하기 위함</u>이다. 이를 더 자세히 말하자면, Encoder-Decoder로 이루어진 모델들의 경우 입력을 순차적으로 전달받기 때문에 t + 1 시점의 예측을 위해 사용할 수 있는 데이터가 t 시점까지로 한정된다. 하지만 트랜스포머의 현재 시점의 출력값을 만들어 내는데 미래 시점의 입력값까지 사용할 수 있게되는 문제가 발생하기 때문이다.
 
 이 이유는 트랜스포머의 초기값, 1 Epoch을 생각해보면 이해하기 쉽다. 처음에 입력으로 들어가 인코더를 거친 값이 디코더로 들어가는데, 디코더로 들어가는 또 다른 입력은 이전 Epoch에서의 출력 임베딩값이다. 하지만 1 Epoch에서는 과거의 값은 존재하지 않아 초기에 설정해준 값이 들어간다. 즉, <u>1 Epoch에서 이미 출력값을 입력으로 요구하기 때문에 시점이 미래라 할 수 있는 것</u>이고, 결국은 현재의 출력 값을 예측하는데 미래의 값을 이용한다고 말할 수 있다. 이러한 문제를 방지하기 위해 **Look-Ahead Mask** 기법이 나왔다. 
 
