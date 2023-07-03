@@ -263,7 +263,7 @@ Masked Self-Attention을 하는 이유는, 학습과 추론과정에 정보가 �
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227343660-9676f01e-c7d1-4973-b005-6db96d06753a.png">
 </p>
 
-트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 $$i<j$$인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
+트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 i<j인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
 
 <br/>
 
