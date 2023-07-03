@@ -271,7 +271,7 @@ Masked Self-Attention을 하는 이유는, <u>학습과 추론과정에 정보�
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227325573-f5ca67b9-3b5a-4e51-bab8-dbeefffa36e8.png">
 </p>
 
-트랜스포머의 특징 중 하나는 Multi-head attention을 수행한다는 것이다. 한 Encoder, Decoder Layer마다 1회씩 수행하는 것이 아니라 병렬적으로 $$h$$회 각각 수행한 뒤 그 결과를 종합해 사용한다. 이렇게 하는 이유는 다양한 Attention을 반영해 더 좋은 성능을 내기 위함이다. 논문에서는 head의 개수가 총 **8개**이며 Q,K,V를 위한 FC Layer가 3개에서 $$3 \times 8 = 24$$개가 필요하게 된다. 출력은 Single self-attention의 경우 $$n \times d_k$$의 shape을 가진다. head가 8개가 되면서 이 <span style = "color:gold"><b>출력 차원은 $$n \times (d_k \times h)$$로 바뀌게</b></span> 된다.(n은 토큰 개수, 사실상 seq_len). 논문에서는 <b>$$d_model  = d_k \times h$$</b>로 정의한다.
+트랜스포머의 특징 중 하나는 Multi-head attention을 수행한다는 것이다. 한 Encoder, Decoder Layer마다 1회씩 수행하는 것이 아니라 병렬적으로 $$h$$회 각각 수행한 뒤 그 결과를 종합해 사용한다. 이렇게 하는 이유는 다양한 Attention을 반영해 더 좋은 성능을 내기 위함이다. 논문에서는 head의 개수가 총 **8개**이며 Q,K,V를 위한 FC Layer가 3개에서 $$3 \times 8 = 24$$개가 필요하게 된다. 출력은 Single self-attention의 경우 $$n \times d_k$$의 shape을 가진다. head가 8개가 되면서 이 <span style = "color:gold"><b>출력 차원은 $$n \times (d_k \times h)$$로 바뀌게</b></span> 된다.(n은 토큰 개수, 사실상 seq_len). 논문에서는 <b>$$d_{model}  = d_k \times h$$</b>로 정의한다.
 
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/2b94a815-e5e1-4194-9aa4-dcec54677b66">
@@ -319,6 +319,10 @@ def forward(self, *args, query, key, value, mask=None):
         out = self.out_fc(out) # (n_batch, seq_len, d_embed)
         return out
 ```
+먼저 생성자를 살펴보면 `qkv_fc`인자로 $$d_{embed} \times d_{model}$$의 weight matrix를 갖는 FC Layer를 호출받아 멤버 변수로 Q, K, V에 대해 각각 `copy.deepcopy`를 호출해 저장한다. `deepcopy`를 호출하는 이유는 실제로는 서로 다른 weight를 갖고 별개로 사용되게 하기 위해서이다. copy를 하지않으면 항상 같은 Q, K, V 얻게 된다. `out_fc`는 attention 계산 이후 거쳐가는 FC Layer로 $$d_model \times d_embed$$의 weight matrix를 갖는다.
+
+`forward()` 부분은 가장 핵심적인 부분이며 반드시 이해해야 한다.
+
 
 ```python
 def calculate_attention(self, query, key, value, mask):
