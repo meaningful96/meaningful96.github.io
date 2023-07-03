@@ -319,7 +319,7 @@ def forward(self, *args, query, key, value, mask=None):
         out = self.out_fc(out) # (n_batch, seq_len, d_embed)
         return out
 ```
-먼저 생성자를 살펴보면 `qkv_fc`인자로 $$d_{embed} \times d_{model}$$의 weight matrix를 갖는 FC Layer를 호출받아 멤버 변수로 Q, K, V에 대해 각각 `copy.deepcopy`를 호출해 저장한다. `deepcopy`를 호출하는 이유는 실제로는 서로 다른 weight를 갖고 별개로 사용되게 하기 위해서이다. copy를 하지않으면 항상 같은 Q, K, V 얻게 된다. `out_fc`는 attention 계산 이후 거쳐가는 FC Layer로 $$d_model \times d_embed$$의 weight matrix를 갖는다.
+먼저 생성자를 살펴보면 `qkv_fc`인자로 $$d_{embed} \times d_{model}$$의 weight matrix를 갖는 FC Layer를 호출받아 멤버 변수로 Q, K, V에 대해 각각 `copy.deepcopy`를 호출해 저장한다. `deepcopy`를 호출하는 이유는 실제로는 서로 다른 weight를 갖고 별개로 사용되게 하기 위해서이다. copy를 하지않으면 항상 같은 Q, K, V 얻게 된다. `out_fc`는 attention 계산 이후 거쳐가는 FC Layer로 $$d_{model} \times d_{embed}$$의 weight matrix를 갖는다.
 
 `forward()` 부분은 가장 핵심적인 부분이며 반드시 이해해야 한다.
 
