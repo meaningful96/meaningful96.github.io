@@ -255,15 +255,84 @@ def scaled_dot_product_attention(query, key, value, mask):
 
 RNN이나 트랜스포머, GPT는 문장을 입력받을 때 단방향으로 학습한다. 즉, 하나의 방향으로만 문장을 읽고 트랜스포머는 RNN가 달리 한 step에 모든 문장을 나타내는 행렬이 들어가기 때문에 추가적인 마스킹이 필요하다.
 
-Masked Self-Attention을 하는 이유는, 학습과 추론과정에 정보가 새는(Information Leakage)것을 방지하기 위함이다. 트랜스포머에서 마스킹된 Self Attention은 모델이 <u>한 번에 하나씩 출력 토큰을 생성할 수 있도록 하면서 모델이 미래의 토큰이 아닌 이전에 생성된 토큰에만 주의를 기울이도록 하기 위함</u>이다. 이를 더 자세히 말하자면, Encoder-Decoder로 이루어진 모델들의 경우 입력을 순차적으로 전달받기 때문에 t + 1 시점의 예측을 위해 사용할 수 있는 데이터가 t 시점까지로 한정된다. 하지만 트랜스포머의 현재 시점의 출력값을 만들어 내는데 미래 시점의 입력값까지 사용할 수 있게되는 문제가 발생하기 때문이다.
+Masked Self-Attention을 하는 이유는, <u>학습과 추론과정에 정보가 새는(Information Leakage)것을 방지</u>하기 위함이다. 트랜스포머에서 마스킹된 Self Attention은 모델이 <u>한 번에 하나씩 출력 토큰을 생성할 수 있도록 하면서 모델이 미래의 토큰이 아닌 이전에 생성된 토큰에만 주의를 기울이도록 하기 위함</u>이다. 이를 더 자세히 말하자면, Encoder-Decoder로 이루어진 모델들의 경우 입력을 순차적으로 전달받기 때문에 t + 1 시점의 예측을 위해 사용할 수 있는 데이터가 t 시점까지로 한정된다. 하지만 트랜스포머의 현재 시점의 출력값을 만들어 내는데 미래 시점의 입력값까지 사용할 수 있게되는 문제가 발생하기 때문이다.
 
-이 이유는 트랜스포머의 초기값, 1 Epoch을 생각해보면 이해하기 쉽다. 처음에 입력으로 들어가 인코더를 거친 값이 디코더로 들어가는데, 디코더로 들어가는 또 다른 입력은 이전 Epoch에서의 출력 임베딩값이다. 하지만 1 Epoch에서는 과거의 값은 존재하지 않아 초기에 설정해준 값이 들어간다. 즉, 1 Epoch에서 이미 출력값을 입력으로 요구하기 때문에 시점이 미래라 할 수 있는 것이고, 결국은 현재의 출력 값을 예측하는데 미래의 값을 이용한다고 말할 수 있다. 이러한 문제를 방지하기 위해 **Look-Ahead Mask** 기법이 나왔다. 
+이 이유는 트랜스포머의 초기값, 1 Epoch을 생각해보면 이해하기 쉽다. 처음에 입력으로 들어가 인코더를 거친 값이 디코더로 들어가는데, 디코더로 들어가는 또 다른 입력은 이전 Epoch에서의 출력 임베딩값이다. 하지만 1 Epoch에서는 과거의 값은 존재하지 않아 초기에 설정해준 값이 들어간다. 즉, <u>1 Epoch에서 이미 출력값을 입력으로 요구하기 때문에 시점이 미래라 할 수 있는 것</u>이고, 결국은 현재의 출력 값을 예측하는데 미래의 값을 이용한다고 말할 수 있다. 이러한 문제를 방지하기 위해 **Look-Ahead Mask** 기법이 나왔다. 
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227343660-9676f01e-c7d1-4973-b005-6db96d06753a.png">
 </p>
 
-트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 i<j인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
+트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 i<j인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 <span style = "color:gold">**Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0**</span>이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
+
+#### Multi-head Attention
+
+<p align="center">
+<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227325573-f5ca67b9-3b5a-4e51-bab8-dbeefffa36e8.png">
+</p>
+
+트랜스포머의 특징 중 하나는 Multi-head attention을 수행한다는 것이다. 한 Encoder, Decoder Layer마다 1회씩 수행하는 것이 아니라 병렬적으로 $$h$$회 각각 수행한 뒤 그 결과를 종합해 사용한다. 이렇게 하는 이유는 다양한 Attention을 반영해 더 좋은 성능을 내기 위함이다. 논문에서는 head의 개수가 총 **8개**이며 Q,K,V를 위한 FC Layer가 3개에서 $$3 \times 8 = 24$$개가 필요하게 된다. 출력은 Single self-attention의 경우 $$n \times d_k$$의 shape을 가진다. head가 8개가 되면서 이 <span style = "color:gold"><b>출력 차원은 $$n \times (d_k \times h)$$로 바뀌게</b></span> 된다.(n은 토큰 개수, 사실상 seq_len). 논문에서는 <b>$$d_model  = d_k \times h$$</b>로 정의한다.
+
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/2b94a815-e5e1-4194-9aa4-dcec54677b66">
+</p>
+
+실제 연산은 <span style = "color:gold">**병렬로 한 step에서 한 번에 수행**</span>되어 더 효율적인 방식으로 구현된다.
+
+<br/>
+
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/7893de33-101d-4b3c-95fa-0a8fa7f9b043">
+</p>
+
+```python
+class MultiHeadAttentionLayer(nn.Module):
+
+    def __init__(self, d_model, h, qkv_fc, out_fc):
+        super(MultiHeadAttentionLayer, self).__init__()
+        self.d_model = d_model
+        self.h = h
+        self.q_fc = copy.deepcopy(qkv_fc) # (d_embed, d_model)
+        self.k_fc = copy.deepcopy(qkv_fc) # (d_embed, d_model)
+        self.v_fc = copy.deepcopy(qkv_fc) # (d_embed, d_model)
+        self.out_fc = out_fc              # (d_model, d_embed)
+
+def forward(self, *args, query, key, value, mask=None):
+        # query, key, value: (n_batch, seq_len, d_embed)
+        # mask: (n_batch, seq_len, seq_len)
+        # return value: (n_batch, h, seq_len, d_k)
+        n_batch = query.size(0)
+
+        def transform(x, fc):  # (n_batch, seq_len, d_embed)
+            out = fc(x)        # (n_batch, seq_len, d_model)
+            out = out.view(n_batch, -1, self.h, self.d_model//self.h) # (n_batch, seq_len, h, d_k)
+            out = out.transpose(1, 2) # (n_batch, h, seq_len, d_k)
+            return out
+
+        query = transform(query, self.q_fc) # (n_batch, h, seq_len, d_k)
+        key = transform(key, self.k_fc)     # (n_batch, h, seq_len, d_k)
+        value = transform(value, self.v_fc) # (n_batch, h, seq_len, d_k)
+
+        out = self.calculate_attention(query, key, value, mask) # (n_batch, h, seq_len, d_k)
+        out = out.transpose(1, 2) # (n_batch, seq_len, h, d_k)
+        out = out.contiguous().view(n_batch, -1, self.d_model) # (n_batch, seq_len, d_model)
+        out = self.out_fc(out) # (n_batch, seq_len, d_embed)
+        return out
+```
+
+```python
+def calculate_attention(self, query, key, value, mask):
+    # query, key, value: (n_batch, h, seq_len, d_k)
+    # mask: (n_batch, 1, seq_len, seq_len)
+    d_k = key.shape[-1]
+    attention_score = torch.matmul(query, key.transpose(-2, -1)) # Q x K^T, (n_batch, h, seq_len, seq_len)
+    attention_score = attention_score / math.sqrt(d_k)
+    if mask is not None:
+        attention_score = attention_score.masked_fill(mask==0, -1e9)
+    attention_prob = F.softmax(attention_score, dim=-1) # (n_batch, h, seq_len, seq_len)
+    out = torch.matmul(attention_prob, value) # (n_batch, h, seq_len, d_k)
+    return out
+```
 
 <br/>
 
