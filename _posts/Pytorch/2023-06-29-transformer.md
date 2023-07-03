@@ -1,5 +1,5 @@
 ---
-title: "[Pytorch] Transformer 구현하기"
+title: "[Pytorch] Traansformer 구현하기"
 
 categories: 
   - Pytorch
@@ -18,7 +18,7 @@ last_modified_at: 2023-05-07
 
 # Why Transformer?
 
-Transformer의 가장 큰 contribution은 <span style = "color:gold">**기존의 RNN 모델이 불가능했던 병렬 처리를 가능**</span>케했다는 것이다.. GPU를 사용함으로써 얻는 가장 큰 이점은 병렬 처리를 한다는 것. RNN(Recurrent Neural Network)은 recursive하기 때문에 병렬 연산이 불가능하다. 
+트랜스포머의 가장 큰 contribution은 <span style = "color:gold">**기존의 RNN 모델이 불가능했던 병렬 처리를 가능**</span>케했다는 것이다.. GPU를 사용함으로써 얻는 가장 큰 이점은 병렬 처리를 한다는 것. RNN(Recurrent Neural Network)은 recursive하기 때문에 병렬 연산이 불가능하다. 
 다시 말해 Next layer의 입력이 이전 layer의 hidden state를 받아야 하기 때문이다. Recurrent network를 사용하는 이유는 sequential할 데이터를 처리하기 위함인데, sequential하다는 것은 등장 시점(또는 위치)를 하나의 정보로 취급한다는 것이다. 
 따라서 Context vector를 앞에서부터 순차적으로 생성해내고, 그 Context Vector를 이후 시점에서 활용하는 방식으로 구현한다. 즉, 이후 시점의 연산은 앞 시점의 연산에 의존적이다.
 
@@ -34,7 +34,7 @@ Transformer의 가장 큰 contribution은 <span style = "color:gold">**기존의
 <img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/b4052cb7-3c59-427f-b2db-b0cd0f3bc2f3">
 </p>
 
-Transformer는 전형적인 Encoder-Decoder 모델이다. 즉, 전체 모델은 Encoder와 Decoder 두 개의 partition으로 나눠진다.  Transformer의 입력은 Sequence 형태로 들어간다. 또한 출력도 마찬가지로 Sequence를 만들어 낸다. 
+트랜스포머는 전형적인 Encoder-Decoder 모델이다. 즉, 전체 모델은 Encoder와 Decoder 두 개의 partition으로 나눠진다.  트랜스포머의 입력은 Sequence 형태로 들어간다. 또한 출력도 마찬가지로 Sequence를 만들어 낸다. 
 
 - Encoder
     - 2개의 Sub layer로 구성되어 있으며, 총 6개의 층으로 구성되어 있다.(N=6)
@@ -116,7 +116,7 @@ class Encoder(nn.Module):
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/033133ae-424c-424f-8e0b-71aa4f0e792c">
 </p>
 
-전통적인 Langauge Model의 경우 입력 시퀀스에 대해 Input Embedding matrix만 만들어 모델의 입력으로 보냈다. 하지만, Transformer의 경우는 입력 시퀀스의 각각의 토큰들에 대해 위치 정보까지 주기위해 Positional Encoding도 이용한다. 
+전통적인 Langauge Model의 경우 입력 시퀀스에 대해 Input Embedding matrix만 만들어 모델의 입력으로 보냈다. 하지만, 트랜스포머의 경우는 입력 시퀀스의 각각의 토큰들에 대해 위치 정보까지 주기위해 Positional Encoding도 이용한다. 
 
 <p align="center">
 <img width="400" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/1742a87c-f7dd-4e0a-ae81-dad8981807bb">
@@ -129,7 +129,7 @@ class Encoder(nn.Module):
 ### 2) Sub-Layer1: Multi-head Attention
 
 #### Attention의 이해
-Encoder block의 첫 번째 Sub layer에 해당하는 것은 Multi-head attention이다. Attention mechanism을 이루는 방법에는 여러 가지가 있지만, Transformer의 경우는 <span style = "color:gold"><b>Scaled Dot-Product Attention</b></span>을 병렬적으로 여러 번 수행한다. Transformer이후 Scaled Dot-Product attention 방식을 통상적으로 attention이라고 사용한다.
+Encoder block의 첫 번째 Sub layer에 해당하는 것은 Multi-head attention이다. Attention mechanism을 이루는 방법에는 여러 가지가 있지만, 트랜스포머의 경우는 <span style = "color:gold"><b>Scaled Dot-Product Attention</b></span>을 병렬적으로 여러 번 수행한다. 트랜스포머이후 Scaled Dot-Product attention 방식을 통상적으로 attention이라고 사용한다.
 
 Attention이 그럼 무슨 역할을 하는 건지를 이해하는 것이 중요하다. Attention Mechanism을 사용하는 목적은 생각보다 간단하다. <span style = "color:gold"><b>토큰들이 서로서로 얼마나 큰 영향력을 가졌는지를 구하는 것</b></span>이다.
 
@@ -232,7 +232,7 @@ mini-batch마다 입력되는 문장은 모두 다르다. 이 말을 다시 해�
 
 <span style = "font-size:110%">패딩 마스킹(Padding Masking)</span> 
 
-Scaled Dot-Product Attention을 구현할 때 어텐션 함수에서 mask를 인자로 받아 이 값에다 아주 작은 음수값을 곱해 어텐션 스콜어를 더해준다.
+Scaled Dot-Product Attention을 구현할 때 어텐션 함수에서 mask를 인자로 받아 이 값에다 아주 작은 음수값을 곱해 Attention Score행렬에 더해준다.
 
 ```python
 def scaled_dot_product_attention(query, key, value, mask):
@@ -247,9 +247,29 @@ def scaled_dot_product_attention(query, key, value, mask):
 <img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/8116f845-e6d6-4da3-a2e2-1798414e215d">
 </p>
 
+/[PAD\]는 실제로는 아무 의미가 없는 단어이다. 그래서 트랜스포머에선 key의 경우 \[PAD\] 토큰이 존재할 경우 유사도를 구하지 않도록 마스킹(Masking)을 해준다. Attention에서 제외하기 위해 값을 가리는 행위가 마스킹이다. <u>Attention Score 행렬에서 행에 해당하는 문장은 Query이고 열에 해당하는 문장은 Key</u>이며 key에 \[PAD\]가 있는 열 전체를 마스킹한다.
 
+마스킹을 하는 방법은 사실 간단한데, 매우 작은 음수값을 넣어주면된다. 이 Attention Score가 SoftMax함수를 지나 Value 행렬과 곱해지는데, SoftMax 통과시 PAD부분이 0에 매우 가까운 값이 되어 유사도를 구할 때 반영이 되지 않는다.
+
+<span style = "font-size:110%">룩어헤드 마스킹(Look-Ahead Masking</span> 
+
+RNN이나 트랜스포머, GPT는 문장을 입력받을 때 단방향으로 학습한다. 즉, 하나의 방향으로만 문장을 읽고 트랜스포머는 RNN가 달리 한 step에 모든 문장을 나타내는 행렬이 들어가기 때문에 추가적인 마스킹이 필요하다.
+
+Masked Self-Attention을 하는 이유는, 학습과 추론과정에 정보가 새는(Information Leakage)것을 방지하기 위함이다. 트랜스포머에서 마스킹된 Self Attention은 모델이 <u>한 번에 하나씩 출력 토큰을 생성할 수 있도록 하면서 모델이 미래의 토큰이 아닌 이전에 생성된 토큰에만 주의를 기울이도록 하기 위함</u>이다. 이를 더 자세히 말하자면, Encoder-Decoder로 이루어진 모델들의 경우 입력을 순차적으로 전달받기 때문에 t + 1 시점의 예측을 위해 사용할 수 있는 데이터가 t 시점까지로 한정된다. 하지만 트랜스포머의 현재 시점의 출력값을 만들어 내는데 미래 시점의 입력값까지 사용할 수 있게되는 문제가 발생하기 때문이다.
+
+이 이유는 트랜스포머의 초기값, 1 Epoch을 생각해보면 이해하기 쉽다. 처음에 입력으로 들어가 인코더를 거친 값이 디코더로 들어가는데, 디코더로 들어가는 또 다른 입력은 이전 Epoch에서의 출력 임베딩값이다. 하지만 1 Epoch에서는 과거의 값은 존재하지 않아 초기에 설정해준 값이 들어간다. 즉, 1 Epoch에서 이미 출력값을 입력으로 요구하기 때문에 시점이 미래라 할 수 있는 것이고, 결국은 현재의 출력 값을 예측하는데 미래의 값을 이용한다고 말할 수 있다. 이러한 문제를 방지하기 위해 **Look-Ahead Mask** 기법이 나왔다. 
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227343660-9676f01e-c7d1-4973-b005-6db96d06753a.png">
+</p>
+
+트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 $$i<j$$인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
 
 <br/>
 
 ### 3) Sub-Layer2: Position-wise Feed Forward Neural Network(FFNN)
 
+# Reference
+[마스킹| 패딩 마스크(Padding Mask), 룩 어헤드 마스킹(Look-ahead masking)]("https://velog.io/@cha-suyeon/%EB%A7%88%EC%8A%A4%ED%82%B9-%ED%8C%A8%EB%94%A9-%EB%A7%88%EC%8A%A4%ED%81%ACPadding-Mask-%EB%A3%A9-%EC%96%B4%ED%97%A4%EB%93%9C-%EB%A7%88%EC%8A%A4%ED%82%B9Look-ahead-masking")  
+[pytorch로 구현하는 Transformer (Attention is All You Need)]("https://cpm0722.github.io/pytorch-implementation/transformer")  
+[The Annotated Transformer]("http://nlp.seas.harvard.edu/2018/04/03/attention.html")
