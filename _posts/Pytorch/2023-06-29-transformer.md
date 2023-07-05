@@ -358,8 +358,9 @@ def calculate_attention(self, query, key, value, mask):
     return out
 ```
 
-우선 $$d_k$$를 중심으로 $$Q, K$$사이의 행렬곱 연산을 수행하기 때문에 $$Q, K, V$$의 마지막 dim은 반드시 $$d_k$$여야만 한다. 또한 attention_score의 shape는 마지막 두 dimension이 반드시 (seq_len $$\times$$ seq_len)이어야만 masking이 적용될 수 있기 때문에 $$Q, K, V$$의 마지막 직전 dim(`.shape[-2]`)는 반드시 seq_len이어야만 한다.
+우선 $$d_k$$를 중심으로 $$Q, K$$사이의 행렬곱 연산을 수행하기 때문에 $$Q, K, V$$의 마지막 dim은 반드시 $$d_k$$여야만 한다. 또한 attention_score의 shape는 마지막 두 dimension이 반드시 (seq_len $$\times$$ seq_len)이어야만 masking이 적용될 수 있기 때문에 $$Q, K, V$$의 마지막 직전 dim(`.shape[-2]`)는 반드시 seq_len이어야만 한다. 
 
+`forward()`로 돌아와서 `calculate_attention()`을 사용해 attention을 계산하고 나면 그 shape은<b>(n_batch $$\times \; h \times$$ seq_len $$\times \; d_k$$)</b>이다. 
 
 <br/>
 
