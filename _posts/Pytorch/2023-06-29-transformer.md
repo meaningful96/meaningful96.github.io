@@ -83,6 +83,8 @@ class Transformer(nn.Module):
 
 ### 1) Encoder 구조
 
+#### Encoder
+
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/4f76e416-6bc6-4f61-ac65-aa9479d67e7f">
 </p>
@@ -123,6 +125,25 @@ class Encoder(nn.Module):
 </p>
 
 단, 이 **Positional Encoding**은 <u>각 단어의 상대적인 위치 정보를 네트워크</u>에 입력하는 것이며 sin 또는 cos함수로 이루어져있다. 
+
+#### Encoder Block
+
+Encoder Block은 크게 Multi-Head Attention Layer, Position-wise Feed-Forward Layer로 구성된다. 
+```python
+class EncoderBlock(nn.Module):
+
+    def __init__(self, self_attention, position_ff):
+        super(EncoderBlock, self).__init__()
+        self.self_attention = self_attention 
+        self.position_ff = position_ff
+
+
+    def forward(self, x):
+        out = x
+        out = self.self_attention(out)
+        out = self.position_ff(out)
+        return out
+```
 
 <br/>
 
@@ -521,6 +542,8 @@ Residual Connection Layer의 `forward()`에 `sub_layer`를 전달할 때에는 �
 
 ### 1) Decoder 구조
 
+#### Decoder
+
 <p align="center">
 <img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/c8853934-4f5a-4326-a270-4912e3f4b5d0">
 </p>
@@ -544,6 +567,12 @@ class Decoder(nn.Module):
             out = layer(out, encoder_out, tgt_mask, src_tgt_mask)
         return out
 ```
+
+#### Decoder Block
+
+<b>Context</b>  
+
+Decoder의 입력으로 context와 sentence가 있다. context는 Encoder에서 생성된 것이다. 명심해야 할 것은 Encoder 내부에서 Multi-head
 
 ### 2) Sub-Layer1: Multi-head Attention(Self-Attention)
 
