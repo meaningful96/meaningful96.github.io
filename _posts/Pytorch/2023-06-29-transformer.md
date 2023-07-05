@@ -339,7 +339,9 @@ def forward(self, *args, query, key, value, mask=None):
 ```
 먼저 생성자를 살펴보면 `qkv_fc`인자로 $$d_{embed} \times d_{model}$$의 weight matrix를 갖는 FC Layer를 호출받아 멤버 변수로 Q, K, V에 대해 각각 `copy.deepcopy`를 호출해 저장한다. `deepcopy`를 호출하는 이유는 실제로는 서로 다른 weight를 갖고 별개로 사용되게 하기 위해서이다. copy를 하지않으면 항상 같은 Q, K, V 얻게 된다. `out_fc`는 attention 계산 이후 거쳐가는 FC Layer로 $$d_{model} \times d_{embed}$$의 weight matrix를 갖는다.
 
-`forward()` 부분은 가장 핵심적인 부분이며 반드시 이해해야 한다. 인자로 받는 `query`, `key`, `value`는 실제 $$Q, K, V$$ 행렬이 아닌, input sentence embedding이며 shape은 (n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)이다. 이를 3개의 서로 다른 FC Layer에 넣어 $$Q, K, V$$를 구하는 것이다. 이 셋을 별개의 인자로 받는 이유는 Decoder에서 활용하기 위함이다. `mask`는 한 문장에 대해 (seq_len $$\times$$ seq_len)의 shape를 가지며 mini-batch까지 고려하면 (n_batch $$\times$$ seq_len $$\times$$ seq_len)가 된다.
+`forward()` 부분은 가장 핵심적인 부분이며 반드시 이해해야 한다. 인자로 받는 `query`, `key`, `value`는 실제 $$Q, K, V$$ 행렬이 아닌, input sentence embedding이며 shape은 (n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)이다. 이를 3개의 서로 다른 FC Layer에 넣어 $$Q, K, V$$를 구하는 것이다. 이 셋을 별개의 인자로 받는 이유는 Decoder에서 활용하기 위함이다. `mask`는 한 문장에 대해 (seq_len $$\times$$ seq_len)의 shape를 가진다. 여기서 mini-batch까지 고려하면 (n_batch $$\times$$ seq_len $$\times$$ seq_len)가 된다.
+
+`transform`은 $$Q, K, V$$를 구하는 함수이다. 그렇기 때문에 입력의 shape은 (n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)이고, 출력의 shape도 (n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)이다. 하지만 실제로는 단순히 FC Layer만 거쳐가는 것이 아닌 추가적인 변형이 일어난다. 우선 $$d_{model}$$을 $$h$$와 $$d_k$$로 분리하고, 각각을 하나의 차원으로 분리한다. 따라서 shape이 (n_batch $$\times$$ seq_len $$\times h \times \; d_k $$)가 된다. 그 다음 transpose해 (n_batch $$\times \; h \; \times$$ seq_len $$\times \; d_k$$)로 변환한다. 이러한 작업을 수행하는 이유는 위에서 만든 `calculate_attention()`이 입력으로 받고자 하는 shape이 (n_batch $$\times \cdots \; \times$$ seq_len $$\times \; d_k $$)이기 때문이다. 다시 한 번 `calculate_attention()` 살펴보면 아래와 같다. 
 
 
 ```python
@@ -355,6 +357,9 @@ def calculate_attention(self, query, key, value, mask):
     out = torch.matmul(attention_prob, value) # (n_batch, h, seq_len, d_k)
     return out
 ```
+
+우선 $$d_k$$를 중심으로 $$Q, K$$사이의 행렬곱 연산을 수행하기 때문에 $$Q, K, V$$의 마지막 dim은 반드시 $$d_k$$여야만 한다. 또한 attention_score의 shape는 마지막 두 dimension이 반드시 (seq_len $$\times$$ seq_len)이어야만 masking이 적용될 수 있기 때문에 $$Q, K, V$$의 마지막 직전 dim(`.shape[-2]`)는 반드시 seq_len이어야만 한다.
+
 
 <br/>
 
