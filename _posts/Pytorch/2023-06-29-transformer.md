@@ -527,7 +527,33 @@ Residual Connection Layer의 `forward()`에 `sub_layer`를 전달할 때에는 �
 
 가장 처음에 Transformer의 전체 구조를 이야기할 때 봤던 Decoder의 구조이다. context와 Some Sentence를 input으로 받아 Output Sentence를 출력한다. context는 Encoder의 출력이다. Transformer model의 목적을 다시 상기시켜 보자. input sentence를 받아와 output sentence를 만들어내는 model이다. 대표적으로 번역과 같은 task를 처리할 수 있을 것이다. 영한 번역이라고 가정한다면, Encoder는 context를 생성해내는 것, 즉 input sentence에서 영어 context를 압축해 담아내는 것을 목적으로 하고, Decoder는 영어 context를 활용해 한글로 된 output sentence를 만들어내는 것을 목적으로 한다. 
 
-디코더는 추가적으로 다른 Sentence를 더 받는데 이 Sentence를 왜 받아야하며 또한 이 Sentence가 무엇인지 알아야한다.
+디코더는 추가적으로 다른 Sentence를 더 받는데 이 Sentence를 왜 받아야하며 또한 이 Sentence가 무엇인지 알아야한다. 참고로 Decoder에는 총 3개의 Sublayer가 있다.
+
+```python
+class Decoder(nn.Module):
+
+    def __init__(self, decoder_block, n_layer):
+        super(Decoder, self).__init__()
+        self.n_layer = n_layer
+        self.layers = nn.ModuleList([copy.deepcopy(decoder_block) for _ in range(self.n_layer)])
+
+
+    def forward(self, tgt, encoder_out, tgt_mask, src_tgt_mask):
+        out = tgt
+        for layer in self.layers:
+            out = layer(out, encoder_out, tgt_mask, src_tgt_mask)
+        return out
+```
+
+### 2) Sub-Layer1: Multi-head Attention(Self-Attention)
+
+<br>
+
+### 3) Sub-Layer2: Multi-head Attention(Cross-Attention)
+
+<br>
+
+### 4) Sub-Layer3: Position-wise Feed Forward Neural Network(FFNN)Permalink
 
 <br>
 
