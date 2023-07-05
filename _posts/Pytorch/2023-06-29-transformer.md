@@ -338,6 +338,11 @@ def calculate_attention(self, query, key, value, mask):
     return out
 ```
 
+```
+asbaslkwjdalkdw
+안애멍ㅈㅇ점니ㅏ
+```
+
 <br/>
 
 ### 3) Sub-Layer2: Position-wise Feed Forward Neural Network(FFNN)
