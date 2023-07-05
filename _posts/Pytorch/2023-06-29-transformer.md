@@ -1,4 +1,4 @@
----
+![image](https://github.com/meaningful96/meaningful96.github.io/assets/111734605/35741298-a504-4efe-96b0-c64021606a5f)---
 title: "[Pytorch] Traansformer 구현하기"
 
 categories: 
@@ -289,7 +289,7 @@ Masked Self-Attention을 하는 이유는, **학습과 추론과정에 정보가
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227325573-f5ca67b9-3b5a-4e51-bab8-dbeefffa36e8.png">
 </p>
 
-트랜스포머의 특징 중 하나는 Multi-head attention을 수행한다는 것이다. 한 Encoder, Decoder Layer마다 1회씩 수행하는 것이 아니라 병렬적으로 $$h$$회 각각 수행한 뒤 그 결과를 종합해 사용한다. 이렇게 하는 이유는 다양한 Attention을 반영해 더 좋은 성능을 내기 위함이다. 논문에서는 head의 개수가 총 **8개**이며 Q,K,V를 위한 FC Layer가 3개에서 $$3 \times 8 = 24$$개가 필요하게 된다. 출력은 Single self-attention의 경우 $$n \times d_k$$의 shape을 가진다. head가 8개가 되면서 이 <span style = "color:gold"><b>출력 차원은 $$n \times (d_k \times h)$$로 바뀌게</b></span> 된다.(n은 토큰 개수, 사실상 seq_len). 논문에서는 <b>$$d_{model}  = d_k \times h$$</b>로 정의한다.
+트랜스포머의 특징 중 하나는 Multi-head attention을 수행한다는 것이다. 한 Encoder, Decoder Layer마다 1회씩 수행하는 것이 아니라 병렬적으로 $$h$$회 각각 수행한 뒤 그 결과를 종합해 사용한다. 이렇게 하는 이유는 다양한 Attention을 반영해 더 좋은 성능을 내기 위함이다. 논문에서는 head의 개수가 총 **8개**이며 Q,K,V를 위한 FC Layer가 3개에서 $$3 \times 8 = 24$$개가 필요하게 된다. 출력은 Single self-attention의 경우 <b>$$n \times d_k$$</b>의 shape을 가진다. head가 8개가 되면서 이 <span style = "color:gold"><b>출력 차원은 $$n \times (d_k \times h)$$로 바뀌게</b></span> 된다.(n은 토큰 개수, 사실상 seq_len). 논문에서는 <b>$$d_{model}  = d_k \times h$$</b>로 정의한다.
 
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/2b94a815-e5e1-4194-9aa4-dcec54677b66">
@@ -337,11 +337,11 @@ def forward(self, *args, query, key, value, mask=None):
         out = self.out_fc(out) # (n_batch, seq_len, d_embed)
         return out
 ```
-먼저 생성자를 살펴보면 `qkv_fc`인자로 $$d_{embed} \times d_{model}$$의 weight matrix를 갖는 FC Layer를 호출받아 멤버 변수로 Q, K, V에 대해 각각 `copy.deepcopy`를 호출해 저장한다. `deepcopy`를 호출하는 이유는 실제로는 서로 다른 weight를 갖고 별개로 사용되게 하기 위해서이다. copy를 하지않으면 항상 같은 Q, K, V 얻게 된다. `out_fc`는 attention 계산 이후 거쳐가는 FC Layer로 $$d_{model} \times d_{embed}$$의 weight matrix를 갖는다.
+먼저 생성자를 살펴보면 `qkv_fc`인자로 <b>$$d_{embed} \times d_{model}$$</b>의 weight matrix를 갖는 FC Layer를 호출받아 멤버 변수로 Q, K, V에 대해 각각 `copy.deepcopy`를 호출해 저장한다. `deepcopy`를 호출하는 이유는 실제로는 서로 다른 weight를 갖고 별개로 사용되게 하기 위해서이다. copy를 하지않으면 항상 같은 Q, K, V 얻게 된다. `out_fc`는 attention 계산 이후 거쳐가는 FC Layer로 <b>$$d_{model} \times d_{embed}$$</b>의 weight matrix를 갖는다.
 
-`forward()` 부분은 가장 핵심적인 부분이며 반드시 이해해야 한다. 인자로 받는 `query`, `key`, `value`는 실제 $$Q, K, V$$ 행렬이 아닌, input sentence embedding이며 shape은 (n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)이다. 이를 3개의 서로 다른 FC Layer에 넣어 $$Q, K, V$$를 구하는 것이다. 이 셋을 별개의 인자로 받는 이유는 Decoder에서 활용하기 위함이다. `mask`는 한 문장에 대해 (seq_len $$\times$$ seq_len)의 shape를 가진다. 여기서 mini-batch까지 고려하면 (n_batch $$\times$$ seq_len $$\times$$ seq_len)가 된다.
+`forward()` 부분은 가장 핵심적인 부분이며 반드시 이해해야 한다. 인자로 받는 `query`, `key`, `value`는 실제 $$Q, K, V$$ 행렬이 아닌, input sentence embedding이며 shape은 <b>(n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)</b>이다. 이를 3개의 서로 다른 FC Layer에 넣어 $$Q, K, V$$를 구하는 것이다. 이 셋을 별개의 인자로 받는 이유는 Decoder에서 활용하기 위함이다. `mask`는 한 문장에 대해 <b>(seq_len $$\times$$ seq_len)</b>의 shape를 가진다. 여기서 mini-batch까지 고려하면 <b>(n_batch $$\times$$ seq_len $$\times$$ seq_len)</b>가 된다.
 
-`transform`은 $$Q, K, V$$를 구하는 함수이다. 그렇기 때문에 입력의 shape은 (n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)이고, 출력의 shape도 (n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)이다. 하지만 실제로는 단순히 FC Layer만 거쳐가는 것이 아닌 추가적인 변형이 일어난다. 우선 $$d_{model}$$을 $$h$$와 $$d_k$$로 분리하고, 각각을 하나의 차원으로 분리한다. 따라서 shape이 (n_batch $$\times$$ seq_len $$\times h \times \; d_k $$)가 된다. 그 다음 transpose해 (n_batch $$\times \; h \; \times$$ seq_len $$\times \; d_k$$)로 변환한다. 이러한 작업을 수행하는 이유는 위에서 만든 `calculate_attention()`이 입력으로 받고자 하는 shape이 (n_batch $$\times \cdots \; \times$$ seq_len $$\times \; d_k $$)이기 때문이다. 다시 한 번 `calculate_attention()` 살펴보면 아래와 같다. 
+`transform`은 $$Q, K, V$$를 구하는 함수이다. 그렇기 때문에 입력의 shape은 <b>(n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)</b>이고, 출력의 shape도 <b>(n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)</b>이다. 하지만 실제로는 단순히 FC Layer만 거쳐가는 것이 아닌 추가적인 변형이 일어난다. 우선 $$d_{model}$$을 $$h$$와 $$d_k$$로 분리하고, 각각을 하나의 차원으로 분리한다. 따라서 shape이 <b>(n_batch $$\times$$ seq_len $$\times h \times \; d_k $$)</b>가 된다. 그 다음 transpose해 <b>(n_batch $$\times \; h \; \times$$ seq_len $$\times \; d_k$$)</b>로 변환한다. 이러한 작업을 수행하는 이유는 위에서 만든 `calculate_attention()`이 입력으로 받고자 하는 shape이 <b>(n_batch $$\times \cdots \; \times$$ seq_len $$\times \; d_k $$)</b>이기 때문이다. 다시 한 번 `calculate_attention()` 살펴보면 아래와 같다. 
 
 
 ```python
@@ -358,13 +358,178 @@ def calculate_attention(self, query, key, value, mask):
     return out
 ```
 
-우선 $$d_k$$를 중심으로 $$Q, K$$사이의 행렬곱 연산을 수행하기 때문에 $$Q, K, V$$의 마지막 dim은 반드시 $$d_k$$여야만 한다. 또한 attention_score의 shape는 마지막 두 dimension이 반드시 (seq_len $$\times$$ seq_len)이어야만 masking이 적용될 수 있기 때문에 $$Q, K, V$$의 마지막 직전 dim(`.shape[-2]`)는 반드시 seq_len이어야만 한다. 
+우선 $$d_k$$를 중심으로 $$Q, K$$사이의 행렬곱 연산을 수행하기 때문에 $$Q, K, V$$의 마지막 dim은 반드시 $$d_k$$여야만 한다. 또한 attention_score의 shape는 마지막 두 dimension이 반드시 <b>(seq_len $$\times$$ seq_len)</b>이어야만 masking이 적용될 수 있기 때문에 $$Q, K, V$$의 마지막 직전 dim(`.shape[-2]`)는 반드시 seq_len이어야만 한다. 
 
-`forward()`로 돌아와서 `calculate_attention()`을 사용해 attention을 계산하고 나면 그 shape은<b>(n_batch $$\times \; h \times$$ seq_len $$\times \; d_k$$)</b>이다. 
+`forward()`로 돌아와서 `calculate_attention()`을 사용해 attention을 계산하고 나면 그 shape은<b>(n_batch $$\times \; h \times$$ seq_len $$\times \; d_k$$)</b>이다. <span style = "color:gold"><b>Multi-head Attention</b></span> Layer 역시 shape에 대해 멱등(Idempotent)해야만 하기 때문에 출력의 shape은 입력과 같은 <b>(n_batch $$\times \; h \times$$ seq_len $$\times \; d_k$$)</b>여야만 한다. 이를 위해 $$h$$와 seq_len의 순서를 뒤바꾸는 `.transpose(1,2)` 메서드를 수행하고 다시 $$h$$와 $$d_k$$를 $$d_{model}$$로 결합한다. 이후 FC Layer를 거쳐 $$d_{model}$$을 $$d_{embed}$$로 변환하게 된다.
+
+```python
+class EncoderBlock(nn.Module):
+
+    def __init__(self, self_attention, position_ff):
+        super(EncoderBlock, self).__init__()
+        self.self_attention = self_attention
+        self.position_ff = position_ff
+
+
+    def forward(self, src, src_mask):
+        out = src
+        out = self.self_attention(query=out, key=out, value=out, mask=src_mask)
+        out = self.position_ff(out)
+        return out
+
+```
+
+다시 ENcoder block을 보면 pad mask는 외부에서 생성할 것이므로 Encoder block의 `forward()`에서 인자로 받는다. 따라서 `forward()`의 최종 인자는 `x`와 `mask`가 된다. 한편, 이전에는 Multi-Head Attention Layer의 `forward()`의 인가자 `x` 1개로 가정하고 코드를 작성했지만, 실제로는 `query`, `key`, `value`와 함께 `mask`도 인자로 받아야 함으로 수정해야한다.
+
+```python
+class Encoder(nn.Module):
+
+    def __init__(self, encoder_layer, n_layer):  # n_layer: Encoder Layer의 개수
+        super(Encoder, self).__init__()
+        self.layers = []
+        for i in range(n_layer):
+            self.layers.append(copy.deepcopy(encoder_layer))
+
+             
+    def forward(self, src, src_mask):
+        out = src
+        for layer in self.layers:
+            out = layer(out, src_mask)
+        return out
+```
+`mask`인자를 받기위해 Encoder Block뿐만 아니라 Encode도 역시 수정을 해줘야한다. `forward()`에 `mask`인자를 추가하고, 이를 각 sublayer의 `forward()`에 넘겨준다.
+
+```python
+class Transformer(nn.Module):
+
+    ...
+
+    def encode(self, src, src_mask):
+        out = self.encoder(src, src_mask)
+        return out
+
+
+    def forward(self, src, tgt, src_mask):
+        encoder_out = self.encode(src, src_mask)
+        y = self.decode(tgt, encoder_out)
+        return y
+
+    ...
+```
+
+Transformer class 역시 수정해야 한다. `forward()`의 인자에 `src_mask`를 추가하고, `encoder`의 `forward()`에 넘겨준다.
+
+#### Pad Mask Code with Pytorch
+
+```python
+def make_pad_mask(self query, key, pad_idx=1):
+    # query: (n_batch, query_seq_len)
+    # key: (n_batch, key_seq_len)
+    query_seq_len, key_seq_len = query.size(1), key.size(1)
+
+    key_mask = key.ne(pad_idx).unsqueeze(1).unsqueeze(2)  # (n_batch, 1, 1, key_seq_len)
+    key_mask = key_mask.repeat(1, 1, query_seq_len, 1)    # (n_batch, 1, query_seq_len, key_seq_len)
+
+    query_mask = query.ne(pad_idx).unsqueeze(1).unsqueeze(3)  # (n_batch, 1, query_seq_len, 1)
+    query_mask = query_mask.repeat(1, 1, 1, key_seq_len)  # (n_batch, 1, query_seq_len, key_seq_len)
+
+    mask = key_mask & query_mask
+    mask.requires_grad = False
+    return mask
+```
+
+앞서 생략된 pad masking을 생성하는 `make_pad_mask()`이다. 인자로는 `qurey`와 `key`를 받는데, 각각 <b>(n_batch $$\times$$ seq_len)</b>의 shape을 가진다. <u><b>embedding을 획득하기도 전 token sequence상태로 들어오는 것</b></u>이다. 여기서 `<pad>`의 인덱스를 의마하는 `pad_idx`와 일치하는 token들은 모두 0, 그 외에는 모두 1인 mask를 생성한다. pad masking은 개념적으로 Encoder 내부에 위치하는게 아닌, `Transformer` class의 메서드로 위치시킨다.
 
 <br/>
 
 ### 3) Sub-Layer2: Position-wise Feed Forward Neural Network(FFNN)
+
+#### Position-Wise Feed Forward Layer
+
+```python
+class PositionWiseFeedForwardLayer(nn.Module):
+
+    def __init__(self, fc1, fc2):
+        super(PositionWiseFeedForwardLayer, self).__init__()
+        self.fc1 = fc1   # (d_embed, d_ff)
+        self.relu = nn.ReLU()
+        self.fc2 = fc2 # (d_ff, d_embed)
+
+
+    def forward(self, x):
+        out = x
+        out = self.fc1(out)
+        out = self.relu(out)
+        out = self.fc2(out)
+        return out
+
+```
+
+단순하게 2개의 FC Layer를 갖는 Layer이다. FC Layer는 ($$d_{model} \; \times \; d_{ff}$$)와 ($$d_{ff} \; \times \; d_{embed}$$)의 weight matrix를 갖는다. 즉, Feed Forward Layer역시 shape에 대해 멱등(Idempotent)하다. 다음 Encoder Block에게 shape를 유지 한 채 넘겨줘야 하기 때문이다. FFNN은 다시 말해서 Multi-head Attention Layer의 출력을 입력으로 받아 연산하고, 다음 Encoder Block에게 Output을 넘겨준다. 논문에서는 첫번째 FC Layer의 출력에 `ReLU()`를 적용한다.
+
+<span style = "font-size:120%"><center>$$ max(0, \; xW_1 \; + \; b_1)W_2 \; + \; b_2 $$</center></span>
+
+#### Residual Connection
+
+<p align="center">
+<img width="400" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/0b7ca384-8cd0-4ffa-a8ad-78472d30eaa6">
+</p>
+
+Residual Connection은 단순하다. 다음 Layer로 넘길 때 원래 입력과 더해주어 $$y \; = \; f(x)$$ 에서 $$y \; = \; f(x) \; + \; x$$ 로 변경하는 것이다. 이로써 <span style = "color:gold">**Back Propagation 도중 발생할 수 있는 Vanishing Gradient 현상을 방지**</span>할 수 있다. 보통은 여기에 Layer Normalization과 DropOut까지 추가하는게 일반적이다.
+
+```python
+class ResidualConnectionLayer(nn.Module):
+
+    def __init__(self):
+        super(ResidualConnectionLayer, self).__init__()
+
+
+    def forward(self, x, sub_layer):
+        out = x
+        out = sub_layer(out)
+        out = out + x
+        return out
+```
+`forward()`에서 `sub_layer`까지 인자로 받는 구조이다.
+
+따라서 Encode Block의 코드도 바꿔야한다. `residuals`에 Residual Connection Layer를 2개 생성한다. `forward()`에서 `residual[0]`은 `multi_head_attention_layer`를 감싸고, `residual[1]`은 `position_ff`를 감싸게 된다.
+
+```python
+class EncoderBlock(nn.Module):
+
+    def __init__(self, self_attention, position_ff):
+        super(EncoderBlock, self).__init__()
+        self.self_attention = self_attention
+        self.position_ff = position_ff
+        self.residuals = [ResidualConnectionLayer() for _ in range(2)]
+
+
+    def forward(self, src, src_mask):
+        out = src
+        out = self.residuals[0](out, lambda out: self.self_attention(query=out, key=out, value=out, mask=src_mask))
+        out = self.residuals[1](out, self.position_ff)
+        return out
+```
+Residual Connection Layer의 `forward()`에 `sub_layer`를 전달할 때에는 대개 해당 layer 자체를 넘겨주면 되지만, 필요한 경우에 따라 lambda 식의 형태로 전달할 수도 있다. 대표적으로 Multi-Head Attention Layer와 같이 `forward()`가 단순하게 `x`와 같은 인자 1개만 받는 경우가 아닐 때가 있다.
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/66290609-b847-4732-90d4-c0b06168ca76">
+</p>
+<center><span style = "font-size:80%">Encoder 구조 정리</span></center>
+
+## 4. Decoder
+
+### 1) Decoder 구조
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/850ad4a9-dcfd-48c8-afbd-f05a51afa6ff">
+</p>
+
+가장 처음에 Transformer의 전체 구조를 이야기할 때 봤던 Decoder의 구조이다. context와 Some Sentence를 input으로 받아 Output Sentence를 출력한다. context는 Encoder의 출력이다. Transformer model의 목적을 다시 상기시켜 보자. input sentence를 받아와 output sentence를 만들어내는 model이다. 대표적으로 번역과 같은 task를 처리할 수 있을 것이다. 영한 번역이라고 가정한다면, Encoder는 context를 생성해내는 것, 즉 input sentence에서 영어 context를 압축해 담아내는 것을 목적으로 하고, Decoder는 영어 context를 활용해 한글로 된 output sentence를 만들어내는 것을 목적으로 한다. 
+
+디코더는 추가적으로 다른 Sentence를 더 받는데 이 Sentence를 왜 받아야하며 또한 이 Sentence가 무엇인지 알아야한다.
+
+<br>
 
 # Reference
 [마스킹| 패딩 마스크(Padding Mask), 룩 어헤드 마스킹(Look-ahead masking)]("https://velog.io/@cha-suyeon/%EB%A7%88%EC%8A%A4%ED%82%B9-%ED%8C%A8%EB%94%A9-%EB%A7%88%EC%8A%A4%ED%81%ACPadding-Mask-%EB%A3%A9-%EC%96%B4%ED%97%A4%EB%93%9C-%EB%A7%88%EC%8A%A4%ED%82%B9Look-ahead-masking")  
