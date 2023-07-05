@@ -553,7 +553,7 @@ class Decoder(nn.Module):
 
 <br>
 
-### 4) Sub-Layer3: Position-wise Feed Forward Neural Network(FFNN)Permalink
+### 4) Sub-Layer3: Position-wise Feed Forward Neural Network(FFNN)
 
 <br>
 
