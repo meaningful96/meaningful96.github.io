@@ -235,7 +235,10 @@ def calculate_attention(query, key, value, mask):
     out = torch.matmul(attention_prob, value) # (n_batch, seq_len, d_k)
     return out
 ```
-Input의 경우 실제로는 한 문장이 아니라 mini-batch이기 때문에 $$Q, K, V$$에 `n_batch`차원이 추가된다. `calculate`의 인자로 받는 mask는 pad mask인데 이는 다음부분에 다룬다.
+- Input의 경우 실제로는 한 문장이 아니라 mini-batch이기 때문에 $$Q, K, V$$에 `n_batch`차원이 추가된다. 
+- `calculate`의 인자로 받는 mask는 pad mask인데 이는 다음부분에 다룬다.
+
+<br/>
 
 #### Masked Self-Attention(Masking)
 Scaled Dot-Product Attention을 설명하면서 한 부분을 설명하지 않았다. 바로 Masking이다. Masking을 하는 <span style = "color:gold">**이유는 특정 값들을 가려서 실제 연산에 방해가 되지 않도록 하기 위함**</span>이다. Masking에는 크게 두 가지 방법이 존재한다. Padding Masking(패딩 마스킹)과 Look-ahead Masking(룩 어헤드 마스킹)이다. 
@@ -336,7 +339,7 @@ def forward(self, *args, query, key, value, mask=None):
 ```
 먼저 생성자를 살펴보면 `qkv_fc`인자로 $$d_{embed} \times d_{model}$$의 weight matrix를 갖는 FC Layer를 호출받아 멤버 변수로 Q, K, V에 대해 각각 `copy.deepcopy`를 호출해 저장한다. `deepcopy`를 호출하는 이유는 실제로는 서로 다른 weight를 갖고 별개로 사용되게 하기 위해서이다. copy를 하지않으면 항상 같은 Q, K, V 얻게 된다. `out_fc`는 attention 계산 이후 거쳐가는 FC Layer로 $$d_{model} \times d_{embed}$$의 weight matrix를 갖는다.
 
-`forward()` 부분은 가장 핵심적인 부분이며 반드시 이해해야 한다.
+`forward()` 부분은 가장 핵심적인 부분이며 반드시 이해해야 한다. 인자로 받는 `query`, `key`, `value`는 실제 $$Q, K, V$$ 행렬이 아닌, input sentence embedding이며 shape은 (n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)이다. 이를 3개의 서로 다른 FC Layer에 넣어 $$Q, K, V$$를 구하는 것이다. 이 셋을 별개의 인자로 받는 이유는 Decoder에서 활용하기 위함이다. `mask`는 한 문장에 대해 (seq_len $$\times$$ seq_len)의 shape를 가지며 mini-batch까지 고려하면 (n_batch $$\times$$ seq_len $$\times$$ seq_len)가 된다.
 
 
 ```python
@@ -352,8 +355,6 @@ def calculate_attention(self, query, key, value, mask):
     out = torch.matmul(attention_prob, value) # (n_batch, h, seq_len, d_k)
     return out
 ```
-
-
 
 <br/>
 
