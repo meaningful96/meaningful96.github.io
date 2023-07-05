@@ -522,7 +522,7 @@ Residual Connection Layer의 `forward()`에 `sub_layer`를 전달할 때에는 �
 ### 1) Decoder 구조
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/850ad4a9-dcfd-48c8-afbd-f05a51afa6ff">
+<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/c8853934-4f5a-4326-a270-4912e3f4b5d0">
 </p>
 
 가장 처음에 Transformer의 전체 구조를 이야기할 때 봤던 Decoder의 구조이다. context와 Some Sentence를 input으로 받아 Output Sentence를 출력한다. context는 Encoder의 출력이다. Transformer model의 목적을 다시 상기시켜 보자. input sentence를 받아와 output sentence를 만들어내는 model이다. 대표적으로 번역과 같은 task를 처리할 수 있을 것이다. 영한 번역이라고 가정한다면, Encoder는 context를 생성해내는 것, 즉 input sentence에서 영어 context를 압축해 담아내는 것을 목적으로 하고, Decoder는 영어 context를 활용해 한글로 된 output sentence를 만들어내는 것을 목적으로 한다. 
