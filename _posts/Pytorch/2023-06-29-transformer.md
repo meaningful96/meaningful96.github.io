@@ -1,4 +1,4 @@
-![image](https://github.com/meaningful96/meaningful96.github.io/assets/111734605/35741298-a504-4efe-96b0-c64021606a5f)---
+---
 title: "[Pytorch] Traansformer 구현하기"
 
 categories: 
