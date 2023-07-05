@@ -222,6 +222,21 @@ Self-Attention의 과정을 수식으로서 정리하면 아래와 같이 정리
 <img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/80a2f928-b4bb-48da-bd70-11332f0142ea">
 </p>
 
+```python
+def calculate_attention(query, key, value, mask):
+    # query, key, value: (n_batch, seq_len, d_k)
+    # mask: (n_batch, seq_len, seq_len)
+    d_k = key.shape[-1]
+    attention_score = torch.matmul(query, key.transpose(-2, -1)) # Q x K^T, (n_batch, seq_len, seq_len)
+    attention_score = attention_score / math.sqrt(d_k)
+    if mask is not None:
+        attention_score = attention_score.masked_fill(mask==0, -1e9)
+    attention_prob = F.softmax(attention_score, dim=-1) # (n_batch, seq_len, seq_len)
+    out = torch.matmul(attention_prob, value) # (n_batch, seq_len, d_k)
+    return out
+```
+Input의 경우 실제로는 한 문장이 아니라 mini-batch이기 때문에 $$Q, K, V$$에 `n_batch`차원이 추가된다. `calculate`의 인자로 받는 mask는 pad mask인데 이는 다음부분에 다룬다.
+
 #### Masked Self-Attention(Masking)
 Scaled Dot-Product Attention을 설명하면서 한 부분을 설명하지 않았다. 바로 Masking이다. Masking을 하는 <span style = "color:gold">**이유는 특정 값들을 가려서 실제 연산에 방해가 되지 않도록 하기 위함**</span>이다. Masking에는 크게 두 가지 방법이 존재한다. Padding Masking(패딩 마스킹)과 Look-ahead Masking(룩 어헤드 마스킹)이다. 
 
@@ -338,10 +353,7 @@ def calculate_attention(self, query, key, value, mask):
     return out
 ```
 
-```
-asbaslkwjdalkdw
-안애멍ㅈㅇ점니ㅏ
-```
+
 
 <br/>
 
