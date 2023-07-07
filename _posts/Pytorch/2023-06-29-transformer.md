@@ -548,7 +548,7 @@ Residual Connection Layer의 `forward()`에 `sub_layer`를 전달할 때에는 �
 <img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/c8853934-4f5a-4326-a270-4912e3f4b5d0">
 </p>
 
-가장 처음에 Transformer의 전체 구조를 이야기할 때 봤던 Decoder의 구조이다. context와 Some Sentence를 input으로 받아 Output Sentence를 출력한다. context는 Encoder의 출력이다. Transformer model의 목적을 다시 상기시켜 보자. input sentence를 받아와 output sentence를 만들어내는 model이다. 대표적으로 번역과 같은 task를 처리할 수 있을 것이다. 영한 번역이라고 가정한다면, Encoder는 context를 생성해내는 것, 즉 input sentence에서 영어 context를 압축해 담아내는 것을 목적으로 하고, Decoder는 영어 context를 활용해 한글로 된 output sentence를 만들어내는 것을 목적으로 한다. 
+가장 처음에 트랜스포머의 전체 구조를 이야기할 때 봤던 Decoder의 구조이다. context와 Some Sentence를 input으로 받아 Output Sentence를 출력한다. context는 Encoder의 출력이다. 트랜스포머 모델델의 목적을 다시 상기시켜 보자. input sentence를 받아와 output sentence를 만들어내는 model이다. 대표적으로 번역과 같은 task를 처리할 수 있을 것이다. 영한 번역이라고 가정한다면, Encoder는 context를 생성해내는 것, 즉 input sentence에서 영어 context를 압축해 담아내는 것을 목적으로 하고, Decoder는 영어 context를 활용해 한글로 된 output sentence를 만들어내는 것을 목적으로 한다. 
 
 디코더는 추가적으로 다른 Sentence를 더 받는데 이 Sentence를 왜 받아야하며 또한 이 Sentence가 무엇인지 알아야한다. 참고로 Decoder에는 총 3개의 Sublayer가 있다.
 
@@ -570,16 +570,62 @@ class Decoder(nn.Module):
 
 #### Decoder Block
 
-<b>Context</b>  
-
+<b>Context</b>    
 Decoder의 입력으로 context와 sentence가 있다. context는 Encoder에서 생성된 것이다. 명심해야 할 것은 <u><b>Encoder 내부에서 Multi-head Attention Layer나 Position-Wise Feed-Forward Layer 모두 shape에 대해서 멱등(Idempotent)</u></b>했다는 것이다. 때문에 이 두 Layer로 구성된 Encoder block도 shape에 대해 반드시 멱등(Idempotent)하다. <span style = "color:gold">**Encoder의 출력이 context이다**</span>. context가 Decoder의 입력으로 들어가고 이 shape은 결국 Encoder의 입력과 같은 것이다.
 
-<b>Teacher Forcing</b>  
+<b>Teacher Forcing</b>    
+Decoder의 입력에 추가적으로 들어오는 sentence를 이해하기 위해서는 **Teacher Forcing**의 개념을 알아야 한다. RNN 기반의 모델이던, 트랜스포머기반의 모델이든 이 모델들이 풀고자 하는 task는 결국 sentence generation, 새로운 문장을 생성해내는 것이다. 학습을 하는 과정에서 만약 이 모델들에게 random한 초깃값을 주면 학습이 제대로 이뤄지지 않을 수 있다.(random하게 초기화된 입력은 실제로 의미상 어떠한 문맥 정보도, 토큰의 의미 정보도 포함하고 있지 않기 때문) 첫 단추가 잘 못 끼어진 모델은 Epoch마다 이상한 값을 출력해내고, 그 데이터로 다시 학습하기 때문에 결론적으로 성능에 악영향을 끼치게 된다. 단순한 신경망 모델들의 경우는 이러한 현상을 방지하기위해 Xavier initialization같은 초기화 기법을 도입한다. 트랜스포머머에서는 이러한 현상을 예방하고자 Teacher forcing을 사용하게 된다.
 
-Decoder의 입력에 추가적으로 들어오는 sentence를 이해하기 위해서는 **Teacher Forcing**의 개념을 알아야 한다. RNN 기반의 모델이던, transformer기반의 모델이든 이 모델들이 풀고자 하는 task는 결국 sentence generation, 새로운 문장을 생성해내는 것이다. 학습을 하는 과정에서 만약 이 모델들에게 random한 초깃값을 주면 학습이 제대로 이뤄지지 않을 수 있다.(random하게 초기화된 입력은 실제로 의미상 어떠한 문맥 정보도, 토큰의 의미 정보도 포함하고 있지 않기 때문) 첫 단추가 잘 못 끼어진 모델은 Epoch마다 이상한 값을 출력해내고, 그 데이터로 다시 학습하기 때문에 결론적으로 성능에 악영향을 끼치게 된다. 단순한 신경망 모델들의 경우는 이러한 현상을 방지하기위해 Xavier initialization같은 초기화 기법을 도입한다. Transformer에서는 이러한 현상을 예방하고자 Teacher forcing을 사용하게 된다.
+Teacher forcing이란 Supervised Learning에서 <span style = "color:gold">**label data를 input으로 활용**</span>하는 것이다. 즉, 학습 시 초기값을 ground truth로 주는 것이다. RNN을 예로 번역 모델을 만든다고 할 때, 학습 과정에서 모델이 생성해낸 토큰을 다음 토큰 생성 때 사용하는 것이 아닌, 실제 label data의 토큰을 사용하게 되는 것이다.
 
-Teacher forcing이란 Supervised Learning에서 <span style = "color:gold">**label data를 input으로 활용**</span>하는 것이다. 즉, 학습 시 초기값을 ground truth로 주는 것이다. 
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/cff9096d-03c4-4f1d-95f2-7bbc4031e4cf">
+</p>
 
+정확도 100%를 달성하는 Ideal한 모델의 경우를 생각했을 때 위와 같다. 예상대로 RNN이전 cell의 출력을 활용해 다음 cell에서 토큰을 정상적으로 생성해낼 수 있다. 하지만, 이런 모델은 실제할 수 없다.
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/07d72d6c-e97a-4b8c-8067-bfb751156391">
+</p>
+
+실제로는, 특히나 모델 학습 초창기에는 위처럼 잘못된 토큰을 생성해내고, 그 이후 계속적으로 잘못된 토큰이 생성될 것이다. 즉, 초기값이 랜덤해 부정확하기 때문에 그 다음 순차적으로 학습이 일어나는 RNN이 제대로된 학습을 하지 못하게되는 것이다. 초반에 하나의 토큰이라도 잘못 도출되어 그 이후 토큰들이 잘못 생성되면 학습의 정확성을 높이기 어렵다. 따라서 이를 위해 Labeling된 data를 이용하는 Teaching Forcing을 사용한다.
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/7742aa3f-2f9e-4a1a-8742-c7305fc59ad6">
+</p>
+
+Teaching Forcing은 실제 Labeled data(Ground Truth)를 RNN cell의 입력으로 사용하는 것이다. 정확히는 Ground Truth의 \[:-1\]로 slicing한 것이다(마지막 토큰인 \[EOS\] 토큰을 제외하는 것). 이를 통해서 모델이 잘못된 토큰을 생성해내더라도 이후 제대로 된 토큰을 생성해내도록 유도할 수 있다. 하지만, 이는 모델 학습 과정에서 Ground Truth, 즉 정답을 사용한 것이므로 일종의 **Cheating**이 된다. 따라서 <span style="color:gold">**Test를 할 때는 Ground Truth를 데이터셋에서 제거해주고 진행**</span>해야 한다. 또한 실제로는 데이터셋에 Ground Truth가 포함되어 있어야만 가능한 것이기에 Test나 실제로 Real-World에 Product될 때에는 모델이 생성해낸 이전 토큰을 사용하게 된다. 이처럼 학습 과정에과 실제 사용에서의 괴리가 발생하지만, 모델의 비약적 성능 향상에 직접적으로 영향을 준다. Teaching Forcing은 **Encoder-Decoder 구조 모델에서 많이 사용하는 기법**이다.
+
+<b>Teacher Forcing in Transformer (Subsequent Masking)</b>  
+Teacher Forcing 개념을 이해하고 나면 트랜스포머의 Decoder에 입력으로 들어오는 문장은 ground truth\[:-1\]의 문장일 것이다. 하지만 이런 방식으로 Teaching Forcing이 트랜스포머에 그대로 적용되지 못한다. 앞서 든 예시는 RNN이고, RNN은 동시에 모든 토큰을 처리하는 것이 아닌 이전 출력값을 다음 cell의 입력으로 사용하는 순차적인 모델이기 때문이다. 하지만, 트랜스포머는 행렬곱 연산을 통해 한 번에 모든 토큰을 처리한다. 즉, Multi-head attention을 통해 얻는 가장 큰 장점인 **병렬 연산**이 가능하다는 장점이 있다는 것이다. 병렬 연산을 위해 ground truth의 embedding을 행렬로 만들어 입력으로 사용하면 Decoder에서 현재 출력해내야 하는 토큰의 정답을 알고 있는 상황이 발생한다.
+
+따라서 **Masking**을 적용해야 한다. <span style="color:gold"><b>$$i$$번째 토큰을 생성해낼 때, $$1 \; ~ \; i-1$$의 토큰은 보이지 않도록 처리\[Masking\]</b></span>를 해야한다.
+
+```python
+def make_subsequent_mask(query, key):
+    # query: (n_batch, query_seq_len)
+    # key: (n_batch, key_seq_len)
+    query_seq_len, key_seq_len = query.size(1), key.size(1)
+
+    tril = np.tril(np.ones((query_seq_len, key_seq_len)), k=0).astype('uint8') # lower triangle without diagonal
+    mask = torch.tensor(tril, dtype=torch.bool, requires_grad=False, device=query.device)
+    return mask
+```
+
+`mask_subsequent_mask()`는 `np.tril()`을 사용해 lower traiangle을 생성한다. 아래는 `query_seq_len`과 `key_seq_len`이 모두 10일 때, `np_tril()`의 결과이다.
+
+```python
+[[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+ [1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+ [1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+ [1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+ [1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+ [1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+ [1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+ [1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+ [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+```
 
 
 
