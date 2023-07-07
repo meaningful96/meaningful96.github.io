@@ -703,12 +703,287 @@ Encoder의 것과 완전히 동일한데 다만 <span style="color:gold">**mask�
 
 Decoder blcok내 이전 <span style = "color:gold"><b>1)Multi-Head Self-Attention Layer에서 넘어온 출력을 입력으로 받는다.</b></span> 여기에 추가적으로 <span style = "color:aqua"><b>2)Encoder에서 도출된 context도 입력으로 받는다.</b></span> 두 입력의 용도는 완전히 다르다. Decoder Block 내부에서 전달된 입력1)은 <span style="color:gold"><b>Query로써 사용</b></span>한다. 반면 Encoder에서 넘어온 context 2)는 <span style="color:aqua"><b>Key와 Value로써 사용</b></span>하게된다. 
 
-요약하면 Decoer Block의 2번째 Sub-Layer는 서로 다른 두 문장의 Attention을 계산한다. Decoder에서 최종 목표는 <u><b>teaching forcing으로 넘어온 문장과 최대한으로 유사한 predicted sentence를 도출</b></u>하는 것이다.
+요약하면 Decoer Block의 2번째 Sub-Layer는 서로 다른 두 문장의 Attention을 계산한다. Decoder에서 최종 목표는 <u><b>teaching forcing으로 넘어온 문장과 최대한으로 유사한 predicted sentence를 도출</b></u>하는 것이다. 따라서 Decoer Block 내 이전 Sub-Layer에서 넘어온 입력이 Query가 되고, 이에 상응하는 Encoder의 출력인 context가 Key, Value로 두게 된다. 만약에 영한 번역 모델이면, Encoder의 입력이 영어 문장이되고, Decoder의 입력(Teaching Forcing)과 출력은 한글 문장일 것이다. 따라서 Query가 한글, Key와 Value가 영어가 된다. 
+
+```python
+ class MultiHeadAttentionLayer(nn.Module):
+
+        ...
+
+    def forward(self, query, key, value, mask=None):
+        
+        ...
+```
+
 
 
 <br>
 
 ### 4) Sub-Layer3: Position-wise Feed Forward Neural Network(FFNN)
+
+Encoder의 FFNN과 동일하다.
+
+따라서 `query`, `key`, `value`를 굳이 각각 별개의 인자로 받는 이유가 cross-attention을 활용하기 위함이다.
+
+```python
+class Decoder(nn.Module):
+
+    def __init__(self, decoder_block, n_layer):
+        super(Decoder, self).__init__()
+        self.n_layer = n_layer
+        self.layers = nn.ModuleList([copy.deepcopy(decoder_block) for _ in range(self.n_layer)])
+
+
+    def forward(self, tgt, encoder_out, tgt_mask, src_tgt_mask):
+        out = tgt
+        for layer in self.layers:
+            out = layer(out, encoder_out, tgt_mask, src_tgt_mask)
+        return out
+```
+
+가장 주목할 부분은 `encoder_out`이다. Encoder에서 생성된 최종 출력은 모든 Decoder Block 내부의 Cross-Multi-Head Attention Layer에 `Key`, `Value`로써 주어진다. 두 번째로 주목할 부분은 인자로 주어지는 두 mask인 `tgt_mask`, `src_tgt_mask`이다. `tgt_mask`는 Decoder의 입력으로 주어지는 target sentence의 pad masking과 subsequent masking이다. 즉, 위에서 작성했던 `make_tgt_mask()`로 생성된 mask이다. 이는 Self-Multi-Head Attention Layer에서 사용된다. 
+
+반면, `src_tgt_mask`는 Self-Multi-Head Attention Layer에서 넘어온 `query`, Encoder에서 넘어온 `key`, `value` 사이의 pad masking이다. 이를 구하는 `make_src_tgt_mask()`를 작성한다. 이 때를 위해 `make_pad_mask()`를 `query`와 `key`를 분리해서 인자로 받도록 한 것이다.
+
+```python
+def make_src_tgt_mask(self, src, tgt):
+    pad_mask = self.make_pad_mask(tgt, src)
+    return pad_mask
+
+def make_pad_mask(self, query, key):
+
+    ...
+
+```
+
+Decoder Block은 Encoder Block과 큰 차이가 없다. `forward()`에서 `self_attention`와 달리 `cross_attention`의 `key`, `value`는 `encoder_out`이라는 것, 각각 mask가 `tgt_mask`, `src_tgt_mask`라는 차이점이 있다.
+
+```python
+class DecoderBlock(nn.Module):
+
+    def __init__(self, self_attention, cross_attention, position_ff):
+        super(DecoderBlock, self).__init__()
+        self.self_attention = self_attention
+        self.cross_attention = cross_attention
+        self.position_ff = position_ff
+        self.residuals = [ResidualConnectionLayer() for _ in range(3)]
+
+
+    def forward(self, tgt, encoder_out, tgt_mask, src_tgt_mask):
+        out = tgt
+        out = self.residuals[0](out, lambda out: self.self_attention(query=out, key=out, value=out, mask=tgt_mask))
+        out = self.residuals[1](out, lambda out: self.cross_attention(query=out, key=encoder_out, value=encoder_out, mask=src_tgt_mask))
+        out = self.residuals[2](out, self.position_ff)
+        return out
+```
+
+`Transformer`도 `src_tgt_mask`를 포함해 수정된다.
+
+```python
+class Transformer(nn.Module):
+
+    ...
+
+    def decode(self, tgt, encoder_out, tgt_mask, src_tgt_mask):
+        out = self.decode(tgt, encoder_out, tgt_mask, src_tgt_mask)
+        return out
+
+
+    def forward(self, src, tgt):
+        src_mask = self.make_src_mask(src)
+        tgt_mask = self.make_tgt_mask(tgt)
+        src_tgt_mask = self.make_src_tgt_mask(src, tgt)
+        encoder_out = self.encode(src, src_mask)
+        y = self.decode(tgt, encoder_out, tgt_mask, src_tgt_mask)
+        return y
+
+    ...
+```
+
+## 5. Transformer Input(Positional Encoding)
+사실 Transformer의 input으로 들어오는 문장의 shape는 <b>(n_batch $$\times$$ seq_len)</b> 인데, Encoder와 Decoder의 입력은 <b>(n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)</b>의 shape를 가진 것으로 가정했다. 이는 Embedding 과정을 생략했기 때문이다. 사실 Transformer는 source / target sentence에 대한 각각의 Embedding이 포함된다. Transformer의 Embedding은 단순하게 Token Embedding과 Positional Encoding의 sequential로 구성된다.
+
+```pyhon
+class TransformerEmbedding(nn.Module):
+
+    def __init__(self, token_embed, pos_embed):
+        super(TransformerEmbedding, self).__init__()
+        self.embedding = nn.Sequential(token_embed, pos_embed)
+
+
+    def forward(self, x):
+        out = self.embedding(x)
+        return out
+```
+
+Token Embedding 역시 단순하다. vocabulary와 $$d_{embed}$$를 사용해 embedding을 생성해낸다. 주목할 점은 embedding에도 scaling을 적용한다는 점이다. `forward()`에서 $$\sqrt{d_{embed}}$$를 곱해주게 된다.
+
+```python
+class TokenEmbedding(nn.Module):
+
+    def __init__(self, d_embed, vocab_size):
+        super(TokenEmbedding, self).__init__()
+        self.embedding = nn.Embedding(vocab_size, d_embed)
+        self.d_embed = d_embed
+
+
+    def forward(self, x):
+        out = self.embedding(x) * math.sqrt(self.d_embed)
+        return out
+```
+
+마지막은 Positional Emcoding이다.
+
+```python
+class PositionalEncoding(nn.Module):
+
+    def __init__(self, d_embed, max_len=256, device=torch.device("cpu")):
+        super(PositionalEncoding, self).__init__()
+        encoding = torch.zeros(max_len, d_embed)
+        encoding.requires_grad = False
+        position = torch.arange(0, max_len).float().unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, d_embed, 2) * -(math.log(10000.0) / d_embed))
+        encoding[:, 0::2] = torch.sin(position * div_term)
+        encoding[:, 1::2] = torch.cos(position * div_term)
+        self.encoding = encoding.unsqueeze(0).to(device)
+
+
+    def forward(self, x):
+        _, seq_len, _ = x.size()
+        pos_embed = self.encoding[:, :seq_len, :]
+        out = x + pos_embed
+        return out
+```
+
+PositionalEncoding의 목적은 positional 정보(token index number 등)를 정규화시키기 위한 것이다. 단순하게 index number를 positionalEncoding으로 사용하게 될 경우, 만약 training data에서는 최대 문장의 길이가 30이었는데 test data에서 길이 50인 문장이 나오게 된다면 30~49의 index는 model이 학습한 적이 없는 정보가 된다. 
+
+이는 제대로 된 성능을 기대하기 어려우므로, positonal 정보를 일정한 범위 안의 실수로 제약해두는 것이다. 여기서 sin 함수와 cos함수를 사용하는데, 짝수 index에는 sin함수를, 홀수 index에는 cos함수를 사용하게 된다. 이를 사용할 경우 항상 -1에서 1 사이의 값만이 positional 정보로 사용되게 된다.
+
+구현 상에서 유의할 점은 생성자에서 만든 `encoding`을 `forward()` 내부에서 slicing해 사용하게 되는데, 이 `encoding`이 학습되지 않도록 `requires_grad=False` 을 부여해야 한다는 것이다. PositionalEncoding은 학습되는 **parameter가 아니기 때문**이다. 이렇게 생성해낸 `embedding`을 `Transformer`에 추가한다. `forward()` 내부에서 Encoder와 Decoder의 `forward()`를 호출할 때 각각 `src_embed(src)`, `tgt_embed(tgt)`와 같이 입력을 `TransformerEmbedding`으로 감싸 넘겨준다.
+
+```python
+class Transformer(nn.Module):
+
+    def __init__(self, src_embed, tgt_embed, encoder, decoder):
+        super(Transformer, self).__init__()
+        self.src_embed = src_embed
+        self.tgt_embed = tgt_embed
+        self.encoder = encoder
+        self.decoder = decoder
+
+
+    def encode(self, src, src_mask):
+        return self.encoder(self.src_embed(src), src_mask)
+
+
+    def decode(self, tgt, encoder_out, tgt_mask, src_tgt_mask):
+        return self.decoder(self.tgt_embed(tgt), encoder_out, tgt_mask, src_tgt_mask)
+
+    ...
+
+```
+
+## 6. Generator(Decoder의 출력 변환)
+
+Decoder의 출력이 그대로 트랜스포머의 최종 출력이 되는 것은 아니다. Decoder의 출력의 shape는 <b>(n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)인데, 우리가 원하는 출력은 target sentence인 <b>(n_batch $$\times$$ seq_len)</b>이기 때문이다. 즉, Embedding이 아닌 실제 target vocab에서의 token sequence를 원하는 것이다. 이를 위해 추가적인 FC layer를 거쳐간다. 이 layer를 대개 **Generator**라고 부른다.
+
+Generator가 하는 일은 <span style = "color:gold"><b>Decoder 출력의 마지막 dimension을 dembed에서 `len(vocab)`으로 변경하는 것</b></span>이다. 이를 통해 실제 vocabulary 내 token에 대응시킬 수 있는 shape가 된다. 이후 `softmax()`를 사용해 각 vocabulary에 대한 확률값으로 변환하게 되는데, 이 때 `log_softmax()`를 사용해 성능을 향상시킨다. `log_softmax()`에서는 `dim=-1`이 되는데, 마지막 dimension인 `len(vocab)`에 대한 확률값을 구해야 하기 때문이다.
+
+```python
+class Transformer(nn.Module):
+
+    def __init__(self, src_embed, tgt_embed, encoder, decoder, generator):
+        super(Transformer, self).__init__()
+        self.src_embed = src_embed
+        self.tgt_embed = tgt_embed
+        self.encoder = encoder
+        self.decoder = decoder
+        self.generator = generator
+
+    ...
+
+    def forward(self, src, tgt):
+        src_mask = self.make_src_mask(src)
+        tgt_mask = self.make_tgt_mask(tgt)
+        src_tgt_mask = self.make_src_tgt_mask(src, tgt)
+        encoder_out = self.encode(src, src_mask)
+        decoder_out = self.decode(tgt, encoder_out, tgt_mask, src_tgt_mask)
+        out = self.generator(decoder_out)
+        out = F.log_softmax(out, dim=-1)
+        return out, decoder_out
+
+    ...
+
+```
+
+## 7. Factory Method
+Transformer를 생성하는 `build_model()`은 다음과 같이 작성할 수 있다. 각 module의 submodule을 생성자 내부에서 생성하지 않고, 외부에서 인자로 받는 이유는 더 자유롭게 모델을 변경해 응용할 수 있게 하기 위함이다.
+
+```python
+def build_model(src_vocab_size, tgt_vocab_size, device=torch.device("cpu"), max_len=256, d_embed=512, n_layer=6, d_model=512, h=8, d_ff=2048):
+    import copy
+    copy = copy.deepcopy
+
+    src_token_embed = TokenEmbedding(
+                                     d_embed = d_embed,
+                                     vocab_size = src_vocab_size)
+    tgt_token_embed = TokenEmbedding(
+                                     d_embed = d_embed,
+                                     vocab_size = tgt_vocab_size)
+    pos_embed = PositionalEncoding(
+                                   d_embed = d_embed,
+                                   max_len = max_len,
+                                   device = device)
+
+    src_embed = TransformerEmbedding(
+                                     token_embed = src_token_embed,
+                                     pos_embed = copy(pos_embed))
+    tgt_embed = TransformerEmbedding(
+                                     token_embed = tgt_token_embed,
+                                     pos_embed = copy(pos_embed))
+
+    attention = MultiHeadAttentionLayer(
+                                        d_model = d_model,
+                                        h = h,
+                                        qkv_fc = nn.Linear(d_embed, d_model),
+                                        out_fc = nn.Linear(d_model, d_embed))
+    position_ff = PositionWiseFeedForwardLayer(
+                                               fc1 = nn.Linear(d_embed, d_ff),
+                                               fc2 = nn.Linear(d_ff, d_embed))
+
+    encoder_block = EncoderBlock(
+                                 self_attention = copy(attention),
+                                 position_ff = copy(position_ff))
+    decoder_block = DecoderBlock(
+                                 self_attention = copy(attention),
+                                 cross_attention = copy(attention),
+                                 position_ff = copy(position_ff))
+
+    encoder = Encoder(
+                      encoder_block = encoder_block,
+                      n_layer = n_layer)
+    decoder = Decoder(
+                      decoder_block = decoder_block,
+                      n_layer = n_layer)
+    generator = nn.Linear(d_model, tgt_vocab_size)
+
+    model = Transformer(
+                        src_embed = src_embed,
+                        tgt_embed = tgt_embed,
+                        encoder = encoder,
+                        decoder = decoder,
+                        generator = generator).to(device)
+    model.device = device
+
+    return model
+
+```
+
+```
+masking을 생성하는 code는 일반적인 Transformer 구현의 code와 다소 상이한데,본 포스팅에서 사용한 code가 memory를 더 많이 소비한다는 점에서 비효율적이기 때문이다.
+다만, 본 포스팅의 masking code는 tensor 사이의 broadcasting을 최소화하고, 본래 의도한 tensor의 shape를 그대로 갖고 있기 때문에 학습하는 입장에서는 더 이해가 수
+월할 것이기에 이를 채택해 사용했다.
+```
 
 <br>
 
