@@ -701,6 +701,7 @@ Encoder의 것과 완전히 동일한데 다만 <span style="color:gold">**mask�
 
 ### 3) Sub-Layer2: Multi-head Attention(Cross-Attention)
 
+Decoder blcok내 이전 <span style = "colog:gold"><b>1)Multi-Head Self-Attention Layer에서 넘어온 출력을 입력으로 받는다.</b></span> 여기에 추가적으로 <span style = "colog:aqua"><b>2)Encoder에서 도출된 context도 입력으로 받는다.</b></span> 두 입력의 용도는 완전히 다르다. Decoder Block 내부에서 전달된 입력1)은 <span style="color:gold"><b>Query로써 사용</b></span>한다. 반면 Encoder에서 넘어온 context 2)는 <span style="color:aqua"><b>Key와 Value로써 사용</b></span>하게된다.
 
 
 <br>
