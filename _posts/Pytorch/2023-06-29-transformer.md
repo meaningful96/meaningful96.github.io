@@ -568,8 +568,6 @@ class Decoder(nn.Module):
         return out
 ```
 
-#### Decoder Block
-
 <b>Context</b>    
 Decoder의 입력으로 context와 sentence가 있다. context는 Encoder에서 생성된 것이다. 명심해야 할 것은 <u><b>Encoder 내부에서 Multi-head Attention Layer나 Position-Wise Feed-Forward Layer 모두 shape에 대해서 멱등(Idempotent)</u></b>했다는 것이다. 때문에 이 두 Layer로 구성된 Encoder block도 shape에 대해 반드시 멱등(Idempotent)하다. <span style = "color:gold">**Encoder의 출력이 context이다**</span>. context가 Decoder의 입력으로 들어가고 이 shape은 결국 Encoder의 입력과 같은 것이다.
 
@@ -627,14 +625,83 @@ def make_subsequent_mask(query, key):
  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 ```
 
+0번째 토큰은 자기 자신밖에 못 본다. 1~n번째 토큰은 0으로 가려져 있으며, 1번재 토큰은 0, 1번째 토큰밖에 보지 못한다. 즉, 1번째 토큰의 입장에서 2~n번째 토큰은 모두 masking되어 있는 것이다. Decoder 역시 **pad**와 **masking**을 모두 수행해야 한다. `make_tgt_mask()`는 다음과 같다. `make_subsequent_mask()`와 `make_tgt_mask()`는 `make_src_mask()`와 같이 `Transformer`에 메서드로 작성한다.
+
+```python
+def make_tgt_mask(self, tgt):
+    pad_mask = self.make_pad_mask(tgt, tgt)
+    seq_mask = self.make_subsequent_mask(tgt, tgt)
+    mask = pad_mask & seq_mask
+    return pad_mask & seq_mask
+```
+
+트랜스포로 다시 돌아가보자. 기존에는 Encoder에서 사용하는 pad mask(`src_mask`)만이 `forward()`을 구해야 했다면, 이제는 Decoder에서 사용할 subsequent + pad mask (`tgt_mask`)도 구해야 한다. `forward()` 내부에서 Decoder의 forward()를 호출할 때 역시 변경되는데, tgt_mask가 추가적으로 인자로 넘어가게 된다.
+
+```python
+class Transformer(nn.Module):
+
+    def __init__(self, encoder, decoder):
+        super(Transformer, self).__init__()
+        self.encoder = encoder
+        self.decoder = decoder
 
 
+    def encode(self, src, src_mask):
+        out = self.encoder(src, src_mask)
+        return out
+
+
+    def decode(self, tgt, encoder_out, tgt_mask):
+        out = self.decode(tgt, encoder_out, tgt_mask)
+        return out
+
+
+    def forward(self, src, tgt):
+        src_mask = self.make_src_mask(src)
+        tgt_mask = self.make_tgt_mask(tgt)
+        encoder_out = self.encode(src, src_mask)
+        y = self.decode(tgt, encoder_out, tgt_mask)
+        return y
+
+    ...
+```
+
+#### Decoder Block
+
+Decoder 역시 Encoder와 마찬가지로 $$N$$개의 Decoder Block이 겹겹이 쌓인 구조이다. 이 때 주목해야 하는 점은 <span style = "color:gold"><b>Encoder에서 넘어오는 context가 각 Decoder Block마다 입력으로 주어진다는 것</b></span>이며 그 외에는 Encoder와 차이가 없다.
+
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/da18f0a5-6a78-4d9c-a302-2808631cb8ae">
+</p>
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/077d030d-9d58-439b-b170-4401f01a8407">
+</p>
+
+그리고 각각의 Decoder Block은 다음과 같다. 참고로 트랜스포머에는 총 3가지의 Attention이 존재한다.
+
+1. Encoder Self-Attention
+2. Maksed Decoder Self-Attention
+3. Encoder-Decoder Attention(Cross-Attention)
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/124efea3-e26a-4385-b73a-16f027787c0a">
+</p>
+
+Decoder Block은 Encoder Block과 달리 Multi-head Attention Layer가 2개가 존재한다. 첫번째 layer는 Self-Multi-Head Attention Layer라고 부르는데, 이름 그대로 Decoder의 입력으로 주어지는 sentence 내부에서의 Attention을 계산한다. 이 때, 일반적인 pad masking뿐만 아니라 subsequent masking이 적용되기 떄문에 **Masked-Multi-Head Attention Layer**라고 부르기도 한다. 
+
+두번째 layer는 Encoder에서 넘어온 context를 Key, Value로 사용한다는 점에서 Cross-Multi-Head Attention Layer라고 부른다. 즉, Encoder의 context는 Decoder 내 각 Decoder Block의 Cross-Multi-Head Attention Layer에서 사용되게 된다.
 
 ### 2) Sub-Layer1: Multi-head Attention(Self-Attention)
+
+Encoder의 것과 완전히 동일한데 다만 <span style="color:gold">**mask로 들어오는 인자가 일반적인 pad masking에 더해 subsequent masking까지 적용되어 있다**</span>는 점만이 차이일 뿐이다. 즉, 이 layer는 **Self-Attention을 수행**하는 layer이다. 즉, <u>Ground Truth sentence에 내부에서의 Attention을 계산</u>한다. 이는 다음 Multi-Head Attention Layer와 가장 큰 차이점이다.
 
 <br>
 
 ### 3) Sub-Layer2: Multi-head Attention(Cross-Attention)
+
+
 
 <br>
 
@@ -645,4 +712,8 @@ def make_subsequent_mask(query, key):
 # Reference
 [마스킹| 패딩 마스크(Padding Mask), 룩 어헤드 마스킹(Look-ahead masking)]("https://velog.io/@cha-suyeon/%EB%A7%88%EC%8A%A4%ED%82%B9-%ED%8C%A8%EB%94%A9-%EB%A7%88%EC%8A%A4%ED%81%ACPadding-Mask-%EB%A3%A9-%EC%96%B4%ED%97%A4%EB%93%9C-%EB%A7%88%EC%8A%A4%ED%82%B9Look-ahead-masking")  
 [pytorch로 구현하는 Transformer (Attention is All You Need)]("https://cpm0722.github.io/pytorch-implementation/transformer")  
-[The Annotated Transformer]("http://nlp.seas.harvard.edu/2018/04/03/attention.html")
+[The Annotated Transformer]("http://nlp.seas.harvard.edu/2018/04/03/attention.html")  
+[Paper]("https://arxiv.org/abs/1706.03762")  
+[나동빈 Youtube]("https://www.youtube.com/watch?v=AA621UofTUA&t=2664s")  
+[Github]("https://github.com/ndb796/Deep-Learning-Paper-Review-and-Practice")    
+[Blog: Transformer 논문 리뷰]("https://wandukong.tistory.com/19")
