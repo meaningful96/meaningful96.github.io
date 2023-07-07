@@ -569,7 +569,7 @@ class Decoder(nn.Module):
 ```
 
 <b>Context</b>    
-Decoder의 입력으로 context와 sentence가 있다. context는 Encoder에서 생성된 것이다. 명심해야 할 것은 <u><b>Encoder 내부에서 Multi-head Attention Layer나 Position-Wise Feed-Forward Layer 모두 shape에 대해서 멱등(Idempotent)</u></b>했다는 것이다. 때문에 이 두 Layer로 구성된 Encoder block도 shape에 대해 반드시 멱등(Idempotent)하다. <span style = "color:gold">**Encoder의 출력이 context이다**</span>. context가 Decoder의 입력으로 들어가고 이 shape은 결국 Encoder의 입력과 같은 것이다.
+Decoder의 입력으로 context와 sentence가 있다. context는 Encoder에서 생성된 것이다. 명심해야 할 것은 <u><b>Encoder 내부에서 Multi-head Attention Layer나 Position-Wise Feed-Forward Layer 모두 shape에 대해서 멱등(Idempotent)</b></u>했다는 것이다. 때문에 이 두 Layer로 구성된 Encoder block도 shape에 대해 반드시 멱등(Idempotent)하다. <span style = "color:gold"><b>Encoder의 출력이 context이다</b></span>. context가 Decoder의 입력으로 들어가고 이 shape은 결국 Encoder의 입력과 같은 것이다.
 
 <b>Teacher Forcing</b>    
 Decoder의 입력에 추가적으로 들어오는 sentence를 이해하기 위해서는 **Teacher Forcing**의 개념을 알아야 한다. RNN 기반의 모델이던, 트랜스포머기반의 모델이든 이 모델들이 풀고자 하는 task는 결국 sentence generation, 새로운 문장을 생성해내는 것이다. 학습을 하는 과정에서 만약 이 모델들에게 random한 초깃값을 주면 학습이 제대로 이뤄지지 않을 수 있다.(random하게 초기화된 입력은 실제로 의미상 어떠한 문맥 정보도, 토큰의 의미 정보도 포함하고 있지 않기 때문) 첫 단추가 잘 못 끼어진 모델은 Epoch마다 이상한 값을 출력해내고, 그 데이터로 다시 학습하기 때문에 결론적으로 성능에 악영향을 끼치게 된다. 단순한 신경망 모델들의 경우는 이러한 현상을 방지하기위해 Xavier initialization같은 초기화 기법을 도입한다. 트랜스포머머에서는 이러한 현상을 예방하고자 Teacher forcing을 사용하게 된다.
