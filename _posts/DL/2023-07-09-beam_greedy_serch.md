@@ -1,5 +1,5 @@
 ---
-title: Greedy Search, Beam Searh
+title: "[Deep Learning]Greedy Search, Beam Searh"
 
 categories: 
   - DeepLearning
