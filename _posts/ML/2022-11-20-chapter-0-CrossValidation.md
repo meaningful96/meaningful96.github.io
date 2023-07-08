@@ -1,5 +1,5 @@
 ---
-title: Chapter 0. Cross Validation
+title: "[Machine Learning]Chapter 0. Cross Validation"
 
 categories:
   - MachineLearning
@@ -9,8 +9,8 @@ tags:
 toc: true
 toc_sticky: true
 
-date: 2022-11-21
-last_modified_at: 2022-11-21 
+date: 2022-11-20
+last_modified_at: 2022-11-20
 ---
 
 ## Cross Validation
