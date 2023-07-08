@@ -1,10 +1,10 @@
 ---
-title: Skip-Connection이란?
+title: "[Deep Learning]Skip-Connection이란?"
 
 categories: 
   - DeepLearning
 tags:
-  - [DL,ANN,Neural Network]
+  - [DL]
 
 toc: true
 toc_sticky: true
