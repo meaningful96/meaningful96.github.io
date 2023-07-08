@@ -1,10 +1,10 @@
 ---
-title: Contrastive Learning(대조 학습)이란?
+title: "[Deep Learning]Contrastive Learning(대조 학습)이란?"
 
 categories: 
   - DeepLearning
 tags:
-  - [DL,ANN,Neural Network]
+  - [DL]
 
 toc: true
 toc_sticky: true
