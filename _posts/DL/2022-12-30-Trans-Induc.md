@@ -1,5 +1,5 @@
 ---
-title: Transductive Learning vs Inductive Learning
+title: "[Deep Learning]Transductive Learning vs Inductive Learning"
 
 categories:
   - DeepLearning
