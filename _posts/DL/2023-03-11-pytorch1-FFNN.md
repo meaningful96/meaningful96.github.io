@@ -1,5 +1,5 @@
 ---
-title: " [Deep Learning] - 1. Feedforward Neural Network(FFNN), Fully-Connectec Neural Network(FC)"
+title: " [Deep Learning]Feedforward Neural Network(FFNN), Fully-Connected Neural Network(FC)"
 
 categories: 
   - DeepLearning
