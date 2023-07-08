@@ -1,10 +1,10 @@
 ---
-title: Chapter 1. Weight Initialization
+title: "[Machine Learning]Chapter 1. Weight Initialization"
 
 categories:
   - MachineLearning
 tags:
-  - [ML,DL,Machine learning, Deep Learning]
+  - [ML,DL]
 
 toc: true
 toc_sticky: true
