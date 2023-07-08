@@ -988,10 +988,10 @@ masking을 생성하는 code는 일반적인 Transformer 구현의 code와 다�
 <br>
 
 # Reference
-[마스킹| 패딩 마스크(Padding Mask), 룩 어헤드 마스킹(Look-ahead masking)]("https://velog.io/@cha-suyeon/%EB%A7%88%EC%8A%A4%ED%82%B9-%ED%8C%A8%EB%94%A9-%EB%A7%88%EC%8A%A4%ED%81%ACPadding-Mask-%EB%A3%A9-%EC%96%B4%ED%97%A4%EB%93%9C-%EB%A7%88%EC%8A%A4%ED%82%B9Look-ahead-masking")  
-[pytorch로 구현하는 Transformer (Attention is All You Need)]("https://cpm0722.github.io/pytorch-implementation/transformer")  
-[The Annotated Transformer]("http://nlp.seas.harvard.edu/2018/04/03/attention.html")  
-[Paper]("https://arxiv.org/abs/1706.03762")  
-[나동빈 Youtube]("https://www.youtube.com/watch?v=AA621UofTUA&t=2664s")  
-[Github]("https://github.com/ndb796/Deep-Learning-Paper-Review-and-Practice")    
-[Blog: Transformer 논문 리뷰]("https://wandukong.tistory.com/19")
+[마스킹| 패딩 마스크(Padding Mask), 룩 어헤드 마스킹(Look-ahead masking)](https://velog.io/@cha-suyeon/%EB%A7%88%EC%8A%A4%ED%82%B9-%ED%8C%A8%EB%94%A9-%EB%A7%88%EC%8A%A4%ED%81%ACPadding-Mask-%EB%A3%A9-%EC%96%B4%ED%97%A4%EB%93%9C-%EB%A7%88%EC%8A%A4%ED%82%B9Look-ahead-masking)  
+[pytorch로 구현하는 Transformer (Attention is All You Need)](https://cpm0722.github.io/pytorch-implementation/transformer)  
+[The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)  
+[Paper](https://arxiv.org/abs/1706.03762)  
+[나동빈 Youtube](https://www.youtube.com/watch?v=AA621UofTUA&t=2664s)  
+[Github](https://github.com/ndb796/Deep-Learning-Paper-Review-and-Practice)    
+[Blog: Transformer 논문 리뷰](https://wandukong.tistory.com/19)
