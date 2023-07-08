@@ -4,7 +4,7 @@ title: "[Machine Learning]Chapter 0. Cross Validation"
 categories:
   - MachineLearning
 tags:
-  - [ML,DL,Machine learning, Deep Learning]
+  - [ML,DL]
 
 toc: true
 toc_sticky: true
