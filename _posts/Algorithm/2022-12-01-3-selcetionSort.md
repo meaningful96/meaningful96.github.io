@@ -1,10 +1,10 @@
 ---
-title: Chapter 1.3 Selection Sort(선택 정렬)
+title: "[알고리즘]Chapter 1.3 Selection Sort(선택 정렬)"
 
 categories: 
   - Algorithm
 tags:
-  - [Algorithm, Sort, Selection Sort]
+  - [Algorithm, Sort]
 
 toc: true
 toc_sticky: true
