@@ -1,10 +1,10 @@
 ---
-title: Chapter 1.1 Bubble Sort(버블 정렬)
+title: "[알고리즘]Chapter 1.1 Bubble Sort(버블 정렬)"
 
 categories: 
   - Algorithm
 tags:
-  - [Algorithm, Sort, Bubble Sort]
+  - [Algorithm, Sort]
 
 toc: true
 toc_sticky: true
