@@ -1,10 +1,10 @@
 ---
-title: Chapter 2. Stack(스택)
+title: "[자료구조]Chapter 2. Stack(스택)"
 
 categories:
   - DataStructure
 tags:
-  - [DataStructure, Stack, Linear Structure]
+  - [DataStructure]
 
 toc: true
 toc_sticky: true
