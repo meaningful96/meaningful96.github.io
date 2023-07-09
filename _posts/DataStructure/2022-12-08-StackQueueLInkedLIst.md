@@ -1,9 +1,9 @@
 ---
-title: Chapter 5. Linked List로 여러 구조 구현
+title: "[자료구조]Chapter 5. Linked List로 여러 구조 구현"
 categories: 
   - DataStructure
 tags:
-  - [DataStruture, Stack, Queue, Deque, Linked List, Linear Structure]
+  - [DataStruture]
 
 toc: true
 toc_sticky: true
