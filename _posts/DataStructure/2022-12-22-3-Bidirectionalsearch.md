@@ -1,10 +1,10 @@
 ---
-title: Chapter 9.4 Graph(그래프) 탐색(2) Bidirectional Search
+title: "[자료구조]Chapter 9.4 Graph(그래프) 탐색(2) Bidirectional Search"
 
 categories: 
   - DataStructure
 tags:
-  - [DataStructure, Graph, Nonlinear Structure]
+  - [DataStructure]
 
 toc: true
 toc_sticky: true
