@@ -1,5 +1,5 @@
 ---
-title: Chapter 0. Data Structure의 개념
+title: "[자료구조]Chapter 0. Data Structure의 개념"
 
 categories:
   - DataStructure
