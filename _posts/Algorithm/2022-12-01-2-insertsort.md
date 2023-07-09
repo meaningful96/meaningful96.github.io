@@ -1,11 +1,11 @@
 ---
-title: Chapter 1.2 Insert Sort(삽입 정렬)
+title: "[알고리즘]Chapter 1.2 Insert Sort(삽입 정렬)"
 
 categories: 
   - Algorithm
 
 tags:
-  - [Insert Sort, Sort, Algorithm]
+  - [Sort, Algorithm]
 
 toc: true
 toc_sticky: true
