@@ -37,7 +37,7 @@ Transformer는 그래프에 적용하면(i.e., KG-BERT) 모든 노드들의 Atte
 <span style ="font-size:110%"><b>Topological Structure and Texture description</b></span>    
 1번 문제와 비슷한 문제이다. 기존의 Transformer 모델은 모든 Entity와 Relation들을 plain token처럼 다룬다. 하지만 Knowledge Graph에서는 엔티티가 **위상 구조(Topological Structure) 정보와 문맥(Text Description) 정보**의 두 유형의 정보를 가지며 Transformer는 오직 Text description만을 이용해 추론(Inference)를 진행한다. 중요한 것은 **서로 다른 엔티티는 서로 다른 위상 구조 정보을 가진다**. 따라서, 마찬가지로 결국 기존의 <span style="color:gold">**Knowledge Graph Trnasformer 모델들은 필수적인 구조 정보를 유실**</span>시킨다.
 
-<span style="font-size:120"><b>How to treat heterogeneous information using Transformer architecture?</b></span>
+<span style="font-size:120"><b>➜ How to treat heterogeneous information using Transformer architecture?</b></span>
 
 <br/>
 
