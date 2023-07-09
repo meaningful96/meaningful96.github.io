@@ -1,10 +1,10 @@
 ---
-title: Chapter 1 Array & List(배열과 리스트)
+title: "[자료구조]Chapter 1 Array & List(배열과 리스트)"
 
 categories:
   - DataStructure
 tags:
-  - [DataStructure, Array, List, Linear Structure]
+  - [DataStructure]
 
 toc: true
 toc_sticky: true
