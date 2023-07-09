@@ -1,5 +1,5 @@
 ---
-title: "[자료구조]Chapter 8.1 Binary & Binary Search Tree(이진트리, 이진 탐색트리)"
+title: "[자료구조]Chapter 8. Binary & Binary Search Tree(이진트리, 이진 탐색트리)"
 
 categories: 
   - DataStructure
