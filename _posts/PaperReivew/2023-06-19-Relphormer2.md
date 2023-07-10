@@ -104,7 +104,9 @@ Knowledge Graph는 많은 숫자의 **Relational Information**을 포함하고 �
 
 Triple $$\mathcal{T}$$의 Contextualized sub-graph인 <b>$$\mathcal{T_G}$$</b>은 Sub-graph에 중심에 해당하는 Center Triple <b>$$\mathcal{T_C}$$</b>와 Center Triple을 둘러싼 Surrounding neighborhood triple set <b>$$\mathcal{T_{context}}$$</b>를 포함한다. 이를 수식으로 표현하면 다음과 같다.
 
-<center><span style=""font-size:110%>$$\mathcal{T_G} \; = \; \mathcal{T_C} \; \cup \; \mathcal{T_{context}}$$</span></center>
+<span style="font-size:110%"><center>$$\mathcal{T_G} \; = \; \mathcal{T_C} \; \cup \; \mathcal{T_{context}}$$</center></span>
+
+
 
 <p align="center">
 <img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/2be7eccc-0931-4f1e-97a0-4b667b66ac14">
