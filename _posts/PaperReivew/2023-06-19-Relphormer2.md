@@ -104,15 +104,16 @@ Knowledge Graph는 많은 숫자의 **Relational Information**을 포함하고 �
 
 Triple $$\mathcal{T}$$의 Contextualized sub-graph인 <b>$$\mathcal{T_G}$$</b>은 Sub-graph에 중심에 해당하는 Center Triple <b>$$\mathcal{T_C}$$</b>와 Center Triple을 둘러싼 Surrounding neighborhood triple set <b>$$\mathcal{T_{context}}$$</b>를 포함한다. 이 때, Sub-graph sampling process는 오직 triple level에서만 일어난다. Github에 올라온 코드를 확인해보면 이 Sub-graph의 총 triple수는 변수로 지정되어있고, Triple의 최대 hop수는 1로 정해져 있는 것을 알 수 있다. 따라서 Triple $$\mathcal{T}$$에 둘러싸인 이웃들에 해당하는 $$\mathcal{T_{context}}$$를 샘플링하여 얻을 수 있다. 이를 수식으로 표현하면 다음과 같다.
 
-<span style="font-size:110%"><center>$$\mathcal{T_{context} \; = \; \{ {\mathcal{T} \vert \mathcal{T_i} \in \mathcal{N}}} \}$$</center></span>  
+<span style="font-size:110%"><center>$$\mathcal{T_{context} \; = \; \{ {\mathcal{T} \vert \mathcal{T_i} \in \mathcal{N}}} \}$$</center></span> 
 <span style="font-size:110%"><center>$$\mathcal{T_G} \; = \; \mathcal{T_C} \; \cup \; \mathcal{T_{context}}$$</center></span>
 
+여기서 $$\mathcal{N}$$은 Center Triple $$\mathcal{T_C}$$의 고정된 크기의 이웃 Triple set이다. 논문에선는 Local structural information을 좀 더 잘 뽑아내기 위해 학습 중 <span style="color:gold">**Dynamic Sampling**</span>을 하였다. 이는 <u>각 Epoch마다 같은 Center Triple에 대해 여러개의 Contextualized Sub-graph를 <b>무작위(randomly)로 선택</b>해 추출하는 방법</u>이다. 
 
 <p align="center">
 <img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/2be7eccc-0931-4f1e-97a0-4b667b66ac14">
 </p>
 
-
+Triple2Seq의 결과로 얻는 것이 바로 Contextualized Sub-Graph인 $$\mathcal{T_G}$$이다. 또한 $$\matchal{T_G}$$의 local structure information은 인접 행렬(Adjacency matrix) $$A_G$$에 저장된다. 이전에 나왔던 논문 중 [HittER: Hierarchical transformers for knowledge graph embeddings](https://meaningful96.github.io/paperreview/HittER/)을 통해 알 수 있는 중요한 사실이 하나 있다. 바로 <u>엔티티-릴레이션(Entity-Relation)쌍에 저장된 정보가 중요하다는 것이다.</u> 따라서 본 논문에서는 <span style="color:gold">**엔티티-릴레이션 쌍을 Plain token으로 표현하고 릴레이션을 하나의 special node**</span>로 만든다. 이렇게 함으로써 엔티티-릴레이션 쌍이 아닌 <b>엔티티-엔티티</b> 혹은 <b>노드-노드</b>로서 <u><b>노드 쌍</b></u>의 정보를 얻게된다.
 
 <br/>
 <br/>
