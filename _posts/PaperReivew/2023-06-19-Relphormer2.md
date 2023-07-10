@@ -104,8 +104,8 @@ Knowledge Graph는 많은 숫자의 **Relational Information**을 포함하고 �
 
 Triple $$\mathcal{T}$$의 Contextualized sub-graph인 <b>$$\mathcal{T_G}$$</b>은 Sub-graph에 중심에 해당하는 Center Triple <b>$$\mathcal{T_C}$$</b>와 Center Triple을 둘러싼 Surrounding neighborhood triple set <b>$$\mathcal{T_{context}}$$</b>를 포함한다. 이 때, Sub-graph sampling process는 오직 triple level에서만 일어난다. Github에 올라온 코드를 확인해보면 이 Sub-graph의 총 triple수는 변수로 지정되어있고, Triple의 최대 hop수는 1로 정해져 있는 것을 알 수 있다. 따라서 Triple $$\mathcal{T}$$에 둘러싸인 이웃들에 해당하는 $$\mathcal{T_{context}}$$를 샘플링하여 얻을 수 있다. 이를 수식으로 표현하면 다음과 같다.
 
-<span style="font-size:110%"><center>$$\mathcal{T_{context} \; = \; {\mathcal{T} \vert \mathcal{T_i} \in \mathcal{N}}}$$</center></span>  
-<span style="font-size:110%"><center>$$\mathcal{T_G} \; = \; \{\mathcal{T_C} \; \cup \; \mathcal{T_{context}}\}$$</center></span>
+<span style="font-size:110%"><center>$$\mathcal{T_{context} \; = \; \{ {\mathcal{T} \vert \mathcal{T_i} \in \mathcal{N}}} \}$$</center></span>  
+<span style="font-size:110%"><center>$$\mathcal{T_G} \; = \; \mathcal{T_C} \; \cup \; \mathcal{T_{context}}$$</center></span>
 
 
 <p align="center">
