@@ -151,7 +151,7 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 <img width="700" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/54360008-8682-4822-8ecd-08f71f0eb9a4">
 </p>
 
-Triple2Seq에서 샘플링된 Contextualized Sub-graph의 구조 정보는 인접 행렬(Adjacency Matrix) $$A_G$$에 저장된다. 이 때, Sub-graph의 구조 정보를 Normalization한 값을 <b>$$\widetilde{A}$$</b>으로 표기한다. 이러한 사실을 바탕으로 <b>$$\widetilde{A^m}$$($$\widetilde{A}$$ to the $$m$$-th power)</b>를 정의한다. 이는 $$\widetilde{A}$$를 **m번 제곱**한 것(**행렬곱**을 m번 수행 ex)$$ \widetilde{A} @ \widetilde{A}$$) m은 hyperparameter이다. 
+Triple2Seq에서 샘플링된 Contextualized Sub-graph의 구조 정보는 인접 행렬(Adjacency Matrix) $$A_G$$에 저장된다. 이 때, Sub-graph의 구조 정보를 Normalization한 값을 <b>$$\widetilde{A}$$</b>으로 표기한다. 이러한 사실을 바탕으로 <b>$$\widetilde{A^m}$$($$\widetilde{A}$$ to the $$m$$-th power)</b>를 정의한다. 이는 $$\widetilde{A}$$를 **m번 제곱**한 것(**행렬곱**을 m번 수행 <span style="font-size:80%">ex)$$ \widetilde{A} \; @ \; \widetilde{A}$$</span>) m은 hyperparameter이다. 
 
 여기서 알아야 할 개념이 있는데, 인접 행렬(Adjacency Matrix)의 제곱, 세제곱 등이 가지는 의미이다. 제곱을 예로 설명하면, m = 2인 상황으로, 어떤 노드 $$v_i$$에서 또 다른 노드 $$v_j$$로 이동할 때 2번(m=2)움직여서 갈 수 있는 횟수를 의미한다. 즉, 노드를 순회할 때, m번 이동하여 갈 수 있는 경우의 수가 각 $$\widetilde{A^m}$$의 요소가 된다. 간단하게 코드를 통해 살펴보면 다음과 같다.
 
@@ -197,6 +197,13 @@ Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 
 <p align="center">
 <img width="700" alt="1" src="https://github-production-user-asset-6210df.s3.amazonaws.com/111734605/252900409-5e4d57c7-c3d3-4692-8acb-c33f8a5bc005.png">
 </p>
+
+수식에서도 보이듯이, Contrastive Learning의 형태를 따르며 주의할 것은 빨산색 부분이다. 분모는 $$v_i$$ 노드의 t와 t-1시점의 유사도와 t시점에서 $$v_i$$노드와 $$v_j$$노드의 유사도의 합이다. 이를 통해 알 수 있는 것은 학습의 방향이 서로 다른 sub-graph의 차이를 줄이는 방향으로 간다는 것이다.
+
+<span style="font-size:110%"><b>Remark 2.</b></span>  
+> 이 Structure-enhanced Transformer는 모델에 구애받지 않으며 따라서 트랜스포머 아키텍처에 의미론적(semantic) 및 > 구조적 정보(Structure Information)를 주입하는 기존의 접근 방식과 직교한다는 점에 주목해야 한다. 
+> Original Graph에서 말 그대로 기존 트랜스포머는 모든 노드에 대한 attention을 수행하므로 구조 정보가 반영되지 못한다.
+> 하지만, Structure-Enhanced Transformer를 사용하면 Local Contextualized Sub-graph의 구조와 의미론적 특징의 영향력을 활용할 수 있는 유연성을 제공한다. Local graph 구조에서 유사한 노드간의 정보 교환에 편리하다.
 
 
 
