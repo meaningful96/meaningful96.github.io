@@ -95,7 +95,7 @@ Knowledge Graphs는 triple($$head, relation, tail$$)로 구성된다. 논문에�
 
 <br/>
 
-## 2. Triple2Seq
+## 2.1 Triple2Seq
 
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/f43ff18e-429e-4361-a92d-56d5f5314f3e">
@@ -125,7 +125,7 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 > sequential modeling을 위해 문맥화된 하위 그래프(Contextualized sub-graph)에서 edge(relation)를 하나의 Special node로 취급한다.
 > 게다가, Sampling process는 성능을 향상시키는 data augmentation operator로 볼 수 있다.
 
-
+## 2.2 Structure enhanced self attentionPermalink
 
 <br/>
 <br/>
