@@ -127,6 +127,20 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 
 ## 2.2 Structure enhanced self attentionPermalink
 
+<p align="center">
+<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/2be7eccc-0931-4f1e-97a0-4b667b66ac14">
+</p>
+
+트랜스포머는 입력으로 Sequence를 받는다. 이 때, <span style="font-size:105%"><b>Sequential Input가 Fully-Connected Attention Mechanism을 거치면서 Structural Information을 유실</b></span>시킬 수 있다. 그 이유는 Fully-Connected 라는 것은 결국 Dense-layer의 형태이다. 즉, Neural Network를 예로 들면 모든 drop-out이 0인 상태인데 <u><b>한 노드에 대해 다른 모든 노드들과의 attention을 구하므로(구조와 상관없이 모든 노드를 상대하기 때문) 구조 정보가 반영되지 못하는 것</b></u>이다.
+
+이를 극복하기 위해 논문에서는 <span style="color:aqua">**Attention Bias**</span>를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 <span style="color:gold"><b>Contextualized Sub-Graph 안의 노드쌍들의 구조 정보(Structural information)을 보존</b></span>할 수 있다. 노드 $$v_i$$와 $$v_j$$사이의 attention bias는 <b>$$\phi(i,j)$$</b>로 표기한다.
+
+<p align="center">
+<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/54360008-8682-4822-8ecd-08f71f0eb9a4">
+</p>
+
+
+
 <br/>
 <br/>
 
