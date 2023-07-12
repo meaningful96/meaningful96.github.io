@@ -205,6 +205,10 @@ Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 
 > Original Graph에서 말 그대로 기존 트랜스포머는 모든 노드에 대한 attention을 수행하므로 구조 정보가 반영되지 못한다.
 > 하지만, Structure-Enhanced Transformer를 사용하면 Local Contextualized Sub-graph의 구조와 의미론적 특징의 영향력을 활용할 수 있는 유연성을 제공한다. Local graph 구조에서 유사한 노드간의 정보 교환에 편리하다.
 
+좀 더 쉽게 말하자면, 기존의 atttention operation은 단순히 전체 그래프 안에서 노드와 의미있는 relation사이에서 계산을 진행하는것에 반해, Structure-enhances self attention은 <span style="color:gold">**Contextualized Sub-graph 구조를 이용한 Locality 정보와 Semantic feature들에 대해도 유의미한 영향을 주는 유연성을 이끌어내며 이를 통해 Transformer 모델에 구조적 정보(Structural information)와 의미론적 정보(Semantic feature)를 동시에 줄 수 있다**</span>는 것이 특징이다.
+
+## 2.3 Masked Knowledge Modeling
+
 
 
 
