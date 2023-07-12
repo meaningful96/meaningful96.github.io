@@ -184,9 +184,6 @@ A = np.c_[a1,a2,a3,a4]
 
 앞의 실험을 통해 $$\widetilde{A^m}$$이 확실하게 정의되었고, $$f_{structure}$$는 구조 정보를 인코딩하는 **Linear Layer**로 $$\widetilde{A^m}$$을 입력으로 한다. 이를 통해 최종적으로 Attention bias인 $$\phi(i,j)$$가 정의된다. 다시 한 번 강조하지만, <span style="color:gold">**Attention bias는 샘플링된 Contextualized Sub-Graph의 구조 정보를 포착**</span>하는 역할을 하며, 이 부분이 이 논문의 가장 큰 Contribution중 하나이다.
 
-<p align="center">
-<img width="700" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/af9e8d09-27b5-4411-bec3-14a17fc9f5fd">
-</p>
 
 <br/>
 <br/>
