@@ -121,8 +121,10 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 <span style="font-size:110%"><b>Remark 1.</b></span>  
 > Triple2Seq는 입력 시퀀스를 만들기위해 contextualized sub-graph를 dynamic sampling한다.
 > 결과적으로 Transformer는 Large KG에 대해서도 쉽게 적용될 수 있다.
-> Relphormer는 Heterogeneous graph에 초점을 맞춘 모델이며, edge를 speical node로 취급한다.
-> 
+> Relphormer는 Heterogeneous graph에 초점을 맞춘 모델이며,
+> sequential modeling을 위해 문맥화된 하위 그래프(Contextualized sub-graph)에서 edge(relation)를 하나의 Special node로 취급한다.
+> 게다가, Sampling process는 성능을 향상시키는 data augmentation operator로 볼 수 있다.
+
 
 
 <br/>
