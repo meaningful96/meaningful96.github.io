@@ -156,7 +156,7 @@ Triple2Seq에서 샘플링된 Contextualized Sub-graph의 구조 정보는 인�
 여기서 알아야 할 개념이 있는데, 인접 행렬(Adjacency Matrix)의 제곱, 세제곱 등이 가지는 의미이다. 제곱을 예로 설명하면, m = 2인 상황으로, 어떤 노드 $$v_i$$에서 또 다른 노드 $$v_j$$로 이동할 때 2번(m=2)움직여서 갈 수 있는 횟수를 의미한다. 즉, 노드를 순회할 때, m번 이동하여 갈 수 있는 경우의 수가 각 $$\widetilde{A^m}$$의 요소가 된다. 간단하게 코드를 통해 살펴보면 다음과 같다.
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/4496cab6-f416-48f7-bf9b-3d44c091fae6">
+<img width="400" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/4496cab6-f416-48f7-bf9b-3d44c091fae6">
 </p>
 
 ```python
@@ -179,7 +179,7 @@ A = np.c_[a1,a2,a3,a4]
 ```
 
 <p align="center">
-<img width="600" alt="1" src="(https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/805a3e21-8847-4e93-96db-7c9a48855df6">
+<img width="400" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/805a3e21-8847-4e93-96db-7c9a48855df6">
 </p>
 
 앞의 실험을 통해 $$\widetilde{A^m}$$이 확실하게 정의되었고, $$f_{structure}$$는 구조 정보를 인코딩하는 **Linear Layer**로 $$\widetilde{A^m}$$을 입력으로 한다. 이를 통해 최종적으로 Attention bias인 $$\phi(i,j)$$가 정의된다. 다시 한 번 강조하지만, <span style="color:gold">**Attention bias는 샘플링된 Contextualized Sub-Graph의 구조 정보를 포착**</span>하는 역할을 하며, 이 부분이 이 논문의 가장 큰 Contribution중 하나이다.
