@@ -136,7 +136,7 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 이를 극복하기 위해 논문에서는 <span style="color:aqua">**Attention Bias**</span>를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 <span style="color:gold"><b>Contextualized Sub-Graph 안의 노드쌍들의 구조 정보(Structural information)을 보존</b></span>할 수 있다. 노드 $$v_i$$와 $$v_j$$사이의 attention bias는 <b>$$\phi(i,j)$$</b>로 표기한다.
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/54360008-8682-4822-8ecd-08f71f0eb9a4">
+<img width="700" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/54360008-8682-4822-8ecd-08f71f0eb9a4">
 </p>
 
 
