@@ -209,7 +209,7 @@ Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 
 
 ## 2.3 Masked Knowledge Modeling
 
-Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(MLM)과 유사하다. Knowledge Graph Completion은 $$f: \matchal{T_M}, A_G \; \rightarrow \; Y$$를 푸는 Task이다.
+Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(MLM)과 유사하다. Knowledge Graph Completion은 $$f: \mathcal{T_M}, A_G \; \rightarrow \; Y$$를 푸는 Task이다.
 
 
 <br/>
