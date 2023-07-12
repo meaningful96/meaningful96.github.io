@@ -139,7 +139,12 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 <img width="700" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/54360008-8682-4822-8ecd-08f71f0eb9a4">
 </p>
 
+Triple2Seq에서 샘플링된 Contextualized Sub-graph의 구조 정보는 인접 행렬(Adjacency Matrix) $$A_G$$에 저장된다. 이 때, Sub-graph의 구조 정보를 Normalization한 값을 <b>$$\widetilde{A}$$</b>으로 표기한다. 이러한 사실을 바탕으로 $$\widetilde{A^m}$$은 power of m
+여기서 m은 Hyperparameter인데, "A"는 한 노드에서 다른 노드로 m단계를 수행하여 복구 가능한 관련성을 나타냅니다. 또한 $$f_{structure}$$은 구조 정보를 인코딩하는 Linear Layer로 $$\widetilde{A^m}$$을 입력으로 한다.
 
+<p align="center">
+<img width="700" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/5e4d57c7-c3d3-4692-8acb-c33f8a5bc005">
+</p>
 
 <br/>
 <br/>
