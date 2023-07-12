@@ -184,6 +184,22 @@ A = np.c_[a1,a2,a3,a4]
 
 앞의 실험을 통해 $$\widetilde{A^m}$$이 확실하게 정의되었고, $$f_{structure}$$는 구조 정보를 인코딩하는 **Linear Layer**로 $$\widetilde{A^m}$$을 입력으로 한다. 이를 통해 최종적으로 Attention bias인 $$\phi(i,j)$$가 정의된다. 다시 한 번 강조하지만, <span style="color:gold">**Attention bias는 샘플링된 Contextualized Sub-Graph의 구조 정보를 포착**</span>하는 역할을 하며, 이 부분이 이 논문의 가장 큰 Contribution중 하나이다.
 
+<br/>
+
+### 2) Contrastive Learning Strategy
+
+Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 많으므로 더 Dense함)의 경우, 하나의 Center Triple에 대해 많은 수의 Contextualized Sub-Graph를 샘플링하여 학습을 진행하면 정보의 편향이 생길 수 있다. Dynamic Sampling을 할 때, 이런 불안정성을 극복하고자 **Contextual contrastive strategy**를 이용한다. 
+
+> We use the contextualized sub-graph of the same triple in different epochs triple in different epochs to enforce the model to conduct similar predictions.
+
+즉, <span>서로 다른 Epoch에서 같은 Triple의 contextualized sub-graph를 사용해 모델에게 유사도를 학습하는 걸 강요한다. Contextualized sub-graph의 입력 시퀀스를 인코딩하고 hidden vector $$\mathcal{h_{mask}}$$를 현재 Epoch $$t$$에서 $$c_t$$, 마지막 Epoch $$c_{t-1}$$로 가져온다. 마지막으로 Loss를 정의하는데 $$\mathcal{L_{contextual}}$$를 contextual loss로 정의한다. 이 작업을 거쳐 최종 목표는 <span style="color:gold">**서로 다른 sub-graph사이의 차이를 최소화(minimization)하는 것**</span>이다. 
+
+<p align="center">
+<img width="700" alt="1" src="https://github-production-user-asset-6210df.s3.amazonaws.com/111734605/252900409-5e4d57c7-c3d3-4692-8acb-c33f8a5bc005.png">
+</p>
+
+
+
 
 <br/>
 <br/>
