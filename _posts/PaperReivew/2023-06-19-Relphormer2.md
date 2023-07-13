@@ -240,7 +240,7 @@ $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 �
 <span style="font-size:110%"><b>Remark 3.</b></span>  
 > Masked Knowledge Modeling은 더 좋은 Link preidction을 위해 적절한 최적화 target을
 > 자동으로 찾을 수 있는 매개 변수 scoring function의 근사치일 수 있다.
-> 
+>  
 > The advancement of empirical results (See section 4)
 > illustrates that masked knowledge modeling may be a parametric
 > score function approximator, which can automatically
