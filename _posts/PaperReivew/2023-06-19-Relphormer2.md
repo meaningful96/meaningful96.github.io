@@ -209,8 +209,19 @@ Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 
 
 ## 2.3 Masked Knowledge Modeling
 
-Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(MLM)과 유사하다. Knowledge Graph Completion은 $$f: \mathcal{T_M}, A_G \; \rightarrow \; Y$$를 푸는 Task이다.
+Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(MLM)과 유사하다. Knowledge Graph Completion은 $$f: \mathcal{T_M}, A_G \; \rightarrow \; Y$$를 푸는 Task이다. Relphormer에서는 랜덤하게 입력 시퀀스의 토큰들을 마스킹하고, 그 마스킹된 토큰들을 예측한다.
 
+> We randomly mask specific tokens of the input sequences and then predict those masked tokens.
+
+<p align="center">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224577501-d11de3de-c587-4b19-8832-e6567f4b8573.png">
+</p>
+
+Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 때, 랜덤하게 Center triple을 마스킹한다. 구체적으로 relation prediction을 할 때는 head나 tail 둘 중에 하나를 마스킹한다. 이를 Triple로 표현하면 $$(v_{h},?,v_{mask}) or (v_{mask}, ?, v_t$$이다. 
+
+<p align="center">
+<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/9d515ba9-7158-4657-a6a8-b899593b7c7d">
+</p>
 
 <br/>
 <br/>
