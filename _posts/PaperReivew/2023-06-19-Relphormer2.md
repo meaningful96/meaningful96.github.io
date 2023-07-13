@@ -282,35 +282,32 @@ Pseudo Code는 다음과 같다.
 
 ### 2) Training and Inference
 
-결론적으로 위의 Pseudo code algorithm과 같이 Relphormer는 동작한다. 학습 중에는 joint optimization을 이용해 masked knowledge loss와 contextual contrastive constrained object를 동시에 최적화한다.
+결론적으로 위의 Pseudo code algorithm과 같이 Relphormer는 동작한다. 학습 중에는 joint optimization을 이용해 masked knowledge loss와 contextual contrastive constrained object를 동시에 최적화한다. 따라서 최종 Loss는 아래와 같이 정의된다. $$\lambda$$는 hyperparameter이고 $$\mathcal{L_{MKM}}$$과 $$\mathcal{L_{contextual}}$$은 각각 masked knowledge loss와 contextual loss이다.
 
 <p align="center">
 <img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/d703746d-b64b-44b0-a28e-9ae1567361d6">
 </p>
 
-따라서 최종 Loss는 위와 같이 정의된다. $$\lambda$$는 hyperparameter이고 $$\mathcal{L_{MKM}}$$과 $$\mathcal{L_{contextual}}$$은 각각 masked knowledge loss와 contextual loss이다.
 
 <br/>
 
 <span style="font-size:105%"><b>KG Completion</b></span>  
-**추론시(Inference)**, multi-sampling strategy를 이용해 예측의 안정성을 향상시킨다.
+**추론시(Inference)**, multi-sampling strategy를 이용해 예측의 안정성을 향상시킨다. 이 때, $$\mathbf{y_k} \in \mathbb{R^{\vert V \vert \times 1}}$$의 shape을 가지며 하나의 Contextual sub-graph의 예측 결과를 나타내며, $$K$$는 샘플링된 sub-graph의 수를 나타낸다.
 
 <p align="center">
 <img width="100" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/c40e0c3c-8962-489f-a537-53d78ba4e24e">
 </p>
 
-이 때, $$\mathbf{y_k} \in \mathbb{R^{\vert V \vert \times 1}}$$의 shape을 가지며 하나의 Contextual sub-graph의 예측 결과를 나타내며, $$K$$는 샘플링된 sub-graph의 수를 나타낸다.
 
 <br/>
 
 <span style="font-size:105%"><b>Question Answering and Recommendation</b></span>  
-Relphomrer에 fine-tuning을 하여 QA task와 추천 시스템에 적용하였다. QA task의 수식은 아래와 같다. 
+Relphomrer에 fine-tuning을 하여 QA task와 추천 시스템에 적용하였다. QA task의 수식은 아래와 같다. $$\mathcal{Q_M}$$은 마스킹된 query이고 $$\mathcal{M(\theta)}$$는 pre-trained된 KG transformer이다. downstream task에 따라서 $$\mathcal{Q_M}$$의 표현은 조금씩 달라질 수 있다. (QA = Question Answering, RS = Recommandataion System)
 
 <p align="center">
 <img width="170" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/d038b569-ee9e-43bd-a1eb-00a0d538c44d">
 </p>
 
-$$\mathcal{Q_M}$$은 마스킹된 query이고 $$\mathcal{M(\theta)}$$는 pre-trained된 KG transformer이다. downstream task에 따라서 $$\mathcal{Q_M}$$의 표현은 조금씩 달라질 수 있다. (QA = Question Answering, RS = Recommandataion System)
 
 - In QA: $$\mathcal{Q_M}$$ is defined by \[ *question tokens*; \[MASK\] \] = KG에서 정답인 엔티티를 예측
 - In RS: $$\mathcal{Q_M}$$ is defined by \[ *items tokens*; \[MASK\] \]
