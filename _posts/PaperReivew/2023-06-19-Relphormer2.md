@@ -307,7 +307,7 @@ Pseudo Code는 다음과 같다.
 Relphomrer에 fine-tuning을 하여 QA task와 추천 시스템에 적용하였다. QA task의 수식은 아래와 같다. 
 
 <p align="center">
-<img width="100" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/d038b569-ee9e-43bd-a1eb-00a0d538c44d">
+<img width="200" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/d038b569-ee9e-43bd-a1eb-00a0d538c44d">
 </p>
 
 $$\mathcal{Q_M}$$은 마스킹된 query이고 $$\mathcal{M(\theta)}$$는 pre-trained된 KG transformer이다. downstream task에 따라서 $$\mathcal{Q_M}$$의 표현은 조금씩 달라질 수 있다. (QA = Question Answering, RS = Recommandataion System)
@@ -340,7 +340,7 @@ KG-BERT와 Relphormer의 성능을 비교하기에 앞서 먼저 Time Complexity
 ## 1. KG Completion & Relation Preidction
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/937d1638-008a-4ad4-9b0f-f960f0c76330">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/937d1638-008a-4ad4-9b0f-f960f0c76330">
 </p>
 
 Table 3에서 방식이 Relphormer가 baseline들과 비교하여 모든 Dataset에서 경쟁력 있는 성능을 달성할 수 있음을 보여준다. Relphormer는 Hits@1 및 MRR Metric에서 최고의 성능을 달성하고 WN18R에서 Hits@10에서 두 번째로 우수한 성능을 산출했다. QuatE와 같은 이전 SOTA 변환 거리 모델과 비교하여 모든 Metric에서 개선되었다. Relphormer가 WN18R에서 SOTA Transformer 기반 모델 HitER보다 우수하다.
@@ -356,7 +356,7 @@ Table 4에서 Relphormer가 baseline들과 비교하여 경쟁력 있는 성능�
 ## 2. Question-Answering & Recommandation
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/579eed82-63e7-4a1b-a211-4fe1ca555481">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/579eed82-63e7-4a1b-a211-4fe1ca555481">
 </p>
 
 
