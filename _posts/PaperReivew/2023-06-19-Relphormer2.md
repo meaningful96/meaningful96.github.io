@@ -220,7 +220,7 @@ Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(M
 Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 때, 랜덤하게 Center triple을 마스킹한다. 구체적으로 relation prediction을 할 때는 head나 tail 둘 중에 하나를 마스킹한다. 이를 Triple로 표현하면 $$(v_{h},?,v_{mask}) or (v_{mask}, ?, v_t$$이다. 
 
 <p align="center">
-<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/9d515ba9-7158-4657-a6a8-b899593b7c7d">
+<img width="200" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/9d515ba9-7158-4657-a6a8-b899593b7c7d">
 </p>
 
 <br/>
