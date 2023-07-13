@@ -220,7 +220,7 @@ Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(M
 Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 때, 랜덤하게 Center triple을 마스킹한다. 구체적으로 relation prediction을 할 때는 head나 tail 둘 중에 하나를 마스킹한다. 이를 Triple로 표현하면 $$(\; v_{h},?,[MASK] \;) \; or \; (\; [MASK], ?, v_t \;)$$이다. 
 
 <p align="center">
-<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/682de0cf-40a9-4d9d-95e3-ab5af8bd5814">bbbbbbbbbbbbbbjb
+<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/682de0cf-40a9-4d9d-95e3-ab5af8bd5814">
 </p>
 
 $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 풀고자 하는 것은 <b>마스킹된 node sequence $$\mathcal{T_M}$$과 Contextualized Sub-graph의 구조 정보를 나타내는 $$A_G$$가 주어졌을 때 Original Triple $$\mathcal{T}$$의 missing part를 찾는 것</b>이다. 참고로, Y의 shape은 ($$Y \in \mathbb{R^{\vert \mathcal{E} \vert \times \vert \mathcal{R} \vert}}$$)이다.
@@ -233,11 +233,19 @@ $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 �
 > Masked Knowledge Modeling은 더 좋은 Link preidction을 위해 적절한 최적화 target을
 > 자동으로 찾을 수 있는 매개 변수 scoring function의 근사치일 수 있다.
 
+<p align="center">
+<img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/57824be8-fc67-4d4b-81da-ed434d744724">
+</p>
+
 ## 3. Training and Inference
 
 ### 1) Pseudo Code
 <span style="font-size:110%"><b>Hypothesis 1.</b></span>  
 (Score function approximator) $$\mathcal{T_M}$$을 masked triple이라고 할 때, $$\mathbf{h} \; \in \; \mathbb{R^d}$$는 Relphormer $$\mathcal{M}(\theta)$$에서 multi-head attention을 통해 얻어진 마스킹된 head이다. Vocabulary 토큰 임베딩은 $$W \; \in \; \mathbb{R^{d \times N}}$$이며 $$N \; = \; \vert \mathcal{E} \vert \; + \; \vert \mathcal{R} \vert $$이다. 
+
+<p align="center">
+<img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/7f174e29-4100-49e5-8844-8fc3c4bfa89f">
+</p>
 
 
 <br/>
