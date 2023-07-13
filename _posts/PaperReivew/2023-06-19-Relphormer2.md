@@ -240,9 +240,14 @@ $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 �
 <span style="font-size:110%"><b>Remark 3.</b></span>  
 > Masked Knowledge Modeling은 더 좋은 Link preidction을 위해 적절한 최적화 target을
 > 자동으로 찾을 수 있는 매개 변수 scoring function의 근사치일 수 있다.
+> 
+> The advancement of empirical results (See section 4)
+> illustrates that masked knowledge modeling may be a parametric
+> score function approximator, which can automatically
+
 
 <p align="center">
-<img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/57824be8-fc67-4d4b-81da-ed434d744724">
+<img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/6f4a459a-a0f3-4303-b0e7-34242ac6f16b">
 </p>
 
 ## 3. Training and Inference
@@ -250,10 +255,6 @@ $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 �
 ### 1) Pseudo Code
 <span style="font-size:110%"><b>Hypothesis 1.</b></span>  
 (Score function approximator) $$\mathcal{T_M}$$을 masked triple이라고 할 때, $$\mathbf{h} \; \in \; \mathbb{R^d}$$는 Relphormer $$\mathcal{M}(\theta)$$에서 multi-head attention을 통해 얻어진 마스킹된 head이다. Vocabulary 토큰 임베딩은 $$W \; \in \; \mathbb{R^{d \times N}}$$이며 $$N \; = \; \vert \mathcal{E} \vert \; + \; \vert \mathcal{R} \vert $$이다. 
-
-<p align="center">
-<img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/7f174e29-4100-49e5-8844-8fc3c4bfa89f">
-</p>
 
 Pseudo Code는 다음과 같다.
 
