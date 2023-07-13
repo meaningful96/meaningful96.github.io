@@ -135,6 +135,10 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 > sequential modeling을 위해 문맥화된 하위 그래프(Contextualized sub-graph)에서 edge(relation)를 하나의 Special node로 취급한다.
 > 게다가, Sampling process는 성능을 향상시키는 data augmentation operator로 볼 수 있다.
 
+<p align="center">
+<img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/64533dc7-847d-405e-8062-a7bcd4e42322">
+</p>
+
 ## 2.2 Structure enhanced self attentionPermalink
 
 <p align="center">
@@ -205,6 +209,10 @@ Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 
 > Original Graph에서 말 그대로 기존 트랜스포머는 모든 노드에 대한 attention을 수행하므로 구조 정보가 반영되지 못한다.
 > 하지만, Structure-Enhanced Transformer를 사용하면 Local Contextualized Sub-graph의 구조와 의미론적 특징의 영향력을 활용할 수 있는 유연성을 제공한다. Local graph 구조에서 유사한 노드간의 정보 교환에 편리하다.
 
+<p align="center">
+<img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/32daf62f-d688-4dc4-929d-e05aa1bc5fc5">
+</p>
+
 좀 더 쉽게 말하자면, 기존의 atttention operation은 단순히 전체 그래프 안에서 노드와 의미있는 relation사이에서 계산을 진행하는것에 반해, Structure-enhances self attention은 <span style="color:gold">**Contextualized Sub-graph 구조를 이용한 Locality 정보와 Semantic feature들에 대해도 유의미한 영향을 주는 유연성을 이끌어내며 이를 통해 Transformer 모델에 구조적 정보(Structural information)와 의미론적 정보(Semantic feature)를 동시에 줄 수 있다**</span>는 것이 특징이다.
 
 ## 2.3 Masked Knowledge Modeling
@@ -227,7 +235,7 @@ $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 �
 
 구체적으로, <span style="color:gold">**Contextualized Sub-Graph의 유니크한 구조정 정보를 이용해 Contextual information을 더 잘 통합하기위해 Sequence에서 단 하나의 토큰만 랜덤하게 마스킹**</span>한다. 
 
-직관적으로 masked knowledge modeling은 scoring function을 기반으로 하는 이전 translation distance 방법들과는 확연한 차이를 보여준다. 다만, <u>마스킹을 할 때 Head와 Tail의 인접한 노드(이웃 노드)를 동시에 샘플링할 경우 Link prediction시 심각한 <b>Label leakage</b>를 유발</u>할 수 있다. 주의해야 할 점은 바로 Training 중에는 예측된 마스크 토큰의 구조를 알 수 없다는 것이다. 논문에서는 이 Label Leakgage를 극복해 fair comparison을 보장하기위해 <span style="color:gold">**타겟 엔티티(Target entity)의 context node를 제거**</span>하여 training과 testing의 차이를 좁혀준다.    
+직관적으로 masked knowledge modeling은 scoring function을 기반으로 하는 이전 translation distance 방법들과는 확연한 차이를 보여준다. 다만, <u>마스킹을 할 때 Head와 Tail의 인접한 노드(이웃 노드)를 동시에 샘플링할 경우 Link prediction시 심각한 <b>Label leakage</b>를 유발</u>할 수 있다. 주의해야 할 점은 바로 Training 중에는 예측된 마스크 토큰의 구조를 알 수 없다는 것이다. 논문에서는 이 Label Leakgage를 극복해 공평평한 비교(fair comparison)를 보장하기위해 <span style="color:gold">**타겟 엔티티(Target entity)의 context node를 제거**</span>하여 training과 testing의 차이를 좁혀준다.    
 
 <span style="font-size:110%"><b>Remark 3.</b></span>  
 > Masked Knowledge Modeling은 더 좋은 Link preidction을 위해 적절한 최적화 target을
@@ -247,7 +255,12 @@ $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 �
 <img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/7f174e29-4100-49e5-8844-8fc3c4bfa89f">
 </p>
 
+Pseudo Code는 다음과 같다.
 
+<p align="center">
+<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/5221271b-da9c-4212-b8eb-26d0ebd1b811">
+  
+</p>
 <br/>
 <br/>
 
