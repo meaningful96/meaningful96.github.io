@@ -290,12 +290,80 @@ Pseudo Code는 다음과 같다.
 
 따라서 최종 Loss는 위와 같이 정의된다. $$\lambda$$는 hyperparameter이고 $$\mathcal{L_{MKM}}$$과 $$\mathcal{L_{contextual}}$$은 각각 masked knowledge loss와 contextual loss이다.
 
+<br/>
+
 <span style="font-size:105%"><b>KG Completion</b></span>  
 **추론시(Inference)**, multi-sampling strategy를 이용해 예측의 안정성을 향상시킨다.
 
 <p align="center">
 <img width="100" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/c40e0c3c-8962-489f-a537-53d78ba4e24e">
 </p>
+
+이 때, $$\mathbf{y_k} \in \mathbb{R^{\vert V \vert \times 1}}$$의 shape을 가지며 하나의 Contextual sub-graph의 예측 결과를 나타내며, $$K$$는 샘플링된 sub-graph의 수를 나타낸다.
+
+<br/>
+
+<span style="font-size:105%"><b>Question Answering and Recommendation</b></span>  
+Relphomrer에 fine-tuning을 하여 QA task와 추천 시스템에 적용하였다. QA task의 수식은 아래와 같다. 
+
+<p align="center">
+<img width="100" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/d038b569-ee9e-43bd-a1eb-00a0d538c44d">
+</p>
+
+$$\mathcal{Q_M}$$은 마스킹된 query이고 $$\mathcal{M(\theta)}$$는 pre-trained된 KG transformer이다. downstream task에 따라서 $$\mathcal{Q_M}$$의 표현은 조금씩 달라질 수 있다. (QA = Question Answering, RS = Recommandataion System)
+
+- In QA: $$\mathcal{Q_M}$$ is defined by \[ *question tokens*; \[MASK\] \] = KG에서 정답인 엔티티를 예측
+- In RS: $$\mathcal{Q_M}$$ is defined by \[ *items tokens*; \[MASK\] \]
+
+<span style="font-size:105%"><b>Model Time Complexity Anaylsis</b></span>  
+KG-BERT와 Relphormer의 성능을 비교하기에 앞서 먼저 Time Complexity를 비교하는 실험을 진행하였다. Relphormer의 경우가 KG-BERT에 비해 훨씬 더 좋은 Time Complexity를 보이며 학습과 추론시간에 있어서 차이가 많이 나는 것을 확인할 수 있다. Relphormer는 Masked knowledge modeling을 이용하여 모델이 마스킹된 엔티티나 릴레이션을 예측한다. 비록 Triple2Seq에서 시간이 좀 오래 걸리지만, Relphormer가 여전히 KG-BERT에 비해 우수한 성능을 보인다.
+
+<p align="center">
+<img width="400" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/c0026e73-9d42-4263-8af6-0c4430061eb2">
+</p>
+
+<br/>
+<br/>
+
+# Experiment & Result
+총 6개의 Banchmark Dataset을 사용
+- Knowledge Graph Completion(KGC)
+  - WN18RR
+  - FB15k-237
+  - UMLS   
+- Knowledge-Base Qusetion Answering
+  - FreeBaseQA
+  - WebQuestionSP
+- Recommandation
+  - MovieLens      
+
+## 1. KG Completion & Relation Preidction
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/937d1638-008a-4ad4-9b0f-f960f0c76330">
+</p>
+
+Table 3에서 방식이 Relphormer가 baseline들과 비교하여 모든 Dataset에서 경쟁력 있는 성능을 달성할 수 있음을 보여준다. Relphormer는 Hits@1 및 MRR Metric에서 최고의 성능을 달성하고 WN18R에서 Hits@10에서 두 번째로 우수한 성능을 산출했다. QuatE와 같은 이전 SOTA 변환 거리 모델과 비교하여 모든 Metric에서 개선되었다. Relphormer가 WN18R에서 SOTA Transformer 기반 모델 HitER보다 우수하다.
+
+또한 FB15K-237 데이터 세트에서 Relphormer가 대부분의 번역 거리 모델보다 성능이 우수하다. 트랜스포머 기반 모델과 비교했을 때 Relphormer는 Hits@1에서 KG BERT, StAR 및 HittER보다 성능이 가장 우수하다. HitER는 **FB15K-237에서 더 많은 트랜스포머 아키텍처를 명시적으로 활용**하기 때문에 성능을 향상시키며, Relphormer는 여전히 비슷한 성능을 얻습니다. 게다가, 우리는 Relphormer가 UMLS, 특히 Hits@10에서 매우 좋은 성능을 보여준다. Relphormer의 Relational Transformer Framework가 KGC에서 우수한 성능을 만들어낸다. 
+
+<p align="center">
+<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/834acf36-40d2-404d-84ab-829053483c89">
+</p>
+
+Table 4에서 Relphormer가 baseline들과 비교하여 경쟁력 있는 성능을 얻을 수 있음을 알 수 있다. WN18RR 데이터 세트에서 Relphormer는 이미 모든 baseline을 능가하며, 이는 relation prediction을 위한 Relphormer의 접근 방식이 성능 향상에 직접적임을 보여준다. TransE와 비교하여 Hits@1에서 15.8%, 9.7% 향상되었다. FB15K-237에서 Relphormer의 성능 향상은 특히 Hits@3에서 중요하다. Relphormer는 DistMult보다는 성능이 우수하지만 RotatE보다는 성능이 떨어진다.
+
+## 2. Question-Answering & Recommandation
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/579eed82-63e7-4a1b-a211-4fe1ca555481">
+</p>
+
+
+<br/>
+<br/>
+
+# Contribution
 
 
 
