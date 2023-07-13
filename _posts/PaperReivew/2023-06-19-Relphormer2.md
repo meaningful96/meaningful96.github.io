@@ -283,7 +283,7 @@ Pseudo Code는 다음과 같다.
 **추론시(Inference)**, multi-sampling strategy를 이용해 예측의 안정성을 향상시킨다.
 
 <p align="center">
-<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/c40e0c3c-8962-489f-a537-53d78ba4e24e">
+<img width="100" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/c40e0c3c-8962-489f-a537-53d78ba4e24e">
 </p>
 
 
