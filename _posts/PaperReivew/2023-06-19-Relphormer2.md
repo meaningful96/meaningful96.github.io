@@ -220,10 +220,10 @@ Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(M
 Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 때, 랜덤하게 Center triple을 마스킹한다. 구체적으로 relation prediction을 할 때는 head나 tail 둘 중에 하나를 마스킹한다. 이를 Triple로 표현하면 $$(v_{h},?,[MASK]) or ([MASK], ?, v_t)$$이다. 
 
 <p align="center">
-<img width="200" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/682de0cf-40a9-4d9d-95e3-ab5af8bd5814">
+<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/682de0cf-40a9-4d9d-95e3-ab5af8bd5814">
 </p>
 
-$$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 풀고자 하는 것은 <span style="color:gold"><b>마스킹된 노드 시퀀스 $$\mathcal{T_M}$$과 Contextualized Sub-graph의 구조 정보를 나타내는 $$A_G$$가 주어졌을 때 Original Triple $$\mathcal{T}$$의 missing part를 찾는 것</b></span>이다. ($$Y \in \mathbb{R^{\vert \mathcal{E} \vert \times \vert \mathcal{R} \vert}}$$)
+$$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 풀고자 하는 것은 <span style="color:gold"><b>마스킹된 노드 시퀀스 $$\mathcal{T_M}$$과 Contextualized Sub-graph의 구조 정보를 나타내는 $$A_G$$가 주어졌을 때 Original Triple $$\mathcal{T}$$의 missing part를 찾는 것</b></span>이다. 참고로, Y의 shape은 ($$Y \in \mathbb{R^{\vert \mathcal{E} \vert \times \vert \mathcal{R} \vert}}$$)이다.
 
 직관적으로 MKM방식은 기존의 거리를 기반으로 Scoring function을 정의해 학습하는 Graph-Embedding방식과 차이를 보여준다. 
 
