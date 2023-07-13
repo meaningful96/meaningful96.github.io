@@ -259,8 +259,34 @@ Pseudo Code는 다음과 같다.
 
 <p align="center">
 <img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/5221271b-da9c-4212-b8eb-26d0ebd1b811">
-  
+
+만약 ($$\mathcal{T_M} = (v_s, v_p, [MASK])$$)이면 tail이 마스킹된 트리플을 의미한다. $$g(\cdot)$$은 multi-head attention layer 모듈이고 $$V_{object} \; \subset \; W$$은 tail이 될 수 있는 후보들의 임베딩을 의미한다. Output Logit은 $$sigmoid(W \mathbf{h})$$이며 이는 근사적으로 $$sigmoid(V_{object} \mathbf{h})$$와 동일하다.
+
+<p align="center">
+<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/5c3c0e9d-c93f-4f1f-9492-e406f3a7f0dd">
+
+최종적인 final logit은 위와같다. 하나의 $$f(v_s, v_p,v_{object})$$ term을 고른 후 $$f(\cdot) \; \approx \; v_{{object}_i}g(\cdot)$$을 이용한다. 이렇게 함으로써 f가 결국 <u>score function처럼 동작하게 되며 결론적으로 Masked knowledge modeling이 score function approximator</u>처럼 된다.
+
+<br/>
+
+### 2) Training and Inference
+
+결론적으로 위의 Pseudo code algorithm과 같이 Relphormer는 동작한다. 학습 중에는 joint optimization을 이용해 masked knowledge loss와 contextual contrastive constrained object를 동시에 최적화한다.
+
+<p align="center">
+<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/d703746d-b64b-44b0-a28e-9ae1567361d6">
 </p>
+
+따라서 최종 Loss는 위와 같이 정의된다. $$\lambda$$는 hyperparameter이고 $$\mathcal{L_{MKM}}$$과 $$\mathcal{L_{contextual}}$$은 각각 masked knowledge loss와 contextual loss이다.
+
+<span style="font-size:105%"><b>KG Completion</b></span>  
+**추론시(Inference)**, multi-sampling strategy를 이용해 예측의 안정성을 향상시킨다.
+
+<p align="center">
+<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/c40e0c3c-8962-489f-a537-53d78ba4e24e">
+</p>
+
+
 <br/>
 <br/>
 
