@@ -383,7 +383,7 @@ Recommandation의 경우 Relphormer가 모든 baseline 모델보다 성능이 �
 
 Knowledge Graph에는 Relational Pattern이 있으며, 1-N, N-1 및 N-N 관계와 같은 패턴을 해결할 수 없는 접근 방식도 있다. 예를 들어 특정 엔티티-릴레이션 쌍(ℎ, 𝑟)이 주어지면 일반적으로 tail의 수는 둘 이상이다. Masked Knowledge Modeling(MKM) 없이, 대신 negative log-likelihood을 사용하여 ablation study를 수행하였다. Table 5에서 MKM이 있는 모델은 두 데이터 세트 모두에서 Hit@1에서 더 나은 성능을 낼 수 있지만 WN18R에서 MR의 향상을 달성하지 못한다. 이는 <span style = "color:gold">**WN18RR에 충분한 구조적 특징이 없기 때문**</span>일 수 있다. 따라서 rank에 대한 **NLL 기반의 최적화가 더 유리**할 수 있다.
 
-</br>
+<br/>
 
 ### 2) Global Node
 
