@@ -315,6 +315,8 @@ $$\mathcal{Q_M}$$은 마스킹된 query이고 $$\mathcal{M(\theta)}$$는 pre-tra
 - In QA: $$\mathcal{Q_M}$$ is defined by \[ *question tokens*; \[MASK\] \] = KG에서 정답인 엔티티를 예측
 - In RS: $$\mathcal{Q_M}$$ is defined by \[ *items tokens*; \[MASK\] \]
 
+<br/>
+
 <span style="font-size:105%"><b>Model Time Complexity Anaylsis</b></span>  
 KG-BERT와 Relphormer의 성능을 비교하기에 앞서 먼저 Time Complexity를 비교하는 실험을 진행하였다. Relphormer의 경우가 KG-BERT에 비해 훨씬 더 좋은 Time Complexity를 보이며 학습과 추론시간에 있어서 차이가 많이 나는 것을 확인할 수 있다. Relphormer는 Masked knowledge modeling을 이용하여 모델이 마스킹된 엔티티나 릴레이션을 예측한다. 비록 Triple2Seq에서 시간이 좀 오래 걸리지만, Relphormer가 여전히 KG-BERT에 비해 우수한 성능을 보인다.
 
@@ -358,6 +360,19 @@ Table 4에서 Relphormer가 baseline들과 비교하여 경쟁력 있는 성능�
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/579eed82-63e7-4a1b-a211-4fe1ca555481">
 </p>
+
+QA의 경우, Relphormer가 FreebaseQA 및 WebQuestionSP에서 가장 좋은 성능을 보인다.(Figure 3.) HitER에 비해 Relphormer는 FreebaseQA Dataset의 *Full Setting*에서 6.8% 향상되었다. 또한, Relphormer는 WebQuestionSP의 *Full & Filter Setting*에서 2.9% 및 1.4% 향상되었다. Relphormer는 BERT로 쉽게 초기화할 수 있으며 masked knowledge modeling으로 최적화되므로 QA 작업을 위해 <span style="color:gold">**Relphormer로 사전 훈련된 표현을 주입하는 것이 효율적이므로 성능이 향상**</span>된다. Relphormer가 훨씬 더 효율적이며, HitER와 같은 일부 KG 표현 모델의 경우 QA 작업을 향상시키기 위해 복잡한 통합 전략을 설계해야한다.
+
+한 가지 간단한 방법은 Pre-trained representation을 Extra QA 모델에 주입하는 것이다. 하지만 Pre-trained된 KG 모델과 Downstream 모델 간의 불일치로 인해 효과를 검증하기가 어렵다. Freebase에 풍부한 Textural 및 Structual information이 있는 FreeBaseQA(Figure 4.)를 이용한 hard sample을 통해 Relphormer가 서로 다른 단어 또는 엔티티 간의 명시적이고 암묵적인 상관관계를 배울 수 있다는 것에 주목해야한다.
+
+<br/>
+
+Recommandation의 경우 Relphormer가 모든 baseline 모델보다 성능이 우수하다(Figure 3). BERT4REC와 비교하여 Relphormer는 Hits@1에서 2%, MRR에서 1% 향상되었다. 또한 Relphormer는 각 노드의 BERT 임베딩 계산 및 aggregation에 의해 구현되는 KG-BERT를 능가한다. Figure 4에서 볼 수 있듯이, 특정 사용자가 긴 목록의 영화를 시청한 경우, 여기서 목표는 다음에 시청할 영화를 예측하는 것이다. 그 영화들 중 시애틀의 잠 못 이루는 밤과 틴 컵은 두 영화의 주제가 모두 로맨스와 코미디에 관한 것이기 때문에 밀접한 상관관계가 있다. 한편, 추가된 KGs의 영화 마이티 아프로디테도 같은 이유로 시애틀의 잠 못 이루는 밤과 틴 컵에 연결되어 있다.
+
+분명히, KGs의 잠재적 노드 관련성은 영화 추천 작업에 도움이 된다. 이러한 샘플의 경우, Relphormer는 깊은 상관관계를 학습하고 기준 모델보다 더 나은 성능을 산출할 것이다. 전반적으로, Relphromer를 사용한 KG 표현이 Link prediction을 통해 더 나은 본질적인 평가 성능을 수행할 수 있을 뿐만 아니라 잘 학습된 Knowledge Representation을 통해 QA 및 Recommandation의 KG-based downstream task를 촉진할 수 있음을 보여준다.
+
+## 3. Ablation Study: How do different key modules in the Relphormer framework contribute to the overall performance?
+
 
 
 <br/>
