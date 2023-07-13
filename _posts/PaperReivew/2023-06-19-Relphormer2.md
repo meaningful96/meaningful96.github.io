@@ -261,7 +261,7 @@ Pseudo Code는 다음과 같다.
 <p align="center">
 <img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/5221271b-da9c-4212-b8eb-26d0ebd1b811">
 
-만약 ($$\mathcal{T_M} = (v_s, v_p, [MASK])$$)이면 tail이 마스킹된 트리플을 의미한다. $$g(\cdot)$$은 multi-head attention layer 모듈이고 $$V_{object} \; \subset \; W$$은 tail이 될 수 있는 후보들의 임베딩을 의미한다. Output Logit은 $$sigmoid(W \mathbf{h})$$이며 이는 근사적으로 $$sigmoid(V_{object} \mathbf{h})$$와 동일하다.
+만약 $$\mathcal{T_M} = (v_s, v_p, [MASK])$$이면 tail이 마스킹된 트리플을 의미한다. $$g(\cdot)$$은 multi-head attention layer 모듈이고 $$V_{object} \; \subset \; W$$은 tail이 될 수 있는 후보들의 임베딩을 의미한다. Output Logit은 $$sigmoid(W \mathbf{h})$$이며 이는 근사적으로 $$sigmoid(V_{object} \mathbf{h})$$와 동일하다.
 
 <p align="center">
 <img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/5c3c0e9d-c93f-4f1f-9492-e406f3a7f0dd">
