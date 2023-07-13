@@ -227,7 +227,18 @@ $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 �
 
 구체적으로, <span style="color:gold">**Contextualized Sub-Graph의 유니크한 구조정 정보를 이용해 Contextual information을 더 잘 통합하기위해 Sequence에서 단 하나의 토큰만 랜덤하게 마스킹**</span>한다. 
 
-직관적으로 masked knowledge modeling은 scoring function을 기반으로 하는 이전 translation distance 방법들과는 확연한 차이를 보여준다. 다만, <u>마스킹을 할 때 Head와 Tail의 인접한 노드(이웃 노드)를 동시에 샘플링할 경우 Link prediction시 심각한 <b>Label leakage를 유발</u>할 수 있다. Training 중에는 예측된 마스크 토큰의 구조를 알 수 없다.    
+직관적으로 masked knowledge modeling은 scoring function을 기반으로 하는 이전 translation distance 방법들과는 확연한 차이를 보여준다. 다만, <u>마스킹을 할 때 Head와 Tail의 인접한 노드(이웃 노드)를 동시에 샘플링할 경우 Link prediction시 심각한 <b>Label leakage를 유발</u>할 수 있다. 주의해야 할 점은 바로 Training 중에는 예측된 마스크 토큰의 구조를 알 수 없다는 것이다. 논문에서는 이 Label Leakgage를 극복해 fair comparison을 보장하기위해 <span style="color:gold">**타겟 엔티티(Target entity)의 context node를 제거**</span>하여 training과 testing의 차이를 좁혀준다.    
+
+<span style="font-size:110%"><b>Remark 3.</b></span>  
+> Masked Knowledge Modeling은 더 좋은 Link preidction을 위해 적절한 최적화 target을
+> 자동으로 찾을 수 있는 매개 변수 scoring function의 근사치일 수 있다.
+
+## 3. Training and Inference
+
+### 1) Pseudo Code
+<span style="font-size:110%"><b>Hypothesis 1.</b></span>  
+(Score function approximator) $$\mathcal{T_M}$$을 masked triple이라고 할 때, $$\mathbf{h} \; \in \; \mathbb{R^d}$$는 Relphormer $$\mathcal{M}(\theta)$$에서 multi-head attention을 통해 얻어진 마스킹된 head이다. Vocabulary 토큰 임베딩은 $$W \; \in \; \mathbb{R^{d \times N}}$$이며 $$N \; = \; \vert \mathcal{E} \vert \; + \; \vert \mathcal{R} \vert $$이다. 
+
 
 <br/>
 <br/>
