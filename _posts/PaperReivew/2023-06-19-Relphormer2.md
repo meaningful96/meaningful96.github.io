@@ -266,7 +266,7 @@ Pseudo Code는 다음과 같다.
 <p align="center">
 <img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/5c3c0e9d-c93f-4f1f-9492-e406f3a7f0dd">
 
-최종적인 final logit은 위와같다. 하나의 $$f(v_s, v_p,v_{object})$$ term을 고른 후 $$f(\cdot) \; \approx \; v_{{object}_i}g(\cdot)$$을 이용한다. 이렇게 함으로써 f가 결국 <u>score function처럼 동작하게 되며 결론적으로 Masked knowledge modeling이 score function approximator</u>처럼 된다.
+최종적인 final logit은 위와같다. 하나의 $$f(v_s, v_p,v_{object})$$ term을 고른 후 $$f(\cdot) \; \approx \; v_{object_i}}g(\cdot)$$을 이용한다. 이렇게 함으로써 f가 결국 <u>score function처럼 동작하게 되며 결론적으로 Masked knowledge modeling이 score function approximator</u>처럼 된다.
 
 <br/>
 
