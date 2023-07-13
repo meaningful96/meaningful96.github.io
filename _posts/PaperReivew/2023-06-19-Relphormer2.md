@@ -367,11 +367,13 @@ QA의 경우, Relphormer가 FreebaseQA 및 WebQuestionSP에서 가장 좋은 성
 
 <br/>
 
-Recommandation의 경우 Relphormer가 모든 baseline 모델보다 성능이 우수하다(Figure 3). BERT4REC와 비교하여 Relphormer는 Hits@1에서 2%, MRR에서 1% 향상되었다. 또한 Relphormer는 각 노드의 BERT 임베딩 계산 및 aggregation에 의해 구현되는 KG-BERT를 능가한다. Figure 4에서 볼 수 있듯이, 특정 사용자가 긴 목록의 영화를 시청한 경우, 여기서 목표는 다음에 시청할 영화를 예측하는 것이다. 그 영화들 중 *Sleepless in Seattle*과 *Tin Cup*은 두 영화의 주제가 모두 로맨스와 코미디에 관한 것이기 때문에 밀접한 상관관계가 있다. 한편, 추가된 KGs의 영화 마이티 아프로디테도 같은 이유로 *Sleepless in Seattle*과 *Tin Cup*에 연결되어 있다.
+Recommandation의 경우 Relphormer가 모든 baseline 모델보다 성능이 우수하다(Figure 3). BERT4REC와 비교하여 Relphormer는 Hits@1에서 2%, MRR에서 1% 향상되었다. 또한 Relphormer는 각 노드의 BERT 임베딩 계산 및 aggregation에 의해 구현되는 KG-BERT를 능가한다. Figure 4에서 볼 수 있듯이, 특정 사용자가 긴 목록의 영화를 시청한 경우, 여기서 목표는 다음에 시청할 영화를 예측하는 것이다. 그 영화들 중 *Sleepless in Seattle* 과 *Tin Cup* 은 두 영화의 주제가 모두 로맨스와 코미디에 관한 것이기 때문에 밀접한 상관관계가 있다. 한편, 추가된 KGs의 영화 *Mighty Aphrodite* 도 같은 이유로 *Sleepless in Seattle* 과 *Tin Cup* 에 연결되어 있다.
 
 분명히, <span style="color:gold">**KG의 잠재적 노드 관련성은 영화 추천 작업에 도움이 된다**</span>. 이러한 샘플의 경우, Relphormer는 깊은 상관관계를 학습하고 기준 모델보다 더 나은 성능을 산출할 것이다. 전반적으로, Relphromer를 사용한 KG 표현이 Link prediction을 통해 더 나은 본질적인 평가 성능을 수행할 수 있을 뿐만 아니라 잘 학습된 Knowledge Representation을 통해 QA 및 Recommandation의 KG-based downstream task를 촉진할 수 있음을 보여준다.
 
 ## 3. Ablation Study: How do different key modules in the Relphormer framework contribute to the overall performance?
+
+### 1) Optimization Object
 
 
 
