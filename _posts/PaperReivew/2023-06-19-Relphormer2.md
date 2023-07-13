@@ -134,10 +134,15 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 > Relphormer는 Heterogeneous graph에 초점을 맞춘 모델이며,
 > sequential modeling을 위해 문맥화된 하위 그래프(Contextualized sub-graph)에서 edge(relation)를 하나의 Special node로 취급한다.
 > 게다가, Sampling process는 성능을 향상시키는 data augmentation operator로 볼 수 있다.
+>
+> Note that with Triple2Seq, which dynamically samples
+> contextualized sub-graphs to construct input sequences, Transformers
+> can be easily applied to large knowledge graphs. However,
+> our approach focuses on heterogeneous graphs and regards edges (relation)
+> as special nodes in contextualized sub-graphs for sequential
+> modeling. Besides, the sampling process can also be viewed as a data
+> augmentation operator which boosts the performance.
 
-<p align="center">
-<img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/64533dc7-847d-405e-8062-a7bcd4e42322">
-</p>
 
 ## 2.2 Structure enhanced self attentionPermalink
 
@@ -208,10 +213,18 @@ Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 
 > 이 Structure-enhanced Transformer는 모델에 구애받지 않으며 따라서 트랜스포머 아키텍처에 의미론적(semantic) 및 > 구조적 정보(Structure Information)를 주입하는 기존의 접근 방식과 직교한다는 점에 주목해야 한다. 
 > Original Graph에서 말 그대로 기존 트랜스포머는 모든 노드에 대한 attention을 수행하므로 구조 정보가 반영되지 못한다.
 > 하지만, Structure-Enhanced Transformer를 사용하면 Local Contextualized Sub-graph의 구조와 의미론적 특징의 영향력을 활용할 수 있는 유연성을 제공한다. Local graph 구조에서 유사한 노드간의 정보 교환에 편리하다.
+>
+> It should be noted that our structure-enhanced Transformer
+> is model-agnostic and, therefore, orthogonal to existing approaches,
+> which injects semantic and structural information into the
+> Transformer architecture. In contrast to [34] where attention operations
+> are only performed between nodes with literal edges in the
+> original graph, structure-enhanced Transformer offers the flexibility
+> in leveraging the local contextualized sub-graph structure and influence
+> from the semantic features, which is convenient for information
+> exchange between similar nodes in the local graph structure.
 
-<p align="center">
-<img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/32daf62f-d688-4dc4-929d-e05aa1bc5fc5">
-</p>
+
 
 좀 더 쉽게 말하자면, 기존의 atttention operation은 단순히 전체 그래프 안에서 노드와 의미있는 relation사이에서 계산을 진행하는것에 반해, Structure-enhances self attention은 <span style="color:gold">**Contextualized Sub-graph 구조를 이용한 Locality 정보와 Semantic feature들에 대해도 유의미한 영향을 주는 유연성을 이끌어내며 이를 통해 Transformer 모델에 구조적 정보(Structural information)와 의미론적 정보(Semantic feature)를 동시에 줄 수 있다**</span>는 것이 특징이다.
 
@@ -245,11 +258,6 @@ $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 �
 > illustrates that masked knowledge modeling may be a parametric
 > score function approximator, which can automatically
 
-
-<p align="center">
-<img width="500" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/6f4a459a-a0f3-4303-b0e7-34242ac6f16b">
-</p>
-
 ## 3. Training and Inference
 
 ### 1) Pseudo Code
@@ -266,6 +274,7 @@ Pseudo Code는 다음과 같다.
 
 <p align="center">
 <img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/5c3c0e9d-c93f-4f1f-9492-e406f3a7f0dd">
+</p>
 
 최종적인 final logit은 위와같다. 하나의 $$f(v_s, v_p,v_{object})$$ term을 고른 후 $$f( \cdot ) \; \approx \; v_{object_i}g( \cdot )$$을 이용한다. 이렇게 함으로써 f가 결국 <u>score function처럼 동작하게 되며 결론적으로 Masked knowledge modeling이 score function approximator</u>처럼 된다.
 
