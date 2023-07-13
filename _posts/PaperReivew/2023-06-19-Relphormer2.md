@@ -217,17 +217,17 @@ Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(M
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224577501-d11de3de-c587-4b19-8832-e6567f4b8573.png">
 </p>
 
-Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 때, 랜덤하게 Center triple을 마스킹한다. 구체적으로 relation prediction을 할 때는 head나 tail 둘 중에 하나를 마스킹한다. 이를 Triple로 표현하면 $$(v_{h},?,[MASK]) or ([MASK], ?, v_t)$$이다. 
+Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 때, 랜덤하게 Center triple을 마스킹한다. 구체적으로 relation prediction을 할 때는 head나 tail 둘 중에 하나를 마스킹한다. 이를 Triple로 표현하면 $$(\; v_{h},?,[MASK] \;) \; or \; (\; [MASK], ?, v_t \;)$$이다. 
 
 <p align="center">
-<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/682de0cf-40a9-4d9d-95e3-ab5af8bd5814">
+<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/682de0cf-40a9-4d9d-95e3-ab5af8bd5814">bbbbbbbbbbbbbbjb
 </p>
 
 $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 풀고자 하는 것은 <b>마스킹된 node sequence $$\mathcal{T_M}$$과 Contextualized Sub-graph의 구조 정보를 나타내는 $$A_G$$가 주어졌을 때 Original Triple $$\mathcal{T}$$의 missing part를 찾는 것</b>이다. 참고로, Y의 shape은 ($$Y \in \mathbb{R^{\vert \mathcal{E} \vert \times \vert \mathcal{R} \vert}}$$)이다.
 
 구체적으로, <span style="color:gold">**Contextualized Sub-Graph의 유니크한 구조정 정보를 이용해 Contextual information을 더 잘 통합하기위해 Sequence에서 단 하나의 토큰만 랜덤하게 마스킹**</span>한다. 
 
-직관적으로 masked knowledge modeling은 scoring function을 기반으로 하는 이전 translation distance 방법들과는 확연한 차이를 보여준다. 다만, 
+직관적으로 masked knowledge modeling은 scoring function을 기반으로 하는 이전 translation distance 방법들과는 확연한 차이를 보여준다. 다만, <u>마스킹을 할 때 Head와 Tail의 인접한 노드(이웃 노드)를 동시에 샘플링할 경우 Link prediction시 심각한 <b>Label leakage를 유발</u>할 수 있다. Training 중에는 예측된 마스크 토큰의 구조를 알 수 없다.    
 
 <br/>
 <br/>
