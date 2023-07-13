@@ -319,7 +319,7 @@ $$\mathcal{Q_M}$$은 마스킹된 query이고 $$\mathcal{M(\theta)}$$는 pre-tra
 KG-BERT와 Relphormer의 성능을 비교하기에 앞서 먼저 Time Complexity를 비교하는 실험을 진행하였다. Relphormer의 경우가 KG-BERT에 비해 훨씬 더 좋은 Time Complexity를 보이며 학습과 추론시간에 있어서 차이가 많이 나는 것을 확인할 수 있다. Relphormer는 Masked knowledge modeling을 이용하여 모델이 마스킹된 엔티티나 릴레이션을 예측한다. 비록 Triple2Seq에서 시간이 좀 오래 걸리지만, Relphormer가 여전히 KG-BERT에 비해 우수한 성능을 보인다.
 
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/c0026e73-9d42-4263-8af6-0c4430061eb2">
+<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/c0026e73-9d42-4263-8af6-0c4430061eb2">
 </p>
 
 <br/>
