@@ -70,7 +70,7 @@ KG Representation Learning은 <b>연속적인 저차원의 벡터 공간으로 �
 <img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/20206831-ee83-4acc-9044-49483c2320a3">
 </p>
 
-1) **Triple2Seq**: 엔티티와 릴레이션의 다양성(Heterogeneity)를 대응하고 모델의 입력 시퀀스로서 Contextual Sub-Graph를 Sampling한다.(Dynamic Sampling)
+1) **Triple2Seq**: 엔티티와 릴레이션의 다양성(Heterogeneity)를 대응하고 모델의 Input Sequence로서 Contextual Sub-Graph를 Sampling한다.(Dynamic Sampling)
 2) **Structured-Enhanced Mechanism**: Structural Information과 Textual Information을 다루기 위함
 3) **Masked Knowledge Modeling**: KG Representation Leanrning의 Task들을 통합
 
@@ -101,7 +101,7 @@ Knowledge Graphs는 triple($$head, relation, tail$$)로 구성된다. 논문에�
 <img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/f43ff18e-429e-4361-a92d-56d5f5314f3e">
 </p>
 
-Knowledge Graph는 많은 숫자의 **Relational Information**을 포함하고 있기 때문에, 그래프를 직접 direct하게 Transformer 모델에 입력으로 집어넣는 것은 불가능하다. Full-graph-based Transformer의 이러한 단점을 극복하기 위해서 논문에서는 **Triple2Seq**를 제안한다. Triple2Seq는 <span style="color:gold">**Contextualized Sub-Graphs를 입력 시퀀스로 사용해 Local Structure 정보를 인코딩**</span>한다.
+Knowledge Graph는 많은 숫자의 **Relational Information**을 포함하고 있기 때문에, 그래프를 직접 direct하게 Transformer 모델에 입력으로 집어넣는 것은 불가능하다. Full-graph-based Transformer의 이러한 단점을 극복하기 위해서 논문에서는 **Triple2Seq**를 제안한다. Triple2Seq는 <span style="color:gold">**Contextualized Sub-Graphs를 Input Sequence로 사용해 Local Structure 정보를 인코딩**</span>한다.
 
 ### 1) Contextualized Sub-Graph
 
@@ -129,7 +129,7 @@ Triple2Seq의 결과로 얻는 것이 바로 Contextualized Sub-Graph인 $$\math
 Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다. 이럴 경우 global information에 대한 정보가 부족할 수 있다. 따라서 논문에서는 <span style="color:gold">**Global node**</span>의 개념을 도입한다. global node는 쉽게 말하면 임의의 새로운 엔티티를 만들어 training set에 존재하는 모든 엔티티와 1-hop으로 연결시켜놓은 것이다. 즉 모두와 1-hop으로 연결된 엔티티이다. 하지만, 논문에서는 global node를 training set 전체에다가 연결시킨 것이 아닌, <span style="color:gold">**추출된 Sub-graph에 있는 모든 엔티티와 연결된 엔티티를 의미**</span>한다.
 
 <span style="font-size:110%"><b>Remark 1.</b></span>  
-> Triple2Seq는 입력 시퀀스를 만들기위해 contextualized sub-graph를 dynamic sampling한다.
+> Triple2Seq는 Input Sequence를 만들기위해 contextualized sub-graph를 dynamic sampling한다.
 > 결과적으로 Transformer는 Large KG에 대해서도 쉽게 적용될 수 있다.
 > Relphormer는 Heterogeneous graph에 초점을 맞춘 모델이며,
 > sequential modeling을 위해 문맥화된 하위 그래프(Contextualized sub-graph)에서 edge(relation)를 하나의 Special node로 취급한다.
@@ -192,7 +192,7 @@ Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 
 
 > We use the contextualized sub-graph of the same triple in different epochs triple in different epochs to enforce the model to conduct similar predictions.
 
-즉, <span>서로 다른 Epoch에서 같은 Triple의 contextualized sub-graph를 사용해 모델에게 유사도를 학습하는 걸 강요한다. Contextualized sub-graph의 입력 시퀀스를 인코딩하고 hidden vector $$\mathcal{h_{mask}}$$를 현재 Epoch $$t$$에서 $$c_t$$, 마지막 Epoch $$c_{t-1}$$로 가져온다. 마지막으로 Loss를 정의하는데 $$\mathcal{L_{contextual}}$$를 contextual loss로 정의한다. 이 작업을 거쳐 최종 목표는 <span style="color:gold">**서로 다른 sub-graph사이의 차이를 최소화(minimization)하는 것**</span>이다. 
+즉, <span>서로 다른 Epoch에서 같은 Triple의 contextualized sub-graph를 사용해 모델에게 유사도를 학습하는 걸 강요한다. Contextualized sub-graph의 Input Sequence를 인코딩하고 hidden vector $$\mathcal{h_{mask}}$$를 현재 Epoch $$t$$에서 $$c_t$$, 마지막 Epoch $$c_{t-1}$$로 가져온다. 마지막으로 Loss를 정의하는데 $$\mathcal{L_{contextual}}$$를 contextual loss로 정의한다. 이 작업을 거쳐 최종 목표는 <span style="color:gold">**서로 다른 sub-graph사이의 차이를 최소화(minimization)하는 것**</span>이다. 
 
 <p align="center">
 <img width="700" alt="1" src="https://github-production-user-asset-6210df.s3.amazonaws.com/111734605/252900409-5e4d57c7-c3d3-4692-8acb-c33f8a5bc005.png">
@@ -209,7 +209,7 @@ Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 
 
 ## 2.3 Masked Knowledge Modeling
 
-Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(MLM)과 유사하다. Knowledge Graph Completion은 $$f: \mathcal{T_M}, A_G \; \rightarrow \; Y$$를 푸는 Task이다. Relphormer에서는 랜덤하게 입력 시퀀스의 토큰들을 마스킹하고, 그 마스킹된 토큰들을 예측한다.
+Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(MLM)과 유사하다. Knowledge Graph Completion은 $$f: \mathcal{T_M}, A_G \; \rightarrow \; Y$$를 푸는 Task이다. Relphormer에서는 랜덤하게 Input Sequence의 토큰들을 마스킹하고, 그 마스킹된 토큰들을 예측한다.
 
 > We randomly mask specific tokens of the input sequences and then predict those masked tokens.
 
@@ -223,9 +223,11 @@ Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 
 <img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/682de0cf-40a9-4d9d-95e3-ab5af8bd5814">
 </p>
 
-$$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 풀고자 하는 것은 <span style="color:gold"><b>마스킹된 노드 시퀀스 $$\mathcal{T_M}$$과 Contextualized Sub-graph의 구조 정보를 나타내는 $$A_G$$가 주어졌을 때 Original Triple $$\mathcal{T}$$의 missing part를 찾는 것</b></span>이다. 참고로, Y의 shape은 ($$Y \in \mathbb{R^{\vert \mathcal{E} \vert \times \vert \mathcal{R} \vert}}$$)이다.
+$$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 풀고자 하는 것은 <b>마스킹된 node sequence $$\mathcal{T_M}$$과 Contextualized Sub-graph의 구조 정보를 나타내는 $$A_G$$가 주어졌을 때 Original Triple $$\mathcal{T}$$의 missing part를 찾는 것</b>이다. 참고로, Y의 shape은 ($$Y \in \mathbb{R^{\vert \mathcal{E} \vert \times \vert \mathcal{R} \vert}}$$)이다.
 
-직관적으로 MKM방식은 기존의 거리를 기반으로 Scoring function을 정의해 학습하는 Graph-Embedding방식과 차이를 보여준다. 
+구체적으로, <span style="color:gold">**Contextualized Sub-Graph의 유니크한 구조정 정보를 이용해 Contextual information을 더 잘 통합하기위해 Sequence에서 단 하나의 토큰만 랜덤하게 마스킹**</span>한다. 
+
+직관적으로 masked knowledge modeling은 scoring function을 기반으로 하는 이전 translation distance 방법들과는 확연한 차이를 보여준다. 다만, 
 
 <br/>
 <br/>
