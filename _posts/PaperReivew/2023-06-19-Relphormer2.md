@@ -217,7 +217,7 @@ Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(M
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224577501-d11de3de-c587-4b19-8832-e6567f4b8573.png">
 </p>
 
-Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 때, 랜덤하게 Center triple을 마스킹한다. 구체적으로 relation prediction을 할 때는 head나 tail 둘 중에 하나를 마스킹한다. 이를 Triple로 표현하면 $$(v_{h},?,\[MASK\]) or (\[MASK\], ?, v_t)$$이다. 
+Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 때, 랜덤하게 Center triple을 마스킹한다. 구체적으로 relation prediction을 할 때는 head나 tail 둘 중에 하나를 마스킹한다. 이를 Triple로 표현하면 $$(v_{h},?,[MASK]) or ([MASK], ?, v_t)$$이다. 
 
 <p align="center">
 <img width="200" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/682de0cf-40a9-4d9d-95e3-ab5af8bd5814">
