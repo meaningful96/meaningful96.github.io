@@ -371,7 +371,9 @@ Recommandation의 경우 Relphormer가 모든 baseline 모델보다 성능이 �
 
 분명히, <span style="color:gold">**KG의 잠재적 노드 관련성은 영화 추천 작업에 도움이 된다**</span>. 이러한 샘플의 경우, Relphormer는 깊은 상관관계를 학습하고 기준 모델보다 더 나은 성능을 산출할 것이다. 전반적으로, Relphromer를 사용한 KG 표현이 Link prediction을 통해 더 나은 본질적인 평가 성능을 수행할 수 있을 뿐만 아니라 잘 학습된 Knowledge Representation을 통해 QA 및 Recommandation의 KG-based downstream task를 촉진할 수 있음을 보여준다.
 
-## 3. Ablation Study: How do different key modules in the Relphormer framework contribute to the overall performance?
+## 3. Ablation Study 1
+
+<span style="font-size:110%"><b>How do different key modules in the Relphormer framework contribute to the overall performance?</b></span>
 
 ### 1) Optimization Object
 
@@ -391,13 +393,39 @@ Knowledge Graph에는 Relational Pattern이 있으며, 1-N, N-1 및 N-N 관계�
 
 ### 3) Case Analysis
 
+Table 5.에서 보여지듯, FB15k-237의 몇몇 Triple을 통해 ablation study를 진행하였다. Relphormer의 경우 Structural information과 Textual feature를 동시에 다뤄 엔티티와 릴레이션 레벨에서의 다양성 문제(Heterogeneity Probelm)를 풀 수 있다. 예를 들어, Graph Embedding 모델 중 하나인 RotatE와 비교하면 RotatE는 그래프의 구조 정보만을 가지고 학습한다. 따라서 Graph의 Textual information에 대해 학습하지 못해 성능이 Relphormer에 비해 뒤쳐진다. 대조적으로 오직 Textual Encoding만을 가지고 학습한 [StAR](https://meaningful96.github.io/paperreview/5StaR/)는 그래프의 Context 정보만을 이용한다. 따라서, 그래프의 구조 정보가 반영되지 못해 Relphormer에 비교하면 성능이 떨어진다.
+
+ ➜ StAR는 Texture Encoding 기반의 모델이지만, StAR(Self-Adp): 앙상블을 통해서 더 좋은 성능을 보여준다. 과연 StAR(Texture Encoding)으로 성능 비교를 하는게 합리적인가?
+
+<br/>
+
+## 4. Ablation Study 2
+
+<span style="font-size:110%"><b>How effective is the proposed Relphormer model in addressing heterogeneity KG Structure and semantic textual description?</b></span>
+
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/dfd4c1a6-d190-42ed-988b-d8cb6c875814">
+</p>
+
+### 1) The number of sampled contextualized sub-graph triples
+
+Figure 6. Triple의 수를 4부터 64까지 바꿔가며 성능을 측정하는 실험을 진행하였다. 그 수가 작을 때는 Center triple과 연결된 적은 수의 contextual node들이 샘플링된다. 이 실험을 통해서 명확한 것은, <span style="color:gold">**contextualized subgraph의 크기를 키우는 것이 성능 향상에 직접적인 영향을 준다**</span>는 것이다. 하지만, 만약 Triple의 수가 너무 많아지면 성능은 일정 수준 올라가다가 **Saturation**된다. 논문에서 저자는 그 이유가 neighborhood의 정보가 유용하더라도, <u>너무 많은 unrelated된 정보들이 일종의 noise로 작용</u>해 성능에 부정적인 영향을 끼친다는 것이다. 이런 noise역할을 하는 low-quality node들은 negativ contextual information으로 작용한다.
+
+<br/>
+
+### 2) Structure-Enhanced self-attention
+
+Structure-Enhanced attention의 영향력을 증명하기위해 Figure 5.의 실험을 진행하였다. 모든 모델이 Structure-Enhanced attention을 하지 않으면 성능이 떨어지는 것을 볼 수 있다. 저자는 무작위로 랜덤하게 예시를 가져와 attention matrix를 시각화해 structure-enhanced self-attention의 영향력을 실험하였다. Figure 7.에서와 같이 Structure-Enhanced Self-Attention은 attention weight 결과에 영향을 주는 것을 확인할 수 있다. 구체적으로, <span style="color:gold">**Structure-Enhanced Self-Attention과 함께 구조 정보를 주입하는 것은 엔티티들의 거리에 의미적인 상관관계를 포착**</span>한다. 예를 들어, 한 엔티티는 sub-graph내 멀리 떨어진 엔티티를 통해 Structure correlation을 학습할 수 있다.
 
 <br/>
 <br/>
 
 # Contribution
 
-
+1. Transformer 기반의 새로운 모델인 Relphormer를 제안
+2. 6개의 Benchmark Dataset에 대하여 기존의 Graph Embedding 모델들과 Transformer 기반 모델들에 비해 우수한 성능을 보여줌
+3. <span style ="color:gold">Attention bias를 이용해 그래프의 구조적 정보를 보존하고 Knowledge Graph에 적합한 Self-attention mechanism을 제시(**Structure enhanced self-attention**)</span>
+    - 특히<span style = "color:aqua"> $$ \phi(i, j)$$</span>를 제시한 Structure-enhanced Self-attention이 가장 큰 Contribution
 
 # Reference
 [Inductive Bias란 무엇일까?](https://re-code-cord.tistory.com/entry/Inductive-Bias%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C)  
