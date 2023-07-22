@@ -10,8 +10,8 @@ tags:
 toc: true
 toc_sticky: true
 
-date: 2023-07-07
-last_modified_at: 2023-07-07
+date: 2023-03-01
+last_modified_at: 2023-03-01
 ---
 
 논문 리뷰: [\[논문리뷰\]Transformer: Attention Is All You Need]("https://meaningful96.github.io/paperreview/01-Transformer/")
