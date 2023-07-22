@@ -1,5 +1,5 @@
 ---
-title: pipenv로 가상환경 만들기
+title: "[Linux]pipenv로 가상환경 만들기"
 
 categories: 
   - Linux
