@@ -1,5 +1,5 @@
 ---
-title: Conda로 가상환경 만들기
+title: "[Linux]Conda로 가상환경 만들기"
 
 categories: 
   - Linux
