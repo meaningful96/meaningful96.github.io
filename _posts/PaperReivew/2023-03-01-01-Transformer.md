@@ -275,7 +275,7 @@ English Constituency Parsing에서도 잘 일반화해서 사용할 수 있는�
 2. Benchmark Dataset에 대하여 SOTA 달성
 
 # Reference
-[Paper]("https://arxiv.org/abs/1706.03762")  
-[나동빈 Youtube]("https://www.youtube.com/watch?v=AA621UofTUA&t=2664s")  
-[Github]("https://github.com/ndb796/Deep-Learning-Paper-Review-and-Practice")    
-[Blog: Transformer 논문 리뷰]("https://wandukong.tistory.com/19")
+[Paper](https://arxiv.org/abs/1706.03762")  
+[나동빈 Youtube](https://www.youtube.com/watch?v=AA621UofTUA&t=2664s)  
+[Github](https://github.com/ndb796/Deep-Learning-Paper-Review-and-Practice)    
+[Blog: Transformer 논문 리뷰](https://wandukong.tistory.com/19)
