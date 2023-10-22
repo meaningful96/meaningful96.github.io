@@ -1,0 +1,14 @@
+---
+title: "인공지능을 위한 수학!!"
+layout: archive
+permalink: categories/aimath
+author_profile: true
+sidebar_main: true
+---
+
+<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+
+***
+
+{% assign posts = site.categories.['AI Math'] %}
+{% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
