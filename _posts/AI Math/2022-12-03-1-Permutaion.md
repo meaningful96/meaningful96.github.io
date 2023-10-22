@@ -1,10 +1,10 @@
 ---
-title: Chapter 0. 순열과 조합(Permutation and Combination)
+title:"[Probability]순열과 조합(Permutation and Combination)"
 
 categories: 
-  - Probability
+  - AI Math
 tags:
-  - [Math, AI Math, Probability]
+  - [AI Math, Probability]
 
 toc: true
 toc_sticky: true
