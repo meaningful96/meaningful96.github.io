@@ -2,7 +2,7 @@
 title: "[논문리뷰]Relphormer: Relational Graph Transformer for Knowledge Graph Representation"
 
 categories: 
-  - PaperReview
+  - G
   
 tags:
   - [KG Completion]
