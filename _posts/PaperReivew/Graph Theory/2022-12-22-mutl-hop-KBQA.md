@@ -2,7 +2,7 @@
 title: "[논문리뷰]Improving Multi-hop Knowledge Base Question Answering by Learning Intermediate Supervision Signals"
 
 categories: 
-  - Graph Theory
+  - GR
   
 tags:
   - [KBQA]
