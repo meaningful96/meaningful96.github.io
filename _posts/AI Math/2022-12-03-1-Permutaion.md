@@ -1,18 +1,18 @@
 ---
-title:"[Probability]순열과 조합(Permutation and Combination)"
+title: "[Probability]순열과 조합(Permutation and Combination)"
 
 categories: 
   - AI Math
+  
 tags:
   - [AI Math, Probability]
-
+  
 toc: true
 toc_sticky: true
 
 date: 2022-12-03
-last_modified_at: 2022-12-03 
+last_modified_at: 2022-12-03
 ---
-
 ## 1. Machine Learning Model을 확률적으로 이해하기
 
 <p align="center">
