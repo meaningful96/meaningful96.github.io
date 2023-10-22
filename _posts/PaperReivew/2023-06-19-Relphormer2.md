@@ -16,7 +16,7 @@ last_modified_at: 2023-07-10
 
 Bi, Z. (2022, May 22). *Relphormer: Relational Graph Transformer for Knowledge Graph Representations*. arXiv.org. https://arxiv.org/abs/2205.10852
 
-이번 포스팅은 3월 14일 포스팅된 ["Relational Graph Transformer for Knowledge Graph Completion-Relphormer"](https://meaningful96.github.io/paperreview/Relphormer/)의 업데이트 버전이다. 논문 버전이 수정되면서 Ablation Study가 추가되었다.
+이번 포스팅은 3월 14일 포스팅된 ["Relational Graph Transformer for Knowledge Graph Completion-Relphormer"](https://meaningful96.github.io/gr/Relphormer/)의 업데이트 버전이다. 논문 버전이 수정되면서 Ablation Study가 추가되었다.
 
 # Problem Statement
 
