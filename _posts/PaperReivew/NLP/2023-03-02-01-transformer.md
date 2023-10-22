@@ -1,5 +1,5 @@
 ---
-title: "[논문리]Traansformer 구현하기"
+title: "[논문리뷰]Transformer 구현하기"
 
 categories: 
   - NR
@@ -14,7 +14,7 @@ date: 2023-03-01
 last_modified_at: 2023-03-01
 ---
 
-논문 리뷰: [\[논문리뷰\]Transformer: Attention Is All You Need]("https://meaningful96.github.io/paperreview/01-Transformer/")
+논문 리뷰: [\[논문리뷰\]Transformer: Attention Is All You Need]("https://meaningful96.github.io/nr/01-Transformer/")
 
 # Why Transformer?
 
