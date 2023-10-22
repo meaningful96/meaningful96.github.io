@@ -2,7 +2,7 @@
 title: "[논문리뷰]Transformer: Attention Is All You Need"
 
 categories: 
-  - PaperReview
+  - NR
   
 tags:
   - [NLP, Transformer]
