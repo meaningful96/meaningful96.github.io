@@ -111,21 +111,36 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "PaperReview" %}
-                        <li><a href="/categories/paperreview" class="">논문 리뷰 ({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "StudyProgress" %}
-                        <li><a href="/categories/studyprogress" class="">Study Progress ({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
 
+        <span class="nav__sub-title">Paper Review</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "GR" %}
+                        <li><a href="/categories/paperreview" class="">Graph Theory({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "NR" %}
+                        <li><a href="/categories/optimization" class="">NLP({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "RR" %}
+                        <li><a href="/categories/optproject" class="">추천 시스템({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "ER" %}
+                        <li><a href="/categories/optproject" class="">Etc({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>            
         <span class="nav__sub-title">Optimization</span>
             <ul>
                 {% for category in site.categories %}
