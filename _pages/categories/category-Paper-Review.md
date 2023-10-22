@@ -1,7 +1,7 @@
 ---
-title: "Paper Review"
+title: "Graph Theory"
 layout: archive
-permalink: categories/paperreview
+permalink: categories/gr
 author_profile: true
 sidebar_main: true
 ---
@@ -10,6 +10,6 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories.PaperReview %}
+{% assign posts = site.categories.GR %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
 
