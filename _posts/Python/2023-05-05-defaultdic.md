@@ -1,5 +1,5 @@
 ---
-title: "[Python] 유사 딕셔너리 defaultdict() 활"
+title: "[Python] 유사 딕셔너리 defaultdict()란?"
 
 categories:
   - py
