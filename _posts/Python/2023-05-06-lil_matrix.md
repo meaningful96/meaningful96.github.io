@@ -1,5 +1,5 @@
 ---
-title: "[Python] Scipy 모듈의 LIL matrix, isspars수함수"
+title: "[Python] Scipy - LIL matrix, isspars 함수란?"
 
 categories:
   - py
