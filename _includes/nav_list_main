@@ -48,6 +48,13 @@
         <span class="nav__sub-title">Algorithm & DataStructure</span>
             <ul>
                 {% for category in site.categories %}
+                    {% if category[0] == "AI Math" %}
+                        <li><a href="/categories/aimath" class="">AI Math({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
                     {% if category[0] == "Algorithm" %}
                         <li><a href="/categories/algorithm" class="">Algorithm({{category[1].size}})</a></li>
                     {% endif %}
@@ -73,13 +80,6 @@
                 {% for category in site.categories %}
                     {% if category[0] == "DeepLearning" %}
                         <li><a href="/categories/deeplearning" class="">Deep Learning({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "AI Math" %}
-                        <li><a href="/categories/aimath" class="">AI Math({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
