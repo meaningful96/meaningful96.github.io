@@ -45,7 +45,7 @@
                 {% endfor %}
             </ul>            
 
-        <span class="nav__sub-title">Algorithm & DataStructure</span>
+        <span class="nav__sub-title">Computer Science</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "AI Math" %}
@@ -55,15 +55,15 @@
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Algorithm" %}
-                        <li><a href="/categories/algorithm" class="">Algorithm({{category[1].size}})</a></li>
+                    {% if category[0] == "DataStructure" %}
+                        <li><a href="/categories/datastructure" class="">Data Structure({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "DataStructure" %}
-                        <li><a href="/categories/datastructure" class="">Data Structure({{category[1].size}})</a></li>
+                    {% if category[0] == "Algorithm" %}
+                        <li><a href="/categories/algorithm" class="">Algorithm({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
