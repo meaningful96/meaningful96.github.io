@@ -14,7 +14,7 @@ date: 2023-03-01
 last_modified_at: 2023-03-01
 ---
 
-논문 리뷰: [\[논문리뷰\]Transformer: Attention Is All You Need]("https://meaningful96.github.io/paperreview/01-Transformer/")
+논문 리뷰: [\[논문리뷰\]Transformer: Attention Is All You Need]("https://meaningful96.github.io/nr/01-Transformer/")
 
 # Why Transformer?
 
@@ -31,7 +31,7 @@ last_modified_at: 2023-03-01
 ## 1. Overview
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/b4052cb7-3c59-427f-b2db-b0cd0f3bc2f3">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/c9b6d97f-efff-4d24-a35b-1fd3c8ceffaf">
 </p>
 
 트랜스포머는 전형적인 Encoder-Decoder 모델이다. 즉, 전체 모델은 Encoder와 Decoder 두 개의 partition으로 나눠진다.  트랜스포머의 입력은 Sequence 형태로 들어간다. 또한 출력도 마찬가지로 Sequence를 만들어 낸다. 
@@ -48,7 +48,7 @@ last_modified_at: 2023-03-01
 ## 2. Encode-Decoder
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/b8174595-a0ff-4184-8e65-5d9581609fcb">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/c409b3b3-50ca-43f8-9534-a1fd23a91b0b">
 </p>
 
 간단하게 정리하면 <span style = "color:gold">**Encoder**</span>의 역할은 <u>문장(Sentence)를 받아와 하나의 벡터터를 생성</u>해내는 함수이며 이 과정을 흔히 **Encoding**이라고 한다. 이렇게 Encoding을 통해 생성된 벡터를  Context라고 한다. 
@@ -86,7 +86,7 @@ class Transformer(nn.Module):
 #### Encoder
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/4f76e416-6bc6-4f61-ac65-aa9479d67e7f">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/dd49408a-2d44-4a69-9c41-d008c8c837db">
 </p>
 
 Encoder는 N=6이다. 즉 6개의 층이 쌓여져 있다.  이러한 구조를 통해 할 수 있는 사실은, Input와 Output의 shape이 똑같다는 사실이다. 다시 말해 <u>입출력에 있어서 shape은 완전히 동일한 matrix가되며</u> Encoder block은 shape에 대해 멱등하다 할 수 있다.
@@ -115,13 +115,13 @@ class Encoder(nn.Module):
 ```
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/033133ae-424c-424f-8e0b-71aa4f0e792c">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/84218d5b-8ce6-47e3-b4dd-837d72b9ff2a">
 </p>
 
 전통적인 Langauge Model의 경우 입력 시퀀스에 대해 Input Embedding matrix만 만들어 모델의 입력으로 보냈다. 하지만, 트랜스포머의 경우는 입력 시퀀스의 각각의 토큰들에 대해 위치 정보까지 주기위해 Positional Encoding도 이용한다. 
 
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/1742a87c-f7dd-4e0a-ae81-dad8981807bb">
+<img width="400" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/9bd553f9-6d2e-4689-b596-55999bb77fc6">
 </p>
 
 단, 이 **Positional Encoding**은 <u>각 단어의 상대적인 위치 정보를 네트워크</u>에 입력하는 것이며 sin 또는 cos함수로 이루어져있다. 
@@ -182,13 +182,13 @@ Attention을 계산할 때는 **Query, Key, Value** 세 가지 벡터가 사용�
 #### Scaled Dot-Product Attention
 
 <p align="center">
-<img width="300" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/33421eba-f11e-4de4-95a4-6d94793e259a">
+<img width="300" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4dd98ab9-0096-4722-86b0-a480c0a1354d">
 </p>
 
 Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 Query와 Key 벡터의 행렬곱을 수행하고 Scaling을 한 후 Softmax를 통해 확률값으로 만들어 버린다. 이후 이 값을 Value와 곱하면된다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/d08aabf7-c352-4894-bf06-aca3e15c2719">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/d7bc87fc-940a-4112-9616-e99c53a1cb8e">
 </p>
 
 좀 더 계산과정을 명확하게 보기위해 한 단어와 단어 사이의 attention을 구하는 과정을 집중해본다. 위에처럼 $$d_k = 3$$인 경우라고 가정하고 FC layer에의해 이미 $$Q, K, V$$가 모두 구해졌다고 가정하고 1번 그림처럼 나타낼 수 있다. 위의 메커니즘과 같이 Query와 Key의 행렬곱을 수행해야 한다. 이 때 Scailing을 포함한 이 행렬곱의 결과를 <span style = "color:gold">**Attention Score**</span>라고 한다.
@@ -196,13 +196,13 @@ Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 
 Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하다. 행렬 곱의 결과인 attention energy값이 너무 큰 경우 Vanishing Graident현상이 발생할 수 있기 때문이다. 하지만 Scailing을 단순한 상수이므로 행렬곱 연산 결과로 나온 Score의 차원에 영향을 미치지 않는다. 앞서 본 경우는 1:1 관계에서의 attention을 구한 것이다. Self-Attention은 1:N의 관계에서 진행되므로 이를 확장하면 다음과 같다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/b2f39097-4112-4d6c-a40a-9ef06ecc486d">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/9c328e6d-13d3-4487-b80f-b18159227f04">
 </p>
 
 먼저 $$Q, K, V$$를 다시 정의해준다. Query의 경우는 비교의 주체이므로 하나의 토큰을 의미하기에 그대로 둔다. 반면 Key와 Value는 비교를 하려는 대상이므로 입력 시퀀스내의 모든 토큰들에 대한 정보를 가지고 있어야 하므로, 각가그이 토큰 임베딩을 Concatenation한 형태로 출력된다. 따라서 $$K, V$$는 행렬로 표현되고 그 크기는 $$n \times d_k$$이다. 이를 통해 마찬가지로 행렬곱을 진행하면 <u>Attention-Score는 전체 토큰 수만큼의 score가 concatenation된 벡터로 출력</u>된다. 다시 말해 Query의 토큰과 입력 시퀀스 내의 모든 토큰들과의 attention score를 각각 계산한 뒤 concatenation한 것이다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/1ca18d2f-5191-4119-bfd1-ba3238caf92e">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4d31fb25-de5e-4bc9-8c89-a0f599820abd">
 </p>
 
 행렬곱 결과 구해진 Attention Score를 이용해 최종적으로 일종의 Weight를 만들어야 한다. 이 때, <span style = "color:gold">Weight로 변환하는 가장 좋은 방법은 그 값을 <b>확률(Probability)</b>로 만드는 것</span>이다. 확률로 만들기위해 논문에서는 **SoftMax function**을 이용했다. 이렇게 Softmax를 통해 구해진 <span style = "color:gold">**Attention Weight(Probability)**</span>을 토큰들의 실질적 의미를 포함한 정보인 Value와 행렬곱을 해준다.(참고로 Attention Weight의 합은 확률이므로 1이다.)
@@ -210,11 +210,7 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 이로써 최종적으로 Query에 대한 <span style = "color:gold">**Attention Value**</span>가 나오게 된다. 여기서 알아야 할 중요한 포인트는 연산의 최종 결과인 <u>Query의 Attention Value의 크기(차원)이 Input Query 임베딩과 동일</u>하다는 것이다. Attention Mechanism입장에서 입력은 Query, Key, Value로 세 가지이지만, 의미상으로 Semantic한 측면에서 고려하면 출력이 Query의 attention이므로 입력도 Query로 생각할 수 있다.
 
 <p align="center">
-<img width="500" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/94b93dcd-ed63-4b2b-917f-d5c2954c4aa0">
-</p>
-
-<p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/9fcccd13-ebad-407c-8641-9fc95b6757f4">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/5292fb72-e760-4ad5-9884-2b72405afaf4">
 </p>
 
 앞서 구한 과정은 모두 하나의 Query에 대해서 1:1, 1:N 관계로 확장하며 구한 것이다. 또한 한 번의 행렬 연산으로 구해진 것이다. 하지만 실제로 Query역시 모든 토큰들이 돌아가면서 각각의 토큰들에 대한 Query attention value를 구해야 하므로 Concatenation을 이용해 **행렬**로 확장해야한다. 이를 그림으로 표현하면 위와 같다. 
@@ -222,7 +218,7 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 <br/>
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/881383b6-b941-4d58-8b7e-7334bec0772c">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/94e7763e-ff8e-4c14-93d6-7a6881a6af7f">
 </p>
 
 <br/>
@@ -230,7 +226,7 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 행렬로 확장해 Attention을 진행하면 위와 같이 된다. 최종적으로 Query에 대한 Attention value역시 행렬로 출력된다. 다시 한 번 강조하면 **Self-Attention은 Input Query(Q)의 Shape에 대해 멱등(Idemopotent)**하다.
 
 <p align="center">
-<img width="650" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/bb93c589-6630-4fb3-8d84-dec0c0c1f828">
+<img width="650" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/f296ac48-0042-47cf-82f9-5b443502b732">
 </p>
 <center><span style = "font-size:80%">멱등(Idemopotent)성을 설명하는 그림</span></center>
 
@@ -240,7 +236,7 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 Self-Attention의 과정을 수식으로서 정리하면 아래와 같이 정리할 수 있다.
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/80a2f928-b4bb-48da-bd70-11332f0142ea">
+<img width="300" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/a17d9919-9f83-4a74-9c49-e5e453363562">
 </p>
 
 ```python
@@ -283,7 +279,7 @@ def scaled_dot_product_attention(query, key, value, mask):
 이건 Input Sentence에 \[PAD\] 토큰이 있을 경우 어텐션을 제외하기 위한 연산이다. \[PAD\]가 포함된 입력 문장의 Self-Attention을 구하는 과정은 다음과 같다.
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/8116f845-e6d6-4da3-a2e2-1798414e215d">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/016f5f29-4c61-4681-b7bb-4ef4293b6899">
 </p>
 
 /[PAD\]는 실제로는 아무 의미가 없는 단어이다. 그래서 트랜스포머에선 key의 경우 \[PAD\] 토큰이 존재할 경우 유사도를 구하지 않도록 마스킹(Masking)을 해준다. Attention에서 제외하기 위해 값을 가리는 행위가 마스킹이다. <u>Attention Score 행렬에서 행에 해당하는 문장은 Query이고 열에 해당하는 문장은 Key</u>이며 key에 \[PAD\]가 있는 열 전체를 마스킹한다.
@@ -307,13 +303,13 @@ Masked Self-Attention을 하는 이유는, **학습과 추론과정에 정보가
 #### Multi-head Attention
 
 <p align="center">
-<img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227325573-f5ca67b9-3b5a-4e51-bab8-dbeefffa36e8.png">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227325573-f5ca67b9-3b5a-4e51-bab8-dbeefffa36e8.png">
 </p>
 
 트랜스포머의 특징 중 하나는 Multi-head attention을 수행한다는 것이다. 한 Encoder, Decoder Layer마다 1회씩 수행하는 것이 아니라 병렬적으로 $$h$$회 각각 수행한 뒤 그 결과를 종합해 사용한다. 이렇게 하는 이유는 다양한 Attention을 반영해 더 좋은 성능을 내기 위함이다. 논문에서는 head의 개수가 총 **8개**이며 Q,K,V를 위한 FC Layer가 3개에서 $$3 \times 8 = 24$$개가 필요하게 된다. 출력은 Single self-attention의 경우 <b>$$n \times d_k$$</b>의 shape을 가진다. head가 8개가 되면서 이 <span style = "color:gold"><b>출력 차원은 $$n \times (d_k \times h)$$로 바뀌게</b></span> 된다.(n은 토큰 개수, 사실상 seq_len). 논문에서는 <b>$$d_{model}  = d_k \times h$$</b>로 정의한다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/2b94a815-e5e1-4194-9aa4-dcec54677b66">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/0f7c9caf-5b94-4600-b0b3-16bb2745b5bf">
 </p>
 
 실제 연산은 <span style = "color:gold">**병렬로 한 step에서 한 번에 수행**</span>되어 더 효율적인 방식으로 구현된다.
@@ -321,7 +317,7 @@ Masked Self-Attention을 하는 이유는, **학습과 추론과정에 정보가
 <br/>
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/7893de33-101d-4b3c-95fa-0a8fa7f9b043">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/82f7b89c-bf35-4e43-b869-21b47731fa4a">
 </p>
 
 ```python
@@ -493,7 +489,7 @@ class PositionWiseFeedForwardLayer(nn.Module):
 #### Residual Connection
 
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/0b7ca384-8cd0-4ffa-a8ad-78472d30eaa6">
+<img width="400" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/57df6b4b-e115-47d4-8093-432b4260289a">
 </p>
 
 Residual Connection은 단순하다. 다음 Layer로 넘길 때 원래 입력과 더해주어 $$y \; = \; f(x)$$ 에서 $$y \; = \; f(x) \; + \; x$$ 로 변경하는 것이다. 이로써 <span style = "color:gold">**Back Propagation 도중 발생할 수 있는 Vanishing Gradient 현상을 방지**</span>할 수 있다. 보통은 여기에 Layer Normalization과 DropOut까지 추가하는게 일반적이다.
@@ -533,9 +529,7 @@ class EncoderBlock(nn.Module):
 ```
 Residual Connection Layer의 `forward()`에 `sub_layer`를 전달할 때에는 대개 해당 layer 자체를 넘겨주면 되지만, 필요한 경우에 따라 lambda 식의 형태로 전달할 수도 있다. 대표적으로 Multi-Head Attention Layer와 같이 `forward()`가 단순하게 `x`와 같은 인자 1개만 받는 경우가 아닐 때가 있다.
 
-<p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/66290609-b847-4732-90d4-c0b06168ca76">
-</p>
+
 <center><span style = "font-size:80%">Encoder 구조 정리</span></center>
 
 ## 4. Decoder
@@ -545,7 +539,7 @@ Residual Connection Layer의 `forward()`에 `sub_layer`를 전달할 때에는 �
 #### Decoder
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/c8853934-4f5a-4326-a270-4912e3f4b5d0">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/f84e6f84-8528-42d3-b9cd-84995bb4fe07">
 </p>
 
 가장 처음에 트랜스포머의 전체 구조를 이야기할 때 봤던 Decoder의 구조이다. context와 Some Sentence를 input으로 받아 Output Sentence를 출력한다. context는 Encoder의 출력이다. 트랜스포머 모델델의 목적을 다시 상기시켜 보자. input sentence를 받아와 output sentence를 만들어내는 model이다. 대표적으로 번역과 같은 task를 처리할 수 있을 것이다. 영한 번역이라고 가정한다면, Encoder는 context를 생성해내는 것, 즉 input sentence에서 영어 context를 압축해 담아내는 것을 목적으로 하고, Decoder는 영어 context를 활용해 한글로 된 output sentence를 만들어내는 것을 목적으로 한다. 
@@ -577,19 +571,19 @@ Decoder의 입력에 추가적으로 들어오는 sentence를 이해하기 위�
 Teacher forcing이란 Supervised Learning에서 <span style = "color:gold">**label data를 input으로 활용**</span>하는 것이다. 즉, 학습 시 초기값을 ground truth로 주는 것이다. RNN을 예로 번역 모델을 만든다고 할 때, 학습 과정에서 모델이 생성해낸 토큰을 다음 토큰 생성 때 사용하는 것이 아닌, 실제 label data의 토큰을 사용하게 되는 것이다.
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/cff9096d-03c4-4f1d-95f2-7bbc4031e4cf">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/39316842-af58-41ba-a35b-d417d3f8ae2a">
 </p>
 
 정확도 100%를 달성하는 Ideal한 모델의 경우를 생각했을 때 위와 같다. 예상대로 RNN이전 cell의 출력을 활용해 다음 cell에서 토큰을 정상적으로 생성해낼 수 있다. 하지만, 이런 모델은 실제할 수 없다.
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/07d72d6c-e97a-4b8c-8067-bfb751156391">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/3e93d960-4b74-4e10-9236-2c4cdf3e11ee">
 </p>
 
 실제로는, 특히나 모델 학습 초창기에는 위처럼 잘못된 토큰을 생성해내고, 그 이후 계속적으로 잘못된 토큰이 생성될 것이다. 즉, 초기값이 랜덤해 부정확하기 때문에 그 다음 순차적으로 학습이 일어나는 RNN이 제대로된 학습을 하지 못하게되는 것이다. 초반에 하나의 토큰이라도 잘못 도출되어 그 이후 토큰들이 잘못 생성되면 학습의 정확성을 높이기 어렵다. 따라서 이를 위해 Labeling된 data를 이용하는 Teaching Forcing을 사용한다.
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/7742aa3f-2f9e-4a1a-8742-c7305fc59ad6">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/df96334b-ef6e-4b73-b15b-b0a337086b67">
 </p>
 
 Teaching Forcing은 실제 Labeled data(Ground Truth)를 RNN cell의 입력으로 사용하는 것이다. 정확히는 Ground Truth의 \[:-1\]로 slicing한 것이다(마지막 토큰인 \[EOS\] 토큰을 제외하는 것). 이를 통해서 모델이 잘못된 토큰을 생성해내더라도 이후 제대로 된 토큰을 생성해내도록 유도할 수 있다. 하지만, 이는 모델 학습 과정에서 Ground Truth, 즉 정답을 사용한 것이므로 일종의 **Cheating**이 된다. 따라서 <span style="color:gold">**Test를 할 때는 Ground Truth를 데이터셋에서 제거해주고 진행**</span>해야 한다. 또한 실제로는 데이터셋에 Ground Truth가 포함되어 있어야만 가능한 것이기에 Test나 실제로 Real-World에 Product될 때에는 모델이 생성해낸 이전 토큰을 사용하게 된다. 이처럼 학습 과정에과 실제 사용에서의 괴리가 발생하지만, 모델의 비약적 성능 향상에 직접적으로 영향을 준다. Teaching Forcing은 **Encoder-Decoder 구조 모델에서 많이 사용하는 기법**이다.
@@ -672,11 +666,11 @@ Decoder 역시 Encoder와 마찬가지로 $$N$$개의 Decoder Block이 겹겹이
 
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/da18f0a5-6a78-4d9c-a302-2808631cb8ae">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/a415ef8c-8f5b-481c-bd24-35ed440462b4">
 </p>
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/077d030d-9d58-439b-b170-4401f01a8407">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4360de0b-d250-46de-a2f2-959c50c6b0ce">
 </p>
 
 그리고 각각의 Decoder Block은 다음과 같다. 참고로 트랜스포머에는 총 3가지의 Attention이 존재한다.
@@ -686,7 +680,7 @@ Decoder 역시 Encoder와 마찬가지로 $$N$$개의 Decoder Block이 겹겹이
 3. Encoder-Decoder Attention(Cross-Attention)
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/124efea3-e26a-4385-b73a-16f027787c0a">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/46bb4d86-23e6-4a8d-af33-3fa768f43f8f">
 </p>
 
 Decoder Block은 Encoder Block과 달리 Multi-head Attention Layer가 2개가 존재한다. 첫번째 layer는 Self-Multi-Head Attention Layer라고 부르는데, 이름 그대로 Decoder의 입력으로 주어지는 sentence 내부에서의 Attention을 계산한다. 이 때, 일반적인 pad masking뿐만 아니라 subsequent masking이 적용되기 떄문에 **Masked-Multi-Head Attention Layer**라고 부르기도 한다. 
@@ -842,7 +836,7 @@ class PositionalEncoding(nn.Module):
         encoding = torch.zeros(max_len, d_embed)
         encoding.requires_grad = False
         position = torch.arange(0, max_len).float().unsqueeze(1)
-        div_term = torch.exp(torch.arange(0, d_embed, 2) * -(math.log(10000.0) / d_embed))
+        div_term = torch.exp(torch.arange(0, d_embed, 2) * -(math.log(8000.0) / d_embed))
         encoding[:, 0::2] = torch.sin(position * div_term)
         encoding[:, 1::2] = torch.cos(position * div_term)
         self.encoding = encoding.unsqueeze(0).to(device)
@@ -979,11 +973,10 @@ def build_model(src_vocab_size, tgt_vocab_size, device=torch.device("cpu"), max_
 
 ```
 
-```
-masking을 생성하는 code는 일반적인 Transformer 구현의 code와 다소 상이한데,본 포스팅에서 사용한 code가 memory를 더 많이 소비한다는 점에서 비효율적이기 때문이다.
-다만, 본 포스팅의 masking code는 tensor 사이의 broadcasting을 최소화하고, 본래 의도한 tensor의 shape를 그대로 갖고 있기 때문에 학습하는 입장에서는 더 이해가 수
-월할 것이기에 이를 채택해 사용했다.
-```
+
+> masking을 생성하는 code는 일반적인 Transformer 구현의 code와 다소 상이한데, 본 포스팅에서 사용한 code가 memory를 더 많이 소비한다는 점에서 비효율적이기 때문이다.
+> 다만, 본 포스팅의 masking code는 tensor 사이의 broadcasting을 최소화하고, 본래 의도한 tensor의 shape를 그대로 갖고 있기 때문에 학습하는 입장에서는 더 이해가 수월할 것이기에 이를 채택해 사용했다.
+
 
 <br>
 
