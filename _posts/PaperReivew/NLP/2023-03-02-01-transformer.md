@@ -970,11 +970,10 @@ def build_model(src_vocab_size, tgt_vocab_size, device=torch.device("cpu"), max_
 
 ```
 
-```
-masking을 생성하는 code는 일반적인 Transformer 구현의 code와 다소 상이한데,본 포스팅에서 사용한 code가 memory를 더 많이 소비한다는 점에서 비효율적이기 때문이다.
-다만, 본 포스팅의 masking code는 tensor 사이의 broadcasting을 최소화하고, 본래 의도한 tensor의 shape를 그대로 갖고 있기 때문에 학습하는 입장에서는 더 이해가 수
-월할 것이기에 이를 채택해 사용했다.
-```
+
+> masking을 생성하는 code는 일반적인 Transformer 구현의 code와 다소 상이한데, 본 포스팅에서 사용한 code가 memory를 더 많이 소비한다는 점에서 비효율적이기 때문이다.
+> 다만, 본 포스팅의 masking code는 tensor 사이의 broadcasting을 최소화하고, 본래 의도한 tensor의 shape를 그대로 갖고 있기 때문에 학습하는 입장에서는 더 이해가 수월할 것이기에 이를 채택해 사용했다.
+
 
 <br>
 
