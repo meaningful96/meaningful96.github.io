@@ -64,7 +64,7 @@ KG Representation Learning은 <b>연속적인 저차원의 벡터 공간으로 �
 ### 1) Model Architecture
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/20206831-ee83-4acc-9044-49483c2320a3">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/c73fd70f-1111-48c7-b87f-5c205fa4e9ec">
 </p>
 
 1) **Triple2Seq**: 엔티티와 릴레이션의 다양성(Heterogeneity)를 대응하고 모델의 Input Sequence로서 Contextual Sub-Graph를 Sampling한다.(Dynamic Sampling)
@@ -95,7 +95,7 @@ Knowledge Graphs는 triple($$head, relation, tail$$)로 구성된다. 논문에�
 ## 2.1 Triple2Seq
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/f43ff18e-429e-4361-a92d-56d5f5314f3e">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/be4bd6fd-a0a4-488e-9f7f-bcbb3e9e8903">
 </p>
 
 Knowledge Graph는 많은 숫자의 **Relational Information**을 포함하고 있기 때문에, 그래프를 직접 direct하게 Transformer 모델에 입력으로 집어넣는 것은 불가능하다. Full-graph-based Transformer의 이러한 단점을 극복하기 위해서 논문에서는 **Triple2Seq**를 제안한다. Triple2Seq는 <span style="color:gold">**Contextualized Sub-Graphs를 Input Sequence로 사용해 Local Structure 정보를 인코딩**</span>한다.
@@ -114,7 +114,7 @@ Triple $$\mathcal{T}$$의 Contextualized sub-graph인 <b>$$\mathcal{T_G}$$</b>�
 여기서 $$\mathcal{N}$$은 Center Triple $$\mathcal{T_C}$$의 고정된 크기의 이웃 Triple set이다. 논문에선는 Local structural information을 좀 더 잘 뽑아내기 위해 학습 중 <span style="color:gold">**Dynamic Sampling**</span>을 하였다. 이는 <u>각 Epoch마다 같은 Center Triple에 대해 여러개의 Contextualized Sub-graph를 <b>무작위(random)로 선택</b>해 추출하는 방법</u>이다. 
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/2be7eccc-0931-4f1e-97a0-4b667b66ac14">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/6bc4842e-ce90-4fcb-8f59-e004e070624d">
 </p>
 
 Triple2Seq의 결과로 얻는 것이 바로 Contextualized Sub-Graph인 $$\mathcal{T_G}$$이다. 또한 $$\mathcal{T_G}$$의 local structure information은 인접 행렬(Adjacency matrix) $$A_G$$에 저장된다. 이전에 나왔던 논문 중 [HittER: Hierarchical transformers for knowledge graph embeddings](https://meaningful96.github.io/paperreview/HittER/)을 통해 알 수 있는 중요한 사실이 하나 있다. 바로 <u>엔티티-릴레이션(Entity-Relation)쌍에 저장된 정보가 중요하다는 것이다.</u> 이러한 사실을 바탕으로 논문에서는 <span style="color:gold">**엔티티-릴레이션 쌍을 Plain token으로 표현하고 릴레이션을 contextualized sub-graph의 special node**</span>로 간주한다. 이러한 방식으로 엔티티-릴레이션, 엔티티-엔티티 및 릴레이션-릴레이션 쌍을 포함한 노드 쌍 정보를 얻을 수 있다. 이렇게 함으로서 결론적으로 **릴레이션 노드를 special node**로 볼 수 있다는 것이다.
@@ -154,7 +154,7 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 이를 극복하기 위해 논문에서는 <span style="color:aqua">**Attention Bias**</span>를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 <span style="color:gold"><b>Contextualized Sub-Graph 안의 노드쌍들의 구조 정보(Structural information)을 보존</b></span>할 수 있다. 노드 $$v_i$$와 $$v_j$$사이의 attention bias는 <b>$$\phi(i,j)$$</b>로 표기한다.
 
 <p align="center">
-<img width="700" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/54360008-8682-4822-8ecd-08f71f0eb9a4">
+<img width="700" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/d87d1256-1235-46d0-af2f-e22cd9625f83">
 </p>
 
 Triple2Seq에서 샘플링된 Contextualized Sub-graph의 구조 정보는 인접 행렬(Adjacency Matrix) $$A_G$$에 저장된다. 이 때, Sub-graph의 구조 정보를 Normalization한 값을 <b>$$\widetilde{A}$$</b>으로 표기한다. 이러한 사실을 바탕으로 <b>$$\widetilde{A^m}$$($$\widetilde{A}$$ to the $$m$$-th power)</b>를 정의한다. 이는 $$\widetilde{A}$$를 **m번 제곱**한 것(**행렬곱**을 m번 수행 <span style="font-size:80%">ex)$$ \widetilde{A} \; @ \; \widetilde{A}$$</span>) m은 hyperparameter이다. 
@@ -162,7 +162,7 @@ Triple2Seq에서 샘플링된 Contextualized Sub-graph의 구조 정보는 인�
 여기서 알아야 할 개념이 있는데, 인접 행렬(Adjacency Matrix)의 제곱, 세제곱 등이 가지는 의미이다. 제곱을 예로 설명하면, m = 2인 상황으로, 어떤 노드 $$v_i$$에서 또 다른 노드 $$v_j$$로 이동할 때 2번(m=2)움직여서 갈 수 있는 횟수를 의미한다. 즉, 노드를 순회할 때, m번 이동하여 갈 수 있는 경우의 수가 각 $$\widetilde{A^m}$$의 요소가 된다. 간단하게 코드를 통해 살펴보면 다음과 같다.
 
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/4496cab6-f416-48f7-bf9b-3d44c091fae6">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/155cfcaa-01ee-48b1-bf85-374cd205b2d6">
 </p>
 
 ```python
@@ -185,7 +185,7 @@ A = np.c_[a1,a2,a3,a4]
 ```
 
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/805a3e21-8847-4e93-96db-7c9a48855df6">
+<img width="400" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/506fa430-1dd8-48a7-98d0-35fa2c8003b2">
 </p>
 
 앞의 실험을 통해 $$\widetilde{A^m}$$이 확실하게 정의되었고, $$f_{structure}$$는 구조 정보를 인코딩하는 **Linear Layer**로 $$\widetilde{A^m}$$을 입력으로 한다. 이를 통해 최종적으로 Attention bias인 $$\phi(i,j)$$가 정의된다. 다시 한 번 강조하지만, <span style="color:gold">**Attention bias는 샘플링된 Contextualized Sub-Graph의 구조 정보를 포착**</span>하는 역할을 하며, 이 부분이 이 논문의 가장 큰 Contribution중 하나이다.
