@@ -185,7 +185,7 @@ Attention을 계산할 때는 **Query, Key, Value** 세 가지 벡터가 사용�
 Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 Query와 Key 벡터의 행렬곱을 수행하고 Scaling을 한 후 Softmax를 통해 확률값으로 만들어 버린다. 이후 이 값을 Value와 곱하면된다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/e8b154c6-4e3e-4106-b528-94879a18209a">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/d7bc87fc-940a-4112-9616-e99c53a1cb8e">
 </p>
 
 좀 더 계산과정을 명확하게 보기위해 한 단어와 단어 사이의 attention을 구하는 과정을 집중해본다. 위에처럼 $$d_k = 3$$인 경우라고 가정하고 FC layer에의해 이미 $$Q, K, V$$가 모두 구해졌다고 가정하고 1번 그림처럼 나타낼 수 있다. 위의 메커니즘과 같이 Query와 Key의 행렬곱을 수행해야 한다. 이 때 Scailing을 포함한 이 행렬곱의 결과를 <span style = "color:gold">**Attention Score**</span>라고 한다.
@@ -193,13 +193,13 @@ Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 
 Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하다. 행렬 곱의 결과인 attention energy값이 너무 큰 경우 Vanishing Graident현상이 발생할 수 있기 때문이다. 하지만 Scailing을 단순한 상수이므로 행렬곱 연산 결과로 나온 Score의 차원에 영향을 미치지 않는다. 앞서 본 경우는 1:1 관계에서의 attention을 구한 것이다. Self-Attention은 1:N의 관계에서 진행되므로 이를 확장하면 다음과 같다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/50fdc274-bfb9-41cf-a48a-d65caae08f71">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/9c328e6d-13d3-4487-b80f-b18159227f04">
 </p>
 
 먼저 $$Q, K, V$$를 다시 정의해준다. Query의 경우는 비교의 주체이므로 하나의 토큰을 의미하기에 그대로 둔다. 반면 Key와 Value는 비교를 하려는 대상이므로 입력 시퀀스내의 모든 토큰들에 대한 정보를 가지고 있어야 하므로, 각가그이 토큰 임베딩을 Concatenation한 형태로 출력된다. 따라서 $$K, V$$는 행렬로 표현되고 그 크기는 $$n \times d_k$$이다. 이를 통해 마찬가지로 행렬곱을 진행하면 <u>Attention-Score는 전체 토큰 수만큼의 score가 concatenation된 벡터로 출력</u>된다. 다시 말해 Query의 토큰과 입력 시퀀스 내의 모든 토큰들과의 attention score를 각각 계산한 뒤 concatenation한 것이다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/14b6d576-01a5-444b-8d8b-a6d27d8eba08">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4d31fb25-de5e-4bc9-8c89-a0f599820abd">
 </p>
 
 행렬곱 결과 구해진 Attention Score를 이용해 최종적으로 일종의 Weight를 만들어야 한다. 이 때, <span style = "color:gold">Weight로 변환하는 가장 좋은 방법은 그 값을 <b>확률(Probability)</b>로 만드는 것</span>이다. 확률로 만들기위해 논문에서는 **SoftMax function**을 이용했다. 이렇게 Softmax를 통해 구해진 <span style = "color:gold">**Attention Weight(Probability)**</span>을 토큰들의 실질적 의미를 포함한 정보인 Value와 행렬곱을 해준다.(참고로 Attention Weight의 합은 확률이므로 1이다.)
@@ -207,11 +207,7 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 이로써 최종적으로 Query에 대한 <span style = "color:gold">**Attention Value**</span>가 나오게 된다. 여기서 알아야 할 중요한 포인트는 연산의 최종 결과인 <u>Query의 Attention Value의 크기(차원)이 Input Query 임베딩과 동일</u>하다는 것이다. Attention Mechanism입장에서 입력은 Query, Key, Value로 세 가지이지만, 의미상으로 Semantic한 측면에서 고려하면 출력이 Query의 attention이므로 입력도 Query로 생각할 수 있다.
 
 <p align="center">
-<img width="500" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/94b93dcd-ed63-4b2b-917f-d5c2954c4aa0">
-</p>
-
-<p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/9fcccd13-ebad-407c-8641-9fc95b6757f4">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/94e7763e-ff8e-4c14-93d6-7a6881a6af7f">
 </p>
 
 앞서 구한 과정은 모두 하나의 Query에 대해서 1:1, 1:N 관계로 확장하며 구한 것이다. 또한 한 번의 행렬 연산으로 구해진 것이다. 하지만 실제로 Query역시 모든 토큰들이 돌아가면서 각각의 토큰들에 대한 Query attention value를 구해야 하므로 Concatenation을 이용해 **행렬**로 확장해야한다. 이를 그림으로 표현하면 위와 같다. 
@@ -219,7 +215,7 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 <br/>
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/881383b6-b941-4d58-8b7e-7334bec0772c">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/f296ac48-0042-47cf-82f9-5b443502b732">
 </p>
 
 <br/>
