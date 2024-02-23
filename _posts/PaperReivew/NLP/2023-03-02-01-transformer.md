@@ -179,13 +179,13 @@ Attention을 계산할 때는 **Query, Key, Value** 세 가지 벡터가 사용�
 #### Scaled Dot-Product Attention
 
 <p align="center">
-<img width="300" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/7e94f336-c890-462d-86d3-30c048d3d02a">
+<img width="300" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4dd98ab9-0096-4722-86b0-a480c0a1354d">
 </p>
 
 Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 Query와 Key 벡터의 행렬곱을 수행하고 Scaling을 한 후 Softmax를 통해 확률값으로 만들어 버린다. 이후 이 값을 Value와 곱하면된다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/d08aabf7-c352-4894-bf06-aca3e15c2719">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/e8b154c6-4e3e-4106-b528-94879a18209a">
 </p>
 
 좀 더 계산과정을 명확하게 보기위해 한 단어와 단어 사이의 attention을 구하는 과정을 집중해본다. 위에처럼 $$d_k = 3$$인 경우라고 가정하고 FC layer에의해 이미 $$Q, K, V$$가 모두 구해졌다고 가정하고 1번 그림처럼 나타낼 수 있다. 위의 메커니즘과 같이 Query와 Key의 행렬곱을 수행해야 한다. 이 때 Scailing을 포함한 이 행렬곱의 결과를 <span style = "color:gold">**Attention Score**</span>라고 한다.
@@ -193,13 +193,13 @@ Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 
 Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하다. 행렬 곱의 결과인 attention energy값이 너무 큰 경우 Vanishing Graident현상이 발생할 수 있기 때문이다. 하지만 Scailing을 단순한 상수이므로 행렬곱 연산 결과로 나온 Score의 차원에 영향을 미치지 않는다. 앞서 본 경우는 1:1 관계에서의 attention을 구한 것이다. Self-Attention은 1:N의 관계에서 진행되므로 이를 확장하면 다음과 같다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/b2f39097-4112-4d6c-a40a-9ef06ecc486d">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/50fdc274-bfb9-41cf-a48a-d65caae08f71">
 </p>
 
 먼저 $$Q, K, V$$를 다시 정의해준다. Query의 경우는 비교의 주체이므로 하나의 토큰을 의미하기에 그대로 둔다. 반면 Key와 Value는 비교를 하려는 대상이므로 입력 시퀀스내의 모든 토큰들에 대한 정보를 가지고 있어야 하므로, 각가그이 토큰 임베딩을 Concatenation한 형태로 출력된다. 따라서 $$K, V$$는 행렬로 표현되고 그 크기는 $$n \times d_k$$이다. 이를 통해 마찬가지로 행렬곱을 진행하면 <u>Attention-Score는 전체 토큰 수만큼의 score가 concatenation된 벡터로 출력</u>된다. 다시 말해 Query의 토큰과 입력 시퀀스 내의 모든 토큰들과의 attention score를 각각 계산한 뒤 concatenation한 것이다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/1ca18d2f-5191-4119-bfd1-ba3238caf92e">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/14b6d576-01a5-444b-8d8b-a6d27d8eba08">
 </p>
 
 행렬곱 결과 구해진 Attention Score를 이용해 최종적으로 일종의 Weight를 만들어야 한다. 이 때, <span style = "color:gold">Weight로 변환하는 가장 좋은 방법은 그 값을 <b>확률(Probability)</b>로 만드는 것</span>이다. 확률로 만들기위해 논문에서는 **SoftMax function**을 이용했다. 이렇게 Softmax를 통해 구해진 <span style = "color:gold">**Attention Weight(Probability)**</span>을 토큰들의 실질적 의미를 포함한 정보인 Value와 행렬곱을 해준다.(참고로 Attention Weight의 합은 확률이므로 1이다.)
