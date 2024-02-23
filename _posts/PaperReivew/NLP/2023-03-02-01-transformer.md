@@ -28,7 +28,7 @@ last_modified_at: 2023-03-01
 ## 1. Overview
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/8e5ccd84-2c57-4c58-b38e-1f25f3cd7830">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/c9b6d97f-efff-4d24-a35b-1fd3c8ceffaf">
 </p>
 
 트랜스포머는 전형적인 Encoder-Decoder 모델이다. 즉, 전체 모델은 Encoder와 Decoder 두 개의 partition으로 나눠진다.  트랜스포머의 입력은 Sequence 형태로 들어간다. 또한 출력도 마찬가지로 Sequence를 만들어 낸다. 
@@ -45,7 +45,7 @@ last_modified_at: 2023-03-01
 ## 2. Encode-Decoder
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4fbc595b-587b-48b5-96de-381ebe824d1e">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/c409b3b3-50ca-43f8-9534-a1fd23a91b0b">
 </p>
 
 간단하게 정리하면 <span style = "color:gold">**Encoder**</span>의 역할은 <u>문장(Sentence)를 받아와 하나의 벡터터를 생성</u>해내는 함수이며 이 과정을 흔히 **Encoding**이라고 한다. 이렇게 Encoding을 통해 생성된 벡터를  Context라고 한다. 
@@ -83,7 +83,7 @@ class Transformer(nn.Module):
 #### Encoder
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/f29c0607-28dd-4d45-a8a7-dd85a146c3a3">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/dd49408a-2d44-4a69-9c41-d008c8c837db">
 </p>
 
 Encoder는 N=6이다. 즉 6개의 층이 쌓여져 있다.  이러한 구조를 통해 할 수 있는 사실은, Input와 Output의 shape이 똑같다는 사실이다. 다시 말해 <u>입출력에 있어서 shape은 완전히 동일한 matrix가되며</u> Encoder block은 shape에 대해 멱등하다 할 수 있다.
@@ -112,7 +112,7 @@ class Encoder(nn.Module):
 ```
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/c59cf6d3-c86f-4dc3-8a67-eb0f4d4f2543">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/84218d5b-8ce6-47e3-b4dd-837d72b9ff2a">
 </p>
 
 전통적인 Langauge Model의 경우 입력 시퀀스에 대해 Input Embedding matrix만 만들어 모델의 입력으로 보냈다. 하지만, 트랜스포머의 경우는 입력 시퀀스의 각각의 토큰들에 대해 위치 정보까지 주기위해 Positional Encoding도 이용한다. 
