@@ -45,7 +45,7 @@ last_modified_at: 2023-03-01
 ## 2. Encode-Decoder
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/c409b3b3-50ca-43f8-9534-a1fd23a91b0b">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/c409b3b3-50ca-43f8-9534-a1fd23a91b0b">
 </p>
 
 간단하게 정리하면 <span style = "color:gold">**Encoder**</span>의 역할은 <u>문장(Sentence)를 받아와 하나의 벡터터를 생성</u>해내는 함수이며 이 과정을 흔히 **Encoding**이라고 한다. 이렇게 Encoding을 통해 생성된 벡터를  Context라고 한다. 
@@ -83,7 +83,7 @@ class Transformer(nn.Module):
 #### Encoder
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/dd49408a-2d44-4a69-9c41-d008c8c837db">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/dd49408a-2d44-4a69-9c41-d008c8c837db">
 </p>
 
 Encoder는 N=6이다. 즉 6개의 층이 쌓여져 있다.  이러한 구조를 통해 할 수 있는 사실은, Input와 Output의 shape이 똑같다는 사실이다. 다시 말해 <u>입출력에 있어서 shape은 완전히 동일한 matrix가되며</u> Encoder block은 shape에 대해 멱등하다 할 수 있다.
@@ -112,7 +112,7 @@ class Encoder(nn.Module):
 ```
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/84218d5b-8ce6-47e3-b4dd-837d72b9ff2a">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/84218d5b-8ce6-47e3-b4dd-837d72b9ff2a">
 </p>
 
 전통적인 Langauge Model의 경우 입력 시퀀스에 대해 Input Embedding matrix만 만들어 모델의 입력으로 보냈다. 하지만, 트랜스포머의 경우는 입력 시퀀스의 각각의 토큰들에 대해 위치 정보까지 주기위해 Positional Encoding도 이용한다. 
@@ -179,7 +179,7 @@ Attention을 계산할 때는 **Query, Key, Value** 세 가지 벡터가 사용�
 #### Scaled Dot-Product Attention
 
 <p align="center">
-<img width="300" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/33421eba-f11e-4de4-95a4-6d94793e259a">
+<img width="300" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/7e94f336-c890-462d-86d3-30c048d3d02a">
 </p>
 
 Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 Query와 Key 벡터의 행렬곱을 수행하고 Scaling을 한 후 Softmax를 통해 확률값으로 만들어 버린다. 이후 이 값을 Value와 곱하면된다.
