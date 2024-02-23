@@ -193,7 +193,7 @@ Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 
 Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하다. 행렬 곱의 결과인 attention energy값이 너무 큰 경우 Vanishing Graident현상이 발생할 수 있기 때문이다. 하지만 Scailing을 단순한 상수이므로 행렬곱 연산 결과로 나온 Score의 차원에 영향을 미치지 않는다. 앞서 본 경우는 1:1 관계에서의 attention을 구한 것이다. Self-Attention은 1:N의 관계에서 진행되므로 이를 확장하면 다음과 같다.
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/9c328e6d-13d3-4487-b80f-b18159227f04">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/9c328e6d-13d3-4487-b80f-b18159227f04">
 </p>
 
 먼저 $$Q, K, V$$를 다시 정의해준다. Query의 경우는 비교의 주체이므로 하나의 토큰을 의미하기에 그대로 둔다. 반면 Key와 Value는 비교를 하려는 대상이므로 입력 시퀀스내의 모든 토큰들에 대한 정보를 가지고 있어야 하므로, 각가그이 토큰 임베딩을 Concatenation한 형태로 출력된다. 따라서 $$K, V$$는 행렬로 표현되고 그 크기는 $$n \times d_k$$이다. 이를 통해 마찬가지로 행렬곱을 진행하면 <u>Attention-Score는 전체 토큰 수만큼의 score가 concatenation된 벡터로 출력</u>된다. 다시 말해 Query의 토큰과 입력 시퀀스 내의 모든 토큰들과의 attention score를 각각 계산한 뒤 concatenation한 것이다.
