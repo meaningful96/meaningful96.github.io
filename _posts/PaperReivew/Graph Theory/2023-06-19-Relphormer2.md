@@ -400,7 +400,7 @@ Table 5.에서 보여지듯, FB15k-237의 몇몇 Triple을 통해 ablation study
 <span style="font-size:110%"><b>How effective is the proposed Relphormer model in addressing heterogeneity KG Structure and semantic textual description?</b></span>
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/246f3d50-8f28-474b-98fd-7a944e598287">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/f7b1f539-86a4-4d98-9612-ce15079f2aaa">
 </p>
 
 ### 1) The number of sampled contextualized sub-graph triples
