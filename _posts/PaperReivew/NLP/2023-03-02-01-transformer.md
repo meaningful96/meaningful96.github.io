@@ -526,9 +526,7 @@ class EncoderBlock(nn.Module):
 ```
 Residual Connection Layer의 `forward()`에 `sub_layer`를 전달할 때에는 대개 해당 layer 자체를 넘겨주면 되지만, 필요한 경우에 따라 lambda 식의 형태로 전달할 수도 있다. 대표적으로 Multi-Head Attention Layer와 같이 `forward()`가 단순하게 `x`와 같은 인자 1개만 받는 경우가 아닐 때가 있다.
 
-<p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/66290609-b847-4732-90d4-c0b06168ca76">
-</p>
+
 <center><span style = "font-size:80%">Encoder 구조 정리</span></center>
 
 ## 4. Decoder
