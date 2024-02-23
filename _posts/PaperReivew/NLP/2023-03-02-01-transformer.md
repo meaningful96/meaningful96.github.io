@@ -669,7 +669,7 @@ Decoder 역시 Encoder와 마찬가지로 $$N$$개의 Decoder Block이 겹겹이
 </p>
 
 <p align="center">
-<img width="800" alt="1" src="ttps://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4360de0b-d250-46de-a2f2-959c50c6b0ce">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4360de0b-d250-46de-a2f2-959c50c6b0ce">
 </p>
 
 그리고 각각의 Decoder Block은 다음과 같다. 참고로 트랜스포머에는 총 3가지의 Attention이 존재한다.
