@@ -141,10 +141,10 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 > augmentation operator which boosts the performance.
 
 
-## 2.2 Structure enhanced self attentionPermalink
+## 2.2 Structure enhanced self-attention 
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/2be7eccc-0931-4f1e-97a0-4b667b66ac14">
+<img width="400" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/de87859d-492d-48ee-883e-94e98157a9c8">
 </p>
 
 ### 1) Attention Bias
@@ -232,7 +232,7 @@ Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(M
 > We randomly mask specific tokens of the input sequences and then predict those masked tokens.
 
 <p align="center">
-<img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/224577501-d11de3de-c587-4b19-8832-e6567f4b8573.png">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/2dfca278-beee-49b2-b3c1-f1156768b771">
 </p>
 
 Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 때, 랜덤하게 Center triple을 마스킹한다. 구체적으로 relation prediction을 할 때는 head나 tail 둘 중에 하나를 마스킹한다. 이를 Triple로 표현하면 $$(\; v_{h},?,[MASK] \;) \; or \; (\; [MASK], ?, v_t \;)$$이다. 
@@ -264,16 +264,16 @@ $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 �
 Pseudo Code는 다음과 같다.
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/5221271b-da9c-4212-b8eb-26d0ebd1b811">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4d2b0251-2e6c-49c8-bfac-87ada18edda3">
 </p>
 
 만약 $$\mathcal{T_M} = (v_s, v_p, [MASK])$$이면 tail이 마스킹된 트리플을 의미한다. $$g(\cdot)$$은 multi-head attention layer 모듈이고 $$V_{object} \; \subset \; W$$은 tail이 될 수 있는 후보들의 임베딩을 의미한다. Output Logit은 $$sigmoid(W \mathbf{h})$$이며 이는 근사적으로 $$sigmoid(V_{object} \mathbf{h})$$와 동일하다.
 
 <p align="center">
-<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/5c3c0e9d-c93f-4f1f-9492-e406f3a7f0dd">
+<img width="300" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/84820e60-7883-4948-837d-6ad26f116f97">
 </p>
 
-최종적인 final logit은 위와같다. 하나의 $$f(v_s, v_p,v_{object})$$ term을 고른 후 $$f( \cdot ) \; \approx \; v_{object_i}g( \cdot )$$을 이용한다. 이렇게 함으로써 f가 결국 <u>score function처럼 동작하게 되며 결론적으로 Masked knowledge modeling이 score function approximator</u>처럼 된다.
+최종적인 final logit은 위와같다. 하나의 $$f(v_s, v_p,v_{object})$$ term을 고른 후 $$f( \cdot ) \; \approx \; v_{object_i} \, g( \cdot )$$을 이용한다. 이렇게 함으로써 f가 결국 <u>score function처럼 동작하게 되며 결론적으로 Masked knowledge modeling이 score function approximator</u>처럼 된다.
 
 <br/>
 
@@ -282,7 +282,7 @@ Pseudo Code는 다음과 같다.
 결론적으로 위의 Pseudo code algorithm과 같이 Relphormer는 동작한다. 학습 중에는 joint optimization을 이용해 masked knowledge loss와 contextual contrastive constrained object를 동시에 최적화한다. 따라서 최종 Loss는 아래와 같이 정의된다. $$\lambda$$는 hyperparameter이고 $$\mathcal{L_{MKM}}$$과 $$\mathcal{L_{contextual}}$$은 각각 masked knowledge loss와 contextual loss이다.
 
 <p align="center">
-<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/d703746d-b64b-44b0-a28e-9ae1567361d6">
+<img width="300" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/dfb55d7e-c856-45da-ada2-dbc0360520b8">
 </p>
 
 
@@ -292,7 +292,7 @@ Pseudo Code는 다음과 같다.
 **추론시(Inference)**, multi-sampling strategy를 이용해 예측의 안정성을 향상시킨다. 이 때, $$\mathbf{y_k} \in \mathbb{R^{\vert V \vert \times 1}}$$의 shape을 가지며 하나의 Contextual sub-graph의 예측 결과를 나타내며, $$K$$는 샘플링된 sub-graph의 수를 나타낸다.
 
 <p align="center">
-<img width="100" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/c40e0c3c-8962-489f-a537-53d78ba4e24e">
+<img width="100" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/dd015b54-677a-4eed-80c3-929cd002be43">
 </p>
 
 
@@ -302,7 +302,7 @@ Pseudo Code는 다음과 같다.
 Relphomrer에 fine-tuning을 하여 QA task와 추천 시스템에 적용하였다. QA task의 수식은 아래와 같다. $$\mathcal{Q_M}$$은 마스킹된 query이고 $$\mathcal{M(\theta)}$$는 pre-trained된 KG transformer이다. downstream task에 따라서 $$\mathcal{Q_M}$$의 표현은 조금씩 달라질 수 있다. (QA = Question Answering, RS = Recommandataion System)
 
 <p align="center">
-<img width="170" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/d038b569-ee9e-43bd-a1eb-00a0d538c44d">
+<img width="170" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4381859f-bf18-4662-8aed-dd2a093cbd5a">
 </p>
 
 
@@ -315,7 +315,7 @@ Relphomrer에 fine-tuning을 하여 QA task와 추천 시스템에 적용하였�
 KG-BERT와 Relphormer의 성능을 비교하기에 앞서 먼저 Time Complexity를 비교하는 실험을 진행하였다. Relphormer의 경우가 KG-BERT에 비해 훨씬 더 좋은 Time Complexity를 보이며 학습과 추론시간에 있어서 차이가 많이 나는 것을 확인할 수 있다. Relphormer는 Masked knowledge modeling을 이용하여 모델이 마스킹된 엔티티나 릴레이션을 예측한다. 비록 Triple2Seq에서 시간이 좀 오래 걸리지만, Relphormer가 여전히 KG-BERT에 비해 우수한 성능을 보인다.
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/c0026e73-9d42-4263-8af6-0c4430061eb2">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/3d1c546c-68a4-42c9-a03d-9792eb2493b8">
 </p>
 
 <br/>
@@ -336,7 +336,7 @@ KG-BERT와 Relphormer의 성능을 비교하기에 앞서 먼저 Time Complexity
 ## 1. KG Completion & Relation Preidction
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/937d1638-008a-4ad4-9b0f-f960f0c76330">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/f4a94433-1443-48b7-b761-c3b00a61db53">
 </p>
 
 Table 3에서 방식이 Relphormer가 baseline들과 비교하여 모든 Dataset에서 경쟁력 있는 성능을 달성할 수 있음을 보여준다. Relphormer는 Hits@1 및 MRR Metric에서 최고의 성능을 달성하고 WN18R에서 Hits@10에서 두 번째로 우수한 성능을 산출했다. QuatE와 같은 이전 SOTA 변환 거리 모델과 비교하여 모든 Metric에서 개선되었다. Relphormer가 WN18R에서 SOTA Transformer 기반 모델 HitER보다 우수하다.
@@ -344,7 +344,7 @@ Table 3에서 방식이 Relphormer가 baseline들과 비교하여 모든 Dataset
 또한 FB15K-237 데이터 세트에서 Relphormer가 대부분의 번역 거리 모델보다 성능이 우수하다. 트랜스포머 기반 모델과 비교했을 때 Relphormer는 Hits@1에서 KG BERT, StAR 및 HittER보다 성능이 가장 우수하다. HitER는 **FB15K-237에서 더 많은 트랜스포머 아키텍처를 명시적으로 활용**하기 때문에 성능을 향상시키며, Relphormer는 여전히 비슷한 성능을 얻습니다. 게다가, 우리는 Relphormer가 UMLS, 특히 Hits@10에서 매우 좋은 성능을 보여준다. Relphormer의 Relational Transformer Framework가 KGC에서 우수한 성능을 만들어낸다. 
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/834acf36-40d2-404d-84ab-829053483c89">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/c30d94bd-eb04-4491-b911-b0d4a2d3a9db">
 </p>
 
 Table 4에서 Relphormer가 baseline들과 비교하여 경쟁력 있는 성능을 얻을 수 있음을 알 수 있다. WN18RR 데이터 세트에서 Relphormer는 이미 모든 baseline을 능가하며, 이는 relation prediction을 위한 Relphormer의 접근 방식이 성능 향상에 직접적임을 보여준다. TransE와 비교하여 Hits@1에서 15.8%, 9.7% 향상되었다. FB15K-237에서 Relphormer의 성능 향상은 특히 Hits@3에서 중요하다. Relphormer는 DistMult보다는 성능이 우수하지만 RotatE보다는 성능이 떨어진다.
@@ -352,7 +352,7 @@ Table 4에서 Relphormer가 baseline들과 비교하여 경쟁력 있는 성능�
 ## 2. Question-Answering & Recommandation
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/579eed82-63e7-4a1b-a211-4fe1ca555481">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/19fd7be1-9a8b-4b89-8359-ed466cc48e1e">
 </p>
 
 QA의 경우, Relphormer가 FreebaseQA 및 WebQuestionSP에서 가장 좋은 성능을 보인다.(Figure 3.) HitER에 비해 Relphormer는 FreebaseQA Dataset의 *Full Setting*에서 6.8% 향상되었다. 또한, Relphormer는 WebQuestionSP의 *Full & Filter Setting*에서 2.9% 및 1.4% 향상되었다. Relphormer는 BERT로 쉽게 초기화할 수 있으며 masked knowledge modeling으로 최적화되므로 QA 작업을 위해 <span style="color:gold">**Relphormer로 사전 훈련된 표현을 주입하는 것이 효율적이므로 성능이 향상**</span>된다. Relphormer가 훨씬 더 효율적이며, HitER와 같은 일부 KG 표현 모델의 경우 QA 작업을 향상시키기 위해 복잡한 통합 전략을 설계해야한다.
@@ -372,7 +372,7 @@ Recommandation의 경우 Relphormer가 모든 baseline 모델보다 성능이 �
 ### 1) Optimization Object
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/0e27fcce-13c4-41ff-ae37-5877b11ab4c7">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4f38bf80-0c3e-467c-8aac-5a1d33ec6bc0">
 </p>
 
 Knowledge Graph에는 Relational Pattern이 있으며, 1-N, N-1 및 N-N 관계와 같은 패턴을 해결할 수 없는 접근 방식도 있다. 예를 들어 특정 엔티티-릴레이션 쌍(ℎ, 𝑟)이 주어지면 일반적으로 tail의 수는 둘 이상이다. Masked Knowledge Modeling(MKM) 없이, 대신 negative log-likelihood을 사용하여 ablation study를 수행하였다. Table 5에서 MKM이 있는 모델은 두 데이터 세트 모두에서 Hit@1에서 더 나은 성능을 낼 수 있지만 WN18R에서 MR의 향상을 달성하지 못한다. 이는 <span style = "color:gold">**WN18RR에 충분한 구조적 특징이 없기 때문**</span>일 수 있다. 따라서 rank에 대한 **NLL 기반의 최적화가 더 유리**할 수 있다.
@@ -380,7 +380,9 @@ Knowledge Graph에는 Relational Pattern이 있으며, 1-N, N-1 및 N-N 관계�
 <br/>
 
 ### 2) Global Node
-
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/faab45a3-838e-4616-a8c4-eaa02a93a13b">
+</p>
 이 실험에서는 global node에 영향력에 대해서 실험한다. *w/o global node*는 global node가 없는 모델을 나타낸다. Figure 5.에서 baseline 모델들과 비교했을 때, global node가 없으면 안좋은 성능을 보여주었다. 이를 통해 <span style="color:gold">**global node는 global information을 보존하는데 좋은 솔루션임을 입증**</span>한다.
 
 <br/>
@@ -398,7 +400,7 @@ Table 5.에서 보여지듯, FB15k-237의 몇몇 Triple을 통해 ablation study
 <span style="font-size:110%"><b>How effective is the proposed Relphormer model in addressing heterogeneity KG Structure and semantic textual description?</b></span>
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/dfd4c1a6-d190-42ed-988b-d8cb6c875814">
+<img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/246f3d50-8f28-474b-98fd-7a944e598287">
 </p>
 
 ### 1) The number of sampled contextualized sub-graph triples
