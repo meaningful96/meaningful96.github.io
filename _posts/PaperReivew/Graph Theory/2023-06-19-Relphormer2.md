@@ -162,7 +162,7 @@ Triple2Seq에서 샘플링된 Contextualized Sub-graph의 구조 정보는 인�
 여기서 알아야 할 개념이 있는데, 인접 행렬(Adjacency Matrix)의 제곱, 세제곱 등이 가지는 의미이다. 제곱을 예로 설명하면, m = 2인 상황으로, 어떤 노드 $$v_i$$에서 또 다른 노드 $$v_j$$로 이동할 때 2번(m=2)움직여서 갈 수 있는 횟수를 의미한다. 즉, 노드를 순회할 때, m번 이동하여 갈 수 있는 경우의 수가 각 $$\widetilde{A^m}$$의 요소가 된다. 간단하게 코드를 통해 살펴보면 다음과 같다.
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/155cfcaa-01ee-48b1-bf85-374cd205b2d6">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/73c55cdf-79f8-47d3-a053-7d0d60b8b9ab">
 </p>
 
 ```python
@@ -185,7 +185,7 @@ A = np.c_[a1,a2,a3,a4]
 ```
 
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/506fa430-1dd8-48a7-98d0-35fa2c8003b2">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/506fa430-1dd8-48a7-98d0-35fa2c8003b2">
 </p>
 
 앞의 실험을 통해 $$\widetilde{A^m}$$이 확실하게 정의되었고, $$f_{structure}$$는 구조 정보를 인코딩하는 **Linear Layer**로 $$\widetilde{A^m}$$을 입력으로 한다. 이를 통해 최종적으로 Attention bias인 $$\phi(i,j)$$가 정의된다. 다시 한 번 강조하지만, <span style="color:gold">**Attention bias는 샘플링된 Contextualized Sub-Graph의 구조 정보를 포착**</span>하는 역할을 하며, 이 부분이 이 논문의 가장 큰 Contribution중 하나이다.
@@ -238,7 +238,7 @@ Masked Knowledge Modeling은 특별한 것이 아닌, Masked Langauge Modeling(M
 Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 때, 랜덤하게 Center triple을 마스킹한다. 구체적으로 relation prediction을 할 때는 head나 tail 둘 중에 하나를 마스킹한다. 이를 Triple로 표현하면 $$(\; v_{h},?,[MASK] \;) \; or \; (\; [MASK], ?, v_t \;)$$이다. 
 
 <p align="center">
-<img width="300" alt="1" src="https://github.com/meaningful96/Paper_Reconstruction/assets/111734605/682de0cf-40a9-4d9d-95e3-ab5af8bd5814">
+<img width="300" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/cd798629-c5fd-45d8-8f8b-cf7be1837f85">
 </p>
 
 $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 풀고자 하는 것은 <b>마스킹된 node sequence $$\mathcal{T_M}$$과 Contextualized Sub-graph의 구조 정보를 나타내는 $$A_G$$가 주어졌을 때 Original Triple $$\mathcal{T}$$의 missing part를 찾는 것</b>이다. 참고로, Y의 shape은 ($$Y \in \mathbb{R^{\vert \mathcal{E} \vert \times \vert \mathcal{R} \vert}}$$)이다.
