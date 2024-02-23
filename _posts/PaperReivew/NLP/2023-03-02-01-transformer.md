@@ -276,7 +276,7 @@ def scaled_dot_product_attention(query, key, value, mask):
 이건 Input Sentence에 \[PAD\] 토큰이 있을 경우 어텐션을 제외하기 위한 연산이다. \[PAD\]가 포함된 입력 문장의 Self-Attention을 구하는 과정은 다음과 같다.
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/8116f845-e6d6-4da3-a2e2-1798414e215d">
+<img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/016f5f29-4c61-4681-b7bb-4ef4293b6899">
 </p>
 
 /[PAD\]는 실제로는 아무 의미가 없는 단어이다. 그래서 트랜스포머에선 key의 경우 \[PAD\] 토큰이 존재할 경우 유사도를 구하지 않도록 마스킹(Masking)을 해준다. Attention에서 제외하기 위해 값을 가리는 행위가 마스킹이다. <u>Attention Score 행렬에서 행에 해당하는 문장은 Query이고 열에 해당하는 문장은 Key</u>이며 key에 \[PAD\]가 있는 열 전체를 마스킹한다.
@@ -306,7 +306,7 @@ Masked Self-Attention을 하는 이유는, **학습과 추론과정에 정보가
 트랜스포머의 특징 중 하나는 Multi-head attention을 수행한다는 것이다. 한 Encoder, Decoder Layer마다 1회씩 수행하는 것이 아니라 병렬적으로 $$h$$회 각각 수행한 뒤 그 결과를 종합해 사용한다. 이렇게 하는 이유는 다양한 Attention을 반영해 더 좋은 성능을 내기 위함이다. 논문에서는 head의 개수가 총 **8개**이며 Q,K,V를 위한 FC Layer가 3개에서 $$3 \times 8 = 24$$개가 필요하게 된다. 출력은 Single self-attention의 경우 <b>$$n \times d_k$$</b>의 shape을 가진다. head가 8개가 되면서 이 <span style = "color:gold"><b>출력 차원은 $$n \times (d_k \times h)$$로 바뀌게</b></span> 된다.(n은 토큰 개수, 사실상 seq_len). 논문에서는 <b>$$d_{model}  = d_k \times h$$</b>로 정의한다.
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/2b94a815-e5e1-4194-9aa4-dcec54677b66">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/0f7c9caf-5b94-4600-b0b3-16bb2745b5bf">
 </p>
 
 실제 연산은 <span style = "color:gold">**병렬로 한 step에서 한 번에 수행**</span>되어 더 효율적인 방식으로 구현된다.
@@ -314,7 +314,7 @@ Masked Self-Attention을 하는 이유는, **학습과 추론과정에 정보가
 <br/>
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/7893de33-101d-4b3c-95fa-0a8fa7f9b043">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/82f7b89c-bf35-4e43-b869-21b47731fa4a">
 </p>
 
 ```python
@@ -486,7 +486,7 @@ class PositionWiseFeedForwardLayer(nn.Module):
 #### Residual Connection
 
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/0b7ca384-8cd0-4ffa-a8ad-78472d30eaa6">
+<img width="400" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/57df6b4b-e115-47d4-8093-432b4260289a">
 </p>
 
 Residual Connection은 단순하다. 다음 Layer로 넘길 때 원래 입력과 더해주어 $$y \; = \; f(x)$$ 에서 $$y \; = \; f(x) \; + \; x$$ 로 변경하는 것이다. 이로써 <span style = "color:gold">**Back Propagation 도중 발생할 수 있는 Vanishing Gradient 현상을 방지**</span>할 수 있다. 보통은 여기에 Layer Normalization과 DropOut까지 추가하는게 일반적이다.
@@ -538,7 +538,7 @@ Residual Connection Layer의 `forward()`에 `sub_layer`를 전달할 때에는 �
 #### Decoder
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/c8853934-4f5a-4326-a270-4912e3f4b5d0">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/f84e6f84-8528-42d3-b9cd-84995bb4fe07">
 </p>
 
 가장 처음에 트랜스포머의 전체 구조를 이야기할 때 봤던 Decoder의 구조이다. context와 Some Sentence를 input으로 받아 Output Sentence를 출력한다. context는 Encoder의 출력이다. 트랜스포머 모델델의 목적을 다시 상기시켜 보자. input sentence를 받아와 output sentence를 만들어내는 model이다. 대표적으로 번역과 같은 task를 처리할 수 있을 것이다. 영한 번역이라고 가정한다면, Encoder는 context를 생성해내는 것, 즉 input sentence에서 영어 context를 압축해 담아내는 것을 목적으로 하고, Decoder는 영어 context를 활용해 한글로 된 output sentence를 만들어내는 것을 목적으로 한다. 
@@ -570,19 +570,19 @@ Decoder의 입력에 추가적으로 들어오는 sentence를 이해하기 위�
 Teacher forcing이란 Supervised Learning에서 <span style = "color:gold">**label data를 input으로 활용**</span>하는 것이다. 즉, 학습 시 초기값을 ground truth로 주는 것이다. RNN을 예로 번역 모델을 만든다고 할 때, 학습 과정에서 모델이 생성해낸 토큰을 다음 토큰 생성 때 사용하는 것이 아닌, 실제 label data의 토큰을 사용하게 되는 것이다.
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/cff9096d-03c4-4f1d-95f2-7bbc4031e4cf">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/39316842-af58-41ba-a35b-d417d3f8ae2a">
 </p>
 
 정확도 100%를 달성하는 Ideal한 모델의 경우를 생각했을 때 위와 같다. 예상대로 RNN이전 cell의 출력을 활용해 다음 cell에서 토큰을 정상적으로 생성해낼 수 있다. 하지만, 이런 모델은 실제할 수 없다.
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/07d72d6c-e97a-4b8c-8067-bfb751156391">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/3e93d960-4b74-4e10-9236-2c4cdf3e11ee">
 </p>
 
 실제로는, 특히나 모델 학습 초창기에는 위처럼 잘못된 토큰을 생성해내고, 그 이후 계속적으로 잘못된 토큰이 생성될 것이다. 즉, 초기값이 랜덤해 부정확하기 때문에 그 다음 순차적으로 학습이 일어나는 RNN이 제대로된 학습을 하지 못하게되는 것이다. 초반에 하나의 토큰이라도 잘못 도출되어 그 이후 토큰들이 잘못 생성되면 학습의 정확성을 높이기 어렵다. 따라서 이를 위해 Labeling된 data를 이용하는 Teaching Forcing을 사용한다.
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/7742aa3f-2f9e-4a1a-8742-c7305fc59ad6">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/df96334b-ef6e-4b73-b15b-b0a337086b67">
 </p>
 
 Teaching Forcing은 실제 Labeled data(Ground Truth)를 RNN cell의 입력으로 사용하는 것이다. 정확히는 Ground Truth의 \[:-1\]로 slicing한 것이다(마지막 토큰인 \[EOS\] 토큰을 제외하는 것). 이를 통해서 모델이 잘못된 토큰을 생성해내더라도 이후 제대로 된 토큰을 생성해내도록 유도할 수 있다. 하지만, 이는 모델 학습 과정에서 Ground Truth, 즉 정답을 사용한 것이므로 일종의 **Cheating**이 된다. 따라서 <span style="color:gold">**Test를 할 때는 Ground Truth를 데이터셋에서 제거해주고 진행**</span>해야 한다. 또한 실제로는 데이터셋에 Ground Truth가 포함되어 있어야만 가능한 것이기에 Test나 실제로 Real-World에 Product될 때에는 모델이 생성해낸 이전 토큰을 사용하게 된다. 이처럼 학습 과정에과 실제 사용에서의 괴리가 발생하지만, 모델의 비약적 성능 향상에 직접적으로 영향을 준다. Teaching Forcing은 **Encoder-Decoder 구조 모델에서 많이 사용하는 기법**이다.
@@ -665,11 +665,11 @@ Decoder 역시 Encoder와 마찬가지로 $$N$$개의 Decoder Block이 겹겹이
 
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/da18f0a5-6a78-4d9c-a302-2808631cb8ae">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/a415ef8c-8f5b-481c-bd24-35ed440462b4">
 </p>
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/077d030d-9d58-439b-b170-4401f01a8407">
+<img width="800" alt="1" src="ttps://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4360de0b-d250-46de-a2f2-959c50c6b0ce">
 </p>
 
 그리고 각각의 Decoder Block은 다음과 같다. 참고로 트랜스포머에는 총 3가지의 Attention이 존재한다.
@@ -679,7 +679,7 @@ Decoder 역시 Encoder와 마찬가지로 $$N$$개의 Decoder Block이 겹겹이
 3. Encoder-Decoder Attention(Cross-Attention)
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/DSKUS_Project/assets/111734605/124efea3-e26a-4385-b73a-16f027787c0a">
+<img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/46bb4d86-23e6-4a8d-af33-3fa768f43f8f">
 </p>
 
 Decoder Block은 Encoder Block과 달리 Multi-head Attention Layer가 2개가 존재한다. 첫번째 layer는 Self-Multi-Head Attention Layer라고 부르는데, 이름 그대로 Decoder의 입력으로 주어지는 sentence 내부에서의 Attention을 계산한다. 이 때, 일반적인 pad masking뿐만 아니라 subsequent masking이 적용되기 떄문에 **Masked-Multi-Head Attention Layer**라고 부르기도 한다. 
