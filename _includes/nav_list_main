@@ -118,7 +118,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "ERR" %}
-                        <li><a href="/categories/etc" class="">Error Analysis({{category[1].size}})</a></li>
+                        <li><a href="/categories/err" class="">Error Analysis({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}            
             </ul>
