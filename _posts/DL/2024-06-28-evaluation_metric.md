@@ -72,3 +72,16 @@ F1 Score는 **Precision과 Recall의 조화평균**이다. F1-Score는 $$0 \sim 
 <img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/956016e2-dfa5-4fe9-a380-1a5700a7e7ce">
 </p>
 
+### 4) Area Under the ROC Cureve (AUC-ROC Curve)
+Receiver Operating Characteristic Curve (ROC Curve)는 "수신자 판단 곡선"이라는 뜻을 가진다. ROC Curve는 이진 분류 모델의 성능을 시각적으로 평가하는 지표로, 임계값을 변화시켰을 때의 Sensitivity나타낸다. **Sensitivity**란 위에서 언급하였듯이, Recall과 식이 동일하며, 의미를 이해하기 쉽도록 이를 <span style="color:gold">**True Positive Rate(TPR)**</span>이라고 한다. 그러면 **1 - Specificity**는 자연스럽게 <span style="color:gold">**False Positive Rate(FPR)**</span>가 된다. 
+
+여기서 주의해야할 점은, TPR은 Sensitivity(민감도)를 나타내고, FPR은 1에서 Specificity(특이도)를 뺀 값이다. 
+- Sensitivity(민감도): True Positive Rate (TPR)로, 실제 Positive 샘플 중에서 모델이 정확히 Positive로 예측한 비율
+- Specificity(특이도): True Negative Rate (TNR)로, 실제 Negative 샘플 중에서 모델이 정확히 Negative로 예측한 비율
+
+TPR은 다시 말해 모델이 실제 Positive 샘플을 얼마나 잘 감지하는지를 나타낸다. 그리고 FPR은 모델이 실제 Negative 샘플을 잘못해서 Positive로 예측하는 비율을 나타낸다. 이를 수식으로 표현하면 다음과 같다. (TPR과 반대 개념) 이를 수식으로 표현하면 다음과 같다.
+
+<center><span style="font-size:110%">$$\text{True Positive Rate(TPR)} \; = \; \frac{\text{TP}}{\text{TP} + \text{FN}}$$</span></center>  
+<center><span style="font-size:110%">$$\text{False Positive Rate(FPR)} \; = \; \frac{\text{FP}}{\text{FP} + \text{TN}}$$</span></center>
+
+
