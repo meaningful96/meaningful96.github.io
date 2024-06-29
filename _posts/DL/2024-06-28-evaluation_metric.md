@@ -52,7 +52,7 @@ Recall (재현율)은 Precision과는 달리 **실제 정답 중 모델이 정�
 
 <br/>
 
-### 3) F1 Score
+### 3) F1-Score
 
 <p align="center">
 <img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/801b3a1d-6fd8-4c25-9256-f15623b365a6">
@@ -65,4 +65,10 @@ F1 Score는 **Precision과 Recall의 조화평균**이다. F1-Score는 $$0 \sim 
 위의 식은 F1-Score를 나타낸다.
 
 <br/>
+
+### Ex) Precision, Recall, F1-Score in Recommender system
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/956016e2-dfa5-4fe9-a380-1a5700a7e7ce">
+</p>
 
