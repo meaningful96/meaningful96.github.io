@@ -48,7 +48,7 @@ Recall (재현율)은 Precision과는 달리 **실제 정답 중 모델이 정�
 <img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/801b3a1d-6fd8-4c25-9256-f15623b365a6">
 </p>
 
-F1 Score는 **Precision과 Recall의 조화평균**이다. F1-Score는 $$0 ~ 1$$사이의 값을 가지며, 1에 가까울수록 모델의 성능이 좋은 것이다. 조화평균(harmonic mean)은 산술평균(arithmetic mean)과 달리 데이터 값들의 역수를 더한 후 그 역수의 산술평균을 구하는 방식으로 계산된다. 이는 특히 데이터 값들이 서로 상호 의존적인 경우나 비율을 나타내는 경우에 유용하다. 
+F1 Score는 **Precision과 Recall의 조화평균**이다. F1-Score는 $$0 \sim 1$$사이의 값을 가지며, 1에 가까울수록 모델의 성능이 좋은 것이다. 조화평균(harmonic mean)은 산술평균(arithmetic mean)과 달리 데이터 값들의 역수를 더한 후 그 역수의 산술평균을 구하는 방식으로 계산된다. 이는 특히 데이터 값들이 서로 상호 의존적인 경우나 비율을 나타내는 경우에 유용하다. 
 
 <center><span style="font-size:110%">$$2 \times \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}$$</span></center>
 
