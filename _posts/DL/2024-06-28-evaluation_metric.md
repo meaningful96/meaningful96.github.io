@@ -31,7 +31,7 @@ Accuracy (정확도)는 **실제 정답(Ground truth) 중 모델이 정답이라
 <img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/2e52b60f-ab58-4d65-8e08-b10cc6718b65">
 </p>
 
-Precision (정밀도)는 **모델이 정답이라 예측한 것 중 실제 정답의 비율**이다. 
+Precision (정밀도)는 **모델이 정답이라 예측한 것 중 실제 정답의 비율**이다. 이 평가지표는 낮은 False Positive(FP)의 비율이 중요할 때 사용할 수 있는 좋은 측정법이다. 하지만, False Negative는 전혀 측정하지 못한다는 단점이 있다.
 <br/>
 
 
@@ -39,6 +39,18 @@ Precision (정밀도)는 **모델이 정답이라 예측한 것 중 실제 정�
 <p align="center">
 <img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/c2613c66-e54f-41e5-9e33-7c80c4937a41">
 </p>
+
+Recall (재현율)은 Precision과는 달리 **실제 정답 중 모델이 정답으로 예측한 것에 대한 비율**이다. Recall은 True Positive Rate(TPR) 혹은 통계학에서는 Sensitivity(민감도)라고도 한다. Recall은 낮은 False Negative(FN)의 비율이 실험에서 중요할 경우 좋은 측정법이다. 하지만, FP를 전혀 반영하지 못한다는 단점이 있다.
+
+### 3) F1 Score
+
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/801b3a1d-6fd8-4c25-9256-f15623b365a6">
+</p>
+
+F1 Score는 **Precision과 Recall의 조화평균**이다. F1-Score는 $$0 ~ 1$$사이의 값을 가지며, 1에 가까울수록 모델의 성능이 좋은 것이다. 조화평균(harmonic mean)은 산술평균(arithmetic mean)과 달리 데이터 값들의 역수를 더한 후 그 역수의 산술평균을 구하는 방식으로 계산된다. 이는 특히 데이터 값들이 서로 상호 의존적인 경우나 비율을 나타내는 경우에 유용하다.
+
+
 
 
 <br/>
