@@ -74,10 +74,6 @@ F1 Score는 **Precision과 Recall의 조화평균**이다. F1-Score는 $$0 \sim 
 
 ### 4) Area Under the ROC Cureve (AUC-ROC Curve)
 
-<p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/76d16918-9aca-410e-909a-adb700be7f7d">
-</p>
-
 Receiver Operating Characteristic Curve (ROC Curve)는 "수신자 판단 곡선"이라는 뜻을 가진다. ROC Curve는 이진 분류 모델의 성능을 시각적으로 평가하는 지표로, 임계값을 변화시켰을 때의 Sensitivity나타낸다. **Sensitivity**란 위에서 언급하였듯이, Recall과 식이 동일하며, 의미를 이해하기 쉽도록 이를 <span style="color:gold">**True Positive Rate(TPR)**</span>이라고 한다. 그러면 **1 - Specificity**는 자연스럽게 <span style="color:gold">**False Positive Rate(FPR)**</span>가 된다. 
 
 여기서 주의해야할 점은, TPR은 Sensitivity(민감도)를 나타내고, FPR은 1에서 Specificity(특이도)를 뺀 값이다. 
@@ -90,6 +86,10 @@ TPR은 다시 말해 모델이 실제 Positive 샘플을 얼마나 잘 감지하
 <center><span style="font-size:110%">$$\text{False Positive Rate(FPR)} \; = \; \frac{\text{FP}}{\text{FP} + \text{TN}}$$</span></center>
 
 이 두 개념을 통해서 $$x$$축에서는 FPR을, $$y$$축에는 TPR을 표시해 plot을 만들 수 있으며, Skew와 면적을 관찰할 수 있다. 이 때, 면적이 Area Under the ROC Curve (AUC)가 되는 것이다. AUC는 다음과 같은 특성을 가진다.
+
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/76d16918-9aca-410e-909a-adb700be7f7d">
+</p>
 
 - AUC 값이 1에 가까울수록 모델의 성능이 좋다. 이 경우, 모든 임계값에서 TPR이 높고 FPR이 낮은 모델이다.
 - AUC 값이 0.5에 가까우면, 모델의 분류 성능이 랜덤 수준에 가깝다는 의미이다. 즉, 모델이 클래스를 제대로 분류하지 못하고 있는 것을 나타낸다.
