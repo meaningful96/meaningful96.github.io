@@ -35,3 +35,15 @@ last_modified_at: 2024-06-30
 <img width="700" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/3b390cdc-d0e7-4886-bde1-caf543e15f49">
 </p>
 
+위의 예제는 MRR을 계산하는 방법을 잘 보여준다. User 1의 경우 가장 첫 번째로 유사성이 높은 아이템을 추천 받은 것이 3위이다. 따라서 User 1의 reciprocal rank(순위의 역수)는 1/3이다. 반면 User2와 User3은 처음으로 관련성이 깊은 아이템을 추천 받은 순위가 각각 2위와 1위이다. 따라서 둘의 reciprocal rank는 각각 1/2와 1이 된다. 이를 토대로 MRR을 계산하면 0.61이 된다. MRR은 다음과 같은 장단점을 가진다.
+
+- Pros
+  - 계산이 쉽고, 해석이 쉽다.
+  - 관련이 깊은 첫 번째 element에 대해서만 집중하기 때문에 user에게 가장 적합한 아이템을 추천해주기에 용이하다. 
+
+- Cons
+  - 관련이 깊은 첫 번째 element를 제외하고 나머지 아이템은 고려하지 못한다.
+  - user가 여러 아이템(item list, item sequence)를 원하면 사용이 불가능하다.
+
+### 3) Hits@k
+
