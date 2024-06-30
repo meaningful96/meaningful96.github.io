@@ -1,5 +1,5 @@
 ---
-title: "[딥러닝]Evaluation Metric(평가 지표)"
+title: "[딥러닝]Evaluation Metric(평가 지표) - (1) 분류 성능 지표"
 
 categories: 
   - DeepLearning
@@ -120,9 +120,3 @@ TPR은 다시 말해 모델이 실제 Positive 샘플을 얼마나 잘 감지하
   - 분류 임계값 불변성(Classification Threshold Invariant)은 비용의 큰 차이가 있는 경우 바람직하지 않다.
 
 <br/>
-
-## 2. 순위 기반 모델의 평가 지표
-
-순위 기반 모델(Ranking based Model)들의 평가지표이다. Mean Rank(MR), Mean Reciprocal Rank(MRR), Hits@k, NDCG등이 있다.
-
-
