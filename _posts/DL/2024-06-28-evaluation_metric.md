@@ -13,9 +13,9 @@ last_modified_at: 2024-06-28
 
 # Evaluation Metric
 
-## 1. Classification (분류 모델)
+## 1. 분류 기반 모델의 평가 지표
 
-주로 Knowledge Graph Completion (KGC), Recommandar System, Machine Learning 에서 많이 사용된다.
+분류 기반 모델(Classification based Model)들의 평가지표이다.
 
 ### 1) Accuracy (정확도)
 <p align="center">
@@ -88,7 +88,7 @@ TPR은 다시 말해 모델이 실제 Positive 샘플을 얼마나 잘 감지하
 이 두 개념을 통해서 $$x$$축에서는 FPR을, $$y$$축에는 TPR을 표시해 plot을 만들 수 있으며, Skew와 면적을 관찰할 수 있다. 이 때, 면적이 Area Under the ROC Curve (AUC)가 되는 것이다. AUC는 다음과 같은 특성을 가진다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/76d16918-9aca-410e-909a-adb700be7f7d">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/dd4bcfef-81b7-4007-b0ce-2ced518f3c36">
 </p>
 
 - AUC 값이 1에 가까울수록 모델의 성능이 좋다. 이 경우, 모든 임계값에서 TPR이 높고 FPR이 낮은 모델이다.
@@ -97,6 +97,32 @@ TPR은 다시 말해 모델이 실제 Positive 샘플을 얼마나 잘 감지하
 
 <center><span style="font-size:110%">$$\text{AUCC} \; = \; \frac{1}{2} \sum_{i=1}^{m-1}(x_{i+1} - x_i)(y_i + y_{i+1})$$</span></center>
 
-따라서 AUC는 ROC 커브를 요약하는 한 지표로, <span style="color:gold">**AUC 값이 높을수록(즉, Positive와 Negative를 잘 구분하는)**</span> 성능이 좋은 모델이다.
+따라서 AUC는 ROC 커브를 요약하는 한 지표로, <span style="color:gold">**AUC 값이 높을수록(즉, Positive와 Negative를 잘 구분하는)**</span> 성능이 좋은 모델이다. AUC값에 따른 case를 시각화하면 다음과 같다.
+
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/9e14633c-d94b-409e-83c7-4e8406ad1da6">
+</p>
+
+이처럼, AUC가 1일경우 모델은 모든 positive를 positive로, negative를 negative로 정확하게 분류함을 알 수 있다. 반면, AUC가 0.5일 경우 모델은 랜덤하게 분류하는 것과 동일하다. 즉, positive와 negative 샘플에 대한 discrimination capacity가 없다. 마지막으로 AUC가 0일 경우, 모델은 완전히 반대로 예측하게 된다.
+
+물론, AUC는 이진 분류(binary classification)뿐만 아니라 다중 분류(multi-class)에서도 사용 가능하다. Multi-class 문제를 해결하기 위해 "One vs All" 방법론을 사용한다. 이는 각 클래스를 나머지 모든 클래스와 비교하여 N개의 ROC 곡선을 그리는 방식이다. 예를 들어 $$X, Y, Z$$ 세 개의 클래스가 있다고 가정할 때, 세 가지의 ROC 곡선을 그리면 된다.
+- $$X$$를 $$Y$$와 $$Z$$에 대해 분류하는 ROC 곡선
+- $$Y$$를 $$Z$$와 $$X$$에 대해 분류하는 ROC 곡선
+- $$Z$$를 $$X$$와 $$Y$$에 대해 분류하는 ROC 곡선
+
+결론적으로 AUC를 사용하였을 경우 다음과 같은 장단점이 있다.
+- Pros
+  - **Scale Variance**: AUC는 절대적인 값이 아닌 예측의 순위를 측정하므로, 스케일에 무관하다. 즉, 모델의 예측이 얼마나 잘 랭킹되어 있는지를 측정한다.
+  - **Classification Threshold Invariant**: AUC는 분류 임계값의 선택과 무관하게 모델의 예측 품질을 측정합니다. 이는 임계값이 변하더라도 모델의 성능을 평가하는 데 유리하다.
+ 
+- Cons
+  - 스케일 불변성(Scale variance)은 잘 조정된 확률 출력이 필요할 때 바람직하지 않다.
+  - 분류 임계값 불변성(Classification Threshold Invariant)은 비용의 큰 차이가 있는 경우 바람직하지 않다.
+
+<br/>
+
+## 2. 순위 기반 모델의 평가 지표
+
+순위 기반 모델(Ranking based Model)들의 평가지표이다. Mean Rank(MR), Mean Reciprocal Rank(MRR), Hits@k, NDCG등이 있다.
 
 
