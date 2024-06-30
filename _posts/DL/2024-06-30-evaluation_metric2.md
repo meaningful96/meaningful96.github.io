@@ -34,7 +34,7 @@ last_modified_at: 2024-06-30
 **MRR**은 <span style="color:gold">**실제 정답의 순위의 역수를 평균**</span> 낸 것이다. 추천 시스템, Knowledge Graph Completion, 정보 검색 등 여러 분야에서 자주 사용된다. **MRR이 1에 가까울수록 모델의 성능이 좋은 것**이다.
 
 <p align="center">
-<img width="700" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/3b390cdc-d0e7-4886-bde1-caf543e15f49">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/3b390cdc-d0e7-4886-bde1-caf543e15f49">
 </p>
 
 위의 예제는 MRR을 계산하는 방법을 잘 보여준다. User 1의 경우 가장 첫 번째로 유사성이 높은 아이템을 추천 받은 것이 3위이다. 따라서 User 1의 reciprocal rank(순위의 역수)는 1/3이다. 반면 User2와 User3은 처음으로 관련성이 깊은 아이템을 추천 받은 순위가 각각 2위와 1위이다. 따라서 둘의 reciprocal rank는 각각 1/2와 1이 된다. 이를 토대로 MRR을 계산하면 0.61이 된다. MRR은 다음과 같은 장단점을 가진다.
@@ -63,7 +63,7 @@ last_modified_at: 2024-06-30
 다음의 그림은 Hits@k를 구하기 위한 예시이다. 세 명의 사용자(User)가 있으며, 이들은 각각 3개의 아이템을 추천받았다. 추천받은 아이템이 정답과 일치하면 R, 불일치하면 NR로 표시하였다.
 
 <p align="center">
-<img width="700" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/42f2ea5e-f6c8-4d5b-88ca-c4924c840b55">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/42f2ea5e-f6c8-4d5b-88ca-c4924c840b55">
 </p>
 
 먼저 Hits@1을 구하는 과정이다.
@@ -109,7 +109,7 @@ last_modified_at: 2024-06-30
 </p>
 
 <p align="center">
-<img width="700" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/94f977e3-0416-45f9-8780-946cfe0a2578">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/94f977e3-0416-45f9-8780-946cfe0a2578">
 </p>
 
 MAP는 다음과 같은 장단점을 가진다.
@@ -149,6 +149,6 @@ MAP는 다음과 같은 장단점을 가진다.
 다음은 NDCG를 구하는 예시이다.
 
 <p align="center">
-<img width="700" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/b0ed895f-cf1a-468b-a009-9b05559f0ba0">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/b0ed895f-cf1a-468b-a009-9b05559f0ba0">
 </p>
 
