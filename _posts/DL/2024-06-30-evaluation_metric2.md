@@ -146,5 +146,9 @@ MAP는 다음과 같은 장단점을 가진다.
 
 정리하자면, <u>DCG는 문서의 관련성에 따라 순위를 평가하고, IDCG는 이상적인 순서로 정렬된 경우의 DCG를 제공한다. NDCG는 이 두 값을 비교하여 순위의 품질을 평가</u>한다.
 
+다음은 NDCG를 구하는 예시이다.
 
+<p align="center">
+<img width="700" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/b0ed895f-cf1a-468b-a009-9b05559f0ba0">
+</p>
 
