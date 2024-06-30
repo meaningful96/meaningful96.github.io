@@ -51,3 +51,27 @@ Hits@k는 모든 결과들 중 상위 k개에 실제 정답(true candidate)이 �
 
 <center><span style="font-size:110%">$$\text{Hits@k} = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}(rank_i \leq k)$$</span></center> 
 
+- $$N$$: 테스트 샘플의 총 개수
+- $$rank_i$$: $$i$$번째 샘플의 랭크
+- $$\mathbb{I}$$: 조건이 참이면 1, 거짓이면 0을 출력하는 Indicator function
+- $$k$$: 몇 개의 예측 결과를 고려할 것인지에 대한 기준
+
+다음의 그림은 Hits@k를 구하기 위한 예시이다. 세 명의 사용자(User)가 있으며, 이들은 각각 3개의 아이템을 추천받았다. 추천받은 아이템이 정답과 일치하면 R, 불일치하면 NR로 표시하였다.
+
+<p align="center">
+<img width="700" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/42f2ea5e-f6c8-4d5b-88ca-c4924c840b55">
+</p>
+
+먼저 Hits@1을 구하는 과정이다.
+- Hits@1
+  - User 1: 추천 순위 1에 NR이 있으므로 Miss
+  - User 2: 추천 순위 1에 NR이 있으므로 Miss
+  - User 3: 추천 순위 1에 R이 있으므로 Hit
+  - Hits@1 = $$\frac{1}{3} = 0.333$$ (세 명의 User 중 순위 1에 정답이 있는 case가 하나이다.)
+ 
+다음으로 Hits@3를 구하는 과정이다.
+- Hits@3
+  - User 1: 추천 순위 3에 R이 있으므로 Hit
+  - User 2: 추천 순위 2와 3에 R이 있으므로 Hit
+  - User 3: 추천 순위 1과 2에 R이 있으므로 Hit
+  - Hits@3 = $$\frac{3}{3} = 1$$
