@@ -27,6 +27,8 @@ last_modified_at: 2024-06-30
 
 예를 들어, 한 학생이 5번의 대회에 참가해 각각 1,3,3,5,2 등을 차지했다고 가정해보자. 이 때의 MR은 (1+3+5+5+2)/5 = 3.2가 된다. 즉, 평균적으로 이 학생은 3.2등을 한 것이다.
 
+<br/>
+
 ### 2) Mean Reciprocal Rank (MRR)
 
 **MRR**은 실제 정답의 순위의 역수를 평균 낸 것이다. 추천 시스템, Knowledge Graph Completion, 정보 검색 등 여러 분야에서 자주 사용된다. <span style="color:gold">**MRR이 1에 가까울수록 모델의 성능이 좋은 것**</span>이다.
@@ -45,9 +47,11 @@ last_modified_at: 2024-06-30
   - 관련이 깊은 첫 번째 element를 제외하고 나머지 아이템은 고려하지 못한다.
   - user가 여러 아이템(item list, item sequence)를 원하면 사용이 불가능하다.
 
+<br/>
+
 ### 3) Hits@k
 
-Hits@k는 모든 결과들 중 상위 k개에 실제 정답(true candidate)이 순위안에 들어있는 비율을 계산한 것이다. @k라는 것은 상위 k개의 랭크를 말한다. 
+**Hits@k**는 모든 결과들 중 상위 k개에 실제 정답(true candidate)이 순위안에 들어있는 비율을 계산한 것이다. @k라는 것은 상위 k개의 랭크를 말한다. 
 
 <center><span style="font-size:110%">$$\text{Hits@k} = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}(rank_i \leq k)$$</span></center> 
 
@@ -75,3 +79,26 @@ Hits@k는 모든 결과들 중 상위 k개에 실제 정답(true candidate)이 �
   - User 2: 추천 순위 2와 3에 R이 있으므로 Hit
   - User 3: 추천 순위 1과 2에 R이 있으므로 Hit
   - Hits@3 = $$\frac{3}{3} = 1$$
+ 
+참고로, 이전 포스터의 내용 중 Precision과 Recall에도 @k의 개념이 도입될 수 있다. Precision@k는 상위 $$k$$개의 예측 중에서 실제로 관련성이 있는 항목의 비율을 측정하는 지표이다. 또한 Recall@k는 실제로 관련성이 있는 모든 항목 중에서 상위 $$k$$개의 예측이 얼마나 많은 관련 항목을 포함하는지를 측정하는 지표이다. 이 둘을 수식으로 표현하면 다음과 같다. 
+
+<center><span style="font-size:110%">$$\text{Precision@k} = \frac{1}{k} \sum_{i=1}^{k} \mathbb{I}(\text{relevant}_i)$$</span></center>   
+<center><span style="font-size:110%">$$\text{Recall@k} = \frac{1}{N} \sum_{i=1}^{k} \mathbb{I}(\text{relevant}_i)$$</span></center>   
+
+<br/>
+
+### 4) Mean Average Precision(MAP)
+**Mean Average Precision(MAP)**는 정보 검색, 추천 시스템 등에서 사용되는 평가 지표이다. 이는 여러 쿼리나 사용자에 대한 평균 정확도를 측정하여 시스템의 전반적인 성능을 평가한다. MAP는 세 단계에 걸쳐 계산된다.
+
+- Step 1. **$$\text{Precision@k}$$**를 구한다.
+
+<center><span style="font-size:110%">$$\text{Precision@k} = \frac{1}{k} \sum_{i=1}^{k} \mathbb{I}(\text{relevant}_i)$$</span></center>  
+
+- Step 2. **Average Precision (AP)**를 각 쿼리나 사용자에 대해 계산한다.
+
+<center><span style="font-size:110%">$$\text{AP} = \frac{\sum_{k=1}^{n} (\text{Precision@k} \times \mathbb{I}(\text{relevant}_k))}{\text{number of relevant documents}}$$</span></center>  
+  
+- Step 3. **MAP**는 모든 쿼리나 사용자의 평균 AP를 계산한다.
+
+<center><span style="font-size:110%">$$\text{MAP} = \frac{1}{Q} \sum_{q=1}^{Q} \text{AP}_q$$</span></center>  
+
