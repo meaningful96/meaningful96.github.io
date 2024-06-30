@@ -21,7 +21,7 @@ last_modified_at: 2024-06-30
 
 ### 1) Mean Rank(MR)
 
-**MR**은 매우 간단한 개념이다. 모델이 예측한 샘플들의 순위의 평균을 의미한다. 수식은 다음과 같다. $$N$$은 테스트한 샘플의 수이고, $$rank_i$$는 $$i$$번째 샘플의 순위이다.
+**MR**은 매우 간단한 개념이다. 모델이 예측한 샘플들의 <span style="color:gold">**순위의 평균**</span>을 의미한다. 수식은 다음과 같다. $$N$$은 테스트한 샘플의 수이고, $$rank_i$$는 $$i$$번째 샘플의 순위이다.
 
 <center><span style="font-size:110%">$$\text{MR} \; = \; \frac{1}{N} \sum_{i=1}^N rank_i$$</span></center> 
 
@@ -31,7 +31,7 @@ last_modified_at: 2024-06-30
 
 ### 2) Mean Reciprocal Rank (MRR)
 
-**MRR**은 실제 정답의 순위의 역수를 평균 낸 것이다. 추천 시스템, Knowledge Graph Completion, 정보 검색 등 여러 분야에서 자주 사용된다. <span style="color:gold">**MRR이 1에 가까울수록 모델의 성능이 좋은 것**</span>이다.
+**MRR**은 <span style="color:gold">**실제 정답의 순위의 역수를 평균**</span> 낸 것이다. 추천 시스템, Knowledge Graph Completion, 정보 검색 등 여러 분야에서 자주 사용된다. **MRR이 1에 가까울수록 모델의 성능이 좋은 것**이다.
 
 <p align="center">
 <img width="700" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/3b390cdc-d0e7-4886-bde1-caf543e15f49">
@@ -51,7 +51,7 @@ last_modified_at: 2024-06-30
 
 ### 3) Hits@k
 
-**Hits@k**는 모든 결과들 중 상위 k개에 실제 정답(true candidate)이 순위안에 들어있는 비율을 계산한 것이다. @k라는 것은 상위 k개의 랭크를 말한다. 
+**Hits@k**는 모든 결과들 중 <span style="color:gold">**상위 k개에 실제 정답(true candidate)이 순위안에 들어있는 비율을 계산한 것**</span>이다. @k라는 것은 상위 k개의 랭크를 말한다. 
 
 <center><span style="font-size:110%">$$\text{Hits@k} = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}(rank_i \leq k)$$</span></center> 
 
@@ -88,7 +88,7 @@ last_modified_at: 2024-06-30
 <br/>
 
 ### 4) Mean Average Precision(MAP)
-**Mean Average Precision(MAP)**는 정보 검색, 추천 시스템 등에서 사용되는 평가 지표이다. 이는 여러 쿼리나 사용자에 대한 평균 정확도를 측정하여 시스템의 전반적인 성능을 평가한다. MAP는 세 단계에 걸쳐 계산된다.
+**MAP**는 정보 검색, 추천 시스템 등에서 사용되는 평가 지표이다. 이는 여러 쿼리나 사용자에 대한 평균 정확도를 측정하여 시스템의 전반적인 성능을 평가한다. MAP는 세 단계에 걸쳐 계산된다.
 
 - Step 1. **$$\text{Precision@k}$$**를 구한다.
 
@@ -111,3 +111,40 @@ last_modified_at: 2024-06-30
 <p align="center">
 <img width="700" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/94f977e3-0416-45f9-8780-946cfe0a2578">
 </p>
+
+MAP는 다음과 같은 장단점을 가진다.
+- Pros
+  - Precision(정밀도)-Recall(재현율) 곡선 아래의 복잡한 영역을 나타내는 단일 지표를 제공한다.
+  - 리스트 내 추천된 항목들의 순위를 다룬다(항목들을 집합으로 고려하는 것과 대조적).
+  - 추천 리스트 상위에 발생한 오류에 더 많은 가중치를 부여한다.
+
+- Cons
+  -  세밀한 숫자 평점에는 적합하지 않고, 이진 (관련/비관련) 평점에 적합하다.
+  -  세밀한 평점 (1에서 5까지의 척도)에서는, 주어진 평점을 이진 평점으로 변환하기 위해 임계값을 먼저 설정해야 한다. 예를 들어, 평점이 4를 초과하는 경우에만 관련성이 있다고 간주하고, 4 이하인 경우 비관련성으로 간주한다.
+    - 이러한 수동 임계값 설정으로 인해 평가 지표에 편향이 발생할 수 있다.
+    - 세밀한 정보를 버리게 된다.
+ 
+<br/>
+
+### 5) Normalized Discounted Cumulative Gain (NDCG)
+**NDCG**를 이해하기 위해서는 먼저 **DCG**에 대한 개념 이해가 필요하다. DCG는 Discounted Cumulative Gainㅇ의 약자로, 각 문서나 항목의 관련성 점수에 따라 가중치를 부여하여 순위를 평가한다. 높은 순위에 있는 관련성이 높은 문서일수록 더 높은 가치를 가진다. 다음은 DCG의 수식이다. DCG는 문서의 관련성 점수 $$rel_i$$를 고려하여 순위 $$i$$의 문서에 대해 계산한다.
+
+<center><span style="font-size:110%">$$\text{DCG} = \sum_{i=1}^{p} \frac{rel_i}{\log_2(i + 1)}$$</span></center>  
+
+또한 log 기반의 DCG 수식도 존재한다. 로그 함수는 순위에 따라 감소하는 가중치를 부여한다.
+
+<center><span style="font-size:110%">$$\text{DCG} = \sum_{i=1}^{p} \frac{2^{rel_i} - 1}{\log_2(i + 1)}$$</span></center>  
+
+다음으로는 **IDCG**에 대해 알아야 한다. IDCG는 Ideal Discounted Cumulative Gain의 약자로, 이상적인 (ideal) 순서로 정렬된 문서 집합의 DCG이다. 즉, 관련성 점수가 가장 높은 문서들이 최상위에 위치한 경우의 DCG이다. IDCG는 NDCG를 계산하기 위해 사용되며, DCG를 이상적인 경우와 비교할 수 있게 해준다. 이 역시 기본 수식과 로그 기반 수식이 존재한다.
+
+<center><span style="font-size:110%">$$\text{IDCG} = \sum_{i=1}^{|REL_p|} \frac{rel_i}{\log_2(i + 1)}$$</span></center>  
+<center><span style="font-size:110%">$$\text{IDCG} = \sum_{i=1}^{|REL_p|} \frac{2^{rel_i} - 1}{\log_2(i + 1)}$$</span></center>    
+
+이제 이 두 개념을 통해 **NDCG(Normalized Discounted Cumulative Gain)**를 구할 수 있다. NDCG는 DCG를 IDCG로 정규화한 값이다. 이는 <span style="color:gold">**실제 결과의 순위를 이상적인 순서와 비교하여 평가**</span>한다. NDCG는 **0과 1 사이의 값**을 가지며, 1에 가까울수록 순위가 이상적임을 의미한다. 수식은 다음과 같다.
+
+<center><span style="font-size:110%">$$\text{NDCG} = \frac{\text{DCG}}{\text{IDCG}}$$</span></center>  
+
+정리하자면, <u>DCG는 문서의 관련성에 따라 순위를 평가하고, IDCG는 이상적인 순서로 정렬된 경우의 DCG를 제공한다. NDCG는 이 두 값을 비교하여 순위의 품질을 평가</u>한다.
+
+
+
