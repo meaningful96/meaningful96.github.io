@@ -105,7 +105,7 @@ last_modified_at: 2024-06-30
 아래 그림은 MAP를 구하는 두 개의 예제이다.
 
 <p align="center">
-<img width="700" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/cbe801d2-aaae-419a-88e1-c6a012399dac">
+<img width="500" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/cbe801d2-aaae-419a-88e1-c6a012399dac">
 </p>
 
 <p align="center">
