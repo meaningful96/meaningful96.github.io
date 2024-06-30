@@ -20,3 +20,5 @@ last_modified_at: 2024-06-30
 순위 기반 모델(Ranking based Model)들의 평가지표이다. Mean Rank(MR), Mean Reciprocal Rank(MRR), Hits@k, NDCG등이 있다.
 
 ### 1) Mean Rank(MR)
+
+**Mean Rank(MR)**은 매우 간단한 개념이다. 모델이 예측한 샘플의 순위의 평균을 의미한다. 
