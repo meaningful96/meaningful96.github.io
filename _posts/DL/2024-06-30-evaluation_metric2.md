@@ -47,3 +47,7 @@ last_modified_at: 2024-06-30
 
 ### 3) Hits@k
 
+Hits@k는 모든 결과들 중 상위 k개에 실제 정답(true candidate)이 순위안에 들어있는 비율을 계산한 것이다. @k라는 것은 상위 k개의 랭크를 말한다. 
+
+<center><span style="font-size:110%">$$\text{Hits@k} = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}(rank_i \leq k)$$</span></center> 
+
