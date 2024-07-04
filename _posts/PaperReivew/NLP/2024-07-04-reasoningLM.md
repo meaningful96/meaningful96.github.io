@@ -41,8 +41,15 @@ last_modified_at: 2024-07-04
 <br/>
 
 # Method
+## 1. Model Overview
 
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/43b43e73-28c7-4df3-b04e-c0ba6e315218">
+</p>
 
+<p align="center">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/e2b26c40-8003-43ef-97bc-b35cb910f1f8">
+</p>
 
 <br/>
 <br/>
