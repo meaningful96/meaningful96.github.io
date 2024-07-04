@@ -44,12 +44,9 @@ last_modified_at: 2024-07-04
 ## 1. Model Overview
 
 <p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/43b43e73-28c7-4df3-b04e-c0ba6e315218">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/0fe3bb2e-8294-4a0a-99ea-f27fbc15f0f5">
 </p>
 
-<p align="center">
-<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/e2b26c40-8003-43ef-97bc-b35cb910f1f8">
-</p>
 
 <br/>
 <br/>
