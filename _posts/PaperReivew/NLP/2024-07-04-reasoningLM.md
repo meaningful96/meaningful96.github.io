@@ -89,6 +89,8 @@ Reasoning path는 토픽 엔티티와 정답 엔티티를 포함한다. 본 논�
 
 학습을 위해 추출된 질문(question)과 reasoning path를 포함하는 서브그래프(subgraph)를 사전 학습된 언어 모델(PLM)에 입력시키기 위해서는 자연어 토큰을 시퀀스로 만들어줘야 한다. 이를 위해 ReasoningLM은 question-subgraph 쌍을 하나의 시퀀스로 구성한다. 이 때, 서브그래프에 존재하는 엔티티와 릴레이션의 이름을 직렬화(serialization) 시켜줘야하는데, 이를 위해 BFS를 사용한다. BFS를 사용함으로써 토픽 엔티티에서 가까운 순서대로 시퀀스내에 트리플이 위치하기 때문에 서브그래프의 구조 정보가 보존된다. 위의 그림처럼 결론적으로 \[CLS\]-\[Qusetion\]-\[SEP\]-\[Subgraph\]형태로 하나의 직렬화된 토큰 시퀀스가 PLM의 입력으로 들어간다.
 
+<br/>
+
 ### 2) Subgraph-Aware Self-Attention with Masking
 사전 학습된 PLM을 fine-tuning함에 있어서 두 가지의 핵심적인 요소가 추가된다. 바로 마스킹(masking)과 어뎁터(adpater)이다.  
 
@@ -151,13 +153,47 @@ Adapter는 정확히 어떻게 구성되어 있는지 설명하지 않았다. 20
 - QA dataset
   - WebQSP, CWQ, MQA-1H, MQA-2H, MQA-3H
 
+## Main Result
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/48341ed4-a7cf-407e-8936-40731c957dce">
 </p>
 
+- Adaptation Tuning시 Synthesized qustion을 추출하는 방식
+  - 규칙 기반 생성: Rule-SYN
+  - LLM 기반 생성: LLM-SYN
+- Adaptation Tuning시 파라미터 업데이트
+  - PET: 어댑터만 학습
+  - FPT: 모든 레이어 학습
+
+먼저 ReasoningLM의 경우 fine-tuning시 업데이트의 효율성을 위해 어댑터만 학습한다. 따라서 다른 모델들에 비해 업데이트하는 파라미터 수가 적은 것을 확인할 수 있다. 성능 결과를 보면 ReasoningLM이 MQA-1H를 제외한 모든 데이터셋에서 SOTA인 것을 알 수 있다. 특히 ChatGPT와 같은 LLM보다도 성능이 뛰어나다는 점이 인상깊다. 이는 **QA문제를 풀 때 KG를 활용하는 것이 매우 중요**하다는 것을 말해준다. 반면 MQA-1H에서는 ReasoningLM의 성능이 SOTA모델보다 약간 떨어진다. 이는 ReasoningLM이 1-hop prediction보다 multi-hop reaoning에 강하다는 것을 말해준다.
+
+Ablation study의 일환으로 Adaptation Tuning시 FPT 방식을 채택하고, 정제화된 질문을 생성하는 방식에 따라 성능을 비교하였다. 당연하게도 LLM을 기반으로 질문을 생성하는 것의 성능이 압도적으로 좋았다. 또한 LLM-SYN을 그대로 두고, PET방식으로 학습을 진행하여 성능 비교를 해봤을때, adpatation tuning시 모든 레이어의 파라미터를 업데이트하는 것이 더 좋다는 점을 알 수 있다.
+
+## Extra Experiment
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/11094a0f-8dd3-4979-b940-da067ede3427">
+</p>
+
+### 1) Ablation Study
+
+Table 3은 ReasoningLM의 핵심인 Subgraph-Aware Self-Attention(SA)와 Adaptation Tuning(AT)를 제거했을 때의 성능을 비교한 실험이다. 결과적으로 Adaptation Tuning을 제거하였을 때 WebQSP에서 성능이 크게 감소하였다. 반면, 좀 더 어려운 문제를 푸는 CWQ 데이터셋의 경우는 SA의 효과가 훨씬 크다는 것을 알 수 있다.
+
+추측으로는, 더욱 더 전문적인 지식을 포함하는 Knowledge Intensive Task에서는 positive와 negative를 구분해주는 것이 훨씬 중요하며, CommonSense reasoning, Open-Domain QA와 같은 general한 문제에서는 KG를 활용하는 것 자체가 성능 향상에 많이 기여하는 것 같다.
+
+<br/>
+
+### 2) Performance Comparison using Different Backbone
+Table 4는 PLM의 모듈을 바꿨을 때의 성능 변화이다. 결론적으롷로 파라미터의 수가 증가할수록 성능이 높아진다. 하지만, 본 실험에서 가장 큰 LM이 RoBERTa-large라는 점에서 아쉽다. sLM이나 LLM을 사용했을 때의 성능이 있었으면 좋았을 것 같다.
+
 
 <br/>
 <br/>
 
-# Contribution
+# Limitation and Contribution
+<span style="font-size:110%">**Limitations**</span>  
+1. 여러 KGQA 데이터셋에서 실험을 수행했지만, commonsense reasoning이나 KGC와 같은 추론 작업에 대한 평가는 부족합니다.
+2. Seed가 되는 토픽 엔티티를 어떻게 선정했는지 밝히지 않았다. 즉, 토픽 엔티티를 뽑는 기준이 모호하다.
 
+<span style="font-size:110%">**Contributions**</span>  
+1. PLM이 <span style="color:lime">**Adaptation Tuning**</span>과 <span style="color:lime">**Subgraph-Aware Self-Attention**</span> 메커니즘을 활용하여 질문 이해, 질문과 서브그래프 간의 깊은 상호작용, 서브그래프에 대한 추론을 동시에 모델링할 수 있도록 한다.
+2. PLM이 특수한 입력 형식과 주의 메커니즘에 적응할 수 있도록 LLM을 사용하여 KGQA 작업 형식을 위한 <span style="color:lime">**자동 데이터 구축 방법을 제안**</span>한다.
