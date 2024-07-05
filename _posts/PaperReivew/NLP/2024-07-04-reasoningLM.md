@@ -125,7 +125,7 @@ Adapter는 정확히 어떻게 구성되어 있는지 설명하지 않았다. 20
 2) 트랜스포머를 거쳐 질문-서브그래프 쌍의 hidden representation을 얻는다.
 3) 이 중, 서브그래프의 hidden representation만 liner layer에 통과시켜 서브그래의 모든 엔티티들의 socre를 얻는다. 이를 $$s$$라 한다.
 
-<center><span style="font-size:110%">$$s = \text{softmax}(\text{Linear(\mathbb{H})})$$</span></center>  
+<center><span style="font-size:110%">$$s = \text{softmax}(\text{Linear}(\mathbb{H}))$$</span></center>  
 <center><span style="font-size:110%">$$\mathcal{L}_{at} = D_{KL}(s, s*)$$</span></center>
 
 4) $$s$$와 Ground-Truth에서 정답 엔티티에 대한 one-hot vector인 $$s*$$과 KL-divergence를 loss로 하여 모델을 업데이트한다.
