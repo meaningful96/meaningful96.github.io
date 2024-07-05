@@ -135,6 +135,23 @@ Adapter는 정확히 어떻게 구성되어 있는지 설명하지 않았다. 20
 
 # Experiments
 
+## Dataset
+
+<p align="center">
+<img width="500" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/0ad952f3-feea-4112-bec4-2273b200a9e6">
+</p>
+
+- Knowledge Graph
+  - Wikidata5M (엔티티: 500만개, 릴레이션: 822개)
+- KGQA
+  - WebQSP, CWQ, MQA-1H, MQA-2H, MQA-3H 
+
+## Main Result
+
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/48341ed4-a7cf-407e-8936-40731c957dce">
+</p>
+
 <br/>
 <br/>
 
