@@ -70,7 +70,7 @@ Reasoning path는 토픽 엔티티와 정답 엔티티를 포함한다. 본 논�
 
 - 규칙 기반 생성
   - 여러 **일반적인 템플릿**을 수작업으로 작성한다. 이를 토대로 토픽 엔티티와 릴레이션을 질문으로 변환한다.
-  - Ex) "What is the <span style="color:lime">\[relation\]</span> of <span style="color:coral">\[entity\]</span>?" $$\rightsidearrow$$ "What is the <span style="color:lime">**capital**</span> of <span style="color:coral">**France**</span>" 
+  - Ex) "What is the <span style="color:lime">\[relation\]</span> of <span style="color:coral">\[entity\]</span>?" ➔ "What is the <span style="color:lime">**capital**</span> of <span style="color:coral">**France**</span>" 
 
 
 
