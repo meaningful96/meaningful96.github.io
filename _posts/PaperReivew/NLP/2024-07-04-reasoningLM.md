@@ -41,7 +41,7 @@ last_modified_at: 2024-07-04
 <br/>
 
 # Method
-## 1. Model Overview
+## Model Overview
 
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/0fe3bb2e-8294-4a0a-99ea-f27fbc15f0f5">
@@ -53,7 +53,7 @@ ReasoningLM의 핵심 요소는 두 가지이다.
 - Adaptation Tuning Strategy
 - Subgraph-Aware Self-Attention
 
-## 2. Adaptation Tuning Strategy
+## 1. Adaptation Tuning Strategy
 Adaptation Tuning Strategy은 질문과 서브그래프를 추출하기 위한 전략이다. 학습을 위해서 총 2만 개의 synthesized question을 뽑아낸다. 이 때, 서브그래프는 Large-scale KG에 해당하는 Wikidata5M에서 추출한다.
 
 ### 1) Subgraph Extraction
@@ -72,6 +72,20 @@ Reasoning path는 토픽 엔티티와 정답 엔티티를 포함한다. 본 논�
   - 여러 **일반적인 템플릿**을 수작업으로 작성한다. 이를 토대로 토픽 엔티티와 릴레이션을 질문으로 변환한다.
   - Ex) "What is the <span style="color:lime">\[relation\]</span> of <span style="color:coral">\[entity\]</span>?" ➔ "What is the <span style="color:lime">**capital**</span> of <span style="color:coral">**France**</span>" 
 
+- LLM 기반 질문 생성
+  - ChatGPT와 같은 대형 언어 모델을 사용하여 형식과 유창한 표현을 가진 질문을 생성할 수 있다.
+  - 총 20,000개의 질문을 생성함
+ 
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/e968ff6a-ab5d-4d84-b98d-fd53fcc7e077">
+</p>
+
+## 2. Subgraph-Aware Self-Attention
+### 1) Serialization of Input Sequence
+
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/aee2e6a1-f9c9-4ed0-8a27-7996dcb2a4f8">
+</p>
 
 
 <br/>
