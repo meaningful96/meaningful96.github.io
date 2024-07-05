@@ -87,6 +87,48 @@ Reasoning path는 토픽 엔티티와 정답 엔티티를 포함한다. 본 논�
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/aee2e6a1-f9c9-4ed0-8a27-7996dcb2a4f8">
 </p>
 
+학습을 위해 추출된 질문(question)과 reasoning path를 포함하는 서브그래프(subgraph)를 사전 학습된 언어 모델(PLM)에 입력시키기 위해서는 자연어 토큰을 시퀀스로 만들어줘야 한다. 이를 위해 ReasoningLM은 question-subgraph 쌍을 하나의 시퀀스로 구성한다. 이 때, 서브그래프에 존재하는 엔티티와 릴레이션의 이름을 직렬화(serialization) 시켜줘야하는데, 이를 위해 BFS를 사용한다. BFS를 사용함으로써 토픽 엔티티에서 가까운 순서대로 시퀀스내에 트리플이 위치하기 때문에 서브그래프의 구조 정보가 보존된다. 위의 그림처럼 결론적으로 \[CLS\]-\[Qusetion\]-\[SEP\]-\[Subgraph\]형태로 하나의 직렬화된 토큰 시퀀스가 PLM의 입력으로 들어간다.
+
+### 2) Subgraph-Aware Self-Attention with Masking
+사전 학습된 PLM을 fine-tuning함에 있어서 두 가지의 핵심적인 요소가 추가된다. 바로 마스킹(masking)과 어뎁터(adpater)이다.  
+
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/88a198a4-a40d-4f19-bb5e-f6a37b7db457">
+</p>
+
+<span style="font-size:110%">**Masked Attention**</span>  
+먼저 Self-attention을 할 때, subgraph-aware하게 만들기 위해 어텐션 스코어 매트릭스에 마스킹을 적용해야한다. 마스킹은 Masked Attention 그림에서와 같이 크게 네 부분으로 구분된다.
+
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/36053659-ffc7-4b2e-9a01-fb9b8b586c59">
+</p>
+
+**A**는 입력으로 들어온 시퀀스에서 질문(question, query)를 구성하는 토큰들 사이의 어텐션에 해당한다. 이는 일반적인 문맥화된 자연어 시퀀스에 해당함으로 마스킹을 하지 않는다. **B**는 서브그래프와 질문 사이의 어텐션이다. 서브그래프 안의 모든 엔티티와 릴레이션의 이름에 대해 질문을 구성하는 토큰들 사이의 연관성을 구하는 것이다. 서브그래프는 트리플로 정보를 가지고 있기 때문에 일반적인 질문과 달리 핵심어들만 가진 자연어 시퀀스이다. 따라서, 각각의 핵심어가 질문에서 얼마정도의 영향력을 모델이 알 수 있기 때문에 마스킹을 진행하지 않는다.
+
+반면 **C** 서브그래프내의 엔티티와 릴레이션들간의 어텐션이며, 일부분만 마스킹을 하지 않는다. Subgraph-aware하게 만드려면 구조적 정보를 줄 수 있는 inductive bias를 주입해야한다. 따라서 ReasoningLM에서는 이 서브그래프-서브그래프 어텐션 사이에서 각 엔티티를 기준으로 $$1$$-hop 거리에 있는 트리플들만 정보를 살려놓고, 나머지는 마스킹을 해버린다. 이렇게 함으로써, 각 엔티티의 이웃이 무엇인지, 직접적으로 연결된 트리플이 무엇인지 모델이 학습 가능하다. 
+
+**D**는 앞선 A, B, C와 달리 모든 부분을 마스킹한다. D는 질문-서브그래프 쌍의 어텐션으로 B와 반대이다. 하지만, B는 모든 정보를 살리는 반면 D는 모든 정보를 죽인다. 추측컨데, D부분을 full-masking하는 이유가 'a', 'the'와 같이 <span style="color:gold">**불용어 등이 query에 존재하고, 이들이 서브그래프의 핵심어들과의 연관성을 낮추는 noise가 될 수 있기 때문**에 마스킹하는 것 같다.
+
+<span style="font-size:110%">**Adapter**</span>  
+다음으로는 adapter 부분을 추가해 업데이트의 효율성을 고려한다. 어뎁터는 위에 그림에서 오른쪽과 같다. 트랜스포머 내부에 FF layer 다음부분에 추가한다. 본 논문에서는 트랜스포머의 모든 레이어의 파라미터를 업데이트 하는 것이 아닌, 어뎁터만 업데이트해 학습 효율성을 높일 수 있다고 한다.
+
+Adapter는 정확히 어떻게 구성되어 있는지 설명하지 않았다. 2019년 논문 "Parameter-efficient transfer learning for NLP"에서 소개된 어댑터 메커니즘을 차용한 것이다. 어댑터는 Transformer의 내부에 추가되며, 기존의 Transformer 구조를 변경하지 않고 학습 가능한 파라미터를 추가한다.
+
+- Full-Parameter Tuning (FPT)
+  - 모든 모델 파라미터 업데이트: FPT는 모델의 모든 파라미터를 학습. 이는 트랜스포머 모델의 모든 레이어와 파라미터를 업데이트한다는 것을 의미한다.
+
+- Parameter-Efficient Tuning (PET)
+  - 어댑터만 업데이트: PET는 전체 모델 파라미터를 업데이트하지 않고, 특정 어댑터 모듈만 업데이트한다. 이는 학습되는 파라미터 수를 줄이고, 메모리와 계산 자원을 절약하면서도 효율적인 학습을 가능하게 한다. → 나머지는 freeze
+
+## Training
+1) 질문-서브그래프 쌍의 직렬화된 자연어 시퀀스를 PLM에 입력시킨다.
+2) 트랜스포머를 거쳐 질문-서브그래프 쌍의 hidden representation을 얻는다.
+3) 이 중, 서브그래프의 hidden representation만 liner layer에 통과시켜 서브그래의 모든 엔티티들의 socre를 얻는다. 이를 $$s$$라 한다.
+
+<center><span style="font-size:110%">$$s = \text{softmax}(\text{Linear(\mathbb{H})})$$</span></center>  
+<center><span style="font-size:110%">$$\mathcal{L}_{at} = D_{KL}(s, s*)$$</span></center>
+
+4) $$s$$와 Ground-Truth에서 정답 엔티티에 대한 one-hot vector인 $$s*$$과 KL-divergence를 loss로 하여 모델을 업데이트한다.
 
 <br/>
 <br/>
