@@ -30,8 +30,11 @@ $bodoni: "Bodoni MT", serif !default;
 $calisto: "Calisto MT", serif !default;
 $garamond: Garamond, serif !default;
 
-$global-font-family: $sans-serif !default;
-$header-font-family: $sans-serif !default;
+/* Blog font */
+$blog-font: "NanumSquareNeoLight" !default;
+
+$global-font-family: $blog-font !default;
+$header-font-family: $blog-font !default;
 $caption-font-family: $serif !default;
 
 /* type scale */
@@ -168,3 +171,11 @@ $navicon-width: 1.5rem !default;
 $navicon-height: 0.25rem !default;
 $global-transition: all 0.2s ease-in-out !default;
 $intro-transition: intro 0.3s both !default;
+
+/*
+   Applying the global font family
+   ========================================================================== */
+
+body {
+  font-family: $global-font-family;
+}
