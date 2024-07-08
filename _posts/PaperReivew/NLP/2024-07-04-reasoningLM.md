@@ -87,7 +87,7 @@ Reasoning path는 토픽 엔티티와 정답 엔티티를 포함한다. 본 논�
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/aee2e6a1-f9c9-4ed0-8a27-7996dcb2a4f8">
 </p>
 
-학습을 위해 추출된 질문(question)과 reasoning path를 포함하는 서브그래프(subgraph)를 사전 학습된 언어 모델(PLM)에 입력시키기 위해서는 자연어 토큰을 시퀀스로 만들어줘야 한다. 이를 위해 ReasoningLM은 question-subgraph 쌍을 하나의 시퀀스로 구성한다. 이 때, 서브그래프에 존재하는 엔티티와 릴레이션의 이름을 직렬화(serialization) 시켜줘야하는데, 이를 위해 BFS를 사용한다. BFS를 사용함으로써 토픽 엔티티에서 가까운 순서대로 시퀀스내에 트리플이 위치하기 때문에 서브그래프의 구조 정보가 보존된다. 위의 그림처럼 결론적으로 \[CLS\]-\[Qusetion\]-\[SEP\]-\[Subgraph\]형태로 하나의 직렬화된 토큰 시퀀스가 PLM의 입력으로 들어간다.
+학습을 위해 추출된 질문(question)과 reasoning path를 포함하는 서브그래프(subgraph)를 사전 학습된 언어 모델(PLM)에 입력시키기 위해서는 자연어 토큰을 시퀀스로 만들어줘야 한다. 이를 위해 ReasoningLM은 question-subgraph 쌍을 하나의 시퀀스로 구성한다. 이 때, 서브그래프에 존재하는 엔티티와 릴레이션의 이름을 직렬화(serialization) 시켜줘야하는데, 이를 위해 **너비 우선 탐색 알고리즘(Breadth-first search, BFS)**를 사용한다. **BFS**를 사용함으로써 토픽 엔티티에서 가까운 순서대로 시퀀스내에 트리플이 위치하기 때문에 서브그래프의 구조 정보가 보존된다. 위의 그림처럼 결론적으로 \[CLS\]-\[Qusetion\]-\[SEP\]-\[Subgraph\]형태로 하나의 직렬화된 토큰 시퀀스가 PLM의 입력으로 들어간다.
 
 <br/>
 
