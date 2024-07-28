@@ -49,7 +49,7 @@ last_modified_at: 2024-07-24
 모델은 매우 간단하다. 여러 가지 모델을 단순하게 앙상블(Ensemble) 하는 것이기 때문에 model-agnostic하다. 모델은 크게 다섯 단계를 거쳐 학습을 하게 된다.
 
 <span style="font-size:110%">**1. Min-max Normalization**</span>
-먼저 각 모델의 출력 임베딩 $$M_i$$의 벡터 크기를 맞춰주기 위해서 normalization을 한다. 본 논문에서는 Max-min normalization을 통해 $$\[0, 1\]$$ 범위로 통일시킨다.
+먼저 각 모델의 출력 임베딩 $$M_i$$의 벡터 크기를 맞춰주기 위해서 normalization을 한다. 본 논문에서는 Max-min normalization을 통해 $$0 \sim 1$$ 범위로 통일시킨다.
 
 <span style="font-size:110%">**2. 모델 $$M_i$$의 Score distribution)**</span>
 다음으로 입력 쿼리($$q$$)에 대한 normalized된 출력 임베딩 $$M_i(h, r, t)$$의 평균과 분산을 구한 후 concat한 것이다. 
