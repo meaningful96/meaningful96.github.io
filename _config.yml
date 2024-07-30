@@ -21,7 +21,7 @@ title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Meaningful96"
 description              : "Blog for Studying"
-url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : "https://meaningful96.github.io/"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "meaningful96/Comments_Blog" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
@@ -51,7 +51,7 @@ reCaptcha:
   secret                 :
 atom_feed:
   path                   : # blank (default) uses feed.xml
-search                   : false # true, false (default)
+search                   : true # true, false (default)
 search_full_content      : false # true, false (default)
 search_provider          : #lunr # lunr (default), algolia, google
 algolia:
