@@ -70,7 +70,7 @@ Reasoning path는 토픽 엔티티와 정답 엔티티를 포함한다. 본 논�
 
 - 규칙 기반 생성
   - 여러 **일반적인 템플릿**을 수작업으로 작성한다. 이를 토대로 토픽 엔티티와 릴레이션을 질문으로 변환한다.
-  - Ex) "What is the <span style="color:lime">\[relation\]</span> of <span style="color:coral">\[entity\]</span>?" ➔ "What is the <span style="color:lime">**capital**</span> of <span style="color:coral">**France**</span>" 
+  - Ex) "What is the <span style="color:red">\[relation\]</span> of <span style="color:coral">\[entity\]</span>?" ➔ "What is the <span style="color:red">**capital**</span> of <span style="color:coral">**France**</span>" 
 
 - LLM 기반 질문 생성
   - ChatGPT와 같은 대형 언어 모델을 사용하여 형식과 유창한 표현을 가진 질문을 생성할 수 있다.
@@ -195,5 +195,5 @@ Table 4는 PLM의 모듈을 바꿨을 때의 성능 변화이다. 결론적으�
 2. Seed가 되는 토픽 엔티티를 어떻게 선정했는지 밝히지 않았다. 즉, 토픽 엔티티를 뽑는 기준이 모호하다.
 
 <span style="font-size:110%">**Contributions**</span>  
-1. PLM이 <span style="color:lime">**Adaptation Tuning**</span>과 <span style="color:lime">**Subgraph-Aware Self-Attention**</span> 메커니즘을 활용하여 질문 이해, 질문과 서브그래프 간의 깊은 상호작용, 서브그래프에 대한 추론을 동시에 모델링할 수 있도록 한다.
-2. PLM이 특수한 입력 형식과 주의 메커니즘에 적응할 수 있도록 LLM을 사용하여 KGQA 작업 형식을 위한 <span style="color:lime">**자동 데이터 구축 방법을 제안**</span>한다.
+1. PLM이 <span style="color:red">**Adaptation Tuning**</span>과 <span style="color:red">**Subgraph-Aware Self-Attention**</span> 메커니즘을 활용하여 질문 이해, 질문과 서브그래프 간의 깊은 상호작용, 서브그래프에 대한 추론을 동시에 모델링할 수 있도록 한다.
+2. PLM이 특수한 입력 형식과 주의 메커니즘에 적응할 수 있도록 LLM을 사용하여 KGQA 작업 형식을 위한 <span style="color:red">**자동 데이터 구축 방법을 제안**</span>한다.
