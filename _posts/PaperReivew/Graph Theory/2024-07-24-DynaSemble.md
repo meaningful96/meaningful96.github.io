@@ -61,7 +61,7 @@ last_modified_at: 2024-07-24
 positive의 가중치와 negative의 가중치를 각각구하고, 이를 모델의 normalized된 출력 벡터(=특징 벡터)에 곱해준다. 이를 각각 양성 앙상블 스코어(Positive Ensemble score)와 음성 앙상블 스코어(Negative Ensemble Score)
 
 <span style="font-size:110%">**5. Training Loss**</span>
-구해진 양성 및 음성 앙상블 스코어를 가지고 **Marin Ranking Loss**를 손실함수로 하여 모델을 학습한다.
+구해진 양성 및 음성 앙상블 스코어를 가지고 **Margin Ranking Loss**를 손실함수로 하여 모델을 학습한다.
 
 <br/>
 <br/>
