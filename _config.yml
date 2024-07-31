@@ -19,7 +19,7 @@ locale                   : "ko-KR"
 title                    : " Meaningful"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : ""
+name                     : " "
 description              : "Blog for Studying"
 url                      : "https://meaningful96.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
