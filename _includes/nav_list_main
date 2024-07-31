@@ -97,7 +97,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-
+ 
         <span class="nav__sub-title">Paper Review</span>
             <ul>
                 {% for category in site.categories %}
