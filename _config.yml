@@ -16,10 +16,10 @@ minimal_mistakes_skin    : "dirt" # "default"  "air", "aqua", "contrast", , "dir
  
 # Site Settings
 locale                   : "ko-KR"
-title                    : " Meaningful AI"
+title                    : " Meaningful"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "Meaningful96"
+name                     : ""
 description              : "Blog for Studying"
 url                      : "https://meaningful96.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
