@@ -8,11 +8,11 @@ $text-color: #292929 !default;
 $muted-text-color: #8e8b82 !default;
 $primary-color: #0473d4 !default;
 $border-color: #e9dcbe !default;
-$footer-background-color: #737272 !default;
+$footer-background-color: #e6f8ff !default;
 $link-color: #343434 !default;
 $masthead-link-color: $text-color !default;
 $masthead-link-color-hover: $text-color !default;
-$navicon-link-color-hover: mix(#fff, $text-color, 30%) !default;
+$navicon-link-color-hover: $text-color !default;
 
  
 /* dirt syntax highlighting (base16) */
