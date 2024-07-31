@@ -10,5 +10,4 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories.NLP%}
-{% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
+{% assign posts = site.categories.NLP%} {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
