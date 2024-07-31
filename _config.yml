@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "dark" # "default"  "air", "aqua", "contrast", , "dir
  
 # Site Settings
 locale                   : "ko-KR"
-title                    : " Meaningful"
+title                    : " Meaningful AI"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Meaningful96"
@@ -93,7 +93,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "-"
+  name             : "Meaningful"
   avatar           : "https://user-images.githubusercontent.com/111734605/202103519-bb6a0169-1faf-4207-a1e1-a3e74bb658bc.jpg"
   bio              : "Greeting :)"
   #location         : "Seoul, South Korea"
