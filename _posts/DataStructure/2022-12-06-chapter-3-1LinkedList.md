@@ -21,14 +21,14 @@ last_modified_at: 2022-11-28
 <img width="600" alt="1" src="https://user-images.githubusercontent.com/111734605/205756932-f43ea33b-dec8-4672-8101-db5141b6fc74.png">
 </p>
 
-- 즉, **연속적으로 메모리 할당을 받는것이 아니기 때문에** 현재 값의 다음값을 알기 위해 <span style = "color:aqua">**현재값(1.Key)**</span>과 다음값이 저장된 <span style = "color:aqua">**주소(2. Link)**</span>를 알아야 한다.
+- 즉, **연속적으로 메모리 할당을 받는것이 아니기 때문에** 현재 값의 다음값을 알기 위해 <span style = "color:green">**현재값(1.Key)**</span>과 다음값이 저장된 <span style = "color:green">**주소(2. Link)**</span>를 알아야 한다.
 - 연결 리스트를 이용하면 다양한 자료구조를 구현할 수 있다.
 - Python은 연결 리스트를 활용하는 자료구조를 제공한다.
 
 ### 2) 연결 리스트와 배열의 차이
 #### (1) 연산 비교
-- 배열: 특정 위치의 데이터를 삭제할 때, 일반적인 배열에서는 <span style = "color:aqua">O(N)</span>만큼의 시간이 소요된다.
-- 열결 리스트: 단순히 연결만 끊어주면 됨. <span style = "color:aqua">O(1)</span>
+- 배열: 특정 위치의 데이터를 삭제할 때, 일반적인 배열에서는 <span style = "color:green">O(N)</span>만큼의 시간이 소요된다.
+- 열결 리스트: 단순히 연결만 끊어주면 됨. <span style = "color:green">O(1)</span>
 
 #### (2) Array(배열)에서 삽입, 삭제  
 **삽입**  
@@ -80,7 +80,7 @@ last_modified_at: 2022-11-28
   - 참고로 Insert 자체는 O(1)이지만,
   - 그 인덱스까지 Search가 수반된다.
   - 따라서, Insert[O(1)] + Search[O(N)] = O(N)이 된다. 
-  - 단, <span style = "color:aqua">Insert 자체는 상수시간</span>이다.
+  - 단, <span style = "color:green">Insert 자체는 상수시간</span>이다.
   - 배열의 경우는 Insert가 O(N)  
 - remove(self, index): 특정 인덱스의 노드 삭제
   - 마찬가지로 Remove 연산 자체는 O(1), 상수시간이다.

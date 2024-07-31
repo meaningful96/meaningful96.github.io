@@ -21,7 +21,7 @@ last_modified_at: 2023-04-25
 </p>
 **순방향 신경망(Feedforward Neural Network)**은 **다층 퍼셉트론**의 다른 이름으로 인공 신경망 모델 중 가장 기본이 되는 모델이다. 
 순방향 신경망은 Universal Approximation Theorem을 통해 n차원 공간의 연속 함수를 근사할 수 있다는 것이 증명되었다. 
-쉽게 말해 <span style = "color:aqua">히든 레이어 하나로 어떤 함수든 다 표현이 가능</span>하다라는 것이다.
+쉽게 말해 <span style = "color:green">히든 레이어 하나로 어떤 함수든 다 표현이 가능</span>하다라는 것이다.
 
 ### 2) Universal Approximation Theorem
 
@@ -57,7 +57,7 @@ Polynomial하지 않은 어떠한 연속함수를 이용해서 Weight와 bias를
 <p align="center">
 <img width="400" alt="1" src="https://user-images.githubusercontent.com/111734605/224473882-65e13318-5c5a-4420-938a-6a04f80d4c2e.png">
 </p>
-각 layer에 속한 뉴런이 이전 layer의 모든 뉴런과 연결된 구조를 의미한다. 각 뉴런은 이전 layer에서 출력한 데이터를 동일하게 전달 받기 때문에 <span style = "color:aqua">같은 입력 데이터에서 뉴런마다 서로 다른 특징을 추출</span>한다. 이러한 사실때문에 데이터에 특징(feature)이 많을 수록 더 많은 노드가 늘어나야 그 특징들을 모두 추출할 수 있다.
+각 layer에 속한 뉴런이 이전 layer의 모든 뉴런과 연결된 구조를 의미한다. 각 뉴런은 이전 layer에서 출력한 데이터를 동일하게 전달 받기 때문에 <span style = "color:green">같은 입력 데이터에서 뉴런마다 서로 다른 특징을 추출</span>한다. 이러한 사실때문에 데이터에 특징(feature)이 많을 수록 더 많은 노드가 늘어나야 그 특징들을 모두 추출할 수 있다.
 
 
 각 뉴런에서 추출된 특징은 계층 단위로 출력되어 다음 layer에 전달된다. 
@@ -91,7 +91,7 @@ FFNN과 FC를 설계하기 위해서는 다음과 같이 4가지의 Parameter를
 데이터와 신경망 모델의 종류가 결정되면 입력과 출력의 형태는 어느 정도 결정된다. 하지만, 모델의 크기나 activiation function의 종류는 모델 최적화가 최대로 되도록 탐색해야 하며 모델 검증 단계에서 Hyperparameter 탐색을 통해 최적의 모델을 찾는 과정이 필요하다.
 
 ### 4) Feedforward VS Fully connected
-둘은 굳이 말하자면 사용하는 도메인이 다르다. FFNN은 RNN과 대비되어 나오는 신경망이기에, RNN기반의 재귀적인 구조가 있는 모델에서 재귀적인 구조가 없는 순방향 네트워크를 정의할 때 사용하고, FC의 경우는 반면에 연결이 듬성 듬성되어있는 CNN과 대비하여 나오는 신경망이다. 다시 말해, <span style = "color:aqua">RNN기반의 모델에서 순방향 신경망은 FFNN이라하고, CNN기반의 모델에서 순방향 신경망은 FC</span>라고 한다.
+둘은 굳이 말하자면 사용하는 도메인이 다르다. FFNN은 RNN과 대비되어 나오는 신경망이기에, RNN기반의 재귀적인 구조가 있는 모델에서 재귀적인 구조가 없는 순방향 네트워크를 정의할 때 사용하고, FC의 경우는 반면에 연결이 듬성 듬성되어있는 CNN과 대비하여 나오는 신경망이다. 다시 말해, <span style = "color:green">RNN기반의 모델에서 순방향 신경망은 FFNN이라하고, CNN기반의 모델에서 순방향 신경망은 FC</span>라고 한다.
 
 - Feedforward Neural Network
   - 순방향 전파

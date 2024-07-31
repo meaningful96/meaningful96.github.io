@@ -35,7 +35,7 @@ SciPy는 NumPy위에서 구동되는 라이브러리 정도로 이해해도 무�
 - `scipy.stats`: 통계 분석을 위한 함수를 제공
 
 ## Scipy.sparse: 희소 행렬(Sparse Matrix)처리
-행렬의 값이 대부분 non-zero인 행렬을 밀집행렬(Dense Matrix)라고 한다. 반면, 행렬의 요소들 대부분이<span style = "color:gold">**zero('0')인 행렬을 희소 행렬(Sparse Matrix)**</span>라고 한다. 
+행렬의 값이 대부분 non-zero인 행렬을 밀집행렬(Dense Matrix)라고 한다. 반면, 행렬의 요소들 대부분이<span style = "color:red">**zero('0')인 행렬을 희소 행렬(Sparse Matrix)**</span>라고 한다. 
 LIL은 row-based format으로 non-zero 요소들을 리스트나 튜플과 연결해 저장하는 행렬이다. 각가의 튜플은 두 가지 값을 포함한다.
 - column Index
 - corresponding value of the non-zeros element
@@ -59,7 +59,7 @@ print(matrix)
 ```
 
 ## issparse()함수
-sp.issmatrix 함수는 행렬을 input으로 받아 input행렬이 sparse matrix인지 아닌지를 <span style = "color:gold">**Boolean 값**</span>으로 리턴한다. 만약 Sparse matrix가 맞다면 True, 아니면 False를 리턴한다.
+sp.issmatrix 함수는 행렬을 input으로 받아 input행렬이 sparse matrix인지 아닌지를 <span style = "color:red">**Boolean 값**</span>으로 리턴한다. 만약 Sparse matrix가 맞다면 True, 아니면 False를 리턴한다.
 
 ```python
 import numpy as np

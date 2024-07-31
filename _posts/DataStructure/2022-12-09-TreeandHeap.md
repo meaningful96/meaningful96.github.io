@@ -15,7 +15,7 @@ last_modified_at: 2022-12-09
 ### 1) Tree(트리)란?
 연결리스트나 힙, 스택등의 앞서 공부한 자료구조들은 모두 선형 자료구조(Linear Data Structure)이다. 
 
-반면, 트리는 <span style = "color:aqua">부모(parents)-자식(child) 관계를 **계층적**으로 표현</span>한 **비선형 자료구조(Nonlinear Data Structure)**이다.
+반면, 트리는 <span style = "color:green">부모(parents)-자식(child) 관계를 **계층적**으로 표현</span>한 **비선형 자료구조(Nonlinear Data Structure)**이다.
 
 
 <p align="center">
@@ -105,7 +105,7 @@ last_modified_at: 2022-12-09
         1. 루트 노드를 제외한 모든 노드에 저장된 값(key)은 자신의 부모노드의 
            보다 크면 안된다.
 ```
- <span style = "color:aqua">보통 리스트의 데이터는 힙성질, 모양성질을 갖춘 데이터가 주어지지 않는다.</span>  
+ <span style = "color:green">보통 리스트의 데이터는 힙성질, 모양성질을 갖춘 데이터가 주어지지 않는다.</span>  
  따라서 힙 성질을 갖춘 데이터가 되도록 리스트의 데이터들을 **재정렬**해 주어야 한다.
  - makeheep() 함수 이용
 
@@ -115,7 +115,7 @@ last_modified_at: 2022-12-09
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206703693-6b12933d-f927-4e57-8a86-fc03ab51a72c.png">
 </p> 
 
-* <span style = "color:aqua">**힙 성질(Heap Property): 모든 부모노드의 key 값은 자식노드의 key값보다 작지 않다.**</span>
+* <span style = "color:green">**힙 성질(Heap Property): 모든 부모노드의 key 값은 자식노드의 key값보다 작지 않다.**</span>
 
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/206704155-dbc771c9-bf9e-488d-a5cb-459c3bf0bd03.png">
@@ -143,7 +143,7 @@ class Heap:
 
 #### (2) make_heap, heapify_down 함수  
 * **make-heap : Heap 성질을 만족하도록 리스트를 재배치**
-  - <span style = "color:aqua">heapify-dwon 이라는 연산을 반복 수행</span>해야함
+  - <span style = "color:green">heapify-dwon 이라는 연산을 반복 수행</span>해야함
 
 <p align="center">
 <img width="700" alt="1" src="https://user-images.githubusercontent.com/111734605/206708227-42bf0fae-602f-47bf-8d62-3e6d6518f186.png">

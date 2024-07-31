@@ -23,7 +23,7 @@ he key idea is to approximate the Q-function using a linear combination of featu
 - $$Q(s,a)$$에서 s는 state, a는 applied action이다.
 
 ### 2) Linear Q-function Representation 
-Linear Q-learning에서, feature들과 weight들을 저장한다. **state는 저장하지 않는다.** <span style = "color:aqua">각각의 action마다
+Linear Q-learning에서, feature들과 weight들을 저장한다. **state는 저장하지 않는다.** <span style = "color:green">각각의 action마다
 각각의 feature나 weight가 학습에 얼마나 중요한지를 알아야 한다.</span>
 
 <center>$$f(s,a) =
@@ -116,7 +116,7 @@ Note that this has the effect of updating Q-values to states that have never bee
 ## 2. Reward Shaping이란?
 
 ### 1) 보상 형성(Reward Shaping)의 개념
-<span style = "color:aqua">**Reward Shaping(보상 형성)**</span>의 기본 아이디어는 알고리즘이 진행되는 중간중간에 일종의 보상을 주어 더 빨리 수렴하게 만드는 것이다.
+<span style = "color:green">**Reward Shaping(보상 형성)**</span>의 기본 아이디어는 알고리즘이 진행되는 중간중간에 일종의 보상을 주어 더 빨리 수렴하게 만드는 것이다.
 즉, 매 iteration마다, 더 빠르게 Converging 될 수 있도록 일종의 비용 감소 수단을 추가하는 것이다.(Cost-Decrease Method)
 ```
 The basic idea is to give small intermediate rewards to the algorithm that help it converge more quickly.
@@ -136,7 +136,7 @@ This information is known as domain knowledge — that is, stuff about the domai
 TD learning(Temporal-Difference learning)에서 첫 번째 step으로 Q-function을 보상(reward)를 받아 업데이트 한다.  
 <center>$$Q(s,a) \leftarrow Q(s,a) + \alpha[r + \gamma \underset{\alpha^\prime }{\operatorname{max}} Q(s^\prime , a^\prime) - Q(s,a)]$$</center>
 
-중요한 것은, **reward shaping에 대한 접근법은, reward function이나 받은 reward 인 $$r$$을 수정하는 것이 아닌,** <span style = "color:aqua">**몇몇 action에 대해 추가적인 shaped reward를 주는 것**</span>이다.  
+중요한 것은, **reward shaping에 대한 접근법은, reward function이나 받은 reward 인 $$r$$을 수정하는 것이 아닌,** <span style = "color:green">**몇몇 action에 대해 추가적인 shaped reward를 주는 것**</span>이다.  
 <span style = "font-size:120%"><center>$$Q(s,a) \leftarrow Q(s,a) + \alpha[r + \underset{=addtional \ shaped \ reward}{\operatorname{F(s, s^\prime)}} +\gamma \underset{\alpha^\prime }{\operatorname{max}} Q(s^\prime , a^\prime) - Q(s,a)]$$</center></span>
 
 

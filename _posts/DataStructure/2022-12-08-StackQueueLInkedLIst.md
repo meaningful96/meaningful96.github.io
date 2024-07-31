@@ -50,7 +50,7 @@ class Stack:
 ```
 
 ### 3) 연결 리스트로 스택 구현
-- 연결 리스트로 스택을 구현하면 **삽입(push)와 삭제(pop)연산에 있어서** <span style="color:aqua">**O(1)**</span>**의 시간 복잡도(Time Complexity)**를 보장한다.
+- 연결 리스트로 스택을 구현하면 **삽입(push)와 삭제(pop)연산에 있어서** <span style="color:green">**O(1)**</span>**의 시간 복잡도(Time Complexity)**를 보장한다.
 - 연결 리스트로 구현할 때는 **머리(head)**를 가리키는 하나의 포인터만 가진다.
 - **머리(head)**: 남아있는 원소 중 **가장 마지막에 들어 온 데이터**를 가리키는 포인터
 
@@ -171,7 +171,7 @@ class Queue():
 ```
 
 ### 3) 연결 리스트를 이용한 큐 구현
-- 연결 리스트로 큐을 구현하면 **삽입(push)와 삭제(pop)연산에 있어서** <span style="color:aqua">**O(1)**</span>**의 시간 복잡도(Time Complexity)**를 보장한다.
+- 연결 리스트로 큐을 구현하면 **삽입(push)와 삭제(pop)연산에 있어서** <span style="color:green">**O(1)**</span>**의 시간 복잡도(Time Complexity)**를 보장한다.
 - 연결 리스트로 구현할 때는 **머리(head)**와 **꼬리(tail)** 두 개의 포인터를 가진다.
 - **머리(head)**: 남아있는 원소 중 **가장 먼저 들어온 데이터**를 가리키는 포인터 
 - **꼬리(tail)**: 남아있는 원소 중 **가장 마지막에 들어 온 데이터**를 가리키는 포인터
@@ -257,7 +257,7 @@ queue.show()
 ### 1) 덱의 연산
 - 덱(Deque) = 스택(Stack) + 큐(Queue)
 - 포인터 변수가 더 많이 필요하기 때문에, 메모리는 상대적으로 더 많이 필요하다.
-- Python에서는 <span style = "color:aqua">**큐(queue)의 기능**</span>**이 필요할 때 간단히 덱(deque)을 사용**한다.
+- Python에서는 <span style = "color:green">**큐(queue)의 기능**</span>**이 필요할 때 간단히 덱(deque)을 사용**한다.
 - 데이터의 삭제와 삽입 모두 시간 복잡도는 O(1)
   - Python에서는 **덱(deque)** 라이브러리를 사용할 수 있다.
   - 아래의 모든 매서드는 최악의 경우 시간 복잡도 O(1)을 보장한다.
@@ -334,7 +334,7 @@ while True:
 ```
 
 ### 3) 연결 리스트를 이용해 덱 구현
-- 덱(deque)을 연결 리스트로 구현하면 **삽입(push)와 삭제(pop)연산에 있어서** <span style="color:aqua">**O(1)**</span>**의 시간 복잡도(Time Complexity)**를 보장한다.
+- 덱(deque)을 연결 리스트로 구현하면 **삽입(push)와 삭제(pop)연산에 있어서** <span style="color:green">**O(1)**</span>**의 시간 복잡도(Time Complexity)**를 보장한다.
 - 연결 리스트로 구현할 때는 **앞(front)**과**뒤(rear)** 두 개의 포인터를 가진다.
 - **앞(front)**: **가장 좌측**에 있는 데이터를 가리키는 포인터
 - **뒤(rear)** : **가장 우측**에 있는 데이터를 가리키는 포인터

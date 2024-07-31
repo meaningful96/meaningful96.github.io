@@ -18,7 +18,7 @@ last_modified_at: 2023-03-01
 
 # Why Transformer?
 
-트랜스포머의 가장 큰 contribution은 <span style = "color:gold">**기존의 RNN 모델이 불가능했던 병렬 처리를 가능**</span>케했다는 것이다.. GPU를 사용함으로써 얻는 가장 큰 이점은 병렬 처리를 한다는 것. RNN(Recurrent Neural Network)은 recursive하기 때문에 병렬 연산이 불가능하다. 
+트랜스포머의 가장 큰 contribution은 <span style = "color:red">**기존의 RNN 모델이 불가능했던 병렬 처리를 가능**</span>케했다는 것이다.. GPU를 사용함으로써 얻는 가장 큰 이점은 병렬 처리를 한다는 것. RNN(Recurrent Neural Network)은 recursive하기 때문에 병렬 연산이 불가능하다. 
 다시 말해 Next layer의 입력이 이전 layer의 hidden state를 받아야 하기 때문이다. Recurrent network를 사용하는 이유는 sequential할 데이터를 처리하기 위함인데, sequential하다는 것은 등장 시점(또는 위치)를 하나의 정보로 취급한다는 것이다. 
 따라서 Context vector를 앞에서부터 순차적으로 생성해내고, 그 Context Vector를 이후 시점에서 활용하는 방식으로 구현한다. 즉, 이후 시점의 연산은 앞 시점의 연산에 의존적이다.
 
@@ -51,8 +51,8 @@ last_modified_at: 2023-03-01
 <img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/c409b3b3-50ca-43f8-9534-a1fd23a91b0b">
 </p>
 
-간단하게 정리하면 <span style = "color:gold">**Encoder**</span>의 역할은 <u>문장(Sentence)를 받아와 하나의 벡터터를 생성</u>해내는 함수이며 이 과정을 흔히 **Encoding**이라고 한다. 이렇게 Encoding을 통해 생성된 벡터를  Context라고 한다. 
-반면 <span style = "color:gold">**Decoder**</span>의 역할은 Encoder와 반대이다. <u>Context와 right shift된 문장을 입력으로 받아 sentence를 생성</u>해낸다. 이 과정을 Decoding이라고 한다.
+간단하게 정리하면 <span style = "color:red">**Encoder**</span>의 역할은 <u>문장(Sentence)를 받아와 하나의 벡터터를 생성</u>해내는 함수이며 이 과정을 흔히 **Encoding**이라고 한다. 이렇게 Encoding을 통해 생성된 벡터를  Context라고 한다. 
+반면 <span style = "color:red">**Decoder**</span>의 역할은 Encoder와 반대이다. <u>Context와 right shift된 문장을 입력으로 받아 sentence를 생성</u>해낸다. 이 과정을 Decoding이라고 한다.
 
 ```python
 class Transformer(nn.Module):
@@ -93,7 +93,7 @@ Encoder는 N=6이다. 즉 6개의 층이 쌓여져 있다.  이러한 구조를 
 
 - 멱등성(Idempotent): 연산을 여러 번 적용하더라도 결과가 달라지지 않는 성질, 연산을 여러 번 반복하여도 한 번만 수행된 것과 같은 성질
 
-층을 여러 개로 구성하는 이유는 사실 간단하다. Encoder의 입력으로 들어오는 <span style = "color:gold">Input sequence에 대해 더 넓은 관점에서의 Context를 얻기 위함</span>이다. 
+층을 여러 개로 구성하는 이유는 사실 간단하다. Encoder의 입력으로 들어오는 <span style = "color:red">Input sequence에 대해 더 넓은 관점에서의 Context를 얻기 위함</span>이다. 
 더 넓은 관점에서의 context라는 것은 더 추상적인 정보이다. 두 개의 sub graph로 이루어진 Encoder block 하나가 낮은 수준의 context를 생성해내는 반면(하나의 측면에서만 그 문장에 집중하게 됨), 
 여러 개의 block을 이용하면 더 많은 context가 쌓이고 쌓여 결론적으로 양질의 context 정보가 저장되게 된다. 
 
@@ -150,9 +150,9 @@ class EncoderBlock(nn.Module):
 ### 2) Sub-Layer1: Multi-head Attention
 
 #### Attention의 이해
-Encoder block의 첫 번째 Sub layer에 해당하는 것은 Multi-head attention이다. Attention mechanism을 이루는 방법에는 여러 가지가 있지만, 트랜스포머의 경우는 <span style = "color:gold"><b>Scaled Dot-Product Attention</b></span>을 병렬적으로 여러 번 수행한다. 트랜스포머이후 Scaled Dot-Product attention 방식을 통상적으로 attention이라고 사용한다.
+Encoder block의 첫 번째 Sub layer에 해당하는 것은 Multi-head attention이다. Attention mechanism을 이루는 방법에는 여러 가지가 있지만, 트랜스포머의 경우는 <span style = "color:red"><b>Scaled Dot-Product Attention</b></span>을 병렬적으로 여러 번 수행한다. 트랜스포머이후 Scaled Dot-Product attention 방식을 통상적으로 attention이라고 사용한다.
 
-Attention이 그럼 무슨 역할을 하는 건지를 이해하는 것이 중요하다. Attention Mechanism을 사용하는 목적은 생각보다 간단하다. <span style = "color:gold"><b>토큰들이 서로서로 얼마나 큰 영향력을 가졌는지를 구하는 것</b></span>이다.
+Attention이 그럼 무슨 역할을 하는 건지를 이해하는 것이 중요하다. Attention Mechanism을 사용하는 목적은 생각보다 간단하다. <span style = "color:red"><b>토큰들이 서로서로 얼마나 큰 영향력을 가졌는지를 구하는 것</b></span>이다.
 
 
 - **Self-Attention** = 한 문장 내에서 토큰들의 attention을 구함.
@@ -176,7 +176,7 @@ Attention을 계산할 때는 **Query, Key, Value** 세 가지 벡터가 사용�
   - Key = 'I', 'am', 'a', 'teacher'
   - Query-key의 사이의 연관성을 구한다 = Attention
 
-그러면 Query, Key, Value 이 세 벡터가 어떤식으로 추출되는지도 알아야한다. 이 벡터들은 입력으로 들어오는 Token embedding을 <span style = "color:gold">**Fully Connected Layer(FC)**</span>에 넣어 생성된다. 세 벡터를 생성해내는 FC layer는 모두 다르기 때문에 self-attention에서는 <u>Query, Key, Value를 위한 3개의 서로 다른 FC layer가 존재</u>한다. 각각이 개별적으로 구해지는 것과는 달리
+그러면 Query, Key, Value 이 세 벡터가 어떤식으로 추출되는지도 알아야한다. 이 벡터들은 입력으로 들어오는 Token embedding을 <span style = "color:red">**Fully Connected Layer(FC)**</span>에 넣어 생성된다. 세 벡터를 생성해내는 FC layer는 모두 다르기 때문에 self-attention에서는 <u>Query, Key, Value를 위한 3개의 서로 다른 FC layer가 존재</u>한다. 각각이 개별적으로 구해지는 것과는 달리
 **세 벡터의 Shape은 동일**하다. (<span style = "font-size:110%">$$d_{key} = d_{value} = d_{query} = d_k$$</span>)
 
 #### Scaled Dot-Product Attention
@@ -191,7 +191,7 @@ Scaled Dot-Product Attention의 메커니즘은 위의 그림과 같다. 먼저 
 <img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/d7bc87fc-940a-4112-9616-e99c53a1cb8e">
 </p>
 
-좀 더 계산과정을 명확하게 보기위해 한 단어와 단어 사이의 attention을 구하는 과정을 집중해본다. 위에처럼 $$d_k = 3$$인 경우라고 가정하고 FC layer에의해 이미 $$Q, K, V$$가 모두 구해졌다고 가정하고 1번 그림처럼 나타낼 수 있다. 위의 메커니즘과 같이 Query와 Key의 행렬곱을 수행해야 한다. 이 때 Scailing을 포함한 이 행렬곱의 결과를 <span style = "color:gold">**Attention Score**</span>라고 한다.
+좀 더 계산과정을 명확하게 보기위해 한 단어와 단어 사이의 attention을 구하는 과정을 집중해본다. 위에처럼 $$d_k = 3$$인 경우라고 가정하고 FC layer에의해 이미 $$Q, K, V$$가 모두 구해졌다고 가정하고 1번 그림처럼 나타낼 수 있다. 위의 메커니즘과 같이 Query와 Key의 행렬곱을 수행해야 한다. 이 때 Scailing을 포함한 이 행렬곱의 결과를 <span style = "color:red">**Attention Score**</span>라고 한다.
 
 Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하다. 행렬 곱의 결과인 attention energy값이 너무 큰 경우 Vanishing Graident현상이 발생할 수 있기 때문이다. 하지만 Scailing을 단순한 상수이므로 행렬곱 연산 결과로 나온 Score의 차원에 영향을 미치지 않는다. 앞서 본 경우는 1:1 관계에서의 attention을 구한 것이다. Self-Attention은 1:N의 관계에서 진행되므로 이를 확장하면 다음과 같다.
 
@@ -205,9 +205,9 @@ Scailing을 하는 이유는 과연 무엇일까? 그 이유는 사실 간단하
 <img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4d31fb25-de5e-4bc9-8c89-a0f599820abd">
 </p>
 
-행렬곱 결과 구해진 Attention Score를 이용해 최종적으로 일종의 Weight를 만들어야 한다. 이 때, <span style = "color:gold">Weight로 변환하는 가장 좋은 방법은 그 값을 <b>확률(Probability)</b>로 만드는 것</span>이다. 확률로 만들기위해 논문에서는 **SoftMax function**을 이용했다. 이렇게 Softmax를 통해 구해진 <span style = "color:gold">**Attention Weight(Probability)**</span>을 토큰들의 실질적 의미를 포함한 정보인 Value와 행렬곱을 해준다.(참고로 Attention Weight의 합은 확률이므로 1이다.)
+행렬곱 결과 구해진 Attention Score를 이용해 최종적으로 일종의 Weight를 만들어야 한다. 이 때, <span style = "color:red">Weight로 변환하는 가장 좋은 방법은 그 값을 <b>확률(Probability)</b>로 만드는 것</span>이다. 확률로 만들기위해 논문에서는 **SoftMax function**을 이용했다. 이렇게 Softmax를 통해 구해진 <span style = "color:red">**Attention Weight(Probability)**</span>을 토큰들의 실질적 의미를 포함한 정보인 Value와 행렬곱을 해준다.(참고로 Attention Weight의 합은 확률이므로 1이다.)
 
-이로써 최종적으로 Query에 대한 <span style = "color:gold">**Attention Value**</span>가 나오게 된다. 여기서 알아야 할 중요한 포인트는 연산의 최종 결과인 <u>Query의 Attention Value의 크기(차원)이 Input Query 임베딩과 동일</u>하다는 것이다. Attention Mechanism입장에서 입력은 Query, Key, Value로 세 가지이지만, 의미상으로 Semantic한 측면에서 고려하면 출력이 Query의 attention이므로 입력도 Query로 생각할 수 있다.
+이로써 최종적으로 Query에 대한 <span style = "color:red">**Attention Value**</span>가 나오게 된다. 여기서 알아야 할 중요한 포인트는 연산의 최종 결과인 <u>Query의 Attention Value의 크기(차원)이 Input Query 임베딩과 동일</u>하다는 것이다. Attention Mechanism입장에서 입력은 Query, Key, Value로 세 가지이지만, 의미상으로 Semantic한 측면에서 고려하면 출력이 Query의 attention이므로 입력도 Query로 생각할 수 있다.
 
 <p align="center">
 <img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/5292fb72-e760-4ad5-9884-2b72405afaf4">
@@ -258,12 +258,12 @@ def calculate_attention(query, key, value, mask):
 <br/>
 
 #### Masked Self-Attention(Masking)
-Scaled Dot-Product Attention을 설명하면서 한 부분을 설명하지 않았다. 바로 Masking이다. Masking을 하는 <span style = "color:gold">**이유는 특정 값들을 가려서 실제 연산에 방해가 되지 않도록 하기 위함**</span>이다. Masking에는 크게 두 가지 방법이 존재한다. Padding Masking(패딩 마스킹)과 Look-ahead Masking(룩 어헤드 마스킹)이다. 
+Scaled Dot-Product Attention을 설명하면서 한 부분을 설명하지 않았다. 바로 Masking이다. Masking을 하는 <span style = "color:red">**이유는 특정 값들을 가려서 실제 연산에 방해가 되지 않도록 하기 위함**</span>이다. Masking에는 크게 두 가지 방법이 존재한다. Padding Masking(패딩 마스킹)과 Look-ahead Masking(룩 어헤드 마스킹)이다. 
 
 <span style = "font-size:110%"><b>패딩(Padding)</b></span>  
 mini-batch마다 입력되는 문장은 모두 다르다. 이 말을 다시 해석하면, 입력되는 모든 문장의 길이는 다르다. 그러면 모델은 이 <u>다른 문장 길이를 조율해주기 위해 모든 문장의 길이를 동일하게 해주는 전처리 과정이 필요</u>하다. 짧은 문장과 긴 문장이 섞인 경우, 짧은 문장을 기준으로 연산을 해버리면 긴 문장에서는 일부 손실이 발생한다. 반대로, 긴 문장을 기준으로 연산을 해버리면 짧은 문장에서 Self-Attention을 할 경우 연산에 오류가 발생한다.(토큰 개수 부족)
 
-따라서 짧은 문장의 경우 0을 채워서 문장의 길이를 맞춰줘야 한다. 중요한 것은 0을 채워주지만 그 zero Token들의 경우 실제로 의미를 가지지 않는다. 따라서 <span style = "color:gold">**실제 attention 연산시에도 제외할 필요**</span>가 있다. 숫자 0의 위치를 체크해주는 것이 바로 패딩 마스킹(Padding Masking)이다.
+따라서 짧은 문장의 경우 0을 채워서 문장의 길이를 맞춰줘야 한다. 중요한 것은 0을 채워주지만 그 zero Token들의 경우 실제로 의미를 가지지 않는다. 따라서 <span style = "color:red">**실제 attention 연산시에도 제외할 필요**</span>가 있다. 숫자 0의 위치를 체크해주는 것이 바로 패딩 마스킹(Padding Masking)이다.
 
 <span style = "font-size:110%"><b>패딩 마스킹(Padding Masking)</b></span> 
 
@@ -298,7 +298,7 @@ Masked Self-Attention을 하는 이유는, **학습과 추론과정에 정보가
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227343660-9676f01e-c7d1-4973-b005-6db96d06753a.png">
 </p>
 
-트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 i<j인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 <span style = "color:gold">**Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0**</span>이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
+트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 i<j인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 <span style = "color:red">**Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0**</span>이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
 
 #### Multi-head Attention
 
@@ -306,13 +306,13 @@ Masked Self-Attention을 하는 이유는, **학습과 추론과정에 정보가
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/227325573-f5ca67b9-3b5a-4e51-bab8-dbeefffa36e8.png">
 </p>
 
-트랜스포머의 특징 중 하나는 Multi-head attention을 수행한다는 것이다. 한 Encoder, Decoder Layer마다 1회씩 수행하는 것이 아니라 병렬적으로 $$h$$회 각각 수행한 뒤 그 결과를 종합해 사용한다. 이렇게 하는 이유는 다양한 Attention을 반영해 더 좋은 성능을 내기 위함이다. 논문에서는 head의 개수가 총 **8개**이며 Q,K,V를 위한 FC Layer가 3개에서 $$3 \times 8 = 24$$개가 필요하게 된다. 출력은 Single self-attention의 경우 <b>$$n \times d_k$$</b>의 shape을 가진다. head가 8개가 되면서 이 <span style = "color:gold"><b>출력 차원은 $$n \times (d_k \times h)$$로 바뀌게</b></span> 된다.(n은 토큰 개수, 사실상 seq_len). 논문에서는 <b>$$d_{model}  = d_k \times h$$</b>로 정의한다.
+트랜스포머의 특징 중 하나는 Multi-head attention을 수행한다는 것이다. 한 Encoder, Decoder Layer마다 1회씩 수행하는 것이 아니라 병렬적으로 $$h$$회 각각 수행한 뒤 그 결과를 종합해 사용한다. 이렇게 하는 이유는 다양한 Attention을 반영해 더 좋은 성능을 내기 위함이다. 논문에서는 head의 개수가 총 **8개**이며 Q,K,V를 위한 FC Layer가 3개에서 $$3 \times 8 = 24$$개가 필요하게 된다. 출력은 Single self-attention의 경우 <b>$$n \times d_k$$</b>의 shape을 가진다. head가 8개가 되면서 이 <span style = "color:red"><b>출력 차원은 $$n \times (d_k \times h)$$로 바뀌게</b></span> 된다.(n은 토큰 개수, 사실상 seq_len). 논문에서는 <b>$$d_{model}  = d_k \times h$$</b>로 정의한다.
 
 <p align="center">
 <img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/0f7c9caf-5b94-4600-b0b3-16bb2745b5bf">
 </p>
 
-실제 연산은 <span style = "color:gold">**병렬로 한 step에서 한 번에 수행**</span>되어 더 효율적인 방식으로 구현된다.
+실제 연산은 <span style = "color:red">**병렬로 한 step에서 한 번에 수행**</span>되어 더 효율적인 방식으로 구현된다.
 
 <br/>
 
@@ -377,7 +377,7 @@ def calculate_attention(self, query, key, value, mask):
 
 우선 $$d_k$$를 중심으로 $$Q, K$$사이의 행렬곱 연산을 수행하기 때문에 $$Q, K, V$$의 마지막 dim은 반드시 $$d_k$$여야만 한다. 또한 attention_score의 shape는 마지막 두 dimension이 반드시 <b>(seq_len $$\times$$ seq_len)</b>이어야만 masking이 적용될 수 있기 때문에 $$Q, K, V$$의 마지막 직전 dim(`.shape[-2]`)는 반드시 seq_len이어야만 한다. 
 
-`forward()`로 돌아와서 `calculate_attention()`을 사용해 attention을 계산하고 나면 그 shape은<b>(n_batch $$\times \; h \times$$ seq_len $$\times \; d_k$$)</b>이다. <span style = "color:gold"><b>Multi-head Attention</b></span> Layer 역시 shape에 대해 멱등(Idempotent)해야만 하기 때문에 출력의 shape은 입력과 같은 <b>(n_batch $$\times \; h \times$$ seq_len $$\times \; d_k$$)</b>여야만 한다. 이를 위해 $$h$$와 seq_len의 순서를 뒤바꾸는 `.transpose(1,2)` 메서드를 수행하고 다시 $$h$$와 $$d_k$$를 $$d_{model}$$로 결합한다. 이후 FC Layer를 거쳐 $$d_{model}$$을 $$d_{embed}$$로 변환하게 된다.
+`forward()`로 돌아와서 `calculate_attention()`을 사용해 attention을 계산하고 나면 그 shape은<b>(n_batch $$\times \; h \times$$ seq_len $$\times \; d_k$$)</b>이다. <span style = "color:red"><b>Multi-head Attention</b></span> Layer 역시 shape에 대해 멱등(Idempotent)해야만 하기 때문에 출력의 shape은 입력과 같은 <b>(n_batch $$\times \; h \times$$ seq_len $$\times \; d_k$$)</b>여야만 한다. 이를 위해 $$h$$와 seq_len의 순서를 뒤바꾸는 `.transpose(1,2)` 메서드를 수행하고 다시 $$h$$와 $$d_k$$를 $$d_{model}$$로 결합한다. 이후 FC Layer를 거쳐 $$d_{model}$$을 $$d_{embed}$$로 변환하게 된다.
 
 ```python
 class EncoderBlock(nn.Module):
@@ -492,7 +492,7 @@ class PositionWiseFeedForwardLayer(nn.Module):
 <img width="400" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/57df6b4b-e115-47d4-8093-432b4260289a">
 </p>
 
-Residual Connection은 단순하다. 다음 Layer로 넘길 때 원래 입력과 더해주어 $$y \; = \; f(x)$$ 에서 $$y \; = \; f(x) \; + \; x$$ 로 변경하는 것이다. 이로써 <span style = "color:gold">**Back Propagation 도중 발생할 수 있는 Vanishing Gradient 현상을 방지**</span>할 수 있다. 보통은 여기에 Layer Normalization과 DropOut까지 추가하는게 일반적이다.
+Residual Connection은 단순하다. 다음 Layer로 넘길 때 원래 입력과 더해주어 $$y \; = \; f(x)$$ 에서 $$y \; = \; f(x) \; + \; x$$ 로 변경하는 것이다. 이로써 <span style = "color:red">**Back Propagation 도중 발생할 수 있는 Vanishing Gradient 현상을 방지**</span>할 수 있다. 보통은 여기에 Layer Normalization과 DropOut까지 추가하는게 일반적이다.
 
 ```python
 class ResidualConnectionLayer(nn.Module):
@@ -563,12 +563,12 @@ class Decoder(nn.Module):
 ```
 
 <b>Context</b>    
-Decoder의 입력으로 context와 sentence가 있다. context는 Encoder에서 생성된 것이다. 명심해야 할 것은 <u><b>Encoder 내부에서 Multi-head Attention Layer나 Position-Wise Feed-Forward Layer 모두 shape에 대해서 멱등(Idempotent)</b></u>했다는 것이다. 때문에 이 두 Layer로 구성된 Encoder block도 shape에 대해 반드시 멱등(Idempotent)하다. <span style = "color:gold"><b>Encoder의 출력이 context이다</b></span>. context가 Decoder의 입력으로 들어가고 이 shape은 결국 Encoder의 입력과 같은 것이다.
+Decoder의 입력으로 context와 sentence가 있다. context는 Encoder에서 생성된 것이다. 명심해야 할 것은 <u><b>Encoder 내부에서 Multi-head Attention Layer나 Position-Wise Feed-Forward Layer 모두 shape에 대해서 멱등(Idempotent)</b></u>했다는 것이다. 때문에 이 두 Layer로 구성된 Encoder block도 shape에 대해 반드시 멱등(Idempotent)하다. <span style = "color:red"><b>Encoder의 출력이 context이다</b></span>. context가 Decoder의 입력으로 들어가고 이 shape은 결국 Encoder의 입력과 같은 것이다.
 
 <b>Teacher Forcing</b>    
 Decoder의 입력에 추가적으로 들어오는 sentence를 이해하기 위해서는 **Teacher Forcing**의 개념을 알아야 한다. RNN 기반의 모델이던, 트랜스포머기반의 모델이든 이 모델들이 풀고자 하는 task는 결국 sentence generation, 새로운 문장을 생성해내는 것이다. 학습을 하는 과정에서 만약 이 모델들에게 random한 초깃값을 주면 학습이 제대로 이뤄지지 않을 수 있다.(random하게 초기화된 입력은 실제로 의미상 어떠한 문맥 정보도, 토큰의 의미 정보도 포함하고 있지 않기 때문) 첫 단추가 잘 못 끼어진 모델은 Epoch마다 이상한 값을 출력해내고, 그 데이터로 다시 학습하기 때문에 결론적으로 성능에 악영향을 끼치게 된다. 단순한 신경망 모델들의 경우는 이러한 현상을 방지하기위해 Xavier initialization같은 초기화 기법을 도입한다. 트랜스포머머에서는 이러한 현상을 예방하고자 Teacher forcing을 사용하게 된다.
 
-Teacher forcing이란 Supervised Learning에서 <span style = "color:gold">**label data를 input으로 활용**</span>하는 것이다. 즉, 학습 시 초기값을 ground truth로 주는 것이다. RNN을 예로 번역 모델을 만든다고 할 때, 학습 과정에서 모델이 생성해낸 토큰을 다음 토큰 생성 때 사용하는 것이 아닌, 실제 label data의 토큰을 사용하게 되는 것이다.
+Teacher forcing이란 Supervised Learning에서 <span style = "color:red">**label data를 input으로 활용**</span>하는 것이다. 즉, 학습 시 초기값을 ground truth로 주는 것이다. RNN을 예로 번역 모델을 만든다고 할 때, 학습 과정에서 모델이 생성해낸 토큰을 다음 토큰 생성 때 사용하는 것이 아닌, 실제 label data의 토큰을 사용하게 되는 것이다.
 
 <p align="center">
 <img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/39316842-af58-41ba-a35b-d417d3f8ae2a">
@@ -586,12 +586,12 @@ Teacher forcing이란 Supervised Learning에서 <span style = "color:gold">**lab
 <img width="800" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/df96334b-ef6e-4b73-b15b-b0a337086b67">
 </p>
 
-Teaching Forcing은 실제 Labeled data(Ground Truth)를 RNN cell의 입력으로 사용하는 것이다. 정확히는 Ground Truth의 \[:-1\]로 slicing한 것이다(마지막 토큰인 \[EOS\] 토큰을 제외하는 것). 이를 통해서 모델이 잘못된 토큰을 생성해내더라도 이후 제대로 된 토큰을 생성해내도록 유도할 수 있다. 하지만, 이는 모델 학습 과정에서 Ground Truth, 즉 정답을 사용한 것이므로 일종의 **Cheating**이 된다. 따라서 <span style="color:gold">**Test를 할 때는 Ground Truth를 데이터셋에서 제거해주고 진행**</span>해야 한다. 또한 실제로는 데이터셋에 Ground Truth가 포함되어 있어야만 가능한 것이기에 Test나 실제로 Real-World에 Product될 때에는 모델이 생성해낸 이전 토큰을 사용하게 된다. 이처럼 학습 과정에과 실제 사용에서의 괴리가 발생하지만, 모델의 비약적 성능 향상에 직접적으로 영향을 준다. Teaching Forcing은 **Encoder-Decoder 구조 모델에서 많이 사용하는 기법**이다.
+Teaching Forcing은 실제 Labeled data(Ground Truth)를 RNN cell의 입력으로 사용하는 것이다. 정확히는 Ground Truth의 \[:-1\]로 slicing한 것이다(마지막 토큰인 \[EOS\] 토큰을 제외하는 것). 이를 통해서 모델이 잘못된 토큰을 생성해내더라도 이후 제대로 된 토큰을 생성해내도록 유도할 수 있다. 하지만, 이는 모델 학습 과정에서 Ground Truth, 즉 정답을 사용한 것이므로 일종의 **Cheating**이 된다. 따라서 <span style="color:red">**Test를 할 때는 Ground Truth를 데이터셋에서 제거해주고 진행**</span>해야 한다. 또한 실제로는 데이터셋에 Ground Truth가 포함되어 있어야만 가능한 것이기에 Test나 실제로 Real-World에 Product될 때에는 모델이 생성해낸 이전 토큰을 사용하게 된다. 이처럼 학습 과정에과 실제 사용에서의 괴리가 발생하지만, 모델의 비약적 성능 향상에 직접적으로 영향을 준다. Teaching Forcing은 **Encoder-Decoder 구조 모델에서 많이 사용하는 기법**이다.
 
 <b>Teacher Forcing in Transformer (Subsequent Masking)</b>  
 Teacher Forcing 개념을 이해하고 나면 트랜스포머의 Decoder에 입력으로 들어오는 문장은 ground truth\[:-1\]의 문장일 것이다. 하지만 이런 방식으로 Teaching Forcing이 트랜스포머에 그대로 적용되지 못한다. 앞서 든 예시는 RNN이고, RNN은 동시에 모든 토큰을 처리하는 것이 아닌 이전 출력값을 다음 cell의 입력으로 사용하는 순차적인 모델이기 때문이다. 하지만, 트랜스포머는 행렬곱 연산을 통해 한 번에 모든 토큰을 처리한다. 즉, Multi-head attention을 통해 얻는 가장 큰 장점인 **병렬 연산**이 가능하다는 장점이 있다는 것이다. 병렬 연산을 위해 ground truth의 embedding을 행렬로 만들어 입력으로 사용하면 Decoder에서 현재 출력해내야 하는 토큰의 정답을 알고 있는 상황이 발생한다.
 
-따라서 **Masking**을 적용해야 한다. <span style="color:gold"><b>$$i$$번째 토큰을 생성해낼 때, $$1 \; ~ \; i-1$$의 토큰은 보이지 않도록 처리\[Masking\]</b></span>를 해야한다.
+따라서 **Masking**을 적용해야 한다. <span style="color:red"><b>$$i$$번째 토큰을 생성해낼 때, $$1 \; ~ \; i-1$$의 토큰은 보이지 않도록 처리\[Masking\]</b></span>를 해야한다.
 
 ```python
 def make_subsequent_mask(query, key):
@@ -662,7 +662,7 @@ class Transformer(nn.Module):
 
 #### Decoder Block
 
-Decoder 역시 Encoder와 마찬가지로 $$N$$개의 Decoder Block이 겹겹이 쌓인 구조이다. 이 때 주목해야 하는 점은 <span style = "color:gold"><b>Encoder에서 넘어오는 context가 각 Decoder Block마다 입력으로 주어진다는 것</b></span>이며 그 외에는 Encoder와 차이가 없다.
+Decoder 역시 Encoder와 마찬가지로 $$N$$개의 Decoder Block이 겹겹이 쌓인 구조이다. 이 때 주목해야 하는 점은 <span style = "color:red"><b>Encoder에서 넘어오는 context가 각 Decoder Block마다 입력으로 주어진다는 것</b></span>이며 그 외에는 Encoder와 차이가 없다.
 
 
 <p align="center">
@@ -689,13 +689,13 @@ Decoder Block은 Encoder Block과 달리 Multi-head Attention Layer가 2개가 �
 
 ### 2) Sub-Layer1: Multi-head Attention(Self-Attention)
 
-Encoder의 것과 완전히 동일한데 다만 <span style="color:gold">**mask로 들어오는 인자가 일반적인 pad masking에 더해 subsequent masking까지 적용되어 있다**</span>는 점만이 차이일 뿐이다. 즉, 이 layer는 **Self-Attention을 수행**하는 layer이다. 즉, <u>Ground Truth sentence에 내부에서의 Attention을 계산</u>한다. 이는 다음 Multi-Head Attention Layer와 가장 큰 차이점이다.
+Encoder의 것과 완전히 동일한데 다만 <span style="color:red">**mask로 들어오는 인자가 일반적인 pad masking에 더해 subsequent masking까지 적용되어 있다**</span>는 점만이 차이일 뿐이다. 즉, 이 layer는 **Self-Attention을 수행**하는 layer이다. 즉, <u>Ground Truth sentence에 내부에서의 Attention을 계산</u>한다. 이는 다음 Multi-Head Attention Layer와 가장 큰 차이점이다.
 
 <br>
 
 ### 3) Sub-Layer2: Multi-head Attention(Cross-Attention)
 
-Decoder blcok내 이전 <span style = "color:gold"><b>1)Multi-Head Self-Attention Layer에서 넘어온 출력을 입력으로 받는다.</b></span> 여기에 추가적으로 <span style = "color:aqua"><b>2)Encoder에서 도출된 context도 입력으로 받는다.</b></span> 두 입력의 용도는 완전히 다르다. Decoder Block 내부에서 전달된 입력1)은 <span style="color:gold"><b>Query로써 사용</b></span>한다. 반면 Encoder에서 넘어온 context 2)는 <span style="color:aqua"><b>Key와 Value로써 사용</b></span>하게된다. 
+Decoder blcok내 이전 <span style = "color:red"><b>1)Multi-Head Self-Attention Layer에서 넘어온 출력을 입력으로 받는다.</b></span> 여기에 추가적으로 <span style = "color:green"><b>2)Encoder에서 도출된 context도 입력으로 받는다.</b></span> 두 입력의 용도는 완전히 다르다. Decoder Block 내부에서 전달된 입력1)은 <span style="color:red"><b>Query로써 사용</b></span>한다. 반면 Encoder에서 넘어온 context 2)는 <span style="color:green"><b>Key와 Value로써 사용</b></span>하게된다. 
 
 요약하면 Decoer Block의 2번째 Sub-Layer는 서로 다른 두 문장의 Attention을 계산한다. Decoder에서 최종 목표는 <u><b>teaching forcing으로 넘어온 문장과 최대한으로 유사한 predicted sentence를 도출</b></u>하는 것이다. 따라서 Decoer Block 내 이전 Sub-Layer에서 넘어온 입력이 Query가 되고, 이에 상응하는 Encoder의 출력인 context가 Key, Value로 두게 된다. 만약에 영한 번역 모델이면, Encoder의 입력이 영어 문장이되고, Decoder의 입력(Teaching Forcing)과 출력은 한글 문장일 것이다. 따라서 Query가 한글, Key와 Value가 영어가 된다. 
 
@@ -881,7 +881,7 @@ class Transformer(nn.Module):
 
 Decoder의 출력이 그대로 트랜스포머의 최종 출력이 되는 것은 아니다. Decoder의 출력의 shape는 <b>(n_batch $$\times$$ seq_len $$\times \; d_{embed}$$)인데, 우리가 원하는 출력은 target sentence인 <b>(n_batch $$\times$$ seq_len)</b>이기 때문이다. 즉, Embedding이 아닌 실제 target vocab에서의 token sequence를 원하는 것이다. 이를 위해 추가적인 FC layer를 거쳐간다. 이 layer를 대개 **Generator**라고 부른다.
 
-Generator가 하는 일은 <span style = "color:gold"><b>Decoder 출력의 마지막 dimension을 dembed에서 `len(vocab)`으로 변경하는 것</b></span>이다. 이를 통해 실제 vocabulary 내 token에 대응시킬 수 있는 shape가 된다. 이후 `softmax()`를 사용해 각 vocabulary에 대한 확률값으로 변환하게 되는데, 이 때 `log_softmax()`를 사용해 성능을 향상시킨다. `log_softmax()`에서는 `dim=-1`이 되는데, 마지막 dimension인 `len(vocab)`에 대한 확률값을 구해야 하기 때문이다.
+Generator가 하는 일은 <span style = "color:red"><b>Decoder 출력의 마지막 dimension을 dembed에서 `len(vocab)`으로 변경하는 것</b></span>이다. 이를 통해 실제 vocabulary 내 token에 대응시킬 수 있는 shape가 된다. 이후 `softmax()`를 사용해 각 vocabulary에 대한 확률값으로 변환하게 되는데, 이 때 `log_softmax()`를 사용해 성능을 향상시킨다. `log_softmax()`에서는 `dim=-1`이 되는데, 마지막 dimension인 `len(vocab)`에 대한 확률값을 구해야 하기 때문이다.
 
 ```python
 class Transformer(nn.Module):

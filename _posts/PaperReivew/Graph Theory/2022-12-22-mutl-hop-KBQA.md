@@ -14,7 +14,7 @@ last_modified_at: 2022-12-22
 ## 1. 문제 정의(Problem Set)
 ### Lack of Supervision signals at Intermediate steps.
 Multi-hop Knowledge base question answering(KBQA)의 목표는 Knowledge base(Knowledge graph)에서 여러 홉 떨어져 있는 Answer entity(node)를 찾는 것이다.
-기존의 KBQA task는 <span style = "color:aqua">Training 중간 단계(Intermediate Reasoning Step) Supervision signal을 받지 못한다.</span> 다시말해, 
+기존의 KBQA task는 <span style = "color:green">Training 중간 단계(Intermediate Reasoning Step) Supervision signal을 받지 못한다.</span> 다시말해, 
 feedback을 final answer한테만 받을 수 있다는 것이고 이는 결국 학습을 unstable하고 ineffective하게 만든다.
 
 <p align="center">
@@ -36,7 +36,7 @@ KBQA task에서 Input data
 - In this Paper: <*question, answer* >
 
 <span style = "font-size:120%">**What we need to solve?**</span>  
-<span style ="color:aqua">**Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training**</span>되게 한다.
+<span style ="color:green">**Intermediate Reasoning Step에 Supervision Signal을 통해 Feedback을 하여 더 잘 Training**</span>되게 한다.
 
 
 
@@ -53,7 +53,7 @@ The main idea is to train a student network that focuses on the multi-hop KBQA t
 network is trained to provide (pseudo) supervision signals (i.e., inferred entity distributions in our task) at 
 intermediate reasoning steps for improving the student network.
 ```
-학생 네트워크는 multi-hop KBQA를 학습하는 한편, 선생 네트워크에서는 <span style ="color:aqua">Intermediate Supervision Signal</span>을 만들어 학생 네트워크로 넘겨준다.
+학생 네트워크는 multi-hop KBQA를 학습하는 한편, 선생 네트워크에서는 <span style ="color:green">Intermediate Supervision Signal</span>을 만들어 학생 네트워크로 넘겨준다.
 이렇게 함으로써 학생 네트워크에서 더 학습이 잘되게끔 한다.
 
 ### 3) Student Network  
@@ -142,11 +142,11 @@ Guide Signal로서 사용가능하다. Reasoning Component의 Input과 Output은
   - $$<e^{\prime}, r, e>$$는 Triple이라한다. 노드(Entity), 엣지, 노드 순서이다.
 
 
-**(2)번 식 Entity Embedding의 초기값**: 2번식을 자세히보면 Entity의 임베딩식은 결국 Weight Sum에 Nonlinear function을 먹인 것이다. 이전의 연구들과는 다르게 이 논문에서는 **엔티티를 인코딩하는데 <span style ="color:aqua">트리플(노드와 노드, 엣지로 표현된 Relation)의 정보</span>를 적극적으로 사용**한다. 게다가 이렇게 정보를 활용하면 **엔티티 노이즈에 대한 영향력이 줄어든다.** 추론 경로를 따라 중간 엔터티의 경우 이러한 엔터티의 식별자가 중요하지 않기 때문에 e(0)를 초기화할 때 e의 원래 임베딩을 사용하지 않는다. 왜냐하면 중간 엔티티들의 **relation**만이 중요하기 때문이다.
+**(2)번 식 Entity Embedding의 초기값**: 2번식을 자세히보면 Entity의 임베딩식은 결국 Weight Sum에 Nonlinear function을 먹인 것이다. 이전의 연구들과는 다르게 이 논문에서는 **엔티티를 인코딩하는데 <span style ="color:green">트리플(노드와 노드, 엣지로 표현된 Relation)의 정보</span>를 적극적으로 사용**한다. 게다가 이렇게 정보를 활용하면 **엔티티 노이즈에 대한 영향력이 줄어든다.** 추론 경로를 따라 중간 엔터티의 경우 이러한 엔터티의 식별자가 중요하지 않기 때문에 e(0)를 초기화할 때 e의 원래 임베딩을 사용하지 않는다. 왜냐하면 중간 엔티티들의 **relation**만이 중요하기 때문이다.
 
-**(3)번 식 Match vector**: Triple($$<e^{\prime}, r, e>$$)이 주어졌을때 Match vector $$m_{<e^{\prime}, r, e>}^{(k)}$$는 (3)번 식과 같다. Instruction vector와 Edge(Relation)에 가중치를 곱한 값과 Element wise product한 값을 Nonlinear function을 먹인 것이다. 이 식의 의미를 보자면, Match vector라는 것은 결국 <span style = "color:aqua">올바른 Relation을 나타내는, 올바른 Edge에 대해서 더 높은 값을 부여해 엔티티가 그 엣지를 따라가게끔 값을 부여하는 것</span>이다. 따라서, '올바른 Edge를 매칭한다'라는 의미로 Match vector라고 한다. 
+**(3)번 식 Match vector**: Triple($$<e^{\prime}, r, e>$$)이 주어졌을때 Match vector $$m_{<e^{\prime}, r, e>}^{(k)}$$는 (3)번 식과 같다. Instruction vector와 Edge(Relation)에 가중치를 곱한 값과 Element wise product한 값을 Nonlinear function을 먹인 것이다. 이 식의 의미를 보자면, Match vector라는 것은 결국 <span style = "color:green">올바른 Relation을 나타내는, 올바른 Edge에 대해서 더 높은 값을 부여해 엔티티가 그 엣지를 따라가게끔 값을 부여하는 것</span>이다. 따라서, '올바른 Edge를 매칭한다'라는 의미로 Match vector라고 한다. 
 
-**(4)번 식**: Match vector들을 통해서 올바른 Enge를 찾고난 후 우리는 <span style = "color:aqua">**이웃 Triple들로부터 matching message를 집계(aggregate)**한다. 그리고 마지막 추론 단계에서 얼마나 많은 **어텐션**을 받는지에 따라 **가중치를 할당**</span>한다. $$p_{e^{\prime}}^{(k-1)}$$은 $$e^{\prime}$$는 마지막 추론 스탭에서 Entity에 할당된 확률이다.      
+**(4)번 식**: Match vector들을 통해서 올바른 Enge를 찾고난 후 우리는 <span style = "color:green">**이웃 Triple들로부터 matching message를 집계(aggregate)**한다. 그리고 마지막 추론 단계에서 얼마나 많은 **어텐션**을 받는지에 따라 **가중치를 할당**</span>한다. $$p_{e^{\prime}}^{(k-1)}$$은 $$e^{\prime}$$는 마지막 추론 스탭에서 Entity에 할당된 확률이다.      
 <center>$$(4) \; \widetilde{e} \, = \, \sum_{<e^{\prime}, r,e> \in {\mathscr{N}_e}}p_{e^\prime}^{(k-1)} \cdot m_{<e^{\prime}, r, e>}^{(k)}$$</center>
 
 **(5)번 식 Entity Embedding Update**: Entity Embedding은 Feed Forward Neural Network를 통해 업데이트 한다. 이 FFN은 input으로 이전 임베딩 값인 $$e^{k-1}$$와 relation-aggregate 임베딩인 $$\widetilde{e}^{(k)}$$
@@ -161,10 +161,10 @@ Guide Signal로서 사용가능하다. Reasoning Component의 Input과 Output은
 
 #### (4) Discussion
 - Student Network의 NSM model은 Two-fold이다.  
-  1. Teacher Network로 부터 <span style = "color:aqua">**중간 엔티티 분포(Intermediate entity distribution)을 Supervision signal로**</span> Student Network에 이용한다 
+  1. Teacher Network로 부터 <span style = "color:green">**중간 엔티티 분포(Intermediate entity distribution)을 Supervision signal로**</span> Student Network에 이용한다 
     - 기존의 KBQA 연구들은 이런 중간 단계에서 엔티티 분포를 이용하지 않음!!
-  2. NSM은 주어진 **Knowledge graph**에 대해 엄청난 <span style = "color:aqua">**추론 능력(reasoning capacity)**</span>을 보여주는 GNN 모델이다. 
-    - 엔티티 분포와 엔티티 임베딩을 학습하는 것은 결국 GNN의 일반적인 <span style = "color:aqua">"전사 후 집계(*propagate-then-aggregate*)" 메커니즘</span>을 잘 반영해준다.
+  2. NSM은 주어진 **Knowledge graph**에 대해 엄청난 <span style = "color:green">**추론 능력(reasoning capacity)**</span>을 보여주는 GNN 모델이다. 
+    - 엔티티 분포와 엔티티 임베딩을 학습하는 것은 결국 GNN의 일반적인 <span style = "color:green">"전사 후 집계(*propagate-then-aggregate*)" 메커니즘</span>을 잘 반영해준다.
 
 - NSM은 Scene graph와 instruction vector를 이용해 추상적인 잠재 공간에서 시각적 추론을 하기위한 모델이다. 이를 Multi-hop KBQA에 사용하기 위해 두 가지 방법을 사용하였다.
   1. 엔티티들에 관련된 **관계 임베딩(relation embedding)**을 집계하여 노드 임베딩을 초기화한다.
@@ -173,9 +173,9 @@ Guide Signal로서 사용가능하다. Reasoning Component의 Input과 Output은
       (Original NSM은 두 factor를 각각 모델링함.)
   
 ### 4) Teacher-Network    
-Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다르다. Teacher Network는 <span stlye = "color:aqua">**중간 추론 단계에서 신뢰가능한 엔티티(reliable entity)를 학습하거나 추론**</span>한다. 참고로, Teacher Network를 학습할때는 Unlabeling 된 데이터들을 사용한다.
+Teacher Network 모델은 Student Network와는 그 존재 목적 자체가 다르다. Teacher Network는 <span stlye = "color:green">**중간 추론 단계에서 신뢰가능한 엔티티(reliable entity)를 학습하거나 추론**</span>한다. 참고로, Teacher Network를 학습할때는 Unlabeling 된 데이터들을 사용한다.
 
-이러한 이유로 논문에서는 Bidirectional Search 알고리즘을 참고해 <span style = "color:aqua">**Bidirectional reasoning mechanism**</span>을 도입했다. 이 메커니즘을 활용하여
+이러한 이유로 논문에서는 Bidirectional Search 알고리즘을 참고해 <span style = "color:green">**Bidirectional reasoning mechanism**</span>을 도입했다. 이 메커니즘을 활용하여
 중간 추론 단계에서의 Teacher Network 학습을 향상시켰다. Bidirectional reasoning mechanism을 *forward reasoning*이라고 한다.
 
 #### (1) Bidirectional Reasoning for Multi-hop KBQA
@@ -212,7 +212,7 @@ Figure 3에서 볼 수 있듯이, Parallel reasoning이 좀 더 느슨한 통합
 필요로 한다. 여기서 주의할 것은, 일반적인 BFS와는 다르게 역방향 추론이 정방향 추론의 완벽한 역과정은 아니라는 것이다. 왜냐하면 두 과정은 서로 다른 semantic(의미론)에 대해 
 해당한다. 즉, multi-hop에서 같은 **entity를 같은 edge를 통해 간다고 하더라도, 방향이 반대이면 그 의미는 다르다.**
 
-이러한 점을 고려할때, <span style = "color:aqua">forward의 마지막 추론 단계의 값을 backward의 초기값으로 **재활용**하고</span> 이러한 방식은 결국 backward reasoning에서 forward reasoning에 관한 정보를
+이러한 점을 고려할때, <span style = "color:green">forward의 마지막 추론 단계의 값을 backward의 초기값으로 **재활용**하고</span> 이러한 방식은 결국 backward reasoning에서 forward reasoning에 관한 정보를
 더 많이 받는것이되므로 forward reasoning을 추적하는데 더 큰 도움이 된다.
 
 ### 5) Teacher-Student framework 이용한 학습
@@ -245,7 +245,7 @@ Supervision signal로 여기고 평균을 취하면 (11)식이 된다.
 
 #### (3) Discussion
 실제로 많은 KBQA 모델들은 중간 추론 단계에서 labeled data는 거의 사용되지 못한다. 즉, Supervision signal이 부족하다. 이 논문의 핵심은, 추가적으로 Labeled data를
-사용하지 않고, <span style = "color:aqua">Teacher Network의 **Bidirectional Reasoning Mechanism**을 이용해서 **중간 엔티티 분포**를 만들어내고, 이를 Supervision signal로 Student Network에서 이용하여 학습 효율을 높이는 것</span>이다. 
+사용하지 않고, <span style = "color:green">Teacher Network의 **Bidirectional Reasoning Mechanism**을 이용해서 **중간 엔티티 분포**를 만들어내고, 이를 Supervision signal로 Student Network에서 이용하여 학습 효율을 높이는 것</span>이다. 
 
 ## 3. Result
 ### 1) Data Set  

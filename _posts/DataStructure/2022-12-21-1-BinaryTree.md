@@ -17,7 +17,7 @@ last_modified_at: 2022-12-21
 - 최대 자식 노드의 수와 연산 복잡도는 **Trade-off**
 
 이진트리를 표현하는 방법 중 가장 먼저 공부한 방법은 배열 또는 리스트에 저장하는 방식이다. 이는 앞선 포스팅인 [Heap 자료구조](https://meaningful96.github.io/datastructure/TreeandHeap/)에서 다뤘다.
-힙(Heap)은 이진 트리의 특이 케이스로, 이진 트리의 모양 성질과 힙성질 모두를 만족시켜야 하기때문에 <span style = "color:aqua">**makeheap**</span>이라는 함수를 구현했다.
+힙(Heap)은 이진 트리의 특이 케이스로, 이진 트리의 모양 성질과 힙성질 모두를 만족시켜야 하기때문에 <span style = "color:green">**makeheap**</span>이라는 함수를 구현했다.
 - Python에서는 **headq 모듈**을 이용해 사용가능 
 
 하지만, 이렇게 배열 또는 리스트로 나열을하면은 메모리 관점에서 굉장한 낭비가 된다. 이는 연결 리스트를 이용하면 해결 가능하다.
@@ -48,13 +48,13 @@ class Node: #초기값은 None
 ```
 
 #### (2) 순회  
-Binary 클래스에서 선언된 노드들의 key값을 모두 출력하고 싶을때는 각 노드들을 방문하는 일정한 규칙인 <span style = "color:aqua">**순회(Traversal)**</span>을 이용한다.  
+Binary 클래스에서 선언된 노드들의 key값을 모두 출력하고 싶을때는 각 노드들을 방문하는 일정한 규칙인 <span style = "color:green">**순회(Traversal)**</span>을 이용한다.  
 순회에는 총 3가지 방법이 있다.
 - preorder : MLR 방식
 - inoder   : LMR 방식
 - postorder: LRM 방식
 (M = 자기 자신, L = 왼쪽 자식노드, R = 오른쪽 자식 노드)
-**이 방식은 각 노드들에서** <span style = "color:aqua">**재귀적**</span>**으로 적용한다.**
+**이 방식은 각 노드들에서** <span style = "color:green">**재귀적**</span>**으로 적용한다.**
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/208728948-d7a76e9b-7799-4ffd-99a9-d083641edf5d.png">
@@ -98,7 +98,7 @@ print 문의 위치에 따라 MLR인지, LMR인지, LRM인지 나뉜다.
 
 ## 2. 이진 탐색 트리(Binary Search Tree)
 ### 1) 이진 탐색 트리(Binary Search Tree)의 정의
-이진트리에서 search 연산을 보다 더 효율적으로 하기위한 자료구조이다. 영어로 <span style = "color:aqua">**Binary Search Tree, BST**</span>라고 부른다. 
+이진트리에서 search 연산을 보다 더 효율적으로 하기위한 자료구조이다. 영어로 <span style = "color:green">**Binary Search Tree, BST**</span>라고 부른다. 
 
 이진 탐색트리를 만들기 위해서는 두 조건을 **반.드.시** 만족해야 한다.  
 ```
@@ -107,11 +107,11 @@ print 문의 위치에 따라 MLR인지, LMR인지, LRM인지 나뉜다.
 2. 오른쪽 subtree의 키값은 노드의 key값보다커야한다.
 
 ```
-여기서 반드시라는 것은, 두 조건이 <span style = "color:aqua">**모든 노드들에 대해**</span>적용되야 한다는 것이다. 
+여기서 반드시라는 것은, 두 조건이 <span style = "color:green">**모든 노드들에 대해**</span>적용되야 한다는 것이다. 
 
 이 조건을 만족하게되면, 각 부모 노드를 기준으로 작은 값들이 왼쪽 subtree에, 큰 값들이 오른쪽 subtree에 저장된다.
 
-이 상태로 search연산을 하게되면 트리와 마찬가지로 Level by Level로 이동하며 찾기 때문에, 시간복잡도가 <span style = "color:aqua">**트리의 높이**</span>에 따라 결정된다.  
+이 상태로 search연산을 하게되면 트리와 마찬가지로 Level by Level로 이동하며 찾기 때문에, 시간복잡도가 <span style = "color:green">**트리의 높이**</span>에 따라 결정된다.  
 즉, 시간 복잡도가 트리 높이에 dependent하다.
 
 <p align="center">
@@ -281,7 +281,7 @@ x라는 노드를 지울 때, x노드가 키값을 찾아야하는데, `find_loc
   - 만약 left subtree가 None이라면 right subtree가 x의 부모노드에 직접 연결된다.
 
 **Psuedo 코드**  
-코드로 구현할 때 고려사항으로 <span style = "color:aqua">**left subtree의 존재유무**</span>와 <span style = "color:aqua">**삭제한 노드 x가 root인지 아닌지**</span>로 나뉜다.
+코드로 구현할 때 고려사항으로 <span style = "color:green">**left subtree의 존재유무**</span>와 <span style = "color:green">**삭제한 노드 x가 root인지 아닌지**</span>로 나뉜다.
 ```python
 def deleteByMerging(self, x):
     a = x.left
@@ -338,7 +338,7 @@ def deleteByMerging(self, x):
 
 2. **copying**
 
-merging과는 다르게 **copying**은 <span style = "color:aqua">left subtree에서 가장 큰값 m을 찾아 삭제된 노드 x의 자리에 대체</span>한다.
+merging과는 다르게 **copying**은 <span style = "color:green">left subtree에서 가장 큰값 m을 찾아 삭제된 노드 x의 자리에 대체</span>한다.
 
 m이 left subtree에서 가장 큰 값이므로 m의 right subtree는 없다는 것이 보장되므로,
 m의 right subtree로 x의 right subtree를 연결한다.
@@ -410,7 +410,7 @@ insert 연산또한 search연산을 이용하므로 O(h)가 걸린다.
 delete연산 또한 m을 찾기위해 최악의 경우 h만큼 비교하기 때문에 O(h) 시간이 걸린다.
 
 트리의 높이 h는 최악의 경우 right subtree로만 연결되기때문에 n-1까지 가능하므로
-모든 연산시간은 <span style = "color:aqua">O(n)</span> 만큼 걸린다.
+모든 연산시간은 <span style = "color:green">O(n)</span> 만큼 걸린다.
 
 따라서 트리의 높이를 최적화해야 탐색 수행시간이 줄어든다.
 이를 위해 균형이진탐색트리(AVL)가 존재한다.

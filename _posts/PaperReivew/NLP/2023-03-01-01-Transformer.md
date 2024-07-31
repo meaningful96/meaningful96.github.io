@@ -12,14 +12,14 @@ last_modified_at: 2023-03-01
 ---
 
 # 1. Problem Statement
-1. <span style = "font-size:120%">Sequential 모델들의 <span style = "color:aqua">Computational Complexity</span>가 너무 높음</span>
+1. <span style = "font-size:120%">Sequential 모델들의 <span style = "color:green">Computational Complexity</span>가 너무 높음</span>
   - Recurrent model(RNN)을 기반으로 한 여러가지 Architecture들이 존재: RNN, LSTM, Seq2Seq
   - 최근 연구에서 factorization trick이나 conditional computation을 통해 계산 효율성을 많이 개선
   - 특히 Conditional Computation은 모델 성능도 개선
   - 하지만, 여전히 계산 복잡도 문제 존재
   - LSTM의 문제점: Input Sequence를 하나의 Context Vector로 압축➜병목현상
 
-2. <span style = "font-size:120%">Attention Mechanism이 다양한 분야의 Sequence Modeling에 사용되지만, 그럼에도 <span style = "color:aqua">RNN을 사용</span>.</span>
+2. <span style = "font-size:120%">Attention Mechanism이 다양한 분야의 Sequence Modeling에 사용되지만, 그럼에도 <span style = "color:green">RNN을 사용</span>.</span>
   - Attention Mechainsm은 Input과 Output간 Sequence의 길이를 신경쓰지 않아도 됨.
 
 3. <span style = "font-size:120%">기존의 RNN모델들은 Parallelization이 불가능 ➜ Training에 많은 시간 소요</span>
@@ -31,10 +31,10 @@ last_modified_at: 2023-03-01
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227275202-0c2ce492-7f17-4db3-bf7a-88cac2c23521.png">
 </p>  
 
-<span style = "font-size:120%">➜ '<span style = "color:gold">매번 소스 문장에서의 출력 전부를 입력으로</span> 받으면 어떨까?'라는 질문에서 시작</span> 
+<span style = "font-size:120%">➜ '<span style = "color:red">매번 소스 문장에서의 출력 전부를 입력으로</span> 받으면 어떨까?'라는 질문에서 시작</span> 
   - 최근 GPU가 많은 메모리와 빠른 병렬 처리를 지원  
 
-<span style = "font-size:120%">➜ Transformer는 <span style = "color:gold">input과 output간 global dependency를 뽑아내기 위해 Recurrence를 사용하지 않고, Attention mechanism만을 사용</span>함.</span> 
+<span style = "font-size:120%">➜ Transformer는 <span style = "color:red">input과 output간 global dependency를 뽑아내기 위해 Recurrence를 사용하지 않고, Attention mechanism만을 사용</span>함.</span> 
 
 # 2. Relation Work
 1. RNN, LSTM, Seq2Seq
@@ -42,7 +42,7 @@ last_modified_at: 2023-03-01
 2. Sequential Computation을 줄이는 것은 Extended Neural GPU, ByteNet등에서도 다뤄진다.
   - CNN을 기반으로 한 모델들임
   - input output 거리에서 dependency를 학습하기 어려움
-  - <span style = "color:aqua">Transformer에서는 Multi-Head Attention으로 상수 시간으로 줄어든다.</span>
+  - <span style = "color:green">Transformer에서는 Multi-Head Attention으로 상수 시간으로 줄어든다.</span>
 
 3. Self-Attention
 
@@ -69,13 +69,13 @@ last_modified_at: 2023-03-01
   - Residual Connection 존재
 
 ## 2) Positional Encoding
-Transformer는 RNN이나 CNN을 전혀 사용하지 않는다. 대신 <span style = "color:aqua">**Postional Encoding**</span>을 많이 사용한다. 트랜스포머 이전의 전통적인 임베딩에 Positional Encoding을 더해준 형태가 트랜스포머의 Input이 된다.
+Transformer는 RNN이나 CNN을 전혀 사용하지 않는다. 대신 <span style = "color:green">**Postional Encoding**</span>을 많이 사용한다. 트랜스포머 이전의 전통적인 임베딩에 Positional Encoding을 더해준 형태가 트랜스포머의 Input이 된다.
 
 <p align="center">
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227280781-2baf7e42-38af-46ea-82a8-067671475685.png">
 </p>
 
-Postional Encoding은 주기 함수를 활용한 공식을 사용하며 <span style = "color:aqua">각 단어의 상대적인 위치 정보를 네트워크에게 입력</span>한다. 수식은 다음과 같다.  
+Postional Encoding은 주기 함수를 활용한 공식을 사용하며 <span style = "color:green">각 단어의 상대적인 위치 정보를 네트워크에게 입력</span>한다. 수식은 다음과 같다.  
 
 <p align="center">
 <img width="400" alt="1" src="https://user-images.githubusercontent.com/111734605/227283915-f70f70a0-da08-4f5d-8097-75de375a9779.png">
@@ -90,20 +90,20 @@ $$pos$$는 position이고, $$i$$는 차원이다. 중요한 것은 Postional Enc
 - Key: 비교의 객체. 입력 시퀀스에 있는 모든 토큰이다. Query와 입력 시퀀스의 각 항목 간의 관련성을 결정하는데 사용된다.
 - Value: 입력 시퀀스의 각 토큰과 관련된 실제 정보를 수치로 나타낸 실제 값이다. 각 요소의 중요도를 결정했을 때 모델에 필요한 정보를 제공하는 데 사용된다.
 
-트랜스포머에서 Self-Attention은 <span style = "color:aqua">Scaled-Dot Product</span>로 이름에서도 알 수 있듯, 행렬곱과 스케일링으로 이루어진 연산이다. 그림으로 나타내면 다음과 같다.
+트랜스포머에서 Self-Attention은 <span style = "color:green">Scaled-Dot Product</span>로 이름에서도 알 수 있듯, 행렬곱과 스케일링으로 이루어진 연산이다. 그림으로 나타내면 다음과 같다.
 
 <p align="center">
 <img width="300" alt="1" src="https://user-images.githubusercontent.com/111734605/227312790-3e8d658a-737a-41c3-be42-6d8b4a71ea40.png">
 </p>
 
 **Scaled-Dot Product Self-Attention**
-- Attention <span style = "color:aqua">**Energy**</span> = **Dot-Product** of (Query & Key) = <span style = "font-size:110%">$$QK^T$$</span> = $$e_{ij}$$
-- Attention <span style = "color:aqua">**Score**</span> = **Scailing** of Key's Dimension = <span style = "font-size:120%">$$\frac{QK^T}{\sqrt{d_k}}$$</span> 
-- Attention <span style = "color:aqua">**Weight**</span> = **Softmax**(Attention Score) = <span style = "font-size:120%">$$softmax(\frac{QK^T}{\sqrt{d_k}})$$</span> = $$a_{ij}$$ 
+- Attention <span style = "color:green">**Energy**</span> = **Dot-Product** of (Query & Key) = <span style = "font-size:110%">$$QK^T$$</span> = $$e_{ij}$$
+- Attention <span style = "color:green">**Score**</span> = **Scailing** of Key's Dimension = <span style = "font-size:120%">$$\frac{QK^T}{\sqrt{d_k}}$$</span> 
+- Attention <span style = "color:green">**Weight**</span> = **Softmax**(Attention Score) = <span style = "font-size:120%">$$softmax(\frac{QK^T}{\sqrt{d_k}})$$</span> = $$a_{ij}$$ 
 
-<span style = "color:gold"><span style = "font-size:120%">➜ Attention(Query, Key, Value) = $$softmax(\frac{QK^T}{\sqrt{d_k}})V$$ </span></span>이다.
+<span style = "color:red"><span style = "font-size:120%">➜ Attention(Query, Key, Value) = $$softmax(\frac{QK^T}{\sqrt{d_k}})V$$ </span></span>이다.
 
-트랜스포머에서는 인코더와 디코더 모두에서 <span style = "color:aqua">**Multi-head Attention**</span>을 사용한다. 병렬로 Head의 개수만큼 한 번에 어텐션을 진행하는 것으로, 동시에 여러 개의 Attention value값을 추출해 낼 수 있다. Multi-Head Attention을 사용하는 이유는 여러가지이다.
+트랜스포머에서는 인코더와 디코더 모두에서 <span style = "color:green">**Multi-head Attention**</span>을 사용한다. 병렬로 Head의 개수만큼 한 번에 어텐션을 진행하는 것으로, 동시에 여러 개의 Attention value값을 추출해 낼 수 있다. Multi-Head Attention을 사용하는 이유는 여러가지이다.
 
 **Multi-head Attention**
 - Improved representation learning: 모델이 입력 시퀀스의 다양한 측면에 어텐션할 수 있으므로 데이터를 더 포괄적이고, 미묘한 차이까지도 이해할 수 있다.
@@ -144,7 +144,7 @@ $$pos$$는 position이고, $$i$$는 차원이다. 중요한 것은 Postional Enc
 
 ## 4) Encoder
 트랜스포머의 인코더는 두 가지의 Sub layer로 구성된다. Sub-layer를 보기 전 앞서 말했듯, Input Embedding Matrix에 Positional Encoding이 더해진 값이 첫 번째 Sub layer인 Multi-head Attention에 Input으로 들어간다. 그 이후, Attention의 결과와 Multi-head Attention의 Input이 더해지고 정규화를 거친다. 이 때, Multi-head Attention의 Input이
-'Add + Norm'의 인풋으로 가는 것을 <span style = "color:aqua">**Residual Connection**</span>이라고 하고, 이러한 학습 방식을 '**잔여학습(Residual Learning)**' 이라고 한다.
+'Add + Norm'의 인풋으로 가는 것을 <span style = "color:green">**Residual Connection**</span>이라고 하고, 이러한 학습 방식을 '**잔여학습(Residual Learning)**' 이라고 한다.
 첫 번째 Sub layer는 결국 'Multi-head Attention Layer'와 'Add + Norm Layer'로 구성된다.
 
 두 번째 Sub layer는 'Fully Connected Feedforward Layer'와 'Add + Norm Layer'로 구성된다. 또한 여기서도 마찬가지로 Residual Connection을 한다. Residual Connection을 하는 이유는 어떤 Layer를 거쳤을 때 변환되서 나온 값에 실제 Data의 Input을 더해줘서 Input을 좀 더 반영하게 해주는 것이다. 이렇게하면 결론적으로 성능이 향상된다.
@@ -168,7 +168,7 @@ Masked Self-Attention을 하는 이유는, 학습과 추론과정에 정보가 �
 
 트랜스포머에서는 기존의 연산을 유지하며 Attentio Value를 계산할 때 $$i<j$$인 요소들은 고려하지 않는다. Attention(i,j)에서 여기서 i는 Query의 값이고, j는 Value의 값이다. 이를 그림으로 표현하면 위와 같다. 디테일하게 Atttention Score를 계산한 행렬의 대각선 윗부분을 -∞로 만들어 softmax를 취했을 때 그 값이 0이되게 만든다. 즉, Masking된 값의 Attnetion Weight는 0이된다. 이렇게 함으로서 Attention Value를 계산할 때 미래 시점의 값을 고려하지 않게된다. 
 
-이렇게 Maksed Multi-head Attention을 거친후 Residual Connection과 함께 <u>'Add + Norm' Layer를 거치면 그 출력값이 인코더의 출력값과 함께 두 번째 Sub Layer인 <b>Multi-Head Attention</b>의 입력</u>으로 들어간다. 이는 의미적으로 Seq2Seq에서의 인코더-디코더 어텐션과 동일하다. <span style = "color:aqua">출력 단어가 입력 단어와 얼마나 연관이 있는지를 나타내기 위함</span>이다.
+이렇게 Maksed Multi-head Attention을 거친후 Residual Connection과 함께 <u>'Add + Norm' Layer를 거치면 그 출력값이 인코더의 출력값과 함께 두 번째 Sub Layer인 <b>Multi-Head Attention</b>의 입력</u>으로 들어간다. 이는 의미적으로 Seq2Seq에서의 인코더-디코더 어텐션과 동일하다. <span style = "color:green">출력 단어가 입력 단어와 얼마나 연관이 있는지를 나타내기 위함</span>이다.
 
 예를 들어서, 입력 단어가 'I am a teacher'이고 출력 단어가 '나는 선생님 입니다' 일 때, '선생님'이라는 단어를 번역한다고 했을때 I, am, a, teacher들 중 어느 단어와 가장 큰 관계가 있는지 구하는 것이 바로 두 번째 Sub layer의 역할이며 이를 **Encoder-Decoder Attention**이라고 하는 것이다. 따라서 인코더의 출력이 Key가되고 디코더의 첫 번째 Sub layer의 출력이 Query가 된다.
 
@@ -220,7 +220,7 @@ Recurrent, Convolution layer와 Self-Attention의 시간 복잡도를 비교하�
 <br/>
 - Convolution layer는 일반적으로 recurrent layer보다 더 비용이 많이 든다.
   - Separable Convolution의 경우 복잡도를 $$O(knd + nd^2)$$ 까지 줄일 수 있다.
-  - 그러나<span style = "color:gold"> $$k = n$$인 경우 트랜스포머와 마찬가지로 Self-attention layer와 Point-wise Feedforward layer의 조합과 복잡도가 같다.</span>
+  - 그러나<span style = "color:red"> $$k = n$$인 경우 트랜스포머와 마찬가지로 Self-attention layer와 Point-wise Feedforward layer의 조합과 복잡도가 같다.</span>
   <br/>
   결론적으로 Self-attention을 통해 더 Interpretable한 모델을 만들 수 있다. Attention head들은 다양한 task를 잘 수행해내고, 문장의 구조적, 의미적 구조를 잘 연관시키는 성질을 보이기도 한다. 
 
@@ -269,7 +269,7 @@ Recurrent, Convolution layer와 Self-Attention의 시간 복잡도를 비교하�
 English Constituency Parsing에서도 잘 일반화해서 사용할 수 있는지 실험하였다. 구체적인 tuning 없이도 놀라운 성능을 보였다.
 
 # Contribution
-1. Recurrent Model을 사용하지않고 오직 <span style = "color:gold">Attention Mechanism만을 이용해서 새로운 모델을 제시</span>하였다.
+1. Recurrent Model을 사용하지않고 오직 <span style = "color:red">Attention Mechanism만을 이용해서 새로운 모델을 제시</span>하였다.
 2. Benchmark Dataset에 대하여 SOTA 달성
 
 # Reference

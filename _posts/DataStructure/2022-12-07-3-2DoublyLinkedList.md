@@ -228,7 +228,7 @@ __iter__(self)이다. 그리고 이 메서드처럼 yield가 있는 함수를 ge
 - 만약 tail 노드를 지우고 싶다.  
   - tail 노드에서 prev 노드로 가는 링크 없다.  
   - Head부터 따라가야 함  
-  - O(N) <span style = "color:aqua">**Bad!!**</span>  
+  - O(N) <span style = "color:green">**Bad!!**</span>  
 
 ### 2) 양방향 연결 리스트의 장단점 
 
@@ -295,7 +295,7 @@ class Doublylinkedlist:
         return self.size
 ```
 
-#### (3) <span style = "color:aqua">Splice 연산</span>**(매우 중요!!)**  
+#### (3) <span style = "color:green">Splice 연산</span>**(매우 중요!!)**  
 - def splice(self, a, b, x)
 - 세 개의 노드 a, b, x(key값이 아니라 노드이다!!)
 - 총 6번의 연산이 필요하다
@@ -311,7 +311,7 @@ class Doublylinkedlist:
 조건 2. a와 b사이에 head 노드는 없다.  
 조건 3. a와 b사이에 x노드가 없어야 함.
 
-> <span style = "color:aqua">**Spclice 연산**</span>  
+> <span style = "color:green">**Spclice 연산**</span>  
   > **a와 b사이에 있는 (a,b 포함) Cut 해서 어딘가에 있는 x노드와 x.next 노드 사이에 집어넣음!!**
 
 ```python

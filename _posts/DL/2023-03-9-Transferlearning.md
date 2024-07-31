@@ -12,7 +12,7 @@ last_modified_at: 2023-03-09
 ---
 
 # Transfer Learning, 전이 학습
-Transfer Learning은 Pre-trained(사전 훈련)된 모델을 새로운 작업에 대한 몰델의 시작점으로 재사용하는 학습 방식이다. 쉽게 말해서, <span style = "color:aqua">**Transfer Learning은 어떤 목적을 이루기 위해 학습된 모델을 다른 작업에 이용**</span>하는 것이다. 
+Transfer Learning은 Pre-trained(사전 훈련)된 모델을 새로운 작업에 대한 몰델의 시작점으로 재사용하는 학습 방식이다. 쉽게 말해서, <span style = "color:green">**Transfer Learning은 어떤 목적을 이루기 위해 학습된 모델을 다른 작업에 이용**</span>하는 것이다. 
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/231578258-24dc8726-1ea5-4382-ae24-a497e33ae876.png">

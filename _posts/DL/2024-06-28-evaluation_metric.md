@@ -74,7 +74,7 @@ F1 Score는 **Precision과 Recall의 조화평균**이다. F1-Score는 $$0 \sim 
 
 ### 4) Area Under the ROC Cureve (AUC-ROC Curve)
 
-Receiver Operating Characteristic Curve (ROC Curve)는 "수신자 판단 곡선"이라는 뜻을 가진다. ROC Curve는 이진 분류 모델의 성능을 시각적으로 평가하는 지표로, 임계값을 변화시켰을 때의 Sensitivity나타낸다. **Sensitivity**란 위에서 언급하였듯이, Recall과 식이 동일하며, 의미를 이해하기 쉽도록 이를 <span style="color:gold">**True Positive Rate(TPR)**</span>이라고 한다. 그러면 **1 - Specificity**는 자연스럽게 <span style="color:gold">**False Positive Rate(FPR)**</span>가 된다. 
+Receiver Operating Characteristic Curve (ROC Curve)는 "수신자 판단 곡선"이라는 뜻을 가진다. ROC Curve는 이진 분류 모델의 성능을 시각적으로 평가하는 지표로, 임계값을 변화시켰을 때의 Sensitivity나타낸다. **Sensitivity**란 위에서 언급하였듯이, Recall과 식이 동일하며, 의미를 이해하기 쉽도록 이를 <span style="color:red">**True Positive Rate(TPR)**</span>이라고 한다. 그러면 **1 - Specificity**는 자연스럽게 <span style="color:red">**False Positive Rate(FPR)**</span>가 된다. 
 
 여기서 주의해야할 점은, TPR은 Sensitivity(민감도)를 나타내고, FPR은 1에서 Specificity(특이도)를 뺀 값이다. 
 - Sensitivity(민감도): True Positive Rate (TPR)로, 실제 Positive 샘플 중에서 모델이 정확히 Positive로 예측한 비율
@@ -97,7 +97,7 @@ TPR은 다시 말해 모델이 실제 Positive 샘플을 얼마나 잘 감지하
 
 <center><span style="font-size:110%">$$\text{AUCC} \; = \; \frac{1}{2} \sum_{i=1}^{m-1}(x_{i+1} - x_i)(y_i + y_{i+1})$$</span></center>
 
-따라서 AUC는 ROC 커브를 요약하는 한 지표로, <span style="color:gold">**AUC 값이 높을수록(즉, Positive와 Negative를 잘 구분하는)**</span> 성능이 좋은 모델이다. AUC값에 따른 case를 시각화하면 다음과 같다.
+따라서 AUC는 ROC 커브를 요약하는 한 지표로, <span style="color:red">**AUC 값이 높을수록(즉, Positive와 Negative를 잘 구분하는)**</span> 성능이 좋은 모델이다. AUC값에 따른 case를 시각화하면 다음과 같다.
 
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/9e14633c-d94b-409e-83c7-4e8406ad1da6">

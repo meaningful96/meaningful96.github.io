@@ -82,7 +82,7 @@ arr = np.arange(12).reshape(3,4)
 
 ![image](https://user-images.githubusercontent.com/111734605/236618037-e3673b6f-a65f-49d2-be10-cbcfcd3d7426.png)
 
-이렇게 **행(row)** 방향으로 저장된 형태를 <span style = "color:gold">**C contiguous**</span> array라고 한다. 반면, Transpos를 할 수도 있다.
+이렇게 **행(row)** 방향으로 저장된 형태를 <span style = "color:red">**C contiguous**</span> array라고 한다. 반면, Transpos를 할 수도 있다.
 ```python
 arr = arr.T
 ```
@@ -90,9 +90,9 @@ arr = arr.T
 
 ![image](https://user-images.githubusercontent.com/111734605/236618166-d29803f5-97fc-4e9e-8339-bed83f94176e.png)
 
-이런 경우를 <span style = "color:gold">**Fortran contiguous**</span>라고 하며, 메모리가 **열(Column)** 방향으로 저장된 것을 말한다.
+이런 경우를 <span style = "color:red">**Fortran contiguous**</span>라고 하며, 메모리가 **열(Column)** 방향으로 저장된 것을 말한다.
 
-이처럼, <span style=  "color:gold">**Contiguous라는 것은 tensor에서 바로 옆에 있는 요소가 실제로 메모리상에서 서로 인접해있느냐**</span>를 의미한다.
+이처럼, <span style=  "color:red">**Contiguous라는 것은 tensor에서 바로 옆에 있는 요소가 실제로 메모리상에서 서로 인접해있느냐**</span>를 의미한다.
 
 
 

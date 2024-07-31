@@ -19,7 +19,7 @@ Bi, Z. (2022, May 22). *Relphormer: Relational Graph Transformer for Knowledge G
 
 일반적인 그래프와는 다르게 Knowledge Graph는 노드 또는 릴레이션의 타입이 여러가지인 Heterogeneous Graph이다. 자연어 처리 분야에서 Transformer가 압도적인 성능을 보여주면서 Computer Vision등의 여러 분야에 접목하려는 실험이 진행되는 중이다. 마찬가지로 Transformer모델이 Knowledge Graph에도 적용하려는 시도가 있었다.
 
-Transformer는 그래프에 적용하면(i.e., KG-BERT) 모든 노드들의 Attention을 통해 관계를 파악하는 것을 목표로 한다. 하지만, 이럴 경우 그래프에서 중요한 정보 중 하나인 <span style="color:gold">**구조 정보(Structural Information)**</span>를 제대로 반영하지 못한다. 본 논문에서는 3가지 문제점을 제시한다.
+Transformer는 그래프에 적용하면(i.e., KG-BERT) 모든 노드들의 Attention을 통해 관계를 파악하는 것을 목표로 한다. 하지만, 이럴 경우 그래프에서 중요한 정보 중 하나인 <span style="color:red">**구조 정보(Structural Information)**</span>를 제대로 반영하지 못한다. 본 논문에서는 3가지 문제점을 제시한다.
 
 <span style ="font-size:110%"><b>1. Heterogeneity for edges and nodes</b></span>      
 먼저 **Inductive Bias**라는 개념을 알아야한다. 일반적으로 모델이 갖는 일반화의 오류는 불안정하다는 것(**Brittle**)과 겉으로만 그럴싸 해 보이는 것(**Spurious**)이 있다. 모델이 주어진 데이터에 대해서 잘 일반화한 것인지, 혹은 주어진 데이터에만 잘 맞게 된 것인지 모르기 때문에 발생하는 문제이다. 이러한 문제를 해결하기 위한 것이 바로 Inductive Bias이다. **Inductive Bias**란, <u>주어지지 않은 입력의 출력을 예측하는 것이다. 즉, 일반화의 성능을 높이기 위해서 만약의 상황에 대한 추가적인 가정(Additional Assumptions)이라고 보면 된다.</u> 
@@ -27,19 +27,19 @@ Transformer는 그래프에 적용하면(i.e., KG-BERT) 모든 노드들의 Atte
 - Models are Brittle: 아무리 같은 의미의 데이터라도 조금만 바뀌면 모델이 망가진다.
 - Models are Spurious: 데이터의 진정한 의미를 파악하지 못하고 결과(Artifacts)와 편향(Bias)을 암기한다.
 
-논문에서는 <b>기존의 Knowledge Graph Transformer가 함축적인 Inductive Bias를 적용</b>한다고 말한다. 왜냐하면 KG-BERT의 경우 입력이 **Single-Hop Triple**로 들어가기 때문이다. 이럴 경우 1-hop 정보만 받아가므로 <span style = "color:gold">**Knowledge Graph에 구조적인 정보를 반영하는데 제약**</span>이 된다.
+논문에서는 <b>기존의 Knowledge Graph Transformer가 함축적인 Inductive Bias를 적용</b>한다고 말한다. 왜냐하면 KG-BERT의 경우 입력이 **Single-Hop Triple**로 들어가기 때문이다. 이럴 경우 1-hop 정보만 받아가므로 <span style = "color:red">**Knowledge Graph에 구조적인 정보를 반영하는데 제약**</span>이 된다.
 
 <br/>
 
 <span style ="font-size:110%"><b>2. Topological Structure and Texture description</b></span>        
-1번 문제와 비슷한 문제이다. 기존의 Transformer 모델은 모든 Entity와 Relation들을 plain token처럼 다룬다. 하지만 Knowledge Graph에서는 엔티티가 **위상 구조(Topological Structure) 정보와 문맥(Text Description) 정보**의 두 유형의 정보를 가지며 Transformer는 오직 Text description만을 이용해 추론(Inference)를 진행한다. 중요한 것은 **서로 다른 엔티티는 서로 다른 위상 구조 정보을 가진다**. 따라서, 마찬가지로 결국 기존의 <span style="color:gold">**Knowledge Graph Trnasformer 모델들은 필수적인 구조 정보를 유실**</span>시킨다.
+1번 문제와 비슷한 문제이다. 기존의 Transformer 모델은 모든 Entity와 Relation들을 plain token처럼 다룬다. 하지만 Knowledge Graph에서는 엔티티가 **위상 구조(Topological Structure) 정보와 문맥(Text Description) 정보**의 두 유형의 정보를 가지며 Transformer는 오직 Text description만을 이용해 추론(Inference)를 진행한다. 중요한 것은 **서로 다른 엔티티는 서로 다른 위상 구조 정보을 가진다**. 따라서, 마찬가지로 결국 기존의 <span style="color:red">**Knowledge Graph Trnasformer 모델들은 필수적인 구조 정보를 유실**</span>시킨다.
 
 <span style="font-size:120"><b>➜ How to treat heterogeneous information using Transformer architecture?</b></span>
 
 <br/>
 
 <span style ="font-size:110%"><b>3. Task Optimization Universalty</b></span>    
-Knowledge Graph는 기존에 보통 Graph Embedding 모델들에 의해 task를 풀었다. 하지만 이 기존의 방식들의 비효율적인 면은 바로 Task마다 사전에 Scoring function을 각각 다르게 정의해주어야 한다는 것이다. 즉, 다른 <span style="color:gold">**Task object마다 다른 Scoring function을 필요**</span>로 하기 때문에 비효율적이다. 기존의 연구들을 다양한 Task에 대해 통일된 representation을 제시하지 못한다.
+Knowledge Graph는 기존에 보통 Graph Embedding 모델들에 의해 task를 풀었다. 하지만 이 기존의 방식들의 비효율적인 면은 바로 Task마다 사전에 Scoring function을 각각 다르게 정의해주어야 한다는 것이다. 즉, 다른 <span style="color:red">**Task object마다 다른 Scoring function을 필요**</span>로 하기 때문에 비효율적이다. 기존의 연구들을 다양한 Task에 대해 통일된 representation을 제시하지 못한다.
 
 <span style="font-size:120"><b>➜ How to unite Knowledge Graph Representation for KG-based tasks?</b></span>
 
@@ -98,7 +98,7 @@ Knowledge Graphs는 triple($$head, relation, tail$$)로 구성된다. 논문에�
 <img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/be4bd6fd-a0a4-488e-9f7f-bcbb3e9e8903">
 </p>
 
-Knowledge Graph는 많은 숫자의 **Relational Information**을 포함하고 있기 때문에, 그래프를 직접 direct하게 Transformer 모델에 입력으로 집어넣는 것은 불가능하다. Full-graph-based Transformer의 이러한 단점을 극복하기 위해서 논문에서는 **Triple2Seq**를 제안한다. Triple2Seq는 <span style="color:gold">**Contextualized Sub-Graphs를 Input Sequence로 사용해 Local Structure 정보를 인코딩**</span>한다.
+Knowledge Graph는 많은 숫자의 **Relational Information**을 포함하고 있기 때문에, 그래프를 직접 direct하게 Transformer 모델에 입력으로 집어넣는 것은 불가능하다. Full-graph-based Transformer의 이러한 단점을 극복하기 위해서 논문에서는 **Triple2Seq**를 제안한다. Triple2Seq는 <span style="color:red">**Contextualized Sub-Graphs를 Input Sequence로 사용해 Local Structure 정보를 인코딩**</span>한다.
 
 ### 1) Contextualized Sub-Graph
 
@@ -111,19 +111,19 @@ Triple $$\mathcal{T}$$의 Contextualized sub-graph인 <b>$$\mathcal{T_G}$$</b>�
 
 ### 2) Dynamic Sampling
 
-여기서 $$\mathcal{N}$$은 Center Triple $$\mathcal{T_C}$$의 고정된 크기의 이웃 Triple set이다. 논문에선는 Local structural information을 좀 더 잘 뽑아내기 위해 학습 중 <span style="color:gold">**Dynamic Sampling**</span>을 하였다. 이는 <u>각 Epoch마다 같은 Center Triple에 대해 여러개의 Contextualized Sub-graph를 <b>무작위(random)로 선택</b>해 추출하는 방법</u>이다. 
+여기서 $$\mathcal{N}$$은 Center Triple $$\mathcal{T_C}$$의 고정된 크기의 이웃 Triple set이다. 논문에선는 Local structural information을 좀 더 잘 뽑아내기 위해 학습 중 <span style="color:red">**Dynamic Sampling**</span>을 하였다. 이는 <u>각 Epoch마다 같은 Center Triple에 대해 여러개의 Contextualized Sub-graph를 <b>무작위(random)로 선택</b>해 추출하는 방법</u>이다. 
 
 <p align="center">
 <img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/6bc4842e-ce90-4fcb-8f59-e004e070624d">
 </p>
 
-Triple2Seq의 결과로 얻는 것이 바로 Contextualized Sub-Graph인 $$\mathcal{T_G}$$이다. 또한 $$\mathcal{T_G}$$의 local structure information은 인접 행렬(Adjacency matrix) $$A_G$$에 저장된다. 이전에 나왔던 논문 중 [HittER: Hierarchical transformers for knowledge graph embeddings](https://meaningful96.github.io/paperreview/HittER/)을 통해 알 수 있는 중요한 사실이 하나 있다. 바로 <u>엔티티-릴레이션(Entity-Relation)쌍에 저장된 정보가 중요하다는 것이다.</u> 이러한 사실을 바탕으로 논문에서는 <span style="color:gold">**엔티티-릴레이션 쌍을 Plain token으로 표현하고 릴레이션을 contextualized sub-graph의 special node**</span>로 간주한다. 이러한 방식으로 엔티티-릴레이션, 엔티티-엔티티 및 릴레이션-릴레이션 쌍을 포함한 노드 쌍 정보를 얻을 수 있다. 이렇게 함으로서 결론적으로 **릴레이션 노드를 special node**로 볼 수 있다는 것이다.
+Triple2Seq의 결과로 얻는 것이 바로 Contextualized Sub-Graph인 $$\mathcal{T_G}$$이다. 또한 $$\mathcal{T_G}$$의 local structure information은 인접 행렬(Adjacency matrix) $$A_G$$에 저장된다. 이전에 나왔던 논문 중 [HittER: Hierarchical transformers for knowledge graph embeddings](https://meaningful96.github.io/paperreview/HittER/)을 통해 알 수 있는 중요한 사실이 하나 있다. 바로 <u>엔티티-릴레이션(Entity-Relation)쌍에 저장된 정보가 중요하다는 것이다.</u> 이러한 사실을 바탕으로 논문에서는 <span style="color:red">**엔티티-릴레이션 쌍을 Plain token으로 표현하고 릴레이션을 contextualized sub-graph의 special node**</span>로 간주한다. 이러한 방식으로 엔티티-릴레이션, 엔티티-엔티티 및 릴레이션-릴레이션 쌍을 포함한 노드 쌍 정보를 얻을 수 있다. 이렇게 함으로서 결론적으로 **릴레이션 노드를 special node**로 볼 수 있다는 것이다.
 
 <br/>
 
 ### 3) Global Node
 
-Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다. 이럴 경우 global information에 대한 정보가 부족할 수 있다. 따라서 논문에서는 <span style="color:gold">**Global node**</span>의 개념을 도입한다. global node는 쉽게 말하면 임의의 새로운 엔티티를 만들어 training set에 존재하는 모든 엔티티와 1-hop으로 연결시켜놓은 것이다. 즉 모두와 1-hop으로 연결된 엔티티이다. 하지만, 논문에서는 global node를 training set 전체에다가 연결시킨 것이 아닌, <span style="color:gold">**추출된 Sub-graph에 있는 모든 엔티티와 연결된 엔티티를 의미**</span>한다.
+Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다. 이럴 경우 global information에 대한 정보가 부족할 수 있다. 따라서 논문에서는 <span style="color:red">**Global node**</span>의 개념을 도입한다. global node는 쉽게 말하면 임의의 새로운 엔티티를 만들어 training set에 존재하는 모든 엔티티와 1-hop으로 연결시켜놓은 것이다. 즉 모두와 1-hop으로 연결된 엔티티이다. 하지만, 논문에서는 global node를 training set 전체에다가 연결시킨 것이 아닌, <span style="color:red">**추출된 Sub-graph에 있는 모든 엔티티와 연결된 엔티티를 의미**</span>한다.
 
 <span style="font-size:110%"><b>Remark 1.</b></span>  
 > Triple2Seq는 Input Sequence를 만들기위해 contextualized sub-graph를 dynamic sampling한다.
@@ -151,7 +151,7 @@ Triple2Seq는 결국 Contextualized Sub-graph를 통해 Locality를 뽑아낸다
 
 트랜스포머는 입력으로 Sequence를 받는다. 이 때, <span style="font-size:105%"><b>Sequential Input가 Fully-Connected Attention Mechanism을 거치면서 Structural Information을 유실</b></span>시킬 수 있다. 그 이유는 Fully-Connected 라는 것은 결국 Dense-layer의 형태이다. 즉, Neural Network를 예로 들면 모든 drop-out이 0인 상태인데 <u><b>한 노드에 대해 다른 모든 노드들과의 attention을 구하므로(구조와 상관없이 모든 노드를 상대하기 때문) 구조 정보가 반영되지 못하는 것</b></u>이다.
 
-이를 극복하기 위해 논문에서는 <span style="color:aqua">**Attention Bias**</span>를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 <span style="color:gold"><b>Contextualized Sub-Graph 안의 노드쌍들의 구조 정보(Structural information)을 보존</b></span>할 수 있다. 노드 $$v_i$$와 $$v_j$$사이의 attention bias는 <b>$$\phi(i,j)$$</b>로 표기한다.
+이를 극복하기 위해 논문에서는 <span style="color:green">**Attention Bias**</span>를 추가로 사용하는 방식을 제안하였다. Attention bias를 통해 <span style="color:red"><b>Contextualized Sub-Graph 안의 노드쌍들의 구조 정보(Structural information)을 보존</b></span>할 수 있다. 노드 $$v_i$$와 $$v_j$$사이의 attention bias는 <b>$$\phi(i,j)$$</b>로 표기한다.
 
 <p align="center">
 <img width="700" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/d87d1256-1235-46d0-af2f-e22cd9625f83">
@@ -188,7 +188,7 @@ A = np.c_[a1,a2,a3,a4]
 <img width="600" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/506fa430-1dd8-48a7-98d0-35fa2c8003b2">
 </p>
 
-앞의 실험을 통해 $$\widetilde{A^m}$$이 확실하게 정의되었고, $$f_{structure}$$는 구조 정보를 인코딩하는 **Linear Layer**로 $$\widetilde{A^m}$$을 입력으로 한다. 이를 통해 최종적으로 Attention bias인 $$\phi(i,j)$$가 정의된다. 다시 한 번 강조하지만, <span style="color:gold">**Attention bias는 샘플링된 Contextualized Sub-Graph의 구조 정보를 포착**</span>하는 역할을 하며, 이 부분이 이 논문의 가장 큰 Contribution중 하나이다.
+앞의 실험을 통해 $$\widetilde{A^m}$$이 확실하게 정의되었고, $$f_{structure}$$는 구조 정보를 인코딩하는 **Linear Layer**로 $$\widetilde{A^m}$$을 입력으로 한다. 이를 통해 최종적으로 Attention bias인 $$\phi(i,j)$$가 정의된다. 다시 한 번 강조하지만, <span style="color:red">**Attention bias는 샘플링된 Contextualized Sub-Graph의 구조 정보를 포착**</span>하는 역할을 하며, 이 부분이 이 논문의 가장 큰 Contribution중 하나이다.
 
 <br/>
 
@@ -198,7 +198,7 @@ Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 
 
 > We use the contextualized sub-graph of the same triple in different epochs triple in different epochs to enforce the model to conduct similar predictions.
 
-즉, <span>서로 다른 Epoch에서 같은 Triple의 contextualized sub-graph를 사용해 모델에게 유사도를 학습하는 걸 강요한다. Contextualized sub-graph의 Input Sequence를 인코딩하고 hidden vector $$\mathcal{h_{mask}}$$를 현재 Epoch $$t$$에서 $$c_t$$, 마지막 Epoch $$c_{t-1}$$로 가져온다. 마지막으로 Loss를 정의하는데 $$\mathcal{L_{contextual}}$$를 contextual loss로 정의한다. 이 작업을 거쳐 최종 목표는 <span style="color:gold">**서로 다른 sub-graph사이의 차이를 최소화(minimization)하는 것**</span>이다. 
+즉, <span>서로 다른 Epoch에서 같은 Triple의 contextualized sub-graph를 사용해 모델에게 유사도를 학습하는 걸 강요한다. Contextualized sub-graph의 Input Sequence를 인코딩하고 hidden vector $$\mathcal{h_{mask}}$$를 현재 Epoch $$t$$에서 $$c_t$$, 마지막 Epoch $$c_{t-1}$$로 가져온다. 마지막으로 Loss를 정의하는데 $$\mathcal{L_{contextual}}$$를 contextual loss로 정의한다. 이 작업을 거쳐 최종 목표는 <span style="color:red">**서로 다른 sub-graph사이의 차이를 최소화(minimization)하는 것**</span>이다. 
 
 <p align="center">
 <img width="700" alt="1" src="https://github-production-user-asset-6210df.s3.amazonaws.com/111734605/252900409-5e4d57c7-c3d3-4692-8acb-c33f8a5bc005.png">
@@ -223,7 +223,7 @@ Dense한 Knowledge Graph(WN18RR보다는 FB15k-237이 relation의 종류가 더 
 
 
 
-좀 더 쉽게 말하자면, 기존의 atttention operation은 단순히 전체 그래프 안에서 노드와 의미있는 relation사이에서 계산을 진행하는것에 반해, Structure-enhances self attention은 <span style="color:gold">**Contextualized Sub-graph 구조를 이용한 Locality 정보와 Semantic feature들에 대해도 유의미한 영향을 주는 유연성을 이끌어내며 이를 통해 Transformer 모델에 구조적 정보(Structural information)와 의미론적 정보(Semantic feature)를 동시에 줄 수 있다**</span>는 것이 특징이다.
+좀 더 쉽게 말하자면, 기존의 atttention operation은 단순히 전체 그래프 안에서 노드와 의미있는 relation사이에서 계산을 진행하는것에 반해, Structure-enhances self attention은 <span style="color:red">**Contextualized Sub-graph 구조를 이용한 Locality 정보와 Semantic feature들에 대해도 유의미한 영향을 주는 유연성을 이끌어내며 이를 통해 Transformer 모델에 구조적 정보(Structural information)와 의미론적 정보(Semantic feature)를 동시에 줄 수 있다**</span>는 것이 특징이다.
 
 ## 2.3 Masked Knowledge Modeling
 
@@ -243,9 +243,9 @@ Input Contexturalized Sub-Graph node sequence $$\mathcal{T_G}$$가 주어졌을 
 
 $$Y$$는 Candidate(후보)이다. Masked Knowledge Modeling이 궁극적으로 풀고자 하는 것은 <b>마스킹된 node sequence $$\mathcal{T_M}$$과 Contextualized Sub-graph의 구조 정보를 나타내는 $$A_G$$가 주어졌을 때 Original Triple $$\mathcal{T}$$의 missing part를 찾는 것</b>이다. 참고로, Y의 shape은 ($$Y \in \mathbb{R^{\vert \mathcal{E} \vert \times \vert \mathcal{R} \vert}}$$)이다.
 
-구체적으로, <span style="color:gold">**Contextualized Sub-Graph의 유니크한 구조정 정보를 이용해 Contextual information을 더 잘 통합하기위해 Sequence에서 단 하나의 토큰만 랜덤하게 마스킹**</span>한다. 
+구체적으로, <span style="color:red">**Contextualized Sub-Graph의 유니크한 구조정 정보를 이용해 Contextual information을 더 잘 통합하기위해 Sequence에서 단 하나의 토큰만 랜덤하게 마스킹**</span>한다. 
 
-직관적으로 masked knowledge modeling은 scoring function을 기반으로 하는 이전 translation distance 방법들과는 확연한 차이를 보여준다. 다만, <u>마스킹을 할 때 Head와 Tail의 인접한 노드(이웃 노드)를 동시에 샘플링할 경우 Link prediction시 심각한 <b>Label leakage</b>를 유발</u>할 수 있다. 주의해야 할 점은 바로 Training 중에는 예측된 마스크 토큰의 구조를 알 수 없다는 것이다. 논문에서는 이 Label Leakgage를 극복해 공평평한 비교(fair comparison)를 보장하기위해 <span style="color:gold">**타겟 엔티티(Target entity)의 context node를 제거**</span>하여 training과 testing의 차이를 좁혀준다.    
+직관적으로 masked knowledge modeling은 scoring function을 기반으로 하는 이전 translation distance 방법들과는 확연한 차이를 보여준다. 다만, <u>마스킹을 할 때 Head와 Tail의 인접한 노드(이웃 노드)를 동시에 샘플링할 경우 Link prediction시 심각한 <b>Label leakage</b>를 유발</u>할 수 있다. 주의해야 할 점은 바로 Training 중에는 예측된 마스크 토큰의 구조를 알 수 없다는 것이다. 논문에서는 이 Label Leakgage를 극복해 공평평한 비교(fair comparison)를 보장하기위해 <span style="color:red">**타겟 엔티티(Target entity)의 context node를 제거**</span>하여 training과 testing의 차이를 좁혀준다.    
 
 <span style="font-size:110%"><b>Remark 3.</b></span>  
 > Masked Knowledge Modeling은 더 좋은 Link preidction을 위해 적절한 최적화 target을
@@ -355,7 +355,7 @@ Table 4에서 Relphormer가 baseline들과 비교하여 경쟁력 있는 성능�
 <img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/19fd7be1-9a8b-4b89-8359-ed466cc48e1e">
 </p>
 
-QA의 경우, Relphormer가 FreebaseQA 및 WebQuestionSP에서 가장 좋은 성능을 보인다.(Figure 3.) HitER에 비해 Relphormer는 FreebaseQA Dataset의 *Full Setting*에서 6.8% 향상되었다. 또한, Relphormer는 WebQuestionSP의 *Full & Filter Setting*에서 2.9% 및 1.4% 향상되었다. Relphormer는 BERT로 쉽게 초기화할 수 있으며 masked knowledge modeling으로 최적화되므로 QA 작업을 위해 <span style="color:gold">**Relphormer로 사전 훈련된 표현을 주입하는 것이 효율적이므로 성능이 향상**</span>된다. Relphormer가 훨씬 더 효율적이며, HitER와 같은 일부 KG 표현 모델의 경우 QA 작업을 향상시키기 위해 복잡한 통합 전략을 설계해야한다.
+QA의 경우, Relphormer가 FreebaseQA 및 WebQuestionSP에서 가장 좋은 성능을 보인다.(Figure 3.) HitER에 비해 Relphormer는 FreebaseQA Dataset의 *Full Setting*에서 6.8% 향상되었다. 또한, Relphormer는 WebQuestionSP의 *Full & Filter Setting*에서 2.9% 및 1.4% 향상되었다. Relphormer는 BERT로 쉽게 초기화할 수 있으며 masked knowledge modeling으로 최적화되므로 QA 작업을 위해 <span style="color:red">**Relphormer로 사전 훈련된 표현을 주입하는 것이 효율적이므로 성능이 향상**</span>된다. Relphormer가 훨씬 더 효율적이며, HitER와 같은 일부 KG 표현 모델의 경우 QA 작업을 향상시키기 위해 복잡한 통합 전략을 설계해야한다.
 
 한 가지 간단한 방법은 Pre-trained representation을 Extra QA 모델에 주입하는 것이다. 하지만 Pre-trained된 KG 모델과 Downstream 모델 간의 불일치로 인해 효과를 검증하기가 어렵다. Freebase에 풍부한 Textural 및 Structual information이 있는 FreeBaseQA(Figure 4.)를 이용한 hard sample을 통해 Relphormer가 서로 다른 단어 또는 엔티티 간의 명시적이고 암묵적인 상관관계를 배울 수 있다는 것에 주목해야한다.
 
@@ -363,7 +363,7 @@ QA의 경우, Relphormer가 FreebaseQA 및 WebQuestionSP에서 가장 좋은 성
 
 Recommandation의 경우 Relphormer가 모든 baseline 모델보다 성능이 우수하다(Figure 3). BERT4REC와 비교하여 Relphormer는 Hits@1에서 2%, MRR에서 1% 향상되었다. 또한 Relphormer는 각 노드의 BERT 임베딩 계산 및 aggregation에 의해 구현되는 KG-BERT를 능가한다. Figure 4에서 볼 수 있듯이, 특정 사용자가 긴 목록의 영화를 시청한 경우, 여기서 목표는 다음에 시청할 영화를 예측하는 것이다. 그 영화들 중 *Sleepless in Seattle* 과 *Tin Cup* 은 두 영화의 주제가 모두 로맨스와 코미디에 관한 것이기 때문에 밀접한 상관관계가 있다. 한편, 추가된 KGs의 영화 *Mighty Aphrodite* 도 같은 이유로 *Sleepless in Seattle* 과 *Tin Cup* 에 연결되어 있다.
 
-분명히, <span style="color:gold">**KG의 잠재적 노드 관련성은 영화 추천 작업에 도움이 된다**</span>. 이러한 샘플의 경우, Relphormer는 깊은 상관관계를 학습하고 기준 모델보다 더 나은 성능을 산출할 것이다. 전반적으로, Relphromer를 사용한 KG 표현이 Link prediction을 통해 더 나은 본질적인 평가 성능을 수행할 수 있을 뿐만 아니라 잘 학습된 Knowledge Representation을 통해 QA 및 Recommandation의 KG-based downstream task를 촉진할 수 있음을 보여준다.
+분명히, <span style="color:red">**KG의 잠재적 노드 관련성은 영화 추천 작업에 도움이 된다**</span>. 이러한 샘플의 경우, Relphormer는 깊은 상관관계를 학습하고 기준 모델보다 더 나은 성능을 산출할 것이다. 전반적으로, Relphromer를 사용한 KG 표현이 Link prediction을 통해 더 나은 본질적인 평가 성능을 수행할 수 있을 뿐만 아니라 잘 학습된 Knowledge Representation을 통해 QA 및 Recommandation의 KG-based downstream task를 촉진할 수 있음을 보여준다.
 
 ## 3. Ablation Study 1
 
@@ -375,7 +375,7 @@ Recommandation의 경우 Relphormer가 모든 baseline 모델보다 성능이 �
 <img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/4f38bf80-0c3e-467c-8aac-5a1d33ec6bc0">
 </p>
 
-Knowledge Graph에는 Relational Pattern이 있으며, 1-N, N-1 및 N-N 관계와 같은 패턴을 해결할 수 없는 접근 방식도 있다. 예를 들어 특정 엔티티-릴레이션 쌍(ℎ, 𝑟)이 주어지면 일반적으로 tail의 수는 둘 이상이다. Masked Knowledge Modeling(MKM) 없이, 대신 negative log-likelihood을 사용하여 ablation study를 수행하였다. Table 5에서 MKM이 있는 모델은 두 데이터 세트 모두에서 Hit@1에서 더 나은 성능을 낼 수 있지만 WN18R에서 MR의 향상을 달성하지 못한다. 이는 <span style = "color:gold">**WN18RR에 충분한 구조적 특징이 없기 때문**</span>일 수 있다. 따라서 rank에 대한 **NLL 기반의 최적화가 더 유리**할 수 있다.
+Knowledge Graph에는 Relational Pattern이 있으며, 1-N, N-1 및 N-N 관계와 같은 패턴을 해결할 수 없는 접근 방식도 있다. 예를 들어 특정 엔티티-릴레이션 쌍(ℎ, 𝑟)이 주어지면 일반적으로 tail의 수는 둘 이상이다. Masked Knowledge Modeling(MKM) 없이, 대신 negative log-likelihood을 사용하여 ablation study를 수행하였다. Table 5에서 MKM이 있는 모델은 두 데이터 세트 모두에서 Hit@1에서 더 나은 성능을 낼 수 있지만 WN18R에서 MR의 향상을 달성하지 못한다. 이는 <span style = "color:red">**WN18RR에 충분한 구조적 특징이 없기 때문**</span>일 수 있다. 따라서 rank에 대한 **NLL 기반의 최적화가 더 유리**할 수 있다.
 
 <br/>
 
@@ -383,7 +383,7 @@ Knowledge Graph에는 Relational Pattern이 있으며, 1-N, N-1 및 N-N 관계�
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/DataStructure_and_Algorithm/assets/111734605/faab45a3-838e-4616-a8c4-eaa02a93a13b">
 </p>
-이 실험에서는 global node에 영향력에 대해서 실험한다. *w/o global node*는 global node가 없는 모델을 나타낸다. Figure 5.에서 baseline 모델들과 비교했을 때, global node가 없으면 안좋은 성능을 보여주었다. 이를 통해 <span style="color:gold">**global node는 global information을 보존하는데 좋은 솔루션임을 입증**</span>한다.
+이 실험에서는 global node에 영향력에 대해서 실험한다. *w/o global node*는 global node가 없는 모델을 나타낸다. Figure 5.에서 baseline 모델들과 비교했을 때, global node가 없으면 안좋은 성능을 보여주었다. 이를 통해 <span style="color:red">**global node는 global information을 보존하는데 좋은 솔루션임을 입증**</span>한다.
 
 <br/>
 
@@ -405,13 +405,13 @@ Table 5.에서 보여지듯, FB15k-237의 몇몇 Triple을 통해 ablation study
 
 ### 1) The number of sampled contextualized sub-graph triples
 
-Figure 6. Triple의 수를 4부터 64까지 바꿔가며 성능을 측정하는 실험을 진행하였다. 그 수가 작을 때는 Center triple과 연결된 적은 수의 contextual node들이 샘플링된다. 이 실험을 통해서 명확한 것은, <span style="color:gold">**contextualized subgraph의 크기를 키우는 것이 성능 향상에 직접적인 영향을 준다**</span>는 것이다. 하지만, 만약 Triple의 수가 너무 많아지면 성능은 일정 수준 올라가다가 **Saturation**된다. 논문에서 저자는 그 이유가 neighborhood의 정보가 유용하더라도, <u>너무 많은 unrelated된 정보들이 일종의 noise로 작용</u>해 성능에 부정적인 영향을 끼친다는 것이다. 이런 noise역할을 하는 low-quality node들은 negativ contextual information으로 작용한다.
+Figure 6. Triple의 수를 4부터 64까지 바꿔가며 성능을 측정하는 실험을 진행하였다. 그 수가 작을 때는 Center triple과 연결된 적은 수의 contextual node들이 샘플링된다. 이 실험을 통해서 명확한 것은, <span style="color:red">**contextualized subgraph의 크기를 키우는 것이 성능 향상에 직접적인 영향을 준다**</span>는 것이다. 하지만, 만약 Triple의 수가 너무 많아지면 성능은 일정 수준 올라가다가 **Saturation**된다. 논문에서 저자는 그 이유가 neighborhood의 정보가 유용하더라도, <u>너무 많은 unrelated된 정보들이 일종의 noise로 작용</u>해 성능에 부정적인 영향을 끼친다는 것이다. 이런 noise역할을 하는 low-quality node들은 negativ contextual information으로 작용한다.
 
 <br/>
 
 ### 2) Structure-Enhanced self-attention
 
-Structure-Enhanced attention의 영향력을 증명하기위해 Figure 5.의 실험을 진행하였다. 모든 모델이 Structure-Enhanced attention을 하지 않으면 성능이 떨어지는 것을 볼 수 있다. 저자는 무작위로 랜덤하게 예시를 가져와 attention matrix를 시각화해 structure-enhanced self-attention의 영향력을 실험하였다. Figure 7.에서와 같이 Structure-Enhanced Self-Attention은 attention weight 결과에 영향을 주는 것을 확인할 수 있다. 구체적으로, <span style="color:gold">**Structure-Enhanced Self-Attention과 함께 구조 정보를 주입하는 것은 엔티티들의 거리에 의미적인 상관관계를 포착**</span>한다. 예를 들어, 한 엔티티는 sub-graph내 멀리 떨어진 엔티티를 통해 Structure correlation을 학습할 수 있다.
+Structure-Enhanced attention의 영향력을 증명하기위해 Figure 5.의 실험을 진행하였다. 모든 모델이 Structure-Enhanced attention을 하지 않으면 성능이 떨어지는 것을 볼 수 있다. 저자는 무작위로 랜덤하게 예시를 가져와 attention matrix를 시각화해 structure-enhanced self-attention의 영향력을 실험하였다. Figure 7.에서와 같이 Structure-Enhanced Self-Attention은 attention weight 결과에 영향을 주는 것을 확인할 수 있다. 구체적으로, <span style="color:red">**Structure-Enhanced Self-Attention과 함께 구조 정보를 주입하는 것은 엔티티들의 거리에 의미적인 상관관계를 포착**</span>한다. 예를 들어, 한 엔티티는 sub-graph내 멀리 떨어진 엔티티를 통해 Structure correlation을 학습할 수 있다.
 
 <br/>
 <br/>
@@ -420,8 +420,8 @@ Structure-Enhanced attention의 영향력을 증명하기위해 Figure 5.의 실
 
 1. Transformer 기반의 새로운 모델인 Relphormer를 제안
 2. 6개의 Benchmark Dataset에 대하여 기존의 Graph Embedding 모델들과 Transformer 기반 모델들에 비해 우수한 성능을 보여줌
-3. <span style ="color:gold">Attention bias를 이용해 그래프의 구조적 정보를 보존하고 Knowledge Graph에 적합한 Self-attention mechanism을 제시(**Structure enhanced self-attention**)</span>
-    - 특히<span style = "color:aqua"> $$ \phi(i, j)$$</span>를 제시한 Structure-enhanced Self-attention이 가장 큰 Contribution
+3. <span style ="color:red">Attention bias를 이용해 그래프의 구조적 정보를 보존하고 Knowledge Graph에 적합한 Self-attention mechanism을 제시(**Structure enhanced self-attention**)</span>
+    - 특히<span style = "color:green"> $$ \phi(i, j)$$</span>를 제시한 Structure-enhanced Self-attention이 가장 큰 Contribution
 
 # Reference
 [Inductive Bias란 무엇일까?](https://re-code-cord.tistory.com/entry/Inductive-Bias%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C)  
