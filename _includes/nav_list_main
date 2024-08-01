@@ -67,6 +67,13 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "CS" %}
+                        <li><a href="/categories/cs" class="">컴퓨터 공학({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
 
         <span class="nav__sub-title">AI Science</span>
             <ul>
