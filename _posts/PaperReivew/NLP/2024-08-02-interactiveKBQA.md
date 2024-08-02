@@ -126,7 +126,7 @@ Interactive-KBQA는 KB와 상호작용하기 위한 세 가지 도구를 제안�
 
 <center><span style="font-size:105%">$$\text{Prompt} = \{ \text{Inst}, E, Q \}$$</span></center>
 
-또한 각 턴마다 LLM과의 상호작용을 한다. 각 <span style="color:red">**턴 $$T$$마다 LLM이 프롬프트와 이전 히스토리를 바탕으로 액션 $$a_T$$를 생성**</span>한다. 히스토리는 $$H = \{ c_o, a_o, o_0, /cdots, c_{T_1}, a_{T-1}, o_{T-1} \}$$로 표현한다. **행동** $$a$$는 {SearchNodes, SearchGraphPatterns, ExecuteSPARQL, Done}의 집합으로 도구를 사용하여 실행된다. **관찰** $$o$$는 도구의 실행 결과로 다음 턴의 사고와 행동을 결정하는데 사용된다. $$T$$시점의 **관찰**은 $$o_T = \text{Tool}(a_T)$$로 표현할 수 있다. **사고** $$c$$는 질문을 하위 쿼리로 분해한 것이다. $$c_0$$는 엄격하게 정의하지 않고 LLM이나 사람이 직접 정한다.
+또한 각 턴마다 LLM과의 상호작용을 한다. 각 <span style="color:red">**턴 $$T$$마다 LLM이 프롬프트와 이전 히스토리를 바탕으로 액션 $$a_T$$를 생성**</span>한다. 히스토리는 $$H = \{ c_o , a_o , o_0 , \cdots, c_{T_1} , a_{T-1} , o_{T-1} \}$$로 표현한다. **행동** $$a$$는 {SearchNodes, SearchGraphPatterns, ExecuteSPARQL, Done}의 집합으로 도구를 사용하여 실행된다. **관찰** $$o$$는 도구의 실행 결과로 다음 턴의 사고와 행동을 결정하는데 사용된다. $$T$$시점의 **관찰**은 $$o_T = \text{Tool}(a_T)$$로 표현할 수 있다. **사고** $$c$$는 질문을 하위 쿼리로 분해한 것이다. $$c_0$$는 엄격하게 정의하지 않고 LLM이나 사람이 직접 정한다.
 
 <center><span style="font-size:105%">$$a_T = \text{LLM}(\{\text{Prompt}, H \})$$</span></center>
 
@@ -152,6 +152,13 @@ Interactive-KBQA는 상호작용 추론 과정을 주석 달아 LLM(대형 언�
 **Freebase의 CVT 구조**의 경우, 이러한 구조를 직면했을 때 추론 과정을 명시적으로 설명한다. 또한 별 모양(star-shape)의 CVT 구조를 **여러 개의 단일 홉 관계로 분해**하여 각각 처리한다. 예를 들어, "Tom Hanks가 영화 'Nothing in Common'에서 'David Basner' 역할을 한다"는 문장의 의미는 ("Tom Hanks", film.actor.film -> film.performance.film, "Nothing in Common")와 ("Tom Hanks", film.actor.film -> film.performance.character, "David Basner") 두 개의 트리플로 표현 가능하다.
 
 ## Human-Machine Collaborative Annotation
+실제로는 모든 질문 유형의 예제를 문맥에 포함하는 것은 두 가지 주요 이유로 불가능하다.
+- i)  비용이 크다.
+- ii) 입력 토큰이 일정 한계를 초과하면 LLM의 성능이 현저히 저하됨.
+
+이전 연구에서 프로세스 감독(Process Supervision)이 모델의 일반화 능력을 향상시킬 수 있다는 결과가 있었다. Interactive-KBQA는 이 점을 활용한다. 구체적으로 주석자(annotator, 논문에서는 annotator가 사람, LLM 모두 가능)가 행동 $$a_T$$가 비합리적이라고 판단할 때, 이를 수동으로 $$a^{'}_T$$로 수정하고 메세지에 통합해 $$a_{T+1}$$을 생성하게 된다.
+
+<center><span style="font-size:105%">$$a_{T+1} = \text{LLM}(\text{Prmopt}, )$$</span></center>
 
 
 <br/>
