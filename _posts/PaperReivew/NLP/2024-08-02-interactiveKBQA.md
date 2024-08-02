@@ -100,7 +100,59 @@ Interactive-KBQA는 KB와 상호작용하기 위한 세 가지 도구를 제안�
 5. **미세 조정**
   - 생성된 데이터 셋을 사용하여 LLM을 미세조정한다.    
 
-### 1)
+## Tools for Knowledge Base
+### 1) SearchNodes(name)
+이 함수는 주어진 이름(name)을 사용하여 KB에서 **엔티티를 검색**한다. 주된 목적은 <span style="color:red">**엔티티 연결(Entity Linking)**</span>이다. 이 함수는 엔티티의 이름과 함께 설명(description)과 엔티티 타입(type)을 같이 반환한다. 여러 KB에 general하게 적용 가능하다.
+
+<br/>
+
+### 2) SearchGraphPatterns(sparql, semantic)
+
+이 함수는 KB내에서 중요한 **술어(Predicate, Relation)를 식벽하고 순위를 매기는 것**을 목표로 한다. 입력으로는 SPARQL의 쿼리가 필요하다. 
+
+- SPARQL 쿼리 = `SELECT ?e WHERE`
+
+그런 다음 엔티티 `?e`를 중심으로 하는 **one-hop 서브그래프에서 쿼리**를 수행한다. 그 후, semantic 파라미터와 트리플의 술어(predicate)와의 의미적 관련성에 따라 검색된 트리플의 순위를 매긴다. 최종적으로 **top_K개의 트리플을 반환**한다. 이 도구는 context window(= LLM이 한 번에 처리할 수 있는 텍스트의 최대 길이)의 사용을 최적화하기 위해 불필요한 정보를 제거하면서 서브그래프를 정확하게 식별할 수 있게 만든다. 즉, <span style="color:red">**LLM의 제한(=최대 입력 길이)된 입력 안에서 불필요한 정보를 제거한 서브그래프를 입력시키기 위함**</span>이다. 유연한 작업을 지원하며, Freebase의 Compound Value Type(CVT)에 대해 특별히 최적화되었다.
+
+<br/>
+
+### 3) ExecuteSPARQL(sparql)
+이 함수는 **임의의 SPARQL 쿼리를 직접 실행**할 수 있도록 하여 뛰어난 **유연성을 보장**한다. 이 도구를 사용하면 <span style="color:red">**사용자가 SPARQL 쿼리를 작성하고 이를 실행**</span>하여 KB에서 필요한 정보를 직접 검색할 수 있다.
+
+<br/>
+
+## Interactive Process
+질문 $$Q$$가 주어졌을 때 가장 먼저 프롬프트를 생성한다. 프롬프트(Prompt)는 Instruction인 $$\text{Inst}$$, 예제(Examplar) $$E$$, 질문 $$Q$$를 입력으로 받는다. 논문에서는 대화형 형식으로 두 개의 complete examplar에 수동으로 주석을 달았다.
+
+<center><span style="font-size:105%">$$\text{Prompt} = \{ \text{Inst}, E, Q \}$$</span></center>
+
+또한 각 턴마다 LLM과의 상호작용을 한다. 각 <span style="color:red">**턴 $$T$$마다 LLM이 프롬프트와 이전 히스토리를 바탕으로 액션 $$a_T$$를 생성**</span>한다. 히스토리는 $$H = \{ c_o, a_o, o_0, /cdots, c_{T_1}, a_{T-1}, o_{T-1} \}$$로 표현한다. **행동** $$a$$는 {SearchNodes, SearchGraphPatterns, ExecuteSPARQL, Done}의 집합으로 도구를 사용하여 실행된다. **관찰** $$o$$는 도구의 실행 결과로 다음 턴의 사고와 행동을 결정하는데 사용된다. $$T$$시점의 **관찰**은 $$o_T = \text{Tool}(a_T)$$로 표현할 수 있다. **사고** $$c$$는 질문을 하위 쿼리로 분해한 것이다. $$c_0$$는 엄격하게 정의하지 않고 LLM이나 사람이 직접 정한다.
+
+<center><span style="font-size:105%">$$a_T = \text{LLM}(\{\text{Prompt}, H \})$$</span></center>
+
+저자들은 이를 바탕으로 사고-행동 패러다임을 고안하였다.
+- **사고-행동 패러다임**
+  - **사고(Thought)**
+    - 질문 $$Q$$가 주어지면, 초기 사고 $$c_0$0$는 이를 **트리플 형식과 유사한 하위 쿼리로 분해**하는 것이다.
+    - 첫 번째 라운드를 제외하고, LLM은 관찰을 기반으로 추론 과정을 명확히 설명하는 사고 $$c$$를 생성해야 한다.
+    - 이 접근 방식은 의사 결정 과정을 **설명 가능**하게 만드는 것을 목표로 한다.
+    - Ex) "What movies has Tom Hanks acted in?" → (Tom Hanks, act in, ?movie)
+
+  - **행동(Action)**
+    - 각 턴 $$T$$마다 LLM은 현재 라운드를 종료하는 행동 $$a_T$$를 생성해야 한다.
+    - 구문 분석하여 실행한 후, 그 결과를 반환한다. 이 결과를 관찰 $$o$$로 사용한다.
+    - LLM은 이 관찰을 바탕으로 대화를 계속할지 종료할지 여부를 결정한다.
+    - 만약 $$a_T = \text{Done}$$이면 최종 관찰 $$o_T$$를 답으로 출력한다.
+        
+## Solutions for Complex Questions
+Interactive-KBQA는 상호작용 추론 과정을 주석 달아 LLM(대형 언어 모델)을 통해 추론을 유도하는 것을 포함한다. <span style="color:red">**다양한 유형의 복잡한 질문에 대해 패턴을 식별하고, 상호작용 모드를 설계하며, 고품질의 예제를 라벨링**</span>하는 것이 중요하다.
+
+**멀티 홉 질문(Multi-hop Question)**의 경우 각 단계에서 구체적인 엔티티보다는 특정 술어(=릴레이션)에 집중한다. 그래프 패턴을 SPARQL로 표현하는 것만으로 도구가 작업의 순위를 처리할 수 있도록 충분하다.
+
+**Freebase의 CVT 구조**의 경우, 이러한 구조를 직면했을 때 추론 과정을 명시적으로 설명한다. 또한 별 모양(star-shape)의 CVT 구조를 **여러 개의 단일 홉 관계로 분해**하여 각각 처리한다. 예를 들어, "Tom Hanks가 영화 'Nothing in Common'에서 'David Basner' 역할을 한다"는 문장의 의미는 ("Tom Hanks", film.actor.film -> film.performance.film, "Nothing in Common")와 ("Tom Hanks", film.actor.film -> film.performance.character, "David Basner") 두 개의 트리플로 표현 가능하다.
+
+## Human-Machine Collaborative Annotation
+
 
 <br/>
 <br/>
