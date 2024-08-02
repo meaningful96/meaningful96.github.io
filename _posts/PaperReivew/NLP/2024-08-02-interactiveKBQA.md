@@ -55,7 +55,10 @@ last_modified_at: 2024-08-02
 <br/>
 
 # Methods
-
+## Model Architecture
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/702f5ee2-758c-4c35-87b0-f7023a8f26cd">
+</p>
 
 
 <br/>
