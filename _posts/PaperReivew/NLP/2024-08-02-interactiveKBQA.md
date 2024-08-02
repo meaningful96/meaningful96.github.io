@@ -51,3 +51,23 @@ last_modified_at: 2024-08-02
 3. **대형 언어 모델의 활용 부족 문제(Underutilization of Large Language Models)**
   - LM의 추론 및 소수 예제 학습 능력이 입증되었음에도 불구하고, 기존 KBQA 접근 방식은 이러한 강점을 완전히 활용하지 못했다. 대부분의 현재 방법은 LLM을 단순히 **술어(predicate, relation)를 식별하는 분류기**로 사용하거나 가능한 논리적 형식이나 질문을 생성하는 데 사용한다. LLM을 더 효과적으로 활용하여 KBQA 시스템의 정확성과 해석 가능성을 높일 수 있는 큰 기회가 여전히 남아 있다.
 
+<br/>
+<br/>
+
+# Methods
+
+
+
+<br/>
+<br/>
+
+# Experiments
+
+
+
+<br/>
+<br/>
+
+# Limitations & Contributions
+
+
