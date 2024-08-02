@@ -57,10 +57,24 @@ last_modified_at: 2024-08-02
 <br/>
 
 # Methods
+## Problem Formulation
+Interactive-KBQA는 **의미 분석(Semantic Parsing, SP)**에 대한 연구이다. Knowledge Base(= Knowledge Graph)는 $$K \in E \times R \times (E \cup L \cup C)$$로 나타낼 수 있다.
+- $$E$$ = 엔티티 집합(entity set)
+- $$R$$ = 릴레이션 집합(relation set)
+- $$C$$ = 클래스 집합(class set)
+- $$L$$ = 리터럴 값 집합(literal value set)
+  - 리터럴 값이란 KB에서 엔티티와 관계되지 않은 단순한 데이터 값을 의미한다.
+  - 엔티티와 달리 고유한 식별자가 없으며, 단순히 데이터의 값을 나타낸다.
+  - 예를 들어 어떤 인물의 나이, 이름, 생일 등의 **속성 값**을 말한다. 
+- $$p(S \vert Q, K)$$ = Problem Formulation
+
+질문 $$Q$$와 Knowledge Base $$K$$가 주어졌을 때, 질문에 맞게 실행 가능한 SPARQL 표현식 $$S$$를 생성하는 것이다. 이를 수식으로 표현하면 $$p(S \vert Q, K)$$이다. 즉, **Given $$Q, K$$에 대한 $$S$$를 생성하는 확률**로 형식화된다.
+
 ## Model Architecture
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/702f5ee2-758c-4c35-87b0-f7023a8f26cd">
 </p>
+
 
 
 <br/>
