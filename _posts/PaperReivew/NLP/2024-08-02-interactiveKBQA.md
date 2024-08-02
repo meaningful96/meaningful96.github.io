@@ -158,14 +158,29 @@ Interactive-KBQA는 상호작용 추론 과정을 주석 달아 LLM(대형 언�
 
 이전 연구에서 프로세스 감독(Process Supervision)이 모델의 일반화 능력을 향상시킬 수 있다는 결과가 있었다. Interactive-KBQA는 이 점을 활용한다. 구체적으로 주석자(annotator, 논문에서는 annotator가 사람, LLM 모두 가능)가 행동 $$a_T$$가 비합리적이라고 판단할 때, 이를 수동으로 $$a^{'}_T$$로 수정하고 메세지에 통합해 $$a_{T+1}$$을 생성하게 된다.
 
-<center><span style="font-size:105%">$$a_{T+1} = \text{LLM}(\text{Prmopt}, )$$</span></center>
+<center><span style="font-size:105%">$$a_{T+1} = \text{LLM}(\text{Prmopt}, c_o , a_o , o_0 , \cdots, c_{T_1}, a^{'}_T, o_T^{'})$$</span></center>
 
+이를 통해, LLM이 사고와 행동을 생성하는 각 라운드 후에 중단점을 설정하여 인간 평가자가 이를 검토하고 수락 여부를 결정한다. 일단 수락되면, 프로세스는 계속 진행된다. 만약 거부되면, 주석자는 생성된 사고와 행동을 수정한 후 진행한다. 이 방법론의 핵심은 <span style="color:red">**인간이 데이터에 주석을 다는 과정을 모방**</span>하는 것이다. 주석자가 모델이 환각(hallucination, 관찰에 없는 술어 생성), 사고와 행동 간의 불일치, 또는 정답 경로에서 벗어나는 경우(= 연속 두 라운드가 잘못된 경우)에 개입한다.
 
 <br/>
 <br/>
 
 # Experiments
 
+## Dataset
+<p align="center">
+<img width="500" alt="1" src="https://github.com/user-attachments/assets/d853e522-273d-40c2-a85c-9d397dec413d">
+</p>
+
+## Main Result
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/ef38af78-fb8a-48c2-9a4c-35740fe041f3">
+</p>
+
+# Additional Experiments
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/0212a01c-5d9d-4fbf-824e-3ef039dbe4dd">
+</p>
 
 
 <br/>
