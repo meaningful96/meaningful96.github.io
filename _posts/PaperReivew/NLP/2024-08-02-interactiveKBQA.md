@@ -169,23 +169,55 @@ Interactive-KBQA는 상호작용 추론 과정을 주석 달아 LLM(대형 언�
 
 ## Dataset
 <p align="center">
-<img width="500" alt="1" src="https://github.com/user-attachments/assets/d853e522-273d-40c2-a85c-9d397dec413d">
+<img width="400" alt="1" src="https://github.com/user-attachments/assets/d853e522-273d-40c2-a85c-9d397dec413d">
 </p>
 
 ## Main Result
 <p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/e7a69990-5fc6-4bd2-aaf4-cae390fd73a4">
+</p>
+
+- **실험 방법**
+  - **Prompting with GPT-4 Turbo**: GPT-4 Turbo를 사용하여 프롬프트 기반의 QA를 수행.
+  - **Fine-tuning with open-LLM**: LLaMA2-7B와 13B를 fine-tuning하여 QA를 수행.
+
+- **실험 결과**
+  - 대체적으로 LLM으로 프롬프트 튜닝을 하여 실험한 결과들이 대체적으로 성능이 우수했다.
+  - 하지만 CWQ 데이터셋에서는 일부 질문 유형(Compa, Super)에서 fine-tuning을 했을 때가 성능이 더 좋았다.
+  
+
+## Additional Experiments
+<p align="center">
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/ef38af78-fb8a-48c2-9a4c-35740fe041f3">
 </p>
 
-# Additional Experiments
+**Table 4: Results of Entity Linking**는 Entity Linking 성능을 비교한 것이다. WebQSP 및 CWQ 데이터셋에서 제안된 방법은 StructGPT와 ToG를 포함한 다른 방법들보다 높은 RHits@1 및 EM 성능을 보였다. **Golden entities**를 사용한 경우 성능이 더욱 향상되었다.
+
+**Table 6:  Impact of Exemplar Number and Average Price (AP)**는 질문 유형 분류기의 성능을 보여준다. 2-shot, 4-shot 설정에서 Interactive-KBQA의 성능이 우수하며, zero-shot설정과 비교하여 성능이 크게 향상되었다.
+
+**Table 7:  Impact of Exemplar Number and Average Price (AP)**은 예제 수와 평균 가격(AP)의 영향을 보여준다. OpenAI의 GPT-4 Turbo와 GPT-3.5 Turbo, 그리고 open-source LLM인 Mistral-7B와 Llama 2의 성능을 평가하였다. Fine-tuning된 모델들이 결론적으로 더 높은 성능을 보여주었다.
+
+<br/>
+
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/0212a01c-5d9d-4fbf-824e-3ef039dbe4dd">
 </p>
 
+**Table 5: Results on WebQSP and CWQ with Golden Entities** golden entities를 사용한 WebQSP 및 CWQ 데이터셋에서의 결과를 보여준다. 제안된 방법이 두 데이터셋 모두에서 높은 성능을 보여주었다.
+
+**Table 8: Performance of Different Backbone Models**은 다양한 백본 모델의 성능을 보여준다. Error Type에 따라 성능을 분석하였다. Entity Linking, Predicate Search, Reasoning Error, Format Compliance, Hallucination, Other 등의 오류 유형에서 모델의 성능을 평가하였으며 제안된 방법이 대부분의 오류 유형에서 다른 모델들보다 우수한 성능을 보였다.
 
 <br/>
 <br/>
 
-# Limitations & Contributions
-
+# Contributions & Limitations
+- **Contribution**
+  - **Interactive-KBQA 프레임워크 제안**: LLM의 추론 능력을 활용한 새로운 프레임워크를 제안하여, 다중 턴 상호작용을 통해 의미 분석을 수행할 수 있게 한다.
+  - **통합 SPARQL 기반 도구 세트 및 상호작용 논리 설계**: 다양한 복잡한 쿼리를 효율적으로 처리할 수 있는 통합된 SPARQL 기반 도구 세트와 상호작용 논리를 설계했다.
+  - **단계별 추론 과정이 포함된 인간 주석 KBQA 데이터셋 공개**: 저자원 데이터셋으로 활용될 수 있는, 단계별 추론 과정을 포함한 인간 주석 KBQA 데이터셋을 공개했다.
+  
+- **Limitations**
+  - **LLM에 의존성**: 프롬프트 학습 기반 접근 방식은 LLM(대형 언어 모델)의 능력에 크게 의존하며, 다중 라운드 대화를 포함하는 시나리오에서는 추론 비용이 상당히 높아진다.
+  - **LLM 호출에 따른 비용**: LLM API를 호출할 때 LLM의 출력을 조정하는 것은 비실용적이다.
+  - **높은 추론 비용**: 다중 라운드 대화를 포함하는 시나리오에서는 추론 비용이 상당히 높아진다. 이는 실제 적용 시 비용 효율성 측면에서 도전 과제가 될 수 있다.
 
