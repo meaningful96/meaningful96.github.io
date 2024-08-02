@@ -12,6 +12,8 @@ last_modified_at: 2024-08-02
 ---
 *Xiong, G., Bao, J., & Zhao, W*. (2024, February 23). **Interactive-KBQA: Multi-Turn Interactions for Knowledge Base Question Answering with Large Language Models**. arXiv.org. [https://arxiv.org/abs/2402.15131](https://arxiv.org/abs/2402.15131)
 
+이 논문에서 제안한 모델은 <span style="color:red">**Prompt-Engineering**</span>와 <span style="color:red">**Knowledge-Base Interaction**</span> 요소를 포함한다.
+
 # Problem Statement
 <span style="font-size:110%">**Knowledge Base Question Answering(KBQA)**</span>  
 <p align="center">
