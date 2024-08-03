@@ -14,14 +14,14 @@ $indent-var: 1.3em !default;
 
 /* system typefaces */
 $serif: "Coming Soon", Georgia, Times, serif !default;
-$sans-serif: "NanumSquareNeoLight", "Iropke Batang", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Dongle",
+$sans-serif: "NanumSquareNeo", "Iropke Batang", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Dongle",
   "Helvetica Neue", "Lucida Grande",  Arial, sans-serif !default;
-$monospace: "NanumSquareNeoLight", Monaco, Consolas, "Lucida Console", monospace !default;
-$cute: "NanumSquareNeoLight" !default;
+$monospace: "NanumSquareNeo", Monaco, Consolas, "Lucida Console", monospace !default;
+$cute: "NanumSquareNeo" !default;
 
 /* sans serif typefaces */
 $sans-serif-narrow: $sans-serif !default;
-$helvetica: "NanumSquareNeoLight", Helvetica, "Helvetica Neue", Arial, sans-serif !default;
+$helvetica: "NanumSquareNeo", Helvetica, "Helvetica Neue", Arial, sans-serif !default;
 
 /*Cafe24Oneprettynight*/
 
@@ -33,7 +33,7 @@ $calisto: "Calisto MT", serif !default;
 $garamond: Garamond, serif !default;
 
 /* Blog font */
-$blog-font: "NanumSquareNeoLight" !default;
+$blog-font: "NanumSquareNeo" !default;
 
 $global-font-family: $blog-font !default;
 $header-font-family: $blog-font !default;
