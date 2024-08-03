@@ -56,13 +56,13 @@ Deep learning 기법을 이용해 그래프의 정보를 학습하는 방법은 
 임베딩 공간에서 비슷한 위치로 맵핑되기 위해서는 벡터와 벡터 간의 **유사도**를 수학적으로 정의해야 한다. 가장 대표적인 방법은 두 벡터의 내적을 이용하는 것이다. 이외에도 코사인 유사도(Cosine Similarity), L2-norm 유사도 등이 존재한다.
 - **내적 유사도**
   - 두 임베딩의 내적. 두 임베딩의 크기와 각도를 모두 고려.
-  - Similarity = $$sim(u, v) = Z_u^ \cdot Z_v = \vert Z_u \ver \vert Z_v \vert cos(\theta)$$  
+  - Similarity = $$sim(u, v) = Z_u^ \cdot Z_v = \vert Z_u \vert \vert Z_v \vert cos(\theta)$$  
 - **코사인 유사도**
   - 두 임베딩 이루는 각도만을 고려. 
   - Similarity = $$sum(u, v) = cos(\theta)$$ 
 - **L2-norm 유사도**
   - 두 임베딩의 **크기**만을 고려 
-  - Similarity = $$\vert Z_u \ver \vert Z_v \vert$$ 
+  - Similarity = $$\vert Z_u \vert \vert Z_v \vert$$ 
 
 ## 3. Transductive VS Inductive
 <p align="center">
