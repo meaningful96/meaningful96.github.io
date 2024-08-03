@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/0ee7906d-4dc6-432f-bf48-66f7ec30ab70)---
+---
 title: "[그래프이론]What is the Graph?"
 categories: 
   - Graph
