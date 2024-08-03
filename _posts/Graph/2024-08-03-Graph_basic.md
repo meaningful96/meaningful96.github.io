@@ -1,5 +1,5 @@
 ---
-title: "[그래프이론]What is the Graph?"
+title: "[그래프 이론]그래프의 정의와 종류"
 categories: 
   - Graph
   
@@ -137,7 +137,7 @@ plt.show()
 # 그래프의 종류
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/user-attachments/assets/60a41935-5ae0-431a-bfa8-d1121ca7dd63">
+<img width="600" alt="1" src="https://github.com/user-attachments/assets/60a41935-5ae0-431a-bfa8-d1121ca7dd63">
 </p>
 - **무방향 그래프(Undirected Graph)**
   - 간선의 방향성이 없는 그래프
