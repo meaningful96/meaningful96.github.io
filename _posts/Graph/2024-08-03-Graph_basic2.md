@@ -59,7 +59,7 @@ Deep learning 기법을 이용해 그래프의 정보를 학습하는 방법은 
   - Similarity = $$sim(u, v) = Z_u^ \cdot Z_v = \vert Z_u \vert \vert Z_v \vert cos(\theta)$$  
 - **코사인 유사도**
   - 두 임베딩 이루는 각도만을 고려. 
-  - Similarity = $$sum(u, v) = cos(\theta)$$ 
+  - Similarity = $$sim(u, v) = cos(\theta)$$ 
 - **L2-norm 유사도**
   - 두 임베딩의 **크기**만을 고려 
   - Similarity = $$\vert Z_u \vert \vert Z_v \vert$$ 
