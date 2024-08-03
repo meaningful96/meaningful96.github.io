@@ -169,7 +169,7 @@ Novd2vec도 DeepWalk와 마찬가지로 학습 과정이 세 단계로 구성된
 그래프의 인접 행렬의 한 행을 그 행에 대응되는 정점의 인접 벡터라고 부르는데, 정의에 의해 이웃한 정점들에 해당하는 좌표의 값이 1이고 나머지는 0인 벡터가 된다. 정점의 인접 벡터가 아래 그림에 나오는 오토인코더의 입력값이다. 이 오토인코더를 바닐라 오토인코더라고 부르며, 두 단계 이웃 관계를 학습하게 된다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/user-attachments/assets/93004bfd-11ca-433c-8f77-bd6ba6449d0f">
+<img width="600" alt="1" src="https://github.com/user-attachments/assets/93004bfd-11ca-433c-8f77-bd6ba6449d0f">
 </p>
 
 양쪽에서 나온 임베딩의 거리를 계산하고 이 값을 신경망의 손실 함수에 포함한다. 선으로 연결된 모든 두 정점 쌍에 대해 거리를 계산하여 더함으로써 모델이 한 단계 이웃 관계를 잘 표현할 수 있게 한다.
@@ -179,7 +179,7 @@ SDNE 모델의 전체 손실 함수는 오토인코더의 손실 함수와 위�
 ## 4. Graph2vec
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/user-attachments/assets/b4acea91-771d-4fd1-a973-2451408f01ee">
+<img width="600" alt="1" src="https://github.com/user-attachments/assets/b4acea91-771d-4fd1-a973-2451408f01ee">
 </p>
 
 마지막으로 소개할 방법은 그래프 전체를 벡터로 변환하는 것입니다. 즉, 벡터 하나가 그래프 전체를 나타낸다. **Graph2vec**은 doc2vec의 skip-gram 아이디어를 기초로 한다. 간단히 요약하면, 문서(document)의 아이디를 입력값으로 받고 문서에 포함된 단어를 예측하기 위한 학습 방법이다. 자세한 설명은 이 글을 참조하길 바란다. Graph2vec은 아래 세 단계로 구성된다.
