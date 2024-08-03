@@ -9,7 +9,14 @@ toc_sticky: true
 date: 2024-08-03
 last_modified_at: 2024-08-03
 ---
+<figure style="text-align: center; margin: auto;">
+  <img width="1000" alt="1" src="https://github.com/user-attachments/assets/d32f9fb9-ad71-404e-a7bd-12726049a08b" style="display: block; margin: auto;">
+  <figcaption style="font-size:70%; text-align: center; width: 100%; margin-top: 0px;">
+    <em>ref) Stanford University <a href="https://web.stanford.edu/class/cs224w/">CS224W</a></em>
+  </figcaption>
+</figure>
 
+그래프는 실생활에서 다양하게 사용되고 있다. 인스타그램, 메타, 링크드인과 같은 거대한 소셜 네트워크 안에서 팔로워 관계를 나타내는 소셜 네트워크(Social Network), 단백질간의 상호작용을 나타내는 그래프, 질병과 약물간의 상관 관계를 나타내는 그래프, 전자상거래 시스템에서 사용자와 구매 아이템 간의 상호 관계를 그려 놓은 사용자-아이템 그래프 등이 대표적이다.  
 
 <p align="center">
 <img width="600" alt="1" src="https://github.com/user-attachments/assets/35cf9e2d-8ea9-4b26-a094-656a7ee9ea34">
