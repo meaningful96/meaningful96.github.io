@@ -213,8 +213,8 @@ DeepWalk와 마찬가지로 은닉층의 결과가 임베딩이 된다.
 
 
 # Reference
-\[1\] Bryan Perozzi, Rami Al-Rfou, and Steven Skiena. 2014. 196 Deepwalk: online learning of social representations. 197 In Proceedings of the 20th ACM SIGKDD interna- 198 tional conference on Knowledge discovery and data 199 mining, KDD ’14. ACM  
-\[2\] Aditya Grover and Jure Leskovec. 2016. node2vec: 187 Scalable feature learning for networks.  
-\[3\] Daixin Wang, Peng Cui, and Wenwu Zhu. 2016. Struc- 213 tural deep network embedding. In Proceedings of 214 the 22nd ACM SIGKDD International Conference on 215 Knowledge Discovery and Data Mining, KDD ’16, 216 page 1225–1234, New York, NY, USA. Association 217 for Computing Machinery.  
-\[4\]Annamalai Narayanan, Mahinthan Chandramohan, Ra- 200 jasekar Venkatesan, Lihui Chen, Yang Liu, and Shan- 201 tanu Jaiswal. 2017. graph2vec: Learning distributed 202 representations of graphs.  
+\[1\] Bryan Perozzi, Rami Al-Rfou, and Steven Skiena. 2014. Deepwalk: online learning of social representations. In Proceedings of the 20th ACM SIGKDD international conference on Knowledge discovery and data mining, KDD ’14. ACM  
+\[2\] Aditya Grover and Jure Leskovec. 2016. node2vec: Scalable feature learning for networks.  
+\[3\] Daixin Wang, Peng Cui, and Wenwu Zhu. 2016. Struc- tural deep network embedding. In Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, KDD ’16, page 1225–1234, New York, NY, USA. Association for Computing Machinery.  
+\[4\]Annamalai Narayanan, Mahinthan Chandramohan, Rajasekar Venkatesan, Lihui Chen, Yang Liu, and Shantanu Jaiswal. 2017. graph2vec: Learning distributed representations of graphs.  
 \[5\] [그래프 임베딩 요약](https://medium.com/watcha/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9E%84%EB%B2%A0%EB%94%A9-%EC%9A%94%EC%95%BD-bc2732048999)
