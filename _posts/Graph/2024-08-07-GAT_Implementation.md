@@ -1,5 +1,5 @@
 ---
-title: "[그래프 이론]Graph Attention Network(GAT) 구현하기"
+title: "[그래프 AI]Graph Attention Network(GAT) 구현하기"
 categories: 
   - Graph
   

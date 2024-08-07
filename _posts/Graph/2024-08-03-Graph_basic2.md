@@ -1,5 +1,5 @@
 ---
-title: "[그래프 이론]그래프 머신러닝(딥러닝) - 노드 임베딩(Node Embedding)"
+title: "[그래프 AI]그래프 머신러닝(딥러닝) - 노드 임베딩(Node Embedding)"
 categories: 
   - Graph
   

@@ -1,5 +1,5 @@
 ---
-title: "[그래프 이론]GCN 구현하기 with PyTorch"
+title: "[그래프 AI]GCN 구현하기 with PyTorch"
 categories: 
   - Graph
   
