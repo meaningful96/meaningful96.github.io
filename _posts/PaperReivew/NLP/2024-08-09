@@ -1,0 +1,43 @@
+---
+title: "[논문리뷰]Explore then Determine: A GNN-LLM Synergy Framework for Reasoning over Knowledge Graph"
+
+categories: 
+  - NR
+  
+toc: true
+toc_sticky: true
+
+date: 2024-08-09
+last_modified_at: 2024-08-09
+---
+
+*Guangyi Liu, Yongqi Zhang, Yong Li, and Quanming Yao*. 2024. **Explore then determine: A gnn-llm synergy framework for reasoning over knowledge graph**.
+
+# Problem Statement
+Limitations of Prior Studies
+
+1. **대형 언어 모델(LLM)의 지식 부족**: LLM은 자연어 처리에서 강력한 성능을 보이지만, KGQA 작업에서는 사실적 지식의 부족과 환각 문제로 인해 어려움을 겪고 있다. 기존의 LLM 기반 추론 방법들은 질문과 관련된 정확한 지식을 추출하는 데 중요한 **지식 그래프(Knowledge Graph, KG)에서의 구성적 학습(compositional learning)을 간과**하고 있다는 점이 문제로 지적되고 있다.
+
+2. **비효율성과 높은 비용**: 현재의 많은 KGQA 방법들은 LLM의 미세 조정이나 **빈번한 상호작용**을 필요로 하는데, 이는 특히 대규모 지식 그래프에서 다중 단계 추론을 수행할 때 시간과 자원이 많이 소요되어 비효율적이다.
+
+
+<br/>
+<br/>
+
+
+# Method
+
+
+
+<br/>
+<br/>
+
+# Experiments
+
+
+
+<br/>
+<br/>
+
+# Limitations and Contributions
+
