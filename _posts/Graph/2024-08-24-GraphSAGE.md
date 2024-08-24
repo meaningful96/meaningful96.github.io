@@ -6,8 +6,8 @@ categories:
 toc: true
 toc_sticky: true
 
-date: 2024-08-18
-last_modified_at: 2024-08-18
+date: 2024-08-24
+last_modified_at: 2024-08-24
 ---
 # GraphSAGE
 ## 1. GraphSAGE 배경
