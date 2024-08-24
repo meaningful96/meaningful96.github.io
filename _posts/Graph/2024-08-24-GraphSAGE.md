@@ -46,4 +46,24 @@ GraphSAGE는 <span style="color:red">**고정된 크기의 그래프에 대한 �
 특정 노드의 임베딩을 계산할 때, 거리가 $$K$$만큼 떨어져 있는 노드에서부터 순차적으로 **특성 집계(feature aggregation)**을 적용한다. 하지만, 이를 위해서는 추가적으로 **배치(batch)를 샘플링**하는 방법과 **이웃 노드에 대한 정의**가 필요하다.
 
 ### 2) 배치 샘플링
+<p align="center">
+<img width="700" alt="1" src="https://github.com/user-attachments/assets/120e8dda-83d3-42b9-9e92-31ddf86c7aa5">
+</p>
 
+GraphSAGE에서 **배치 샘플링(batch sampling)**은 대규모 그래프에서 효율적으로 학습을 수행하기 위한 중요한 기법이다. 배치 샘플링을 통해 모델은 전체 그래프를 한 번에 처리하는 대신, 그래프의 일부를 샘플링하여 미니배치(mini-batch) 단위로 학습한다. 이를 통해 메모리 사용량을 줄이고, 계산 속도를 향상시키며, 대규모 그래프에서도 효과적으로 학습할 수 있게 된다.
+
+GraphSAGE의 배치 샘플링은 다음과 같은 단계로 구성된다:
+
+1. **루트 노드 선택 (Root Node Selection)**
+  - 학습할 배치를 구성하기 위해 그래프에서 임의의 노드들을 샘플링하여 루트 노드로 선택한다. 이러한 루트 노드들은 해당 미니배치의 중심이 되며, 모델은 이 루트 노드들의 임베딩을 학습하게 된다.
+
+2. **이웃 노드 샘플링 (Neighbor Node Sampling)**
+  - 각 루트 노드에 대해, 일정한 수의 이웃 노드를 샘플링한다. GraphSAGE는 모든 이웃을 고려하는 대신, 각 노드의 k-hop 이웃 중 일부만 샘플링함으로써 계산 비용을 줄인다. 예를 들어, 2-계층 GraphSAGE에서 샘플링된 노드 집합은 1-계층 샘플링된 이웃들로부터, 그리고 이 1-계층 이웃들의 이웃으로부터 구성된다.
+  - 이때, GraphSAGE는 각 레이어마다 정해진 수의 이웃을 샘플링하도록 하여, 샘플링된 이웃의 수가 기하급수적으로 늘어나지 않도록 제어한다. 예를 들어, 1-계층에서 이웃 노드를 10개 샘플링하고, 2-계층에서 각각의 이웃에 대해 10개의 이웃을 샘플링하면, 최종적으로는 각 루트 노드에 대해 최대 100개의 이웃 정보만 사용하게 된다.
+
+3. **미니배치 학습 (Mini-batch Learning)**
+  - 샘플링된 노드들과 이들의 이웃들을 기반으로 미니배치를 구성하여 모델을 학습한다. 이 과정에서 GraphSAGE는 샘플링된 이웃 노드들의 정보를 사용하여 루트 노드의 임베딩을 계산하고, 이 임베딩을 업데이트한다. 학습은 미니배치 단위로 반복되며, 각 배치가 그래프의 서로 다른 부분을 커버하도록 함으로써 모델은 전체 그래프의 구조적 정보를 효과적으로 학습할 수 있게 된다.
+
+# Reference
+\[1\] William L. Hamilton, Rex Ying, and Jure Leskovec.2018. Inductive representation learning on large graphs.  
+\[2\] [\[논문리뷰\]GraphSage : Inductive Representation Learning on Large Graphs(2017)](https://velog.io/@dongdori/GraphSage-Inductive-Representation-Learning-on-Large-Graphs)
