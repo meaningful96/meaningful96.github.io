@@ -254,8 +254,59 @@ class DoublyLinkedList:
 
 ```
 
+## Runner (or Second Pointer) Technique
+**Runner (or Second Pointer) Technique**는 **두 개의 포인터를 사용**하여 연결 리스트를 탐색하는 기법이다. 이는 효율적으로 리스트를 탐색하거나 특정 문제를 해결하는 데 유용하다. 이 방법은 빠른 포인터와 느린 포인터를 동시에 사용하여 리스트 내의 패턴을 탐지하거나 리스트의 특정 요소를 찾아낸다.
 
+- **Fast** 포인터: 느린 포인터보다 더 빠르게 이동한다. 일반적으로 한 번에 두 노드씩 이동한다.
+- **Slow** 포인터: 한 번에 한 노드씩 이동한다
 
+Runner (or Second Pointer) Technique는 리스트의 중간 지점을 찾고, 사이클을 검출하며, 리스트 병합 및 교차 문제를 해결하는 데 사용된다.
+- **중간 지점 찾기**: 리스트를 순회하면서 중간에 위치한 노드를 효율적으로 찾는다.
+- **사이클 검출**: 리스트를 탐색하며 사이클이 있는지 확인한다. 빠른 포인터가 느린 포인터를 따라잡으면 사이클이 존재함을 의미한다.
+- **리스트 병합 및 교차 문제 해결**: 두 리스트를 특정 패턴으로 병합하거나 재정렬할 때 사용된다.
+
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    # 리스트 끝에 노드 삽입
+    def insert(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        last = self.head
+        while last.next:
+            last = last.next
+        last.next = new_node
+
+    # 리스트의 중간 노드를 찾기 위한 Runner Technique
+    def find_middle(self):
+        slow = self.head
+        fast = self.head
+
+        # 빠른 포인터는 두 칸씩, 느린 포인터는 한 칸씩 이동
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        # 느린 포인터가 중간 노드를 가리킴
+        return slow.data
+
+    # 리스트를 출력
+    def print_list(self):
+        current = self.head
+        while current:
+            print(current.data, end=" ")
+            current = current.next
+        print()
+```
 
 # Reference
 \[1\] Lecture: ITG6022 Computational Problem Solving  
