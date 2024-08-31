@@ -153,7 +153,106 @@ linked_list.Traversing()
 
 양방향 연결 리스트는 **양방향 연결**을 통해 더 많은 유연성을 제공하지만, 메모리와 성능 면에서 추가적인 비용이 발생한다. 이러한 이유로, 데이터의 **양방향 탐색이 빈번히 필요한 경우**에 적합하다. 또한, 양방향 연결 리스트는 **원형 양방향 연결 리스트(Circular Doubly Linked List)**로 확장될 수 있다. 이 경우, 마지막 노드의 **next 포인터**가 첫 번째 노드를 가리키고, 첫 번째 노드의 **prev 포인터**가 마지막 노드를 가리켜 리스트가 원형으로 연결된다. 이 구조는 리스트의 양쪽 끝에서부터 빠르게 데이터 접근이 필요한 경우 유용하다.
 
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None  # 양방향을 위해 이전 노드를 가리키는 포인터 추가
 
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None  # 리스트의 마지막 노드를 추적하기 위해 tail 추가
+
+    # 가장 뒤에 노드 삽입
+    def insert_at_end(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            new_node.prev = self.tail
+            self.tail = new_node
+
+    # 모든 노드를 하나씩 출력 (앞에서 뒤로)
+    def traverse_forward(self):
+        cur = self.head
+        while cur is not None:
+            print(cur.data, end=" ")
+            cur = cur.next
+        print()
+
+    # 모든 노드를 하나씩 출력 (뒤에서 앞으로)
+    def traverse_backward(self):
+        cur = self.tail
+        while cur is not None:
+            print(cur.data, end=" ")
+            cur = cur.prev
+        print()
+
+    # 특정 인덱스(index)의 노드 찾기
+    def search(self, index):
+        node = self.head
+        for _ in range(index):
+            node = node.next
+        return node
+
+    # 특정 인덱스(index)에 노드 삽입
+    def insert_at_index(self, index, data):
+        new_node = Node(data)
+        # 첫 위치에 추가하는 경우
+        if index == 0:
+            new_node.next = self.head
+            if self.head is not None:
+                self.head.prev = new_node
+            self.head = new_node
+            if self.tail is None:  # 리스트가 비어 있었던 경우
+                self.tail = new_node
+            return
+        
+        # 삽입할 위치의 앞 노드
+        prev_node = self.search(index - 1)
+        next_node = prev_node.next
+
+        prev_node.next = new_node
+        new_node.prev = prev_node
+        new_node.next = next_node
+
+        if next_node is not None:
+            next_node.prev = new_node
+        else:
+            self.tail = new_node  # 새 노드가 마지막 노드인 경우 tail 갱신
+
+    # 특정 인덱스(index)의 노드 삭제
+    def delete_at_index(self, index):
+        if self.head is None:
+            return  # 리스트가 비어 있는 경우
+
+        # 첫 위치를 삭제하는 경우
+        if index == 0:
+            self.head = self.head.next
+            if self.head is not None:
+                self.head.prev = None
+            else:
+                self.tail = None  # 삭제 후 리스트가 비게 된 경우
+            return
+
+        # 삭제할 위치의 앞 노드
+        node_to_delete = self.search(index)
+        prev_node = node_to_delete.prev
+        next_node = node_to_delete.next
+
+        prev_node.next = next_node
+
+        if next_node is not None:
+            next_node.prev = prev_node
+        else:
+            self.tail = prev_node  # 삭제한 노드가 마지막 노드인 경우 tail 갱신
+
+```
 
 
 
