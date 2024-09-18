@@ -196,7 +196,7 @@ Message edges와 Supervision edges를 사용하여 학습을 진행한다. Messa
 학습과 검증에서 사용된 모든 엣지를 입력으로 하여 Test edges를 예측한다. Test 단계는 학습 및 검증에서 사용한 모든 데이터를 활용하여 최종적으로 예측 성능을 평가하는 과정이다. 여기서, 학습된 엣지들과 검증된 엣지들을 모두 사용하여 테스트 엣지를 맞추는 데 활용한다.
 
 <p align="center">
-<img width="600" alt="1" src="https://github.com/user-attachments/assets/19340d65-1378-4582-9460-ea64bbfe3a59">
+<img width="700" alt="1" src="https://github.com/user-attachments/assets/19340d65-1378-4582-9460-ea64bbfe3a59">
 </p>
 
 <br/>
