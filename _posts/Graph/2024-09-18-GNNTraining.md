@@ -46,14 +46,14 @@ Supervised Learning에서는 Ground Truth가 레이블로부터 오고, Unsuperv
 <img width="700" alt="1" src="https://github.com/user-attachments/assets/15dd12b4-30fd-43a1-a0cb-6771cd4c29bb">
 </p>
 
-1. Regression (회귀)  
+**Regression (회귀)**    
 a. Root Mean Square Error (RMSE)    
 예측 값과 실제 값 간의 오차의 제곱 평균에 루트를 씌운 값이다. 값이 클수록 예측 성능이 나쁘며, 큰 오차에 더 민감한 평가 지표다.  
 
 b. Mean Absolute Error (MAE)    
 예측 값과 실제 값 간의 절대 차이의 평균이다. 오차의 크기를 그대로 반영하며, 값이 클수록 예측 성능이 떨어진다. MAE는 RMSE에 비해 큰 오차에 덜 민감하다.  
 
-2.  Classification (분류)   
+**Classification (분류)**     
 a. Multi-Class Classification: Accuracy (Acc)    
 전체 예측 중에서 올바르게 예측된 비율이다. 다중 클래스 분류에서 많이 사용되며, 전체 예측이 얼마나 정확한지 평가한다.  
 
