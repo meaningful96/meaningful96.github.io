@@ -97,7 +97,7 @@ Accuracy, Precision, Recall, ROC-AOC Curve에 관한 자세한 설명은 [Evalua
 
 ### 1) Node Classification을 위한 Split
 <p align="center">
-<img width="600" alt="1" src="https://github.com/user-attachments/assets/0372b4f4-0645-4cc4-a289-c9e0b9ec11c2">
+<img width="700" alt="1" src="https://github.com/user-attachments/assets/0372b4f4-0645-4cc4-a289-c9e0b9ec11c2">
 </p>
 
 **Transductive Node Classification**  
@@ -122,7 +122,7 @@ Inductive setting에서는 Train/Validation/Test 각각의 Split이 **서로 독
 
 ### 2) Graph Classification을 위한 Split
 <p align="center">
-<img width="600" alt="1" src="https://github.com/user-attachments/assets/db1f62cd-6ade-4ace-a229-baeb145cf011">
+<img width="700" alt="1" src="https://github.com/user-attachments/assets/db1f62cd-6ade-4ace-a229-baeb145cf011">
 </p>
 
 Graph Classification에서는 **unseen graph에 대한 예측을 테스트**해야 하므로, **Inductive setting만이 적합**하다. Inductive setting은 각 Split에 있는 Train/Validation/Test 데이터셋이 모두 **독립적인 그래프**로 구성되는 것을 의미한다.
@@ -138,7 +138,7 @@ Inductive setting에서 Graph Classification은 다음과 같은 방식으로 �
 
 ### 3) Link Prediction을 위한 Split
 <p align="center">
-<img width="600" alt="1" src="https://github.com/user-attachments/assets/c5adecd6-e3f3-4cb4-9a92-3499001be0e0">
+<img width="700" alt="1" src="https://github.com/user-attachments/assets/c5adecd6-e3f3-4cb4-9a92-3499001be0e0">
 </p>
 
 **Link prediction**은 missing edges를 예측하는 것이 목표인 unsupervised 또는 self-supervised 작업이다. 이 작업을 설정하는 과정은 다소 복잡한데, 그 이유는 레이블과 데이터셋의 분할을 우리가 직접 만들어야 하기 때문이다.
@@ -157,7 +157,7 @@ Link prediction이 까다로운 이유는, 레이블이 없는 상태에서 수�
 
 ### 3-1) Inductive Link Prediction
 <p align="center">
-<img width="600" alt="1" src="https://github.com/user-attachments/assets/177e5aea-70f3-4430-b7fe-62a3c0e1d041">
+<img width="700" alt="1" src="https://github.com/user-attachments/assets/177e5aea-70f3-4430-b7fe-62a3c0e1d041">
 </p>
 
 **Inductive Setting**은 **독립적인 3개의 그래프**를 각각 Training set, Validation set, Test set으로 나누고, 각각의 set에서 edge들을 학습에 사용되는 message edge와 예측에 사용되는 supervision edge로 나눈다.
@@ -175,7 +175,7 @@ Link prediction이 까다로운 이유는, 레이블이 없는 상태에서 수�
 
 ### 3-2) Transductive Link Prediction
 <p align="center">
-<img width="600" alt="1" src="https://github.com/user-attachments/assets/251a89c8-7a73-4bc6-9e08-d2bd64e19cae">
+<img width="700" alt="1" src="https://github.com/user-attachments/assets/251a89c8-7a73-4bc6-9e08-d2bd64e19cae">
 </p>
 
 **Transductive Setting**은 Link Prediction에서 많이 사용되는 방식으로, <span style="color:red">**하나의 큰 그래프를 여러 그래프로 나누어**</span> 학습 및 예측을 수행한다. 이 방식은 Training, Validation, Test 세 단계에서 각기 다른 엣지를 사용하는 방법을 따른다. 
