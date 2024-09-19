@@ -180,7 +180,7 @@ Link prediction이 까다로운 이유는, 레이블이 없는 상태에서 수�
 
 **Transductive Setting**은 Link Prediction에서 많이 사용되는 방식으로, <span style="color:red">**하나의 큰 그래프를 여러 그래프로 나누어**</span> 학습 및 예측을 수행한다. 이 방식은 Training, Validation, Test 세 단계에서 각기 다른 엣지를 사용하는 방법을 따른다. 
 
-- Edges
+- **Edges**
   - **Training message edges**: 학습에 사용되는 엣지.
   - **Training supervision edges**: 학습된 메시지 엣지를 바탕으로 예측에 사용되는 엣지.
   - **Validation edges**: 검증 단계에서 예측해야 하는 엣지.
