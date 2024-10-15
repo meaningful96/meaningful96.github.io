@@ -6,10 +6,10 @@ main:
     #url: /about/
   - title: "Category"
     url: /categories/
-  - title: "Github"
-    url: https://github.com/meaningful96
-  - title: "LinkedIn"
-    url: https://www.linkedin.com/in/meainingful96-92a763252/
+  - title: "Kor"
+    url: https://meaningful96.github.io/
+  - title: "Eng"
+    url: https://meaningful96.github.io/meaningful96_en.github.io/
 
  
 
