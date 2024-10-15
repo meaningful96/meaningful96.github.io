@@ -6,10 +6,11 @@ main:
     #url: /about/
   - title: "Category"
     url: /categories/
-  - title: "Kor"
+  - title: "Github"
     url: https://meaningful96.github.io/
-  - title: "Eng"
-    url: https://meaningful9602.github.io/
+  - title: "LinkedIn"
+    url: https://www.linkedin.com/in/meainingful96-92a763252/
+
  
 
 # 카테고리 추가시 
