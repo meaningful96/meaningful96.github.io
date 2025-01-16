@@ -19,7 +19,7 @@ last_modified_at: 2025-01-16
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/4c0e9e29-b810-4c98-827b-0c4a61b87369">
 </p>
 
-**다중홉 추론(Multi-hop Question Answering, MHQA)**은 두개 이상의 문서(document) 혹은 패세지(passage)에 존재하는 정보를 종합해 주어진 질문에 정답을 추론할 수 있는 질의 응답 문제이다. 여러 개의 문서를 찾기 위해서는 **RAG(Retrieval-Augmented Generation)**를 사용해야 한다. 최근 많은 연구들은 RAG와 LLM을 결합하여, 질문에 가까운 문서를 검색해서 찾아 LLM에게 추론을 시키는 framework를 많이 사용한다.
+**다중홉 추론(Multi-hop Question Answering, MHQA)**은 두개 이상의 문서(document) 혹은 패세지(passage)에 존재하는 정보를 종합해 주어진 질문에 정답을 추론할 수 있는 질의 응답 문제이다. 여러 개의 문서를 찾기 위해서는 **RAG(Retrieval-Augmented Generation)**를 사용해야 한다. 최근 많은 연구들은 RAG와 LLM을 결합하여, 질문에 가까운 문서를 검색해서 찾아 LLM에게 추론을 시키는 framework를 많이 사용한다. 
 
 <span style="font-size:110%">Limitations of Existing Research</span>
 <p align="center">
@@ -36,8 +36,8 @@ last_modified_at: 2025-01-16
 - 만약에 LLM이 이미 정답을 알고 있더라도, 잘못 검색하는 경우가 발생한다.
 - 이는 LLM은 각 step에서 하나의 sub-question만 해결하며, 전체적인 reasoning chain을 고려하지 못하게 됨을 의미한다.
 
-**IR이 잘못된 정보를 제공하는 경우 LLM의 혼란 초래**
-- LLM이 이미 정확히 기억하고 있는 지식이라도 IR이 검색한 정보가 잘못되었을 경우, LLM이 이를 신뢰하여 잘못된 응답을 생성하게 될 위험이 있다.
+**Retriever가 잘못된 정보를 제공하는 경우 LLM의 혼란 초래**
+- LLM이 이미 정확히 기억하고 있는 지식이라도 IR(Information Retriever)이 검색한 정보가 잘못되었을 경우, LLM이 이를 신뢰하여 잘못된 응답을 생성하게 될 위험이 있다.
 
 **추론 방향의 유연성 부족**
 - LLM이 한 방향으로만 추론을 수행하도록 제한하여, 추론 과정 중 새로운 정보가 필요하거나 잘못된 방향으로 진행된 경우 이를 동적으로 수정하거나 새로운 방향으로 전환하는 기능이 부족하다.
