@@ -7,8 +7,8 @@ categories:
 toc: true
 toc_sticky: true
 
-date: 2025-01-16
-last_modified_at: 2025-01-16
+date: 2025-01-24
+last_modified_at: 2025-01-24
 ---
 
 *Shicheng Xu, Liang Pang, Huawei Shen, Xueqi Cheng, and Tat-Seng Chua*. 2024. **[Search-in-the-Chain: Interactively Enhancing Large Language Models with Search for Knowledge-intensive Tasks](https://arxiv.org/abs/2304.14732)**. arXiv:2304.14732 
@@ -42,12 +42,18 @@ last_modified_at: 2025-01-16
 **추론 방향의 유연성 부족**
 - LLM이 한 방향으로만 추론을 수행하도록 제한하여, 추론 과정 중 새로운 정보가 필요하거나 잘못된 방향으로 진행된 경우 이를 동적으로 수정하거나 새로운 방향으로 전환하는 기능이 부족하다.
 
+SearChain은 이러한 세 가지 문제점을 해결하고자 하며, 
+
 <br/>
 <br/>
 
 # Method
+## Model Architecture
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/30f4ecf2-9410-46ed-9325-2aff0a0e6acc">
+</p>
 
-
+SearChain
 
 <br/>
 <br/>
