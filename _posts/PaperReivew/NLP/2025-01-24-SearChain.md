@@ -64,6 +64,43 @@ CoQ를 통해 여러 개의 서브 질문-정답 쌍으로 구성된 글로벌 �
 
 이렇게 CoQ를 생성하고, 검증과 보완과정을 반복하다보면, 기존의 직선적인 추론 체인과 달리 Tree 형태의 추론 체인이 형성된다. 이를 **Tree-of-Reasoning(ToR)**이라고 한다. ToR은 <span style="color:red">**추론 방향을 동적으로 수정**</span>할 수 있음을 보여주며, 잘못된 노드가 발견되면 분기를 생성하고, 이를 포함한 전체 추론 트리를 관리하게 된다. 그림에서 Round 4 (CoQ Gen.)와 Tree-of-Reasoning (Trace.)에서 노드 수정 (J 추가) 및 새로운 분기 생성 과정을 통해 올바른 최종 답변에 도달하는 것을 볼 수 있다. 
 
+## S-1. Chain-of-Query (CoQ)
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/cd6b01ea-012a-4bae-850c-1d87089c744e">
+
+Chain-of-Query는 하나의 복잡한 질문을 여러 개의 서브 질문과 정답 쌍으로 분리해 하나의 추론 체인을 형성하는 과정이다. 예를 들어, "Where do Greyhound buses that are in the birthplace of Spirit If...'s performer leave from?"라는 질문은 아래와 같이 세 개의 질문-정답 쌍으로 분리될 수 있다.
+
+- 질문1 - "Who is the performer of Spirit If...?" / 답변 - "Kevin Drew“
+- 질문2 - "Where was Kevin Drew born?" / 답변 - "Toronto“
+- 질문3 - "Where do Greyhound buses in Toronto leave from?" / 답변 - "Toronto Coach Terminal"
+
+이 경우 그림에서 각 노드는 답변인 "Kevin Drew", "Toronto", "Toronto Coach Terminal"에 대응된다.
+
+## S-2. Verification & Completion
+
+<span style="font-size:110%">**Verification (검증)**</span>  
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/ed2a97a1-a83d-49b7-8529-0d30336066d9">
+
+검증의 목적은 "잘못된 정보를 수정"하는 것이다. LLM이 생성한 답변이 정확한지 확인하고, IR에서 제공한 정보와 불일치할 경우 이를 수정하기 위한 피드백을 제공한다. 먼저 Retriever와 Reader는 문서를 찾고, 정답과 함께 **신뢰 점수(confidence score)**를 출력한다. 만약 LLM이 생성한 답변과 IR이 찾은 답변이 다르고, 그와 동시에 IR의 신뢰 점수가 임계값을 넘어가면 feedback 함수를 통해 아래 프롬프트를 생성해 LLM에게 입력시킨다.
+LLM은 이를 통해 답변을 수정한다.
+
+<br/>
+
+<span style="font-size:110%">**Completion (보완)**</span>  
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/0ffce3ed-8941-436e-ba97-d001a49e0334">
+
+보완의 목적은 "부족한 정보를 검색 및 추가"하는 것이다. LLM이 답변을 생성하지 못한 경우, IR이 부족한 정보를 제공하여 LLM이 추론을 이어가도록 돕는다. 보완 과정을 크게 세 단계로 이루어진다.
+1. **미해결 질문 탐지**: LLM이 특정 질문(Query)에 대해 답변을 생성하지 못할 경우, 해당 노드를 "Unsolved Query"로 표시한다.
+2. **문서 검색 및 답변 추출**: LLM이 특정 질문(Query)에 대해 답변을 생성하지 못할 경우, 해당 노드를 "Unsolved Query"로 표시한다.
+3. **피드백 생성**: LM이 새로운 답변을 생성하도록 다음과 같은 프롬프트를 생성한다.
+
+## S-3. Tree-of-Reasoning (ToR)
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/42a9e75e-6447-46b7-abab-5d3f7ad3453f">
+
+CoQ의 생성, 보완과 검증 단계를 거치면서 Tree 형태의 추론 체인을 형성하게 된다. 
 
 <br/>
 <br/>
