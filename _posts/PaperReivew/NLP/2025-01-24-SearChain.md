@@ -53,7 +53,17 @@ SearChain은 이러한 세 가지 문제점을 해결하고자 하며,
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/30f4ecf2-9410-46ed-9325-2aff0a0e6acc">
 </p>
 
-SearChain
+SearChain은 크게 세 가지 파트로 나눠진다.
+1. **Chain-of-Query (CoQ)**
+2. **Verification& Completion**
+3. **Tree-of-Reasoning (ToR)**
+
+**CoQ**는 복잡한 질문을 <span style="color:red">**여러 개의 서브 질문과 답변으로 연결괸 글로벌 추론 체인으로 변환**</span>하는 것이다. 위의 그림에서  Round 1 (CoQ Gen.) 부분은 LLM이 질문을 분해해 초기 CoQ를 생성하는 과정이다. 이 단계에서 각 노드는 질문-답변 쌍으로 구성되며, 각 서브 질문의 정답이 노드가 된다. (A⮕B⮕C⮕D)
+
+CoQ를 통해 여러 개의 서브 질문-정답 쌍으로 구성된 글로벌 체인이 성공적으로 구성되었으면, LLM은 순차적으로 서브 질문에 대해 정답을 추론한다. 이 과정에서 **Verification(검증)**과 **Completion(보완)**을 통해 LLM이 이미 알고 있는 지식과 부족한 지식을 외부로부터 검색해 적절하게 추론에 사용하게 된다. Verification은 <span style="color:red">**IR이 CoQ에서 각 서브 질문에 대한 LLM의 정답을 검증하고, 만약 잘못되었다 판단될 경우 수정**</span>하는 과정이다. Completion은 <span style="color:red">**LLM이 정답을 생성하지 못한 경우를 "Unsolved Query"로 표시하고, 이 표시된 노드들에 대해 IR을 통해 외부에서 추가적인 정보를 검색해 제공하는 것**</span>이다. 그림에서 Round 1(Verif.)와 Round 3(Verif. and Comp.)에서 IR이 노드(B, F 등)를 검증하고 필요한 경우 정보를 보완하여 새로운 CoQ를 생성한다.
+
+이렇게 CoQ를 생성하고, 검증과 보완과정을 반복하다보면, 기존의 직선적인 추론 체인과 달리 Tree 형태의 추론 체인이 형성된다. 이를 **Tree-of-Reasoning(ToR)**이라고 한다. ToR은 <span style="color:red">**추론 방향을 동적으로 수정**</span>할 수 있음을 보여주며, 잘못된 노드가 발견되면 분기를 생성하고, 이를 포함한 전체 추론 트리를 관리하게 된다. 그림에서 Round 4 (CoQ Gen.)와 Tree-of-Reasoning (Trace.)에서 노드 수정 (J 추가) 및 새로운 분기 생성 과정을 통해 올바른 최종 답변에 도달하는 것을 볼 수 있다. 
+
 
 <br/>
 <br/>
