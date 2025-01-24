@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/60af0aa5-7abb-4a59-97b1-928517e60886)---
+---
 title: "[논문리뷰]Search-in-the-Chain: Interactively Enhancing Large Language Models with Search for Knowledge-intensive Tasks"
 
 categories: 
