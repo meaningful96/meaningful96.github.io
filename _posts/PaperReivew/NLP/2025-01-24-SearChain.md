@@ -1,4 +1,4 @@
----
+![image](https://github.com/user-attachments/assets/60af0aa5-7abb-4a59-97b1-928517e60886)---
 title: "[논문리뷰]Search-in-the-Chain: Interactively Enhancing Large Language Models with Search for Knowledge-intensive Tasks"
 
 categories: 
@@ -100,7 +100,12 @@ LLM은 이를 통해 답변을 수정한다.
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/42a9e75e-6447-46b7-abab-5d3f7ad3453f">
 
-CoQ의 생성, 보완과 검증 단계를 거치면서 Tree 형태의 추론 체인을 형성하게 된다. 
+첫 번째 단계인 CoQ는 복잡한 질문을 연속적인 서브 질문-정답 쌍으로 세분화하여, 추론 사슬의 구조를 **깊이 우선 탐색(DFS)** 기반 경로와 유사하게 구성한다. 이후 검증과 보완 작업을 통해 최종적으로 LLM의 추론 과정은 **트리 구조**의 형태를 띤다. 서브 질문에 대한 답변(sub-answer)이며, 각각의 브랜치(branch)는 잘못된 노드가 수정되거나 새로운 정보가 추가될 때 생성된다. 
+
+기존의 CoT기반의 연구들은 선형 방식인 것과는 다르게, ToR은 <span style="color:red">**새로운 경로를 동적으로 추가하거나 잘못된 경로를 수정**</span>할 수 있다. ToR의 장점은 세 가지로 정리할 수 있다.
+- **동적 추론 방향 수정 가능**: 잘못된 정보가 발견되거나 추가 정보가 필요할 때, 새로운 브랜치를 생성하여 동적으로 추론 방향을 조정할 수 있다.
+- **효율적인 검증 및 보완**: 각 노드에서 IR과 상호작용하며, 불필요한 전체 경로 탐색을 피하고 필요한 부분만 수정하거나 보완한다.
+- **신뢰성 있는 최종 정답 도출**: 가장 신뢰도가 높은 경로를 선택하여 최종 정답을 생성함으로써, 높은 정확성과 신뢰성을 제공한다.
 
 <br/>
 <br/>
