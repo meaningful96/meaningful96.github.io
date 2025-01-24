@@ -1,4 +1,4 @@
----
+![image](https://github.com/user-attachments/assets/30277755-6478-40ae-beb4-ab4f7048f357)---
 title: "[논문리뷰]Search-in-the-Chain: Interactively Enhancing Large Language Models with Search for Knowledge-intensive Tasks"
 
 categories: 
@@ -67,6 +67,7 @@ CoQ를 통해 여러 개의 서브 질문-정답 쌍으로 구성된 글로벌 �
 ## S-1. Chain-of-Query (CoQ)
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/cd6b01ea-012a-4bae-850c-1d87089c744e">
+</p>
 
 Chain-of-Query는 하나의 복잡한 질문을 여러 개의 서브 질문과 정답 쌍으로 분리해 하나의 추론 체인을 형성하는 과정이다. 예를 들어, "Where do Greyhound buses that are in the birthplace of Spirit If...'s performer leave from?"라는 질문은 아래와 같이 세 개의 질문-정답 쌍으로 분리될 수 있다.
 
@@ -81,6 +82,7 @@ Chain-of-Query는 하나의 복잡한 질문을 여러 개의 서브 질문과 �
 <span style="font-size:110%">**Verification (검증)**</span>  
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/ed2a97a1-a83d-49b7-8529-0d30336066d9">
+</p>
 
 검증의 목적은 "잘못된 정보를 수정"하는 것이다. LLM이 생성한 답변이 정확한지 확인하고, IR에서 제공한 정보와 불일치할 경우 이를 수정하기 위한 피드백을 제공한다. 먼저 Retriever와 Reader는 문서를 찾고, 정답과 함께 **신뢰 점수(confidence score)**를 출력한다. 만약 LLM이 생성한 답변과 IR이 찾은 답변이 다르고, 그와 동시에 IR의 신뢰 점수가 임계값을 넘어가면 feedback 함수를 통해 아래 프롬프트를 생성해 LLM에게 입력시킨다.
 LLM은 이를 통해 답변을 수정한다.
@@ -90,6 +92,7 @@ LLM은 이를 통해 답변을 수정한다.
 <span style="font-size:110%">**Completion (보완)**</span>  
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/0ffce3ed-8941-436e-ba97-d001a49e0334">
+</p>
 
 보완의 목적은 "부족한 정보를 검색 및 추가"하는 것이다. LLM이 답변을 생성하지 못한 경우, IR이 부족한 정보를 제공하여 LLM이 추론을 이어가도록 돕는다. 보완 과정을 크게 세 단계로 이루어진다.
 1. **미해결 질문 탐지**: LLM이 특정 질문(Query)에 대해 답변을 생성하지 못할 경우, 해당 노드를 "Unsolved Query"로 표시한다.
@@ -99,6 +102,7 @@ LLM은 이를 통해 답변을 수정한다.
 ## S-3. Tree-of-Reasoning (ToR)
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/42a9e75e-6447-46b7-abab-5d3f7ad3453f">
+</p>
 
 첫 번째 단계인 CoQ는 복잡한 질문을 연속적인 서브 질문-정답 쌍으로 세분화하여, 추론 사슬의 구조를 **깊이 우선 탐색(DFS)** 기반 경로와 유사하게 구성한다. 이후 검증과 보완 작업을 통해 최종적으로 LLM의 추론 과정은 **트리 구조**의 형태를 띤다. 서브 질문에 대한 답변(sub-answer)이며, 각각의 브랜치(branch)는 잘못된 노드가 수정되거나 새로운 정보가 추가될 때 생성된다. 
 
@@ -111,12 +115,71 @@ LLM은 이를 통해 답변을 수정한다.
 <br/>
 
 # Experiments and Results
+## Experiment Settings
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/486472e8-963b-4d6d-9e4a-6f492c63df5a">
+</p>
+- 각 Task에 대한 Metric
+  - Multi-Hop QA (HopotQA, MuSiQue, 2WikiMultiHopQA, StrategyQA): EM (Exact Match) 사용.
+  - Slot Filling (zsRE, T-REx): EM 사용.
+  - Fact Checking (FC): Cover-EM 사용.
+  - Long-Form QA (LFQA): ROUGE-L 사용
+
+ROUGE-L: LCS 기법을 이용해 최장 길이로 매칭되는 문자열을 측정한다. LCS의 장점은 ROUGE-2와 같이 단어들의 연속적 매칭을 요구하지 않고, 어떻게든 문자열 내에서 발생하는 매칭을 측정하기 때문에 보다 유연한 성능 비교가 가능하다.
+
+## Main Results
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/9563a21d-d190-42b1-9263-93fd05c19878">
+</p>
+
+SearChain은 여러 task(e.g., MHQA, Slot Filling, Fact Checking, Long-Form QA)에서 state-of-the-art (SOTA)를 달성하였다. 특히, 보완작업을 사용하지 않고 검증 작업만으로도 (w/o IR) 팩트 체킹을 제외하고 SOTA라는 사실에 주목할만하다. 
+
+또한, <span style="color:blue">**파란색 박스**</span> 부분을 보면, 검증(Verification)이 빠졌을때 성능 감소가 많이 일어나는 것을 확인할 수 있다. 이를 통해, 검증 단계가 추론 성능을 높이는데 매우 중요한 역할을 하며, LLM이 내제한 지식과 IR의 지식을 적절하게 이용해야 환각 방지를 할 수 있음을 시사해준다.
+
+## Analysis 1. Knowledge Decoupling
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/7a6dca39-adfa-4261-9b84-3fa353be9119">
+</p>
+
+Table 2는 SearChain이 추론 과정에서 사용하는 지식의 출처(knowledge sources)를 분류하고, 이를 정량적으로 분석한 결과를 보여준다. 이 표는 SearChain의 각 단계에서 LLM의 내부 지식, IR에 의해 수정된 지식, IR이 보완한 지식이 각각 얼마나 사용되었는지를 나타낸다.
+
+Knowledge  종류 설명
+- 약 15~20%의 노드에서 LLM의 답변이 IR의 검증(Verification) 과정을 통해 수정됨. 
+- 이는 LLM이 잘못된 답변을 생성할 때, IR이 이를 교정하는 데 중요한 역할을 한다는 것을 보여준다.
+- 약 4~7%의 노드에서 LLM이 답변을 생성하지 못한 경우, IR이 부족한 지식을 제공하여 보완함. 이는 IR이 LLM의 지식 부족을 메우는 보조적 역할을 한다는 것을 보여준다.
+
+추론에서 대부분의 지식은 LLM 내부적으로 이미 학습한 정보로부터 도출된다. 즉, LLM은 외부 지식 없이도 학습된 지식만으로 많은 문제를 해결할 수 있다. 또한 앞선 Main result에서 언급하였듯이, <span style="color:red">**Verification(검증)**</span> 단계의 이점이 Table 2의 `Corrected by IR`을 통해 확인된다.
+
+종합적으로 LLM 자체의 지식을 우선적으로 활용하고, 부족하거나 비논리적인 추론 부분에서만 IR을 사용하는 것이 환각 방지에 효과적이다.
 
 
+## Analysis 2. Positive and Negative Effects of IR on LLM
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/user-attachments/assets/de03415f-3667-428e-ba3f-29b767d9bb3f">
+</p>
+
+- Notation
+  - **S_IR**​: IR이 도움을 제공한 질문 집합.이 질문들은 LLM 단독으로는 해결이 어렵지만, IR의 도움으로 해결된 경우를 포함.
+  - **S**: 전체 질문 집합.
+  - **w/o IR**: IR 없이 LLM만 사용했을 때의 정확도.
+  - **w IR**: IR을 활용했을 때의 정확도.
+
+(a) LLM이 어려움을 겪은 질문(w/o IR)에 대해 IR(w IR)이 추가되었을 때 성능이 크게 향상되었다.
+
+(b) 표 (b)는 IR로 인한 성능 저하의 비율을 나타낸다.
+- 기존 접근법(예: Self-Ask, React)은 IR이 잘못된 정보를 제공했을 때 LLM을 잘못 이끄는 비율이 상대적으로 높았다.
+  - HotpotQA (HoPo)에서 Self-Ask는 잘못된 IR 정보로 인해 15.76%의 질문에서 LLM을 오도했다.
+- SearChain은 IR의 부정적인 효과를 가장 낮은 수준으로 유지했다.
+  - HotpotQA (HoPo)에서 SearChain은 IR의 부정적 효과를 6.33%로 줄여 접근법 중 가장 낮은 수치를 기록했다.
+
+정리하자면, IR이 잘못된 정보를 제공했을 때 LLM을 잘못 이끄는 비율이 상대적으로 높다는 사실과 IR의 도움을 통해 HotpotQA에서 60.86의 accuracy를 기록했다는 사실을 통해, 잘못된 Retrieve 결과는 오히려 LLM의 환각 문제를 유발하며 적재적소에서 IR이 사용되어야 함을 나타낸다. (Verification, 검증)
 
 <br/>
 <br/>
 
 # Contribution
+1. **검증**과 **보완**을 통해 LLM이 IR의 도움을 받아 잘못된 답변을 수정하거나, 부족한 정보를 채워가며 점진적으로 추론의 정확도를 높이고 이를 통해 <span style="color:red">**LLM의 내부 지식과 IR의 외부 지식을 효과적으로 통합**</span>할 수 있는 방식을 제시했다.
+2. ToG를 통해 LLM이 잘못된 정보에 기반한 경로를 탐색하더라도, 새로운 브랜치를 생성하여 다른 경로를 탐색하고 최적의 답변에 도달할 수 있도록 설계했다.
+
 
 
