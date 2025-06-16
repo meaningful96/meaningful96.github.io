@@ -53,7 +53,7 @@ GenGround는 **Answer Deduction**과 **Instructional Knowledge Grounding**의 �
 
 ## Batch Knowledge Grounding
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.06.15%5DGenGround/GenGround3.png?raw=true">
+<img width="500" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.06.15%5DGenGround/GenGround3.png?raw=true">
 </p>
 
 - **목적**: 긴 문서 리스트를 일괄로 검토하지 않고, 문서를 배치 단위로 나눠 점진적으로 evidence를 찾음으로써 효율성과 정밀도를 개선
@@ -80,7 +80,7 @@ GenGround는 **Answer Deduction**과 **Instructional Knowledge Grounding**의 �
 
 ## Ablation Study
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.06.15%5DGenGround/GenGround5.png?raw=true">
+<img width="500" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.06.15%5DGenGround/GenGround5.png?raw=true">
 </p>
 
 - **Answer Deduction**의 성능 gain이 가장 크다.
@@ -89,14 +89,14 @@ HotpotQA와 StrategyQA에서 수행한 ablation study에서 각 구성요소의 
 
 ## Analysis 1. Knowlede Incorporation
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.06.15%5DGenGround/GenGround6.png?raw=true">
+<img width="500" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.06.15%5DGenGround/GenGround6.png?raw=true">
 </p>
 
 100개의 HotpotQA 샘플을 분석한 결과, 전체 성공률은 53.2%였다. LLM이 직접 정답을 생성한 경우가 28.7%, 초기에 잘못된 답변을 생성했지만 외부 문서를 통해 수정한 경우가 24.5%였다. 오류율은 5.6%로 매우 낮아, LLM이 검색된 문서를 효과적으로 활용함을 보여준다. 이는 매개변수 지식과 외부 지식 모두를 통합하는 것의 중요성을 강조한다.
 
 ## Analysis 2. Efficiency
 <p align="center">
-<img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.06.15%5DGenGround/GenGround7.png?raw=true">
+<img width="500" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.06.15%5DGenGround/GenGround7.png?raw=true">
 </p>
 
 토큰 소비량 분석에서 GenGround는 평균 3541.6개의 토큰을 사용하여 GRG w/ decomposition(7806.4개)과 RetGen(8917.8개)보다 훨씬 효율적이었다. 이는 프레임워크가 LLM의 deduction 능력을 활용해 복잡한 질문을 단순한 하위 질문으로 분해하고 직접 답변을 생성하여 더 짧은 추론 경로를 만들기 때문이다.
