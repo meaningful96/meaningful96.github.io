@@ -582,19 +582,11 @@
       color: $text-color;
     }
   }
-  
+
   li {
-    background-color: #f9f9f9; /* 기본 배경 */
+    background: mix(#fff, $primary-color, 30%);
   }
 
-  li:nth-child(odd) {
-    background-color: #f1f1f1; /* 홀수 줄 */
-  }
-
-  li:nth-child(even) {
-    background-color: #f1f1f1; /* 짝수 줄 */
-  }
-  
   li ul > li a {
     padding-left: 1.25rem;
     font-weight: normal;
@@ -613,6 +605,6 @@
   }
 
   li ul li ul li ul li ul li ul > li a {
-    padding-left: 3.25rem
+    padding-left: 3.25rem;
   }
 }
