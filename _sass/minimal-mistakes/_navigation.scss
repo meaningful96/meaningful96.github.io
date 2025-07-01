@@ -582,9 +582,9 @@
       color: $text-color;
     }
   }
-
+  
   li {
-    background: mix(#fff, $primary-color, 30%);
+    background-color: #f1f1f1; /* 전체 동일한 연회색 */
   }
 
   li ul > li a {
