@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/e16ae450-a43e-412e-9d1e-824bf8715745)---
+---
 title: "[논문리뷰]EfficientRAG: Efficient Retriever for Multi-Hop Question Answering"
 
 categories: 
@@ -116,4 +116,14 @@ Table 3는 End-to-end QA 성능 비교 실험 결과이다. EfficientRAG는 Hotp
 <br/>
 
 # Conclusion
+**Contribution**  
+- EfficientRAG는 다중 LLM 호출 없이 새로운 쿼리를 반복적으로 생성할 수 있는 Multi-hop QA 전용 효율적 Retriever를 제안하였다.
+- 기존 Iterative RAG 대비 매우 적은 수의 Chunk만으로 높은 Recall을 달성하며, 특히 HotpotQA(81.84@6.41개), 2WikiMQA(84.08@3.69개)에서 기존 SOTA 수준의 성능을 보였다.
+- 기존 LLM 기반 Iterative RAG 대비 약 60~80%의 시간 효율을 개선하였으며, LLM 호출 횟수를 단 1회로 최소화하였다.
+- 추가 학습 없이도 다양한 데이터셋에 적용 가능한 높은 Transferability를 보여주었다.
+
+**Limitations**
+- Labeler와 Filter 모두 별도의 사전 학습 과정이 필요하며, 해당 데이터 구축을 위해 여전히 LLM 기반 Synthetic Data가 필요하므로 완전한 LLM 독립 구조는 아니다.
+- MuSiQue처럼 질문 복잡도가 높거나 추론 단계가 많은 데이터셋에서는 적은 수의 Chunk Retrieval로 충분한 정답 정보를 확보하기 어렵다.
+
 
