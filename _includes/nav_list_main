@@ -122,8 +122,8 @@
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "RR" %}
-                        <li><a href="/categories/rr" class="">Recommender System({{category[1].size}})</a></li>
+                    {% if category[0] == "HC" %}
+                        <li><a href="/categories/hc" class="">HealthCare Prediction({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>        
