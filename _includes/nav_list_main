@@ -123,7 +123,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "HC" %}
-                        <li><a href="/categories/hc" class="">HealthCare Prediction({{category[1].size}})</a></li>
+                        <li><a href="/categories/hc" class="">HealthCare({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>        
