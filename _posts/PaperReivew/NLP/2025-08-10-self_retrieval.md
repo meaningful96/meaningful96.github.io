@@ -14,7 +14,7 @@ last_modified_at: 2025-08-10
 *Qiaoyu Tang, Jiawei Chen, Zhuoqun Li, et al*. **[Self-Retrieval: End-to-End Information Retrieval with One Large Language Model](https://arxiv.org/abs/2403.00801)**. In *Advances in Neural Information Processing Systems (NeurIPS)*, 2024. arXiv:2403.00801.
 
 # Problem Statement
-**[구성 요소 분리로 인한 비효율성]** 기존 IR 시스템은 인덱싱 (indexing), 검색 (retrieval), 재순위화(reranking) 모듈이 별도로 동작하며, LLM은 일부 구성 요소에만 제한적으로 적용된다. 이는 지식 공유와 모듈 간의 시너지 효과를 저해하며 구현 복잡성을 증가시킨다.
+**[구성 요소 분리로 인한 비효율성]** 기존 IR 시스템은 인덱싱 (indexing), 검색 (retrieval), 리랭킹(reranking) 모듈이 별도로 동작하며, LLM은 일부 구성 요소에만 제한적으로 적용된다. 이는 지식 공유와 모듈 간의 시너지 효과를 저해하며 구현 복잡성을 증가시킨다.
 
 **[Dense/Generative Retrieval의 LLM 활용 제약]** Dense retrieval은 쿼리와 문서를 밀집 벡터로 매칭하여 LLM의 풍부한 언어 이해 능력을 충분히 활용하지 못한다. Generative retrieval은 문서 식별자(identifier) 생성에 의존하여 LLM의 자연스러운 텍스트 생성 능력과 지식을 온전히 활용하기 어렵다.
 
@@ -31,7 +31,7 @@ last_modified_at: 2025-08-10
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/figure1.png?raw=true">
 </p>
 
-Self-Retrieval은 하나의 LLM 안에 인덱싱, 검색, 재순위화 과정을 통합한 엔드투엔드 정보 검색 아키텍처이다. 먼저 인덱싱 단계에서 self-supervised sentence-to-passage 학습을 통해 코퍼스 내용을 LLM 파라미터에 내재화한다. 이후 검색 단계에서는 쿼리를 입력받아 관련 문서 제목과 본문을 직접 생성하되, trie 기반 constrained decoding을 적용해 생성 결과가 실제 코퍼스의 문서와 정확히 일치하도록 보장한다. 마지막으로 재순위화 단계에서는 LLM이 자체 평가(self-assessment)를 수행해 각 문서가 질의에 답변 가능한지 여부를 판단하고, 제목 생성 확률과 평가 점수를 결합해 최종 순위를 산출한다. 이 통합 구조를 통해 Self-Retrieval은 전통적인 모듈 분리형 IR 시스템 대비 높은 정확성과 효율성을 동시에 달성한다.
+Self-Retrieval은 <span style="color:red">**하나의 LLM 안에 인덱싱, 검색, 리랭킹 과정을 통합한 End-to-end 정보 검색 아키텍처**</span>이다. 먼저 인덱싱 단계에서 self-supervised sentence-to-passage 학습을 통해 코퍼스 내용을 LLM 파라미터에 내재화한다. 이후 검색 단계에서는 쿼리를 입력받아 관련 문서 제목과 본문을 직접 생성하되, trie 기반 constrained decoding을 적용해 생성 결과가 실제 코퍼스의 문서와 정확히 일치하도록 보장한다. 마지막으로 리랭킹 단계에서는 LLM이 자체 평가(self-assessment)를 수행해 각 문서가 질의에 답변 가능한지 여부를 판단하고, 제목 생성 확률과 평가 점수를 결합해 최종 순위를 산출한다. 이 통합 구조를 통해 Self-Retrieval은 전통적인 모듈 분리형 IR 시스템 대비 높은 정확성과 효율성을 동시에 달성한다.
 
 ## Step 1. Indexing: Internalize the Corpus
 <p align="center">
@@ -56,7 +56,7 @@ Self-Retrieval은 하나의 LLM 안에 인덱싱, 검색, 재순위화 과정을
 - **입력:** 쿼리 $$q$$ + 코퍼스 (문서) $$D$$
 - **출력:** 제목 $$\hat{t}$$  + 관련 문서 본문 $$\hat{p}$$
 
-검색 단계에서 Self-Retrieval은 쿼리에 대해 먼저 전역 정보를 제공하는 **문서 제목** $$\hat{t}$$을 생성하고, 이를 조건으로 **관련 문서 본문**  $$\hat{p}$$을 생성한다. 그러나 LLM이 생성한 문장이 코퍼스의 실제 문서와 불일치할 가능성이 있으므로, **trie 기반 constrained decoding**을 사용한다. 코퍼스 전체를 prefix tree로 변환하고, 각 노드에는 다음 토큰 후보 집합을 저장한다. 생성 과정에서 모델은 이 후보 집합에 속한 토큰만 생성할 수 있으며, 특정 문서를 유일하게 식별할 수 있는 시점이 되면 나머지 부분은 코퍼스의 원문으로 자동 완성한다. 
+검색 단계에서 Self-Retrieval은 쿼리에 대해 먼저 전역 정보를 제공하는 **문서 제목** $$\hat{t}$$을 생성하고, 이를 조건으로 **관련 문서 본문**  $$\hat{p}$$을 생성한다. 그러나 **LLM이 생성한 문장이 코퍼스의 실제 문서와 불일치할 가능성**이 있으므로, <span style="color:red">**trie 기반 constrained decoding**</span>을 사용한다. 코퍼스 전체를 prefix tree로 변환하고, 각 노드에는 다음 토큰 후보 집합을 저장한다. 생성 과정에서 모델은 이 후보 집합에 속한 토큰만 생성할 수 있으며, 특정 문서를 유일하게 식별할 수 있는 시점이 되면 나머지 부분은 코퍼스의 원문으로 자동 완성한다. 
 
 - LLM이 쿼리 $$q$$에 대해 전역 정보 (global information)를 담은 **문서 제목 (title)**을 생성 → $$P(\hat{t} \vert q; \theta)$$
 - 해당 제목을 조건으로 관련 문서 본문을 생성 → $$P(\hat{p} \vert q, \hat{t}; \theta)$$
@@ -81,9 +81,9 @@ Self-Retrieval은 하나의 LLM 안에 인덱싱, 검색, 재순위화 과정을
 **출력(Output)**
 
 - 최종 관련성 점수 $$S_i$$
-- 재순위화된 문서 목록
+- 리랭킹된 문서 목록
 
-재순위화 단계에서는 LLM이 각 후보 문서에 대해 자체 평가를 수행한다. 모델은 주어진 쿼리와 문서 쌍에 대해 “can answer the query” 또는 “cannot answer the query”라는 응답을 생성하며, 이를 바탕으로 관련성을 판단한다. 평가 점수는 두 가지 요소로 구성된다. 첫째, 제목 생성 확률을 기반으로 한 제목 스코어 $$S_T$$이다. 둘째, self-assessment 결과의 거부 확률에 기반한 평가 스코어 $$S_P$$이다. 참고로 거부 확률이란 LLM이 해당 문장을 생성할 확률을 1에서 뺀 확률 값이다. 
+리랭킹 단계에서는 <span style="color:red">**LLM이 각 후보 문서에 대해 자체 평가를 수행**</span>한다. 모델은 주어진 쿼리와 문서 쌍에 대해 “can answer the query” 또는 “cannot answer the query”라는 응답을 생성하며, 이를 바탕으로 관련성을 판단한다. 평가 점수는 두 가지 요소로 구성된다. 첫째, 제목 생성 확률을 기반으로 한 제목 스코어 $$S_T$$이다. 둘째, self-assessment 결과의 거부 확률에 기반한 평가 스코어 $$S_P$$이다. 참고로 거부 확률이란 LLM이 해당 문장을 생성할 확률을 1에서 뺀 확률 값이다. 
 
 1. LLM이 각 후보 문서에 대해 relevance 판단을 문장 형태로 생성
     - “can answer the query” (관련 있음) = Positive
@@ -98,20 +98,20 @@ Self-Retrieval은 하나의 LLM 안에 인덱싱, 검색, 재순위화 과정을
 
 ## Training & Inference
 
-훈련 과정에서는 인덱싱, 검색, 재순위화 과제를 모두 텍스트 생성 형태로 통합하여 auto-regressive cross-entropy loss로 학습한다. 인덱싱 단계에서는 문장-문서 복원 학습을 수행하고, 검색 단계에서는 문서 제목과 본문을 생성하며, 재순위화 단계에서는 positive/negative 예시를 기반으로 관련성을 평가한다. 특히, RAG 형태의 응답 생성을 가능하게 하기 위해 golden answer를 self-assessment 응답 뒤에 이어 붙여 학습함으로써, 모델이 관련성 판단 직후 곧바로 답변을 생성할 수 있도록 한다. 
+훈련 과정에서는 인덱싱, 검색, 리랭킹 과제를 모두 텍스트 생성 형태로 통합하여 auto-regressive cross-entropy loss로 학습한다. 인덱싱 단계에서는 문장-문서 복원 학습을 수행하고, 검색 단계에서는 문서 제목과 본문을 생성하며, 리랭킹 단계에서는 positive/negative 예시를 기반으로 관련성을 평가한다. 특히, RAG 형태의 응답 생성을 가능하게 하기 위해 golden answer를 self-assessment 응답 뒤에 이어 붙여 학습함으로써, 모델이 관련성 판단 직후 곧바로 답변을 생성할 수 있도록 한다. 
 
-이를 통해 동일한 LLM이 retrieval과 answer generation을 end-to-end로 수행할 수 있는 구조를 갖추게 된다. 추론 시에는 먼저 beam search로 여러 개의 제목을 생성하고, 각 제목에 대해 여러 개의 본문을 생성한 뒤, self-assessment 점수로 재순위화하여 최종 상위 문서를 선택하며, 필요할 경우 이 문서들과 질문을 함께 입력해 동일 모델이 최종 답변까지 생성한다.
+이를 통해 동일한 LLM이 retrieval과 answer generation을 end-to-end로 수행할 수 있는 구조를 갖추게 된다. 추론 시에는 먼저 beam search로 여러 개의 제목을 생성하고, 각 제목에 대해 여러 개의 본문을 생성한 뒤, self-assessment 점수로 리랭킹하여 최종 상위 문서를 선택하며, 필요할 경우 이 문서들과 질문을 함께 입력해 동일 모델이 최종 답변까지 생성한다.
 
 - **Training**
     - **인덱싱 데이터**: self-supervised sentence-to-passage
     - **검색 데이터**: supervised query-passage pairs (제목+본문 생성)
-    - **재순위화 데이터**: positive/negative passage 샘플
+    - **리랭킹 데이터**: positive/negative passage 샘플
     - Auto-regressive cross-entropy loss 사용
 - **Inference**
     1. Beam search로 $$i$$개의 제목 생성
     2. 각 제목에 대해 $$j$$개의 본문 생성
     3. self-assessment 스코어 계산
-    4. 최종 재순위화 후 상위 $$k$$개 문서 반환 + 답변 생
+    4. 최종 리랭킹 후 상위 $$k$$개 문서 반환 + 답변 생
 
 이 통합 학습 접근은 전통적으로 분리된 IR 구성 요소를 하나의 LLM 안에 결합함으로써, 모듈 간 정보 손실을 줄이고 모델의 전반적인 효율성과 일관성을 높인다. 또한 RAG와 같은 downstream 태스크를 별도 설계 없이 직접 통합할 수 있어 범용성이 높다.
 
