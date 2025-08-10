@@ -53,7 +53,7 @@ Self-Retrieval은 <span style="color:red">**하나의 LLM 안에 인덱싱, 검�
 <img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/figure3_retrieval.png?raw=true">
 </p>
 
-- **입력:** 쿼리 $$q$$ + 코퍼스 (문서) $$D$$
+- **입력:** 쿼리 $$q$$
 - **출력:** 제목 $$\hat{t}$$  + 관련 문서 본문 $$\hat{p}$$
 
 검색 단계에서 Self-Retrieval은 쿼리에 대해 먼저 전역 정보를 제공하는 **문서 제목** $$\hat{t}$$을 생성하고, 이를 조건으로 **관련 문서 본문**  $$\hat{p}$$을 생성한다. 그러나 **LLM이 생성한 문장이 코퍼스의 실제 문서와 불일치할 가능성**이 있으므로, <span style="color:red">**trie 기반 constrained decoding**</span>을 사용한다. 코퍼스 전체를 prefix tree로 변환하고, 각 노드에는 다음 토큰 후보 집합을 저장한다. 생성 과정에서 모델은 이 후보 집합에 속한 토큰만 생성할 수 있으며, 특정 문서를 유일하게 식별할 수 있는 시점이 되면 나머지 부분은 코퍼스의 원문으로 자동 완성한다. 
