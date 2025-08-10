@@ -121,13 +121,13 @@ Self-Retrieval은 <span style="color:red">**하나의 LLM 안에 인덱싱, 검�
 # Experiments
 ## Main Results
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/table1.png?raw=true">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/table1.png?raw=true">
 </p>
 
 Self-Retrieval은 NQ와 TriviaQA에서 모든 sparse, dense, generative retrieval 기법을 초월했다. StableLM-3B 기반은 fine-tuned BGE 대비 NQ에서 MRR@5 +5.46, TriviaQA에서 +5.07 향상했고, Llama2-7B 기반은 NQ 70.00, TriviaQA 68.74의 MRR@5로 최고 성능을 기록했다. 기존 generative retrieval 모델인 DSI-XXL보다 최대 19포인트 이상 높았다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/table23.png?raw=true">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/table23.png?raw=true">
 </p>
 
 Self-Retrieval은 기존 SOTA인 GenRet 대비 R@1 +5.2, R@10 +3.8, MRR@100 +4.8 향상을 기록했다. 별도의 query generation 데이터 증강 없이도 높은 성능을 달성해, 문서 레벨 검색에서 강력한 일반화를 보였다.
@@ -135,7 +135,7 @@ Self-Retrieval은 기존 SOTA인 GenRet 대비 R@1 +5.2, R@10 +3.8, MRR@100 +4.8
 Wikipedia 기반이 아닌 비정형 환경과 제목이 없는 상황에서도 GenRet과 유사한 SOTA 성능을 달성했다. 제목 부재 문제는 Llama2 기반 자동 제목 생성으로 해결했으며, R@1에서 47.8로 상위권을 유지했다.
 
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/table5.png?raw=true">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/table5.png?raw=true">
 </p>
 
 BGE-FT+Reader 파이프라인 대비 모든 실험 설정(10K/40K 문서, StableLM/Llama2 기반)에서 EM 점수가 크게 향상됐다. Llama2-7B 기반은 TriviaQA 40K에서 70.40의 EM을 기록하며 최고 성능을 보였다.
@@ -154,7 +154,7 @@ BGE-FT+Reader 파이프라인 대비 모든 실험 설정(10K/40K 문서, Stable
 
 ## Analysis 1. Scaling corpus size
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/figure4.png?raw=true">
+<img width="800" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/figure4.png?raw=true">
 </p>
 
 Figure 4에서 Self-Retrieval(3B)과 BGE-FT를 각각 NQ와 TriviaQA에서 10K200K 문서(약 290K3M passages) 규모로 확장해 성능 변화를 측정했다. 결과적으로 두 모델 모두 코퍼스가 커질수록 성능이 감소했지만, 감소율은 비슷했고 Self-Retrieval은 대규모 환경에서도 안정적으로 성능을 유지했다. 특히 기존 연구에서 generative retrieval(DGI, NCI 등)은 대규모로 갈수록 dense retrieval 대비 급격히 성능이 떨어지는 경향이 보고되었지만, Self-Retrieval은 이 한계를 완화했다. 이는 trie 기반 제약 디코딩과 내부 코퍼스 내재화 덕분에, 검색 공간이 커져도 노이즈나 불일치 문제를 효과적으로 억제할 수 있음을 시사한다. 따라서 Self-Retrieval은 수백만 단위의 대규모 문서 집합에서도 실용 가능성이 높다.
