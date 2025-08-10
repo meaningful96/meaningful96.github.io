@@ -44,7 +44,7 @@ Self-Retrieval은 <span style="color:red">**하나의 LLM 안에 인덱싱, 검�
 - **출력**
     - 해당 문서 전체 $$p$$
 
-인덱싱 과정에서는 Self-Supervised Sentence-to-Passage learning을 한다. 구체적으로, 문서 $$p = {s_1, s_2, ..., s_L}$$에서 한 문장 $$s_i$$를 입력으로 주고, 모델이 해당 문서 전체를 auto-regressive 방식으로 복원하도록 학습한다. 이를 통해 LLM은 코퍼스 내 문서들의 내용과 구조를 파라미터 $$\theta$$에 내재화하며, 인덱싱 과정 자체가 ‘부분 정보 → 전체 문서 복원’이라는 **retrieval-like task**로 변환한다.  이는 언어모델 사전학습(pretraining) 방식과 유사해, continued pretraining 효과를 기대할 수 있다.인덱싱 과정에서 목적 함수 (objective function)는 $$P(p \vert s_i; \theta)$$이다. 
+인덱싱 과정에서는 Self-Supervised Sentence-to-Passage learning을 한다. 구체적으로, 문서 $$p = \{s_1, s_2, ..., s_L\}$$에서 한 문장 $$s_i$$를 입력으로 주고, 모델이 해당 문서 전체를 auto-regressive 방식으로 복원하도록 학습한다. 이를 통해 LLM은 코퍼스 내 문서들의 내용과 구조를 파라미터 $$\theta$$에 내재화하며, 인덱싱 과정 자체가 ‘부분 정보 → 전체 문서 복원’이라는 **retrieval-like task**로 변환한다.  이는 언어모델 사전학습(pretraining) 방식과 유사해, continued pretraining 효과를 기대할 수 있다.인덱싱 과정에서 목적 함수 (objective function)는 $$P(p \vert s_i; \theta)$$이다. 
 
 이러한 접근은 외부 인덱스 없이 LLM 내부 파라미터만으로 검색을 수행할 수 있게 한다. 복잡한 문서 식별자(identifier) 설계나 매핑 과정이 필요 없으며, 모델이 문서 내용을 직접 생성할 수 있다. 또한 인덱싱과 검색 능력을 동시에 학습하므로 retrieval 효율성을 높이고, 언어모델이 원문 재구성 능력을 갖추게 한다.
 
