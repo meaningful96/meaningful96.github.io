@@ -89,7 +89,7 @@ Self-Retrieval은 <span style="color:red">**하나의 LLM 안에 인덱싱, 검�
     - “can answer the query” (관련 있음) = Positive
     - “cannot answer the query” (관련 없음) = Rejection
 2. 평가 스코어 계산
-    - 제목 스코어: $$S_T^i = \text{SoftMax} \Big ( \frac{P(t_i \vert q; \theta}{\tau} \Big)$$
+    - 제목 스코어: $$S_T^i = \text{SoftMax} \Big ( \frac{P(t_i \vert q; \theta)}{\tau} \Big)$$
     - self-assessment 스코어: $$S_P^i = \text{SoftMax} \Big ( \frac{1 - P(\text{rejection} \vert q, t_i, p_i; \theta)}{\delta} \Big)$$
 3. 최종 스코어: $$S_i = S_T^i \cdot S_P^i$$
 4. 이 스코어로 모든 후보를 재정렬
