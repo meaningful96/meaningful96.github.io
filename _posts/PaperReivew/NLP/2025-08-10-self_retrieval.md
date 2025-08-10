@@ -66,7 +66,7 @@ Self-Retrieval은 <span style="color:red">**하나의 LLM 안에 인덱싱, 검�
     - 생성 중에는 $$T$$에 허용된 토큰만 출력 가능
 - 충분한 prefix가 생성되어 해당 문서가 유일하게 식별되면, 나머지는 코퍼스에서 자동완성
 
-이로써 생성 결과와 코퍼스 문서가 정확히 일치하도록 보장한다. 이 방식은 dense retrieval처럼 임베딩 매칭에 의존하지 않고, LLM의 언어 생성 능력을 그대로 활용한다. 또한 generative retrieval에서 흔히 사용되는 식별자(identifier) 기반 접근 대신, 실제 문서 내용을 직접 생성함으로써 정보 손실을 최소화한다. trie 기반 제약 디코딩 덕분에 검색 결과가 코퍼스와 완벽히 매칭되며, 불필요한 후처리 절차가 필요 없다.
+이로써 생성 결과와 코퍼스 문서가 정확히 일치하도록 보장한다. 이 방식은 dense retrieval처럼 (e.g., ColBERT) 임베딩 매칭에 의존하지 않고, LLM의 언어 생성 능력을 그대로 활용한다. 또한 generative retrieval에서 흔히 사용되는 식별자(identifier) 기반 접근 대신, 실제 문서 내용을 직접 생성함으로써 정보 손실을 최소화한다. trie 기반 제약 디코딩 덕분에 검색 결과가 코퍼스와 완벽히 매칭되며, 불필요한 후처리 절차가 필요 없다.
 
 ## Step 3. Reranking: Self-Assessment based Relevance Evaluation
 <p align="center">
