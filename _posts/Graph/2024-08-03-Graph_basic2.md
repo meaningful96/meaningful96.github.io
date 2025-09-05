@@ -50,7 +50,7 @@ Deep learning 기법을 이용해 그래프의 정보를 학습하는 방법은 
 <img width="600" alt="1" src="https://github.com/user-attachments/assets/fc71d824-338d-452e-88f7-316a8494c726">
 </p>
 
-노드 임베딩(Node Embedding)은 정점을 <span style="color:red">**저차원의 벡터 공간**</span>에 임베딩하여 그래프의 구조적 정보를 저차원 표현으로 변환하는 방법이다. 이는 **정점 간의 관계**와 그래프의 **구조적 정보를 보존**하면서 벡터 공간에서 표현하는 방법이다. 정점 임베딩의 목적은 그래프에서 수행되는 다양한 머신러닝 작업(예: 정점 분류(Node Classification), 링크 예측(Link Prediction), 그래프 클러스터링(Graph Clustering) 등)을 효과적으로 처리하기 위함이다. 각 정점의 각자 특정한 벡터로 임딩되며, 비슷한 노드간의 벡터는 가깝게 임베딩된다.
+노드 임베딩(Node Embedding)은 정점을 <span style="color:gold">**저차원의 벡터 공간**</span>에 임베딩하여 그래프의 구조적 정보를 저차원 표현으로 변환하는 방법이다. 이는 **정점 간의 관계**와 그래프의 **구조적 정보를 보존**하면서 벡터 공간에서 표현하는 방법이다. 정점 임베딩의 목적은 그래프에서 수행되는 다양한 머신러닝 작업(예: 정점 분류(Node Classification), 링크 예측(Link Prediction), 그래프 클러스터링(Graph Clustering) 등)을 효과적으로 처리하기 위함이다. 각 정점의 각자 특정한 벡터로 임딩되며, 비슷한 노드간의 벡터는 가깝게 임베딩된다.
 
 ## 2. 유사도(Similarity)
 임베딩 공간에서 비슷한 위치로 맵핑되기 위해서는 벡터와 벡터 간의 **유사도**를 수학적으로 정의해야 한다. 가장 대표적인 방법은 두 벡터의 내적을 이용하는 것이다. 이외에도 코사인 유사도(Cosine Similarity), L2-norm 유사도 등이 존재한다.
@@ -72,11 +72,11 @@ Deep learning 기법을 이용해 그래프의 정보를 학습하는 방법은 
 노드 임베딩을 학습하는 방식에는 **Transductive**하게 하는 방식과 **Inductive**하게 하는 방식 두 가지가 존재한다.
 
 - **Transductive**
-  - 학습 결과: <span style="color:red">**노드 임베딩**</span> $$z_v$$
+  - 학습 결과: <span style="color:gold">**노드 임베딩**</span> $$z_v$$
   - 학습 중 보지 못한 정점(Unseen node)에 대한 임베딩을 생성하지 못한다.
 
 - **Inductive**
-  - 학습 결과: <span style="color:red">**Encoder**</span>(= function)
+  - 학습 결과: <span style="color:gold">**Encoder**</span>(= function)
   - 학습 중 보지 못한 정점(Unseen node)에 대한 임베딩을 생성할 수 있다.
 
 일반화(Generalization)의 관점에서 Inductive Setting이 학습 중 등장하지 않은 정점에도 대응할 수 있으므로 일반화 능력이 더 좋다고 할 수 있다. 하지만, Inductive setting에서 학습하는 것이 대체적으로 더 어렵다.

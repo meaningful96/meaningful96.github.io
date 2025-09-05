@@ -12,7 +12,7 @@ last_modified_at: 2024-08-02
 ---
 *Xiong, G., Bao, J., & Zhao, W*. (2024, February 23). **Interactive-KBQA: Multi-Turn Interactions for Knowledge Base Question Answering with Large Language Models**. arXiv.org. [https://arxiv.org/abs/2402.15131](https://arxiv.org/abs/2402.15131)
 
-이 논문에서 제안한 모델은 <span style="color:red">**Prompt-Engineering**</span>와 <span style="color:red">**Knowledge-Base Interaction**</span> 요소를 포함한다.
+이 논문에서 제안한 모델은 <span style="color:gold">**Prompt-Engineering**</span>와 <span style="color:gold">**Knowledge-Base Interaction**</span> 요소를 포함한다.
 
 # Problem Statement
 <span style="font-size:110%">**Knowledge Base Question Answering(KBQA)**</span>  
@@ -27,7 +27,7 @@ last_modified_at: 2024-08-02
 - Triple 1: (*Off on a Comet*, author, Jules Verne)
 - Triple 2: (Jules Verne, period, 1828-1905)
 
-이처럼, 두 개의 트리플을 순차적으로 연결하면 질문에 대한 정답(1828-1905)을 찾을 수 있다. 위의 예시는 다시 말해 <span style="color:red">**2-hop 추론(reasoning)**</span> 문제가 되는 것이다.
+이처럼, 두 개의 트리플을 순차적으로 연결하면 질문에 대한 정답(1828-1905)을 찾을 수 있다. 위의 예시는 다시 말해 <span style="color:gold">**2-hop 추론(reasoning)**</span> 문제가 되는 것이다.
 
 최근 KBQA 연구들은 1)**정보 검색 기반 방법**(Information Retrieval, IR)과 2)**의믜 분석 기반 방법(Semantic Parsing, SP)** 두 가지로 분류할 수 있다. IR기반 방법은 쿼리를 이해하고 **질문과 관련된 KB의 적절한 서브그래프(subgraph)를 추출**하여, 이 서브그래프로부터 답변을 추출하는 데 중점을 둔다. 반면, SP기반 방법은 자연어 질문을 **실행 가능한 논리적 형식으로 변환**하여 사전 학습된 생성 모델을 활용해 KB와 상호작용하고 답변을 생성한다.
 
@@ -86,7 +86,7 @@ Interactive-KBQA는 KB와 상호작용하기 위한 세 가지 도구를 제안�
 
 저자들은 복잡한 질문을 범주화하고 각 유형에 대해 완전한 상호작용 과정을 포함한 두 개의 **주석이 달린 예제**를 제공하여 LLM이 작업을 완료하도록 유도하는 맥락 학습 데모로 사용했다. 나아가, 이 연구에서 소개된 방법은 **수동 개입**을 허용했다. 결과적으로, 우리는 작은 데이터 세트를 수동으로 주석 달아 상세한 추론 과정을 포함시켜 저자원 데이터 셋을 만들었다. 마지막으로, 우리는 이 데이터 세트에 대해 Open Source **LLM을 미세 조정(fine-tuning)**했다. 수행된 실험은 이 방법이 저자원 환경(low-resource enviroment)에서 효과적임을 보여주었다. 그리고 이 고품질 데이터 셋을 추가적인 NLP 연구를 위해 공개했다. 
 
-정리하면, Interactive-KBQA 프레임워크는 <span style="color:red">**LLM(대형 언어 모델)을 에이전트로, 지식 베이스(KB)를 환경으로 개념화하여 대화 기반의 문제 해결 과정을 촉진**</span>한다. 전체적인 프로세스는 다음과 같다.
+정리하면, Interactive-KBQA 프레임워크는 <span style="color:gold">**LLM(대형 언어 모델)을 에이전트로, 지식 베이스(KB)를 환경으로 개념화하여 대화 기반의 문제 해결 과정을 촉진**</span>한다. 전체적인 프로세스는 다음과 같다.
 
 1. **질문 입력**  
   - 사용자가 복잡한 질문을 시스템에 입력  
@@ -102,7 +102,7 @@ Interactive-KBQA는 KB와 상호작용하기 위한 세 가지 도구를 제안�
 
 ## Tools for Knowledge Base
 ### 1) SearchNodes(name)
-이 함수는 주어진 이름(name)을 사용하여 KB에서 **엔티티를 검색**한다. 주된 목적은 <span style="color:red">**엔티티 연결(Entity Linking)**</span>이다. 이 함수는 엔티티의 이름과 함께 설명(description)과 엔티티 타입(type)을 같이 반환한다. 여러 KB에 general하게 적용 가능하다.
+이 함수는 주어진 이름(name)을 사용하여 KB에서 **엔티티를 검색**한다. 주된 목적은 <span style="color:gold">**엔티티 연결(Entity Linking)**</span>이다. 이 함수는 엔티티의 이름과 함께 설명(description)과 엔티티 타입(type)을 같이 반환한다. 여러 KB에 general하게 적용 가능하다.
 
 <br/>
 
@@ -112,12 +112,12 @@ Interactive-KBQA는 KB와 상호작용하기 위한 세 가지 도구를 제안�
 
 - SPARQL 쿼리 = `SELECT ?e WHERE`
 
-그런 다음 엔티티 `?e`를 중심으로 하는 **one-hop 서브그래프에서 쿼리**를 수행한다. 그 후, semantic 파라미터와 트리플의 술어(predicate)와의 의미적 관련성에 따라 검색된 트리플의 순위를 매긴다. 최종적으로 **top_K개의 트리플을 반환**한다. 이 도구는 context window(= LLM이 한 번에 처리할 수 있는 텍스트의 최대 길이)의 사용을 최적화하기 위해 불필요한 정보를 제거하면서 서브그래프를 정확하게 식별할 수 있게 만든다. 즉, <span style="color:red">**LLM의 제한(=최대 입력 길이)된 입력 안에서 불필요한 정보를 제거한 서브그래프를 입력시키기 위함**</span>이다. 유연한 작업을 지원하며, Freebase의 Compound Value Type(CVT)에 대해 특별히 최적화되었다.
+그런 다음 엔티티 `?e`를 중심으로 하는 **one-hop 서브그래프에서 쿼리**를 수행한다. 그 후, semantic 파라미터와 트리플의 술어(predicate)와의 의미적 관련성에 따라 검색된 트리플의 순위를 매긴다. 최종적으로 **top_K개의 트리플을 반환**한다. 이 도구는 context window(= LLM이 한 번에 처리할 수 있는 텍스트의 최대 길이)의 사용을 최적화하기 위해 불필요한 정보를 제거하면서 서브그래프를 정확하게 식별할 수 있게 만든다. 즉, <span style="color:gold">**LLM의 제한(=최대 입력 길이)된 입력 안에서 불필요한 정보를 제거한 서브그래프를 입력시키기 위함**</span>이다. 유연한 작업을 지원하며, Freebase의 Compound Value Type(CVT)에 대해 특별히 최적화되었다.
 
 <br/>
 
 ### 3) ExecuteSPARQL(sparql)
-이 함수는 **임의의 SPARQL 쿼리를 직접 실행**할 수 있도록 하여 뛰어난 **유연성을 보장**한다. 이 도구를 사용하면 <span style="color:red">**사용자가 SPARQL 쿼리를 작성하고 이를 실행**</span>하여 KB에서 필요한 정보를 직접 검색할 수 있다.
+이 함수는 **임의의 SPARQL 쿼리를 직접 실행**할 수 있도록 하여 뛰어난 **유연성을 보장**한다. 이 도구를 사용하면 <span style="color:gold">**사용자가 SPARQL 쿼리를 작성하고 이를 실행**</span>하여 KB에서 필요한 정보를 직접 검색할 수 있다.
 
 <br/>
 
@@ -126,7 +126,7 @@ Interactive-KBQA는 KB와 상호작용하기 위한 세 가지 도구를 제안�
 
 <center><span style="font-size:105%">$$\text{Prompt} = \{ \text{Inst}, E, Q \}$$</span></center>
 
-또한 각 턴마다 LLM과의 상호작용을 한다. 각 <span style="color:red">**턴 $$T$$마다 LLM이 프롬프트와 이전 히스토리를 바탕으로 액션 $$a_T$$를 생성**</span>한다. 히스토리는 $$H = \{ c_o , a_o , o_0 , \cdots, c_{T_1} , a_{T-1} , o_{T-1} \}$$로 표현한다. **행동** $$a$$는 {SearchNodes, SearchGraphPatterns, ExecuteSPARQL, Done}의 집합으로 도구를 사용하여 실행된다. **관찰** $$o$$는 도구의 실행 결과로 다음 턴의 사고와 행동을 결정하는데 사용된다. $$T$$시점의 **관찰**은 $$o_T = \text{Tool}(a_T)$$로 표현할 수 있다. **사고** $$c$$는 질문을 하위 쿼리로 분해한 것이다. $$c_0$$는 엄격하게 정의하지 않고 LLM이나 사람이 직접 정한다.
+또한 각 턴마다 LLM과의 상호작용을 한다. 각 <span style="color:gold">**턴 $$T$$마다 LLM이 프롬프트와 이전 히스토리를 바탕으로 액션 $$a_T$$를 생성**</span>한다. 히스토리는 $$H = \{ c_o , a_o , o_0 , \cdots, c_{T_1} , a_{T-1} , o_{T-1} \}$$로 표현한다. **행동** $$a$$는 {SearchNodes, SearchGraphPatterns, ExecuteSPARQL, Done}의 집합으로 도구를 사용하여 실행된다. **관찰** $$o$$는 도구의 실행 결과로 다음 턴의 사고와 행동을 결정하는데 사용된다. $$T$$시점의 **관찰**은 $$o_T = \text{Tool}(a_T)$$로 표현할 수 있다. **사고** $$c$$는 질문을 하위 쿼리로 분해한 것이다. $$c_0$$는 엄격하게 정의하지 않고 LLM이나 사람이 직접 정한다.
 
 <center><span style="font-size:105%">$$a_T = \text{LLM}(\{\text{Prompt}, H \})$$</span></center>
 
@@ -145,7 +145,7 @@ Interactive-KBQA는 KB와 상호작용하기 위한 세 가지 도구를 제안�
     - 만약 $$a_T = \text{Done}$$이면 최종 관찰 $$o_T$$를 답으로 출력한다.
         
 ## Solutions for Complex Questions
-Interactive-KBQA는 상호작용 추론 과정을 주석 달아 LLM(대형 언어 모델)을 통해 추론을 유도하는 것을 포함한다. <span style="color:red">**다양한 유형의 복잡한 질문에 대해 패턴을 식별하고, 상호작용 모드를 설계하며, 고품질의 예제를 라벨링**</span>하는 것이 중요하다.
+Interactive-KBQA는 상호작용 추론 과정을 주석 달아 LLM(대형 언어 모델)을 통해 추론을 유도하는 것을 포함한다. <span style="color:gold">**다양한 유형의 복잡한 질문에 대해 패턴을 식별하고, 상호작용 모드를 설계하며, 고품질의 예제를 라벨링**</span>하는 것이 중요하다.
 
 **멀티 홉 질문(Multi-hop Question)**의 경우 각 단계에서 구체적인 엔티티보다는 특정 술어(=릴레이션)에 집중한다. 그래프 패턴을 SPARQL로 표현하는 것만으로 도구가 작업의 순위를 처리할 수 있도록 충분하다.
 
@@ -160,7 +160,7 @@ Interactive-KBQA는 상호작용 추론 과정을 주석 달아 LLM(대형 언�
 
 <center><span style="font-size:105%">$$a_{T+1} = \text{LLM}(\text{Prmopt}, c_o , a_o , o_0 , \cdots, c_{T_1}, a^{'}_T, o_T^{'})$$</span></center>
 
-이를 통해, LLM이 사고와 행동을 생성하는 각 라운드 후에 중단점을 설정하여 인간 평가자가 이를 검토하고 수락 여부를 결정한다. 일단 수락되면, 프로세스는 계속 진행된다. 만약 거부되면, 주석자는 생성된 사고와 행동을 수정한 후 진행한다. 이 방법론의 핵심은 <span style="color:red">**인간이 데이터에 주석을 다는 과정을 모방**</span>하는 것이다. 주석자가 모델이 환각(hallucination, 관찰에 없는 술어 생성), 사고와 행동 간의 불일치, 또는 정답 경로에서 벗어나는 경우(= 연속 두 라운드가 잘못된 경우)에 개입한다.
+이를 통해, LLM이 사고와 행동을 생성하는 각 라운드 후에 중단점을 설정하여 인간 평가자가 이를 검토하고 수락 여부를 결정한다. 일단 수락되면, 프로세스는 계속 진행된다. 만약 거부되면, 주석자는 생성된 사고와 행동을 수정한 후 진행한다. 이 방법론의 핵심은 <span style="color:gold">**인간이 데이터에 주석을 다는 과정을 모방**</span>하는 것이다. 주석자가 모델이 환각(hallucination, 관찰에 없는 술어 생성), 사고와 행동 간의 불일치, 또는 정답 경로에서 벗어나는 경우(= 연속 두 라운드가 잘못된 경우)에 개입한다.
 
 <br/>
 <br/>

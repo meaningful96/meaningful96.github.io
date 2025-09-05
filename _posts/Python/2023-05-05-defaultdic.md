@@ -11,7 +11,7 @@ date:  2023-05-05
 last_modified_at: 2023-05-05
 ---
 # Collection모듈 & defaultdict() 함수
-Python의 내장 자료구조인 <span style = "color:red">**사전(dictionary)**</span>를 사용하다 보면 <u><b>어떤 키(key)에 대한 값(value)이 없는 경우가 종종 발생</b></u>하고 따라서
+Python의 내장 자료구조인 <span style = "color:gold">**사전(dictionary)**</span>를 사용하다 보면 <u><b>어떤 키(key)에 대한 값(value)이 없는 경우가 종종 발생</b></u>하고 따라서
 이에 대한 처리를 해야하는 경우가 자주 발생한다. 
 
 ## 일반적인 사전 기본값 처리
@@ -42,7 +42,7 @@ def countLetters(word):
 
 ## Better Way: collection.defaultdict
 
-파이썬의 내장 모듈인 `collection`의 defaultdict은 생성자로 기본값을 생성해주는 함수를 넘기면, <span style = "color:red">**모든 키에 대해서 값이 없는 경우 자동으로 생성자의 인자로 넘어온 함수를 호출하여 
+파이썬의 내장 모듈인 `collection`의 defaultdict은 생성자로 기본값을 생성해주는 함수를 넘기면, <span style = "color:gold">**모든 키에 대해서 값이 없는 경우 자동으로 생성자의 인자로 넘어온 함수를 호출하여 
 모든 결과값으로 설정**</span>해준다.
 ```python
 from collections import defaultdict

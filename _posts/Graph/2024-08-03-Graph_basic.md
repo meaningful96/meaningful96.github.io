@@ -16,7 +16,7 @@ last_modified_at: 2024-08-03
 <img width="500" alt="1" src="https://github.com/user-attachments/assets/e28c01d8-02a9-428d-a908-7122c3ae19af">
 </p>
 
-그래프는 정점(Node, Vertex) 간선(Edge)으로 이루어진 자료 구조이다. 간선의 <span style="color:red">**방향성 유무**</span>에 따라 방향성 그래프(Directed Graph)와 무방향 그래프(Undirected Graph)로 구분된다. 그래프는 여러 형태가 존재하며, 그래프를 설명하기 위한 여러 가지 용어들이 있다.
+그래프는 정점(Node, Vertex) 간선(Edge)으로 이루어진 자료 구조이다. 간선의 <span style="color:gold">**방향성 유무**</span>에 따라 방향성 그래프(Directed Graph)와 무방향 그래프(Undirected Graph)로 구분된다. 그래프는 여러 형태가 존재하며, 그래프를 설명하기 위한 여러 가지 용어들이 있다.
 
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/user-attachments/assets/e5922a75-5ee6-4d1f-b4f3-ad7874491c58">
@@ -28,7 +28,7 @@ last_modified_at: 2024-08-03
 <img width="500" alt="1" src="https://github.com/user-attachments/assets/51513102-c594-45e8-afaa-aaf74f98dd4e">
 </p>
 
-위의 그래프는 정점이 A,B,C,D로 네 개인 그래프이다. 이 때, A 정점의 **차수는 곧 A와 연결되어 있는 간선의 수**를 나타낸다. 여기서 중요한 점은 차수는 연결된 정점의 수가 아닌 간선의 수라는 점이다. 일반적인 그래프들은 보통 간선에 레이블링이 되어 있거나, 지식 그래프(Knowledge Graph)의 경우 자연어로 된 정보를 포함하고 있다. 다시 말해, 간선이 여러 가지 타입을 가지게 된다. 이로 인해 두 정점이 여러 간선으로 연결될 수 있다. 따라서 <span style="color:red">**차수는 연결된 간선의 수**</span>로 정의한다. 경로는 두 정점 사이의 정점들을 나열한 것이다. 그리고 이 때 경로 상의 정점의 수를 경로 길이(Path length)라고 한다.
+위의 그래프는 정점이 A,B,C,D로 네 개인 그래프이다. 이 때, A 정점의 **차수는 곧 A와 연결되어 있는 간선의 수**를 나타낸다. 여기서 중요한 점은 차수는 연결된 정점의 수가 아닌 간선의 수라는 점이다. 일반적인 그래프들은 보통 간선에 레이블링이 되어 있거나, 지식 그래프(Knowledge Graph)의 경우 자연어로 된 정보를 포함하고 있다. 다시 말해, 간선이 여러 가지 타입을 가지게 된다. 이로 인해 두 정점이 여러 간선으로 연결될 수 있다. 따라서 <span style="color:gold">**차수는 연결된 간선의 수**</span>로 정의한다. 경로는 두 정점 사이의 정점들을 나열한 것이다. 그리고 이 때 경로 상의 정점의 수를 경로 길이(Path length)라고 한다.
 
 <br/>
 

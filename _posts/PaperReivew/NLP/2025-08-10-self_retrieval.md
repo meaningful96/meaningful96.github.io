@@ -31,7 +31,7 @@ last_modified_at: 2025-08-10
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.08.10%5DSelf-Retrieval/figure1.png?raw=true">
 </p>
 
-Self-Retrieval은 <span style="color:red">**하나의 LLM 안에 인덱싱, 검색, 리랭킹 과정을 통합한 End-to-end 정보 검색 아키텍처**</span>이다. 먼저 인덱싱 단계에서 self-supervised sentence-to-passage 학습을 통해 코퍼스 내용을 LLM 파라미터에 내재화한다. 이후 검색 단계에서는 쿼리를 입력받아 관련 문서 제목과 본문을 직접 생성하되, trie 기반 constrained decoding을 적용해 생성 결과가 실제 코퍼스의 문서와 정확히 일치하도록 보장한다. 마지막으로 리랭킹 단계에서는 LLM이 자체 평가(self-assessment)를 수행해 각 문서가 질의에 답변 가능한지 여부를 판단하고, 제목 생성 확률과 평가 점수를 결합해 최종 순위를 산출한다. 이 통합 구조를 통해 Self-Retrieval은 전통적인 모듈 분리형 IR 시스템 대비 높은 정확성과 효율성을 동시에 달성한다.
+Self-Retrieval은 <span style="color:gold">**하나의 LLM 안에 인덱싱, 검색, 리랭킹 과정을 통합한 End-to-end 정보 검색 아키텍처**</span>이다. 먼저 인덱싱 단계에서 self-supervised sentence-to-passage 학습을 통해 코퍼스 내용을 LLM 파라미터에 내재화한다. 이후 검색 단계에서는 쿼리를 입력받아 관련 문서 제목과 본문을 직접 생성하되, trie 기반 constrained decoding을 적용해 생성 결과가 실제 코퍼스의 문서와 정확히 일치하도록 보장한다. 마지막으로 리랭킹 단계에서는 LLM이 자체 평가(self-assessment)를 수행해 각 문서가 질의에 답변 가능한지 여부를 판단하고, 제목 생성 확률과 평가 점수를 결합해 최종 순위를 산출한다. 이 통합 구조를 통해 Self-Retrieval은 전통적인 모듈 분리형 IR 시스템 대비 높은 정확성과 효율성을 동시에 달성한다.
 
 ## Step 1. Indexing: Internalize the Corpus
 <p align="center">
@@ -56,7 +56,7 @@ Self-Retrieval은 <span style="color:red">**하나의 LLM 안에 인덱싱, 검�
 - **입력:** 쿼리 $$q$$
 - **출력:** 제목 $$\hat{t}$$  + 관련 문서 본문 $$\hat{p}$$
 
-검색 단계에서 Self-Retrieval은 쿼리에 대해 먼저 전역 정보를 제공하는 **문서 제목** $$\hat{t}$$을 생성하고, 이를 조건으로 **관련 문서 본문**  $$\hat{p}$$을 생성한다. 그러나 **LLM이 생성한 문장이 코퍼스의 실제 문서와 불일치할 가능성**이 있으므로, <span style="color:red">**trie 기반 constrained decoding**</span>을 사용한다. 코퍼스 전체를 prefix tree로 변환하고, 각 노드에는 다음 토큰 후보 집합을 저장한다. 생성 과정에서 모델은 이 후보 집합에 속한 토큰만 생성할 수 있으며, 특정 문서를 유일하게 식별할 수 있는 시점이 되면 나머지 부분은 코퍼스의 원문으로 자동 완성한다. 
+검색 단계에서 Self-Retrieval은 쿼리에 대해 먼저 전역 정보를 제공하는 **문서 제목** $$\hat{t}$$을 생성하고, 이를 조건으로 **관련 문서 본문**  $$\hat{p}$$을 생성한다. 그러나 **LLM이 생성한 문장이 코퍼스의 실제 문서와 불일치할 가능성**이 있으므로, <span style="color:gold">**trie 기반 constrained decoding**</span>을 사용한다. 코퍼스 전체를 prefix tree로 변환하고, 각 노드에는 다음 토큰 후보 집합을 저장한다. 생성 과정에서 모델은 이 후보 집합에 속한 토큰만 생성할 수 있으며, 특정 문서를 유일하게 식별할 수 있는 시점이 되면 나머지 부분은 코퍼스의 원문으로 자동 완성한다. 
 
 - LLM이 쿼리 $$q$$에 대해 전역 정보 (global information)를 담은 **문서 제목 (title)**을 생성 → $$P(\hat{t} \vert q; \theta)$$
 - 해당 제목을 조건으로 관련 문서 본문을 생성 → $$P(\hat{p} \vert q, \hat{t}; \theta)$$
@@ -83,7 +83,7 @@ Self-Retrieval은 <span style="color:red">**하나의 LLM 안에 인덱싱, 검�
 - 최종 관련성 점수 $$S_i$$
 - 리랭킹된 문서 목록
 
-리랭킹 단계에서는 <span style="color:red">**LLM이 각 후보 문서에 대해 자체 평가를 수행**</span>한다. 모델은 주어진 쿼리와 문서 쌍에 대해 “can answer the query” 또는 “cannot answer the query”라는 응답을 생성하며, 이를 바탕으로 관련성을 판단한다. 평가 점수는 두 가지 요소로 구성된다. 첫째, 제목 생성 확률을 기반으로 한 제목 스코어 $$S_T$$이다. 둘째, self-assessment 결과의 거부 확률에 기반한 평가 스코어 $$S_P$$이다. 참고로 거부 확률이란 LLM이 해당 문장을 생성할 확률을 1에서 뺀 확률 값이다. 
+리랭킹 단계에서는 <span style="color:gold">**LLM이 각 후보 문서에 대해 자체 평가를 수행**</span>한다. 모델은 주어진 쿼리와 문서 쌍에 대해 “can answer the query” 또는 “cannot answer the query”라는 응답을 생성하며, 이를 바탕으로 관련성을 판단한다. 평가 점수는 두 가지 요소로 구성된다. 첫째, 제목 생성 확률을 기반으로 한 제목 스코어 $$S_T$$이다. 둘째, self-assessment 결과의 거부 확률에 기반한 평가 스코어 $$S_P$$이다. 참고로 거부 확률이란 LLM이 해당 문장을 생성할 확률을 1에서 뺀 확률 값이다. 
 
 1. LLM이 각 후보 문서에 대해 relevance 판단을 문장 형태로 생성
     - “can answer the query” (관련 있음) = Positive

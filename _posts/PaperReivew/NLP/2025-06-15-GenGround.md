@@ -49,7 +49,7 @@ GenGround는 **Answer Deduction**과 **Instructional Knowledge Grounding**의 �
     1. $$q_i$$를 이용해 retriever를 통해 문서 집합 $$D_i$$를 수집
     2. $$a_i$$의 정당성을 문서 내에서 검증하고 필요시 수정
  
-**Instructional Knowledge Grounding** 모듈은 LLM의 환각 문제를 해결하기 위해 외부 문서를 활용한다. <span style="color:red">**생성된 하위 질문을 사용하여 관련 문서를 검색**</span>한 후, <span style="color:red">**LLM이 질문-답변 쌍을 검색된 문서의 증거에 근거하여 검증하고 수정**</span>하도록 한다. 가장 관련성 높은 내용을 인용하고 답변을 수정하고 개선한다.
+**Instructional Knowledge Grounding** 모듈은 LLM의 환각 문제를 해결하기 위해 외부 문서를 활용한다. <span style="color:gold">**생성된 하위 질문을 사용하여 관련 문서를 검색**</span>한 후, <span style="color:gold">**LLM이 질문-답변 쌍을 검색된 문서의 증거에 근거하여 검증하고 수정**</span>하도록 한다. 가장 관련성 높은 내용을 인용하고 답변을 수정하고 개선한다.
 
 ## Batch Knowledge Grounding
 <p align="center">

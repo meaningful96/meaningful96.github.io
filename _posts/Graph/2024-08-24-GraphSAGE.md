@@ -15,7 +15,7 @@ GCN이나 GAT는 반지도학습(Semi-Supervised Learning) 방식이다. 반면 
 
 GraphSAGE 이전의 연구들(e.g., GCN, GAT)은 주로 전통적인 그래프 임베딩 기법과 전통적인 신경망 아키텍처를 사용하여 노드와 그래프를 표현했다. 그러나 이러한 접근 방식들은 **대규모 그래프 데이터에서 학습 효율성이 떨어지고**, 계산 자원이 많이 소모된다는 한계가 있었다. 또한, 새로운 노드가 추가(Evolvoing Graph)되거나 그래프 구조가 변할 때마다 **전체 모델을 다시 학습**해야 하는 문제도 존재했다. 
 
-GraphSAGE는 <span style="color:red">**고정된 크기의 그래프에 대한 노드 임베딩을 학습하는 Transductive learning 방식의 한계점을 지적하고, 새롭게 추가되는 노드들에 대해서도 임베딩을 생성할 수 있는 Inductive learning 방식을 제안**</span>한다.
+GraphSAGE는 <span style="color:gold">**고정된 크기의 그래프에 대한 노드 임베딩을 학습하는 Transductive learning 방식의 한계점을 지적하고, 새롭게 추가되는 노드들에 대해서도 임베딩을 생성할 수 있는 Inductive learning 방식을 제안**</span>한다.
 
 # GraphSAGE Architecture
 ## 1. Embedding Generation
@@ -69,10 +69,10 @@ GraphSAGE의 배치 샘플링은 다음과 같은 단계로 구성된다:
 <img width="600" alt="1" src="https://github.com/user-attachments/assets/c441a533-cf10-4daa-848e-a1fbbbdb710d">
 </p>
 
-GraphSAGE에서는 각 노드의 임베딩을 효율적으로 학습하기 위해 이웃 노드를 샘플링하는 방법을 사용한다. 노드 $$u$$의 이웃 $$\mathcal{N}(u)$$는 그래프 구조에 따라 정의되며, 모든 이웃을 사용하는 대신 계산 복잡도를 줄이기 위해 **유니폼 랜덤 샘플링 방식으로 일부 이웃을 선택**한다. 학습 과정의 각 반복(iteration)마다 노드 $$u$$의 이웃 $$\mathcal{N}(u)$$ 중에서 고정된 개수의 이웃을 무작위로 샘플링하여 모델에 사용하며, 이를 통해 모델은 대규모 그래프에서도 일정한 계산 비용으로 학습이 가능해진다. 샘플링할 이웃 노드의 수는 모델의 하이퍼파라미터로 설정되며, 각 레이어마다 샘플링이 반복되어 점진적으로 더 넓은 범위의 정보를 수집하게 된다. 이러한 방식을 **Uniform Random Draw**방식 이라고 하며, GraphSAGE는 <span style="color:red">**매 iteration마다 정해진 개수의 최근접 노드를 이웃으로 샘플링**</span>하는 것이다.  
+GraphSAGE에서는 각 노드의 임베딩을 효율적으로 학습하기 위해 이웃 노드를 샘플링하는 방법을 사용한다. 노드 $$u$$의 이웃 $$\mathcal{N}(u)$$는 그래프 구조에 따라 정의되며, 모든 이웃을 사용하는 대신 계산 복잡도를 줄이기 위해 **유니폼 랜덤 샘플링 방식으로 일부 이웃을 선택**한다. 학습 과정의 각 반복(iteration)마다 노드 $$u$$의 이웃 $$\mathcal{N}(u)$$ 중에서 고정된 개수의 이웃을 무작위로 샘플링하여 모델에 사용하며, 이를 통해 모델은 대규모 그래프에서도 일정한 계산 비용으로 학습이 가능해진다. 샘플링할 이웃 노드의 수는 모델의 하이퍼파라미터로 설정되며, 각 레이어마다 샘플링이 반복되어 점진적으로 더 넓은 범위의 정보를 수집하게 된다. 이러한 방식을 **Uniform Random Draw**방식 이라고 하며, GraphSAGE는 <span style="color:gold">**매 iteration마다 정해진 개수의 최근접 노드를 이웃으로 샘플링**</span>하는 것이다.  
 
 ## 2. Aggregation
-GraphSAGE는 다시 한 번 강조하면 <span style="color:red">**Aggregation 함수**</span>를 학습하여 inductive learning이 가능하게 한다. 집계 함수(aggregator function)는 **이웃 노드들로부터의 정보를 취합하는 역할**을 합니다. 하지만 그래프 데이터의 특성 상, 노드의 **이웃들 간에는 어떤 순서가 없다**. 이러한 이유로 집계 함수는 symmetric하고 높은 수용력(high representational capacity)을 지녀야하며 학습이 가능해야 한다. 논문에서는 세 가지 Aggregator를 제안한다. Aggregator로 어떤 걸 사용 하는가에 따라 타겟 노드 자신의 정보를 포함할 수도, 포함하지 않을 수도 있다. 
+GraphSAGE는 다시 한 번 강조하면 <span style="color:gold">**Aggregation 함수**</span>를 학습하여 inductive learning이 가능하게 한다. 집계 함수(aggregator function)는 **이웃 노드들로부터의 정보를 취합하는 역할**을 합니다. 하지만 그래프 데이터의 특성 상, 노드의 **이웃들 간에는 어떤 순서가 없다**. 이러한 이유로 집계 함수는 symmetric하고 높은 수용력(high representational capacity)을 지녀야하며 학습이 가능해야 한다. 논문에서는 세 가지 Aggregator를 제안한다. Aggregator로 어떤 걸 사용 하는가에 따라 타겟 노드 자신의 정보를 포함할 수도, 포함하지 않을 수도 있다. 
 
 **Mean Aggregator**  
 <p align="center">

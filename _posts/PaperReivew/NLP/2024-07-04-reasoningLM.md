@@ -47,7 +47,7 @@ last_modified_at: 2024-07-04
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/0fe3bb2e-8294-4a0a-99ea-f27fbc15f0f5">
 </p>
 
-ReasningLM은 <span style="color:red">**Question과 Subgraph의 직렬화된 자연어 토큰 시퀀스**</span>를 입력으로 받는다. 트랜스포머 모듈이 각 토큰에대한 임베딩 시퀀스를 출력하고 최종적으로 정답을 찾기위해 subgraph의 hidden representation들만 linear layer를 통과시켜 score를 계산하게된다. 본 논문에서는 트랜스포머 모듈(backbone)로 RoBERTa-base를 사용하였다.
+ReasningLM은 <span style="color:gold">**Question과 Subgraph의 직렬화된 자연어 토큰 시퀀스**</span>를 입력으로 받는다. 트랜스포머 모듈이 각 토큰에대한 임베딩 시퀀스를 출력하고 최종적으로 정답을 찾기위해 subgraph의 hidden representation들만 linear layer를 통과시켜 score를 계산하게된다. 본 논문에서는 트랜스포머 모듈(backbone)로 RoBERTa-base를 사용하였다.
 
 ReasoningLM의 핵심 요소는 두 가지이다.
 - Adaptation Tuning Strategy
@@ -59,18 +59,18 @@ Adaptation Tuning Strategy은 질문과 서브그래프를 추출하기 위한 �
 ### 1) Subgraph Extraction
 추출된 subgraph가 PLM에 제대로 적용되기 위해서는 subgraph들이 대중적으로 사용되는 지식(commonly used knowledge)를 잘 내포하고 있어야 한다. 따라서 인기있는 엔티티(popular entity)를 Wikidata5M에서 추출해 시드 토픽 엔티티(seed topic entity)로 사용하고, KQA Pro[(Cao et al., 2022)](https://aclanthology.org/2022.acl-long.422/)와 같은 방식으로 정답 엔티티와 서브그래프를 추출하게 된다.
 
-먼저 Wikidata5M에서 인기있는 2000개의 토픽 엔티티를 추출한다. 각 토픽 엔티티들을 출발점으로 하여 <span style="color:red">**randomwalk를 수행하여 Reasoning path를 추출**</span>한다. Reaoning path의 길이는 4-hop을 넘지 않으며 **종점은 반드시 정답(answer) 엔티티**가 되게 만든다. 각 Reaoning path들은 결론적으로 시작점이 토픽 엔티티이고, 종점이 정답 엔티티가 되게된다. 
+먼저 Wikidata5M에서 인기있는 2000개의 토픽 엔티티를 추출한다. 각 토픽 엔티티들을 출발점으로 하여 <span style="color:gold">**randomwalk를 수행하여 Reasoning path를 추출**</span>한다. Reaoning path의 길이는 4-hop을 넘지 않으며 **종점은 반드시 정답(answer) 엔티티**가 되게 만든다. 각 Reaoning path들은 결론적으로 시작점이 토픽 엔티티이고, 종점이 정답 엔티티가 되게된다. 
 
 Reasoning path가 정해지면 이제 앞서말한 KQA Pro논문의 아이디어를 활용하여 subgraph를 추출할 수 있다. Reasoning path의 시작점인 토픽 엔티티를 기준으로 $$k$$-hop 내의 엔티티와 릴레이션을 임의로 추출한다. 그리고 실제로 존재하는 트리플들만 중복은 제거하고 추출하여 하나의 서브그래프를 만든다. 이 때, 서브그래프에는 반드시 reasoning path가 포함이되어야 한다.
 
 <br/>
 
 ### 2) Question Synthesis
-Reasoning path는 토픽 엔티티와 정답 엔티티를 포함한다. 본 논문에서는 이 reaoning path를 이용해서 자동으로 질문을 만들어내는 방법을 제안한다. 먼저, <span style="color:red">**질문 생성을 위해 ChatGPT를 사용**</span>하였다. 질문 생성 방식에는 크게 두 가지로 나눠진다.
+Reasoning path는 토픽 엔티티와 정답 엔티티를 포함한다. 본 논문에서는 이 reaoning path를 이용해서 자동으로 질문을 만들어내는 방법을 제안한다. 먼저, <span style="color:gold">**질문 생성을 위해 ChatGPT를 사용**</span>하였다. 질문 생성 방식에는 크게 두 가지로 나눠진다.
 
 - 규칙 기반 생성
   - 여러 **일반적인 템플릿**을 수작업으로 작성한다. 이를 토대로 토픽 엔티티와 릴레이션을 질문으로 변환한다.
-  - Ex) "What is the <span style="color:red">\[relation\]</span> of <span style="color:coral">\[entity\]</span>?" ➔ "What is the <span style="color:red">**capital**</span> of <span style="color:coral">**France**</span>" 
+  - Ex) "What is the <span style="color:gold">\[relation\]</span> of <span style="color:coral">\[entity\]</span>?" ➔ "What is the <span style="color:gold">**capital**</span> of <span style="color:coral">**France**</span>" 
 
 - LLM 기반 질문 생성
   - ChatGPT와 같은 대형 언어 모델을 사용하여 형식과 유창한 표현을 가진 질문을 생성할 수 있다.
@@ -109,7 +109,7 @@ Reasoning path는 토픽 엔티티와 정답 엔티티를 포함한다. 본 논�
 
 반면 **C** 서브그래프내의 엔티티와 릴레이션들간의 어텐션이며, 일부분만 마스킹을 하지 않는다. Subgraph-aware하게 만드려면 구조적 정보를 줄 수 있는 inductive bias를 주입해야한다. 따라서 ReasoningLM에서는 이 서브그래프-서브그래프 어텐션 사이에서 각 엔티티를 기준으로 $$1$$-hop 거리에 있는 트리플들만 정보를 살려놓고, 나머지는 마스킹을 해버린다. 이렇게 함으로써, 각 엔티티의 이웃이 무엇인지, 직접적으로 연결된 트리플이 무엇인지 모델이 학습 가능하다. 
 
-**D**는 앞선 A, B, C와 달리 모든 부분을 마스킹한다. D는 질문-서브그래프 쌍의 어텐션으로 B와 반대이다. 하지만, B는 모든 정보를 살리는 반면 D는 모든 정보를 죽인다. 추측컨데, D부분을 full-masking하는 이유가 'a', 'the'와 같이 <span style="color:red">**불용어 등이 query에 존재하고, 이들이 서브그래프의 핵심어들과의 연관성을 낮추는 noise가 될 수 있기 때문**에 마스킹하는 것 같다.
+**D**는 앞선 A, B, C와 달리 모든 부분을 마스킹한다. D는 질문-서브그래프 쌍의 어텐션으로 B와 반대이다. 하지만, B는 모든 정보를 살리는 반면 D는 모든 정보를 죽인다. 추측컨데, D부분을 full-masking하는 이유가 'a', 'the'와 같이 <span style="color:gold">**불용어 등이 query에 존재하고, 이들이 서브그래프의 핵심어들과의 연관성을 낮추는 noise가 될 수 있기 때문**에 마스킹하는 것 같다.
 
 <span style="font-size:110%">**Adapter**</span>  
 다음으로는 adapter 부분을 추가해 업데이트의 효율성을 고려한다. 어뎁터는 위에 그림에서 오른쪽과 같다. 트랜스포머 내부에 FF layer 다음부분에 추가한다. 본 논문에서는 트랜스포머의 모든 레이어의 파라미터를 업데이트 하는 것이 아닌, 어뎁터만 업데이트해 학습 효율성을 높일 수 있다고 한다.
@@ -195,5 +195,5 @@ Table 4는 PLM의 모듈을 바꿨을 때의 성능 변화이다. 결론적으�
 2. Seed가 되는 토픽 엔티티를 어떻게 선정했는지 밝히지 않았다. 즉, 토픽 엔티티를 뽑는 기준이 모호하다.
 
 <span style="font-size:110%">**Contributions**</span>  
-1. PLM이 <span style="color:red">**Adaptation Tuning**</span>과 <span style="color:red">**Subgraph-Aware Self-Attention**</span> 메커니즘을 활용하여 질문 이해, 질문과 서브그래프 간의 깊은 상호작용, 서브그래프에 대한 추론을 동시에 모델링할 수 있도록 한다.
-2. PLM이 특수한 입력 형식과 주의 메커니즘에 적응할 수 있도록 LLM을 사용하여 KGQA 작업 형식을 위한 <span style="color:red">**자동 데이터 구축 방법을 제안**</span>한다.
+1. PLM이 <span style="color:gold">**Adaptation Tuning**</span>과 <span style="color:gold">**Subgraph-Aware Self-Attention**</span> 메커니즘을 활용하여 질문 이해, 질문과 서브그래프 간의 깊은 상호작용, 서브그래프에 대한 추론을 동시에 모델링할 수 있도록 한다.
+2. PLM이 특수한 입력 형식과 주의 메커니즘에 적응할 수 있도록 LLM을 사용하여 KGQA 작업 형식을 위한 <span style="color:gold">**자동 데이터 구축 방법을 제안**</span>한다.

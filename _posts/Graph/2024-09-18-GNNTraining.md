@@ -19,7 +19,7 @@ last_modified_at: 2024-09-18
 
 **Supervised Learning**은 정답 레이블이 있는 데이터를 이용해 학습하는 방식이며, **Unsupervised Learning**은 레이블 없이 데이터의 패턴이나 구조를 학습하는 방식이다.
 
-Supervised Learning에서는 Ground Truth가 레이블로부터 오고, Unsupervised Learning에서는 Unsupervised Signal로부터 온다. **Supervised Learning**에서는 <span style="color:red">**학습을 위해 제공되는 정답 레이블(Label)이 존재**</span>하며, 이 레이블은 외부 데이터를 통해 얻는다. 모델은 예측 값과 실제 레이블 간의 차이를 기반으로 손실함수를 계산하여 학습을 진행하며, 이때 데이터셋에 존재하는 정답 레이블이 Ground Truth가 된다.
+Supervised Learning에서는 Ground Truth가 레이블로부터 오고, Unsupervised Learning에서는 Unsupervised Signal로부터 온다. **Supervised Learning**에서는 <span style="color:gold">**학습을 위해 제공되는 정답 레이블(Label)이 존재**</span>하며, 이 레이블은 외부 데이터를 통해 얻는다. 모델은 예측 값과 실제 레이블 간의 차이를 기반으로 손실함수를 계산하여 학습을 진행하며, 이때 데이터셋에 존재하는 정답 레이블이 Ground Truth가 된다.
 
 반면, Unsupervised Learning에서는 명확한 레이블이 주어지지 않고, 대신 외부에서 제공된 Unsupervised Signal을 기반으로 학습이 이루어진다. 이 신호는 데이터 간의 패턴이나 구조를 발견하는 데 사용되며, 학습의 목적은 데이터의 관계를 파악하는 것이다. 따라서, **Unsupervised Learning**에서 Ground Truth는 레이블이 아닌 <span style="color:navy">**패턴이나 구조적 정보**</span>로부터 나온다.
 
@@ -75,7 +75,7 @@ Accuracy, Precision, Recall, ROC-AOC Curve에 관한 자세한 설명은 [Evalua
 <img width="400" alt="1" src="https://github.com/user-attachments/assets/57a98570-2ce6-4b33-bba4-9d1b3cfadcfe">
 </p>
 
-**Transductive Setting**에서는 <span style="color:red">**Train/Valid/Test set이 모두 동일한 그래프에 존재**</span>한다. 즉, 하나의 큰 그래프를 여러 부분으로 나누어 Split하는 방식이다. 이 설정에서는 전체 그래프의 구조를 모두 알고 있는 상태에서, 노드 혹은 엣지를 예측하는 Node/Edge prediction task에 사용된다.
+**Transductive Setting**에서는 <span style="color:gold">**Train/Valid/Test set이 모두 동일한 그래프에 존재**</span>한다. 즉, 하나의 큰 그래프를 여러 부분으로 나누어 Split하는 방식이다. 이 설정에서는 전체 그래프의 구조를 모두 알고 있는 상태에서, 노드 혹은 엣지를 예측하는 Node/Edge prediction task에 사용된다.
 
 - Train/Valid/Test set이 **동일한 그래프를 공유**하며, 각 셋은 특정 노드와 엣지들에 대한 예측을 담당한다.
 - 따라서 단순하게 **각 데이터셋에 서로 다른 노드가 포함**되도록 split한다.
@@ -88,7 +88,7 @@ Accuracy, Precision, Recall, ROC-AOC Curve에 관한 자세한 설명은 [Evalua
 <img width="400" alt="1" src="https://github.com/user-attachments/assets/7f770c23-689a-46bf-84c7-78825eb7561d">
 </p>
 
-**Inductive Setting**에서는 <span style="color:red">**Train/Valid/Test set이 각각 다른 그래프로 구성**</span>되어 있다. 즉, 여러 개의 독립된 그래프를 가지고 Split하며, 각 Split이 고유한 그래프를 관찰할 수 있다. 이 설정에서는 모델이 **Unseen 그래프에 대해 일반화**할 수 있는 능력을 요구한다.
+**Inductive Setting**에서는 <span style="color:gold">**Train/Valid/Test set이 각각 다른 그래프로 구성**</span>되어 있다. 즉, 여러 개의 독립된 그래프를 가지고 Split하며, 각 Split이 고유한 그래프를 관찰할 수 있다. 이 설정에서는 모델이 **Unseen 그래프에 대해 일반화**할 수 있는 능력을 요구한다.
 
 - Train/Valid/Test set이 서로 다른 그래프를 포함하며, 하나의 Split은 다른 Split에서 관찰된 그래프를 볼 수 없다.
 - 전체 Dataset은 여러 개의 그래프로 구성되어 있으며, 학습한 모델은 이전에 보지 못한 그래프에 대해서도 일반화할 수 있어야 한다.
@@ -132,7 +132,7 @@ Inductive setting에서 Graph Classification은 다음과 같은 방식으로 �
 - Validation set 역시 독립적인 그래프로 구성되어 있으며, 학습된 모델이 이 Validation 그래프에서 얼마나 잘 예측하는지를 평가한다.
 - Test set은 학습 중에 보지 못한 새로운 그래프를 포함하며, 모델이 이 unseen graph에서 얼마나 잘 일반화하는지를 평가한다.
 
-이 방식은 Graph Classification 작업에서 필수적이며, Transductive setting은 동일한 그래프 내에서만 학습과 예측이 가능하기 때문에 적합하지 않다. <span style="color:red">**Inductive setting에서는 새로운 그래프에서의 일반화 능력을 확인할 수 있다.**</span>
+이 방식은 Graph Classification 작업에서 필수적이며, Transductive setting은 동일한 그래프 내에서만 학습과 예측이 가능하기 때문에 적합하지 않다. <span style="color:gold">**Inductive setting에서는 새로운 그래프에서의 일반화 능력을 확인할 수 있다.**</span>
 
 <br/>
 
@@ -178,7 +178,7 @@ Link prediction이 까다로운 이유는, 레이블이 없는 상태에서 수�
 <img width="700" alt="1" src="https://github.com/user-attachments/assets/251a89c8-7a73-4bc6-9e08-d2bd64e19cae">
 </p>
 
-**Transductive Setting**은 Link Prediction에서 많이 사용되는 방식으로, <span style="color:red">**하나의 큰 그래프를 여러 그래프로 나누어**</span> 학습 및 예측을 수행한다. 이 방식은 Training, Validation, Test 세 단계에서 각기 다른 엣지를 사용하는 방법을 따른다. 
+**Transductive Setting**은 Link Prediction에서 많이 사용되는 방식으로, <span style="color:gold">**하나의 큰 그래프를 여러 그래프로 나누어**</span> 학습 및 예측을 수행한다. 이 방식은 Training, Validation, Test 세 단계에서 각기 다른 엣지를 사용하는 방법을 따른다. 
 
 - **Edges**
   - **Training message edges**: 학습에 사용되는 엣지.

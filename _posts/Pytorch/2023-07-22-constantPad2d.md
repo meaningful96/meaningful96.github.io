@@ -15,7 +15,7 @@ last_modified_at: 2023-05-07
 
 # ConstantPad2d
 
-Pytorch의 ConstantPad2d 연산을 사용하여 <span style="color:red">**텐서를 상수 값으로 패딩**</span>할 수 있다. 이 연산에서 가장 일반적인 문제는 입력 텐서가 3D 또는 4D 형식이어야 하므로 1차원 텐서에는 사용할 수 없다. 
+Pytorch의 ConstantPad2d 연산을 사용하여 <span style="color:gold">**텐서를 상수 값으로 패딩**</span>할 수 있다. 이 연산에서 가장 일반적인 문제는 입력 텐서가 3D 또는 4D 형식이어야 하므로 1차원 텐서에는 사용할 수 없다. 
 또한 패딩 크기는 튜플 또는 단일 숫자 형태여야 한다.
 
 이러한 문제를 방지하려면 텐서의 각 축에 대한 패딩 크기와 패딩 유형(상수,반사,리플리케이션)을 지정할 수 있는 `torch.nn.functional.pad()` 메서드를 사용할 수 있다. 

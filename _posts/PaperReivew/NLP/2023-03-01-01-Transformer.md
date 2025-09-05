@@ -31,10 +31,10 @@ last_modified_at: 2023-03-01
 <img width="1000" alt="1" src="https://user-images.githubusercontent.com/111734605/227275202-0c2ce492-7f17-4db3-bf7a-88cac2c23521.png">
 </p>  
 
-<span style = "font-size:120%">➜ '<span style = "color:red">매번 소스 문장에서의 출력 전부를 입력으로</span> 받으면 어떨까?'라는 질문에서 시작</span> 
+<span style = "font-size:120%">➜ '<span style = "color:gold">매번 소스 문장에서의 출력 전부를 입력으로</span> 받으면 어떨까?'라는 질문에서 시작</span> 
   - 최근 GPU가 많은 메모리와 빠른 병렬 처리를 지원  
 
-<span style = "font-size:120%">➜ Transformer는 <span style = "color:red">input과 output간 global dependency를 뽑아내기 위해 Recurrence를 사용하지 않고, Attention mechanism만을 사용</span>함.</span> 
+<span style = "font-size:120%">➜ Transformer는 <span style = "color:gold">input과 output간 global dependency를 뽑아내기 위해 Recurrence를 사용하지 않고, Attention mechanism만을 사용</span>함.</span> 
 
 # 2. Relation Work
 1. RNN, LSTM, Seq2Seq
@@ -101,7 +101,7 @@ $$pos$$는 position이고, $$i$$는 차원이다. 중요한 것은 Postional Enc
 - Attention <span style = "color:green">**Score**</span> = **Scailing** of Key's Dimension = <span style = "font-size:120%">$$\frac{QK^T}{\sqrt{d_k}}$$</span> 
 - Attention <span style = "color:green">**Weight**</span> = **Softmax**(Attention Score) = <span style = "font-size:120%">$$softmax(\frac{QK^T}{\sqrt{d_k}})$$</span> = $$a_{ij}$$ 
 
-<span style = "color:red"><span style = "font-size:120%">➜ Attention(Query, Key, Value) = $$softmax(\frac{QK^T}{\sqrt{d_k}})V$$ </span></span>이다.
+<span style = "color:gold"><span style = "font-size:120%">➜ Attention(Query, Key, Value) = $$softmax(\frac{QK^T}{\sqrt{d_k}})V$$ </span></span>이다.
 
 트랜스포머에서는 인코더와 디코더 모두에서 <span style = "color:green">**Multi-head Attention**</span>을 사용한다. 병렬로 Head의 개수만큼 한 번에 어텐션을 진행하는 것으로, 동시에 여러 개의 Attention value값을 추출해 낼 수 있다. Multi-Head Attention을 사용하는 이유는 여러가지이다.
 
@@ -220,7 +220,7 @@ Recurrent, Convolution layer와 Self-Attention의 시간 복잡도를 비교하�
 <br/>
 - Convolution layer는 일반적으로 recurrent layer보다 더 비용이 많이 든다.
   - Separable Convolution의 경우 복잡도를 $$O(knd + nd^2)$$ 까지 줄일 수 있다.
-  - 그러나<span style = "color:red"> $$k = n$$인 경우 트랜스포머와 마찬가지로 Self-attention layer와 Point-wise Feedforward layer의 조합과 복잡도가 같다.</span>
+  - 그러나<span style = "color:gold"> $$k = n$$인 경우 트랜스포머와 마찬가지로 Self-attention layer와 Point-wise Feedforward layer의 조합과 복잡도가 같다.</span>
   <br/>
   결론적으로 Self-attention을 통해 더 Interpretable한 모델을 만들 수 있다. Attention head들은 다양한 task를 잘 수행해내고, 문장의 구조적, 의미적 구조를 잘 연관시키는 성질을 보이기도 한다. 
 
@@ -269,7 +269,7 @@ Recurrent, Convolution layer와 Self-Attention의 시간 복잡도를 비교하�
 English Constituency Parsing에서도 잘 일반화해서 사용할 수 있는지 실험하였다. 구체적인 tuning 없이도 놀라운 성능을 보였다.
 
 # Contribution
-1. Recurrent Model을 사용하지않고 오직 <span style = "color:red">Attention Mechanism만을 이용해서 새로운 모델을 제시</span>하였다.
+1. Recurrent Model을 사용하지않고 오직 <span style = "color:gold">Attention Mechanism만을 이용해서 새로운 모델을 제시</span>하였다.
 2. Benchmark Dataset에 대하여 SOTA 달성
 
 # Reference

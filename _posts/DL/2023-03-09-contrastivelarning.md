@@ -119,7 +119,7 @@ Regression Similarity Learning과 식은 유사하다. 다만 다른 점은 이�
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/232207762-a89577d7-d885-4753-97be-2a0e2972995e.png">
 </p>
 
-예를 들어, loss값이 최소가 되기를 바라는데, negative pair($$x_n, x_q$$)의 거리가 m보다 작다면 계속해서 loss값을 생성해낼 것이다. 하지만, 학습을 통해 negative pair간의 거리가 m보다 크게 되면 loss값을 0으로 수렴시킬 수 있다. 이 두식이 결합되어 하나의 loss, <span style = "color:red">**Contrastive loss**</span>라 한다. 
+예를 들어, loss값이 최소가 되기를 바라는데, negative pair($$x_n, x_q$$)의 거리가 m보다 작다면 계속해서 loss값을 생성해낼 것이다. 하지만, 학습을 통해 negative pair간의 거리가 m보다 크게 되면 loss값을 0으로 수렴시킬 수 있다. 이 두식이 결합되어 하나의 loss, <span style = "color:gold">**Contrastive loss**</span>라 한다. 
 
 <p align="center">
 <img width="800" alt="1" src="https://user-images.githubusercontent.com/111734605/232207966-9a8e1b6e-c485-45f6-9015-1da2c974cf16.png">
@@ -127,7 +127,7 @@ Regression Similarity Learning과 식은 유사하다. 다만 다른 점은 이�
 
 ## 4. Knowledge Graph관점에서 Contrastive Learning
 
-Contrastive Loss는 Negative pair loss와 Positive pair loss의 합으로 구성된다. Knowledge Graph에서 종종 학습의 성능을 높여주기 위해 <span style = "color:red">**Negative Sampling**</span>을 자주 사용한다. 여기서 Negative sampling은 KG에서 실제로 정의가 된 Triple이 아닌, <u>실제로는 연결관계가 없는 Triple</u>을 말한다. 즉, 어떤 head와 tail이 실제로는 어떤 릴레이션으로 연결이 안되어 있는 Triple을 말한다. 
+Contrastive Loss는 Negative pair loss와 Positive pair loss의 합으로 구성된다. Knowledge Graph에서 종종 학습의 성능을 높여주기 위해 <span style = "color:gold">**Negative Sampling**</span>을 자주 사용한다. 여기서 Negative sampling은 KG에서 실제로 정의가 된 Triple이 아닌, <u>실제로는 연결관계가 없는 Triple</u>을 말한다. 즉, 어떤 head와 tail이 실제로는 어떤 릴레이션으로 연결이 안되어 있는 Triple을 말한다. 
 
 따라서 학습이 Positive pair에게는 점수를 더 주며, Negative pair에게는 점수를 덜 주는 방향으로 Loss가 구성되어 학습이 진행된다. 대표적인 모델로 SimKGC가 있다.
 
