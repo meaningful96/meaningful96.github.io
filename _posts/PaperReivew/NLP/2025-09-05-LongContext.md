@@ -28,9 +28,25 @@ last_modified_at: 2025-09-05
 <br/>
 
 # Chanllenges of Long Context LLMs in RAG
+이 섹션에는 long-context상황에서 LLM에 발생할 수 있는 문제를 실험과 함께 좀 더 중점적으로 다룬다.
+
+## The Effect of Retrieved Context Size on RAG Performance
 <p align="center">
-<img width="500" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.02%5DLongContext/figure2.png?raw=true">
+<img width="500" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.02%5DLongContext/figure3.png?raw=true">
 </p>
+
+**Research Question**  
+- 더 많은 양의 Passage(or Document)를 검색해 LLM에게 입력시키면, 일관되게 성능이 향상되는가?
+
+**Experimental Setup**  
+- **Input**: Question + Top-$$k$$ Passages
+- **Output**: Answer
+
+**Results**  
+- Parameter 수가 200B에 달하는 Gemini-1.5-Pro는 문서 수에 robust하고, sLLM에서는 입력으로 passage가 10개만 넘어가도 성능 감소가 급격하게 발생함.
+- 강력한 Retrieval(e5)일수록 passage수가 많아짐에 따라 성능 감소 폭이 커짐. 이는 강력한 retrieval가 hard negative를 더 많이 검색하게 됨을 의미.
+
+
 
 <br/>
 <br/>
