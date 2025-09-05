@@ -39,7 +39,7 @@ last_modified_at: 2025-09-05
 - 더 많은 양의 Passage(or Document)를 검색해 LLM에게 입력시키면, 일관되게 성능이 향상되는가?
 
 **Experimental Setup**  
-- **Input**: Question + Top-$$k$$ Passages
+- **Input**: Question + $$\text{Top}-k$$ Passages
 - **Output**: Answer
 
 **Results**  
@@ -55,9 +55,9 @@ last_modified_at: 2025-09-05
 - 성능의 병목 현상은 retrieval가 관련 정보를 식별하는 능력의 한계에서 비롯된 것인가? 아니면 long-context LLM이 retrieval된 문맥을 효과적으로 활용하는 능력의 한계에서 비롯된 것인가?
 
 **Experimental Setup**  
-- **Recall@$$k$$**: Top-$$k$$ passage 안에 ground truth가 포함되어 있는 비율 (포함 여부)
-- **Precision@$$k$$**: Top-$$k$$ passage 중 실제로 ground truth인 문서의 비율 (개수)
-- **Input**: Question + Top-$$k$$ Passages
+- **Recall@$$k$$**: $$\text{Top}-k$$ Passage 안에 ground truth가 포함되어 있는 비율 (포함 여부)
+- **Precision@$$k$$**: $$\text{Top}-k$$ Passage 중 실제로 ground truth인 문서의 비율 (개수)
+- **Input**: Question + $$\text{Top}-k$$ Passages
 - **Output**: Answer
 
 **Results**  
