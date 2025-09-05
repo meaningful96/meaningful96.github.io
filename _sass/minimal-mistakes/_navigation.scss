@@ -137,7 +137,7 @@
     text-align: center;
     text-decoration: none;
     color: $muted-text-color;
-    border: 1px solid mix(#fff, $border-color, 20%);
+    border: 1px solid mix(#fff, $border-color, 60%);
     border-radius: $border-radius;
 
     .prev_next {
@@ -471,7 +471,7 @@
     color: inherit;
     font-size: $type-size-3;
     font-family: $cute;
-    color: mix(#fff,$primary-color, 30%);
+    color: mix(#fff,$primary-color,80%);
 
     &:hover {
       text-decoration: underline;
@@ -527,7 +527,7 @@
   padding: 0.25rem 0;
   font-size: $type-size-3;
   font-family: $serif;
-  color: mix(#fff,$primary-color,10%);
+  color: mix(#fff,$primary-color,35%);
   border-bottom: 1px solid $border-color;
 }
 
@@ -582,19 +582,7 @@
       color: $text-color;
     }
   }
-  
-  li {
-    background-color: #f9f9f9; /* 기본 배경 */
-  }
 
-  li:nth-child(odd) {
-    background-color: #f1f1f1; /* 홀수 줄 */
-  }
-
-  li:nth-child(even) {
-    background-color: #f1f1f1; /* 짝수 줄 */
-  }
-  
   li ul > li a {
     padding-left: 1.25rem;
     font-weight: normal;
