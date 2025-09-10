@@ -14,10 +14,10 @@ last_modified_at: 2025-09-10
 *Jiaqi Cao, Jiarui Wang, Rubin Wei, Qipeng Guo, Kai Chen, Bowen Zhou, and Zhouhan Lin*. 2025. [Memory Decoder: A Pretrained, Plug-and-Play Memory for Large Language Models](https://arxiv.org/abs/2508.09874). arXiv:2508.09874 [cs.CL] https://arxiv.org/abs/2508.09874
 
 # Problem Statement
+
 <p align="center">
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.10%5DMemoryDecoder/figure1.png?raw=true">
 </p>
-<center>
 
 <span style="font-size:110%">**Domain Adaptive PreTraining (DAPT)의 근본적인 한계**</span>  
 DAPT는 특정 도메인의 데이터로 LLM을 continuous pretraining하는 방법이다. 하지만, LLM의 모든 파라미터를 full fine-tuning해야 하므로 계산 비용이 매우 높고, 모델 크기가 커질수록 매우 비효율적이다. 또한, 여러 모델을 동일한 도메인에 적응시키려면 각 모델마다 별도로 학습해야 하는 자원 비효율성이 존재한다. 가장 중요한 한계점은, <span style="color:gold">**학습 과정에서 모델이 가진 기존의 일반화 능력을 잃어버리는 catastrophic forgetting 현상이 발생**</span>한다.
