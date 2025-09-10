@@ -12,3 +12,30 @@ last_modified_at: 2025-09-10
 ---
 
 *Jiaqi Cao, Jiarui Wang, Rubin Wei, Qipeng Guo, Kai Chen, Bowen Zhou, and Zhouhan Lin*. 2025. [Memory Decoder: A Pretrained, Plug-and-Play Memory for Large Language Models](https://arxiv.org/abs/2508.09874). arXiv:2508.09874 [cs.CL] https://arxiv.org/abs/2508.09874
+
+# Problem Statement
+<p align="center">
+<img width="1000" alt="1" src="">
+</p>
+<center>
+
+
+
+<br/>
+<br/>
+
+# Methodology
+
+
+
+<br/>
+<br/>
+
+# Experiments
+
+
+
+<br/>
+<br/>
+
+# Conclusion
