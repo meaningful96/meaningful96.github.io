@@ -14,7 +14,7 @@ $indent-var: 1.3em !default;
 
 /* system typefaces */
 $serif: "Coming Soon", Georgia, Times, serif !default;
-$sans-serif: "NanumSquareRound", "NanumSquareNeo", "Iropke Batang", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Dongle",
+$sans-serif: "JoseonGulim","NanumSquareRound", "NanumSquareNeo", "Iropke Batang", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Dongle",
   "Helvetica Neue", "Lucida Grande",  Arial, sans-serif !default;
 $monospace: "NanumSquareNeo", Monaco, Consolas, "Lucida Console", monospace !default;
 $cute: "NanumSquareNeo" !default;
@@ -33,7 +33,7 @@ $calisto: "Calisto MT", serif !default;
 $garamond: Garamond, serif !default;
 
 /* Blog font */
-$blog-font: "NanumSquareRound" !default;
+$blog-font: "JoseonGulim" !default;
 
 $global-font-family: $blog-font !default;
 $header-font-family: $blog-font !default;
