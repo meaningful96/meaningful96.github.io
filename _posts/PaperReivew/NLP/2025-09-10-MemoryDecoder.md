@@ -91,12 +91,12 @@ LLM이 특정 도메인에 대한 Knowledge를 이용해서 추론을 진행해�
 ## Objective Function
 학습은 이 캐싱된 kNN 분포 $$p_{\text{kNN}}(\cdot \vert x_i)$$를 감독 신호로 사용하여 Memory Deocder의 출력 분포 $$p_{\text{Mem}}(\cdot \vert x_i)$$를 정렬(align) 시키는 방ㅂ식으로 진행된다. 학습에는 총 두 가지 목적 함수를 사용한다.
 
-1. KL Divergence Loss  
+- **KL Divergence Loss**  
 <center>$$\mathcal{L}_{\text{KL}}(x_i) = \text{KL}(p_{\text{kNN}}(\cdot \vert x_i) \vert \vert p_{\text{Mem}}(\cdot \vert x_i))$$</center>
 
 먼저 정렬을 위해서 KL Divergence 기반의 loss를 정의한다.
 
-2. Next Token Prediction Loss  
+- **Next Token Prediction Loss**  
 <center>$$\mathcal{L}_{\text{LM}}(x_i) = -\log p_{\text{Mem}}(y_i \vert x_i)$$</center>  
 <center>$$\mathcal{L} (x_i) = \beta \cdot \mathcal{L}_{\text{KL}}(x_i) + (1-\beta) \cdot \mathcal{L}_{\text{LM}}(x_i)$$</center>  
 
