@@ -46,13 +46,31 @@ DAPT의 **치명적인 망각(catastrophic forgetting) 현상**과 자원 비효
 - **[검색 과정의 제거]**: Memory Decoder는 사전 학습 단계에서 비매개변수 검색기가 생성하는 분포를 모방하도록 학습하여 <span style="color:gold">**도메인 지식을 내제화**</span>한다. 즉, 추론 시에는 외부 데이터베이스에서 문서를 검색하는 대신, 이미 학습된 Memory Decoder 모델의 순방향 전달(forward pass) 연산만으로 필요한 지식을 즉각적으로 활용한다. 이 방식은 **kNN 검색에 소요되는 시간을 완전히 없애므로**, 기존 RAG에 비해 훨씬 낮은 추론 오버헤드만으로도 도메인 적응을 가능하게 한다.
 
 ## LLM과 Non-parametric Retriever의 Token generation의 차이
-LLM은 파라미터 안에 내재된 확률 분포만 사용하여, 주어진 문맥(context)으로부터 다음 토큰의 확률을 예측한다. LLM의 입력으로 들어가는 토큰 시퀀스를 $$x = (x_1, x_2, \cdots, x_{t-1})$$, 생성해야할 다음 토큰을 $$y_t$$라고 할 때, LLM의 입력 텍스트에 대한 다음 토큰 예측 분포는 다음과 같다.
+**LLM**은 파라미터 안에 내재된 확률 분포만 사용하여, 주어진 문맥(context)으로부터 다음 토큰의 확률을 예측한다. LLM의 입력으로 들어가는 토큰 시퀀스를 $$x = (x_1, x_2, \cdots, x_{t-1})$$, 생성해야할 다음 토큰을 $$y_t$$라고 할 때, LLM의 입력 텍스트에 대한 다음 토큰 예측 분포는 다음과 같다.
 
-- **Next Token Prediction**
+- **Next Token Prediction**  
 <center>$$p_{\text{LLM}}(y_t \vert x; \theta) = $$</center>
 
-- **Autoregressive Sequence Factorization**
+- **Autoregressive Sequence Factorization**  
 <center>$$p_{\text{LLM}}(y_{1:T}) = \prod_{t=1}^T p_{\text{LM}}(y_t \vert x) $$</center>
+
+LLM이 특정 도메인에 대한 Knowledge를 이용해서 추론을 진행해야 할 경우에는, 일반적으로 RAG를 활용해 외부 문서를 검색해 LLM에게 질문과 함께 입력시킨다. 하지만, 이럴 경우 주어진 쿼리에 대해 검색에 소요되는 시간과 검색되는 문서의 개수나 컨텍스트 길이에 따라 추론 시간이 매우 길어진다.
+
+**비매개변수 검색기(Non-parametric Retrieval)**는 도메인 지식을 활용하면서도, 전통적인 RAG 방식에서 발생하는 검색 지연과 컨텍스트 확장으로 인한 attention 연산량 증가 문제를 완화하기 위해 제안된 방법이다. 구체적으로, 도메인 코퍼스에 대해 가능한 모든 문맥에 대해 LLM 특정 레이어의 임베딩을 key, 해당 문맥 직후에 등장하는 토큰을 value로 하는 KV 데이터스토어를 사전에 구축한다. 
+
+<center>p_{\text{kNN}}(y_t \vert x) \propto \displaystyle\sum_{(k_i, v_i) \in N(k_t, k)} \mathbf{1}_{y_t = v_i} \exp \left( - \frac{d(k_t, k_i)}{\tau} \right) </center>
+
+이후 입력 쿼리로부터 LLM이 다음 토큰을 예측할 때, 동일한 레이어의 임베딩을 추출하여 데이터스토어에서 kNN 검색을 수행하고, 유사한 문맥들의 임베딩을 기반으로 다음 토큰 확률 분포를 계산한다. 
+
+- **Next Token Prediction**
+<center>p(y_t \vert x) = \lambda p_{\text{kNN}}(y_t \vert x) + (1 - \lambda)p_{\text{LLM}} (y_t \vert x)</center>
+
+- **Autoregressive Sequence Factorization**  
+<center>p(y_{1:T}) = \prod_{t=1}^T \big[ \lambda p_{\text{kNN}}(y_t \vert x) + (1 - \lambda)p_{\text{LLM}} (y_t \vert x) \big]</center>
+
+이 확률 분포는 원래 LLM이 예측한 분포와 가중 합을 이루어 최종 분포를 결정한다. 다만 이 방식은 여전히 대규모 데이터스토어 구축으로 인한 메모리 비용과, **매 토큰 예측마다 반복되는 유사도 계산으로 인한 추론 지연(latency)**이라는 한계를 가진다.
+
+
 
 ## Pretraining
 사전 학습 단계의 목표는 **“입력 context에 대해,** <span style="color:gold">**non-parametric retrieval가 생성한 확률 분포가 Memory Decoder가 생성한 확률 분포와 동일**</span>**”해지도록 만드는 것**이다. 이 방식은 큰 datastore에 존재하는 key-value 쌍으로 된 **도메인 지식을 compact한 모델에 내제화** 시키는 과정이다. 입력 텍스트의 토큰 시퀀스를 $$x = (x_1, x_2, \cdots, x_{t-1})$$, 타겟 토큰을 $$y_t$$라고 할 때,
