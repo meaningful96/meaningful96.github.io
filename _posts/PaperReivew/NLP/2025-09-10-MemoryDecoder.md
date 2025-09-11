@@ -73,6 +73,10 @@ LLM이 특정 도메인에 대한 Knowledge를 이용해서 추론을 진행해�
 이 확률 분포는 원래 LLM이 예측한 분포와 가중 합을 이루어 최종 분포를 결정한다. 다만 이 방식은 여전히 대규모 데이터스토어 구축으로 인한 메모리 비용과, **매 토큰 예측마다 반복되는 유사도 계산으로 인한 추론 지연(latency)**이라는 한계를 가진다.
 
 ## Pretraining
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.10%5DMemoryDecoder/figure8.png?raw=true">
+</p>
+
 사전 학습 단계의 목표는 **“입력 context에 대해,** <span style="color:gold">**non-parametric retrieval가 생성한 확률 분포가 Memory Decoder가 생성한 확률 분포와 동일**</span>**”해지도록 만드는 것**이다. 이 방식은 큰 datastore에 존재하는 key-value 쌍으로 된 **도메인 지식을 compact한 모델에 내제화** 시키는 과정이다. 입력 텍스트의 토큰 시퀀스를 $$x = (x_1, x_2, \cdots, x_{t-1})$$, 타겟 토큰을 $$y_t$$라고 할 때,
 
 - **Input**: Domain Corpus내 문맥 $$x_i$$ + non-parametric retrieval가 생성한 확률 분포 $$p_{\text{kNN}}(\cdot \vert x_i)$$
@@ -96,16 +100,87 @@ LLM이 특정 도메인에 대한 Knowledge를 이용해서 추론을 진행해�
 <center>$$\mathcal{L}_{\text{LM}}(x_i) = -\log p_{\text{Mem}}(y_i \vert x_i)$$</center>  
 <center>$$\mathcal{L} (x_i) = \beta \cdot \mathcal{L}_{\text{KL}}(x_i) + (1-\beta) \cdot \mathcal{L}_{\text{LM}}(x_i)$$</center>  
 
-또한, corpus의 분포에서 과도한 편차를 방지하기 위해, 보완적으로 표준 언어 모델링을 위한 목적 함수를 사용한다. 즉, KL 발산은 Memory Decoder의 출력 분포가 kNN 분포를 모방하도록 유도하고, 언어 모델링 손실은 모델이 코퍼스의 구조적 패턴을 유지하도록 만든다.
+또한, corpus의 분포에서 과도한 편차를 방지하기 위해, 보완적으로 표준 언어 모델링을 위한 목적 함수를 사용한다. 즉, KL Divergence는 Memory Decoder의 출력 분포가 kNN 분포를 모방하도록 유도하고, 언어 모델링 손실은 모델이 코퍼스의 구조적 패턴을 유지하도록 만든다.
+
+## Inference
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.10%5DMemoryDecoder/figure9.png?raw=true">
+</p>
+
+사전 학습이 완료되면, 메모리 디코더는 플러그 앤 플레이 기능을 통해 호환 가능한 토크나이저를 가진 어떤 언어 모델이든 단순한 보간(interpolation)만으로 대상 도메인에 적응할 수 있다. 추론시에는 LLM과 Memory Decoder는 동일한 입력 text를 병렬로 처리한다. 
+
+<center>$$p_{\text{Mem-PLM}} (y_t \vert x) = \alpha \cdot p_{\text{Mem}}(y_t \vert x) + (1-\alpha) \cdot p_{\text{PLM}}(y_t \vert x) $$</center>
+
+Memory Decoder는 단 한 번의 forward pass만으로 도메인 특화된 확률 분포를 생성한다. 그런 다음, 이 Memory Decoder의 출력 분포 $$p_{\text{Mem}}(\cdot \vert x_i)$$와 기본 LLM의 출력 분포 $$p_{\text{PLM}}(\cdot \vert x_i)$$를 interpolate하여 최종 예측을 생성한다. 이러한 방법은
+
+- 별도의 문서를 검색하지 않고 도메인 지식을 활용할 수 있음 (RAG의 한계)
+- 별도의 문서 검색이 없기 때문에 입력 텍스트가 길어지지 않음 (RAG의 한계)
+- 별도의 kNN연산이 필요하지 않음 (non-parametric retrieval의 한계)
+- LLM을 full fine-tuning하지 않고 크기가 작은 Memory Decoder만 학습 (DAPT의 한계) 
+
+라는 장점들을 가지며, **추론 속도가 일반적인 RAG기법보다 빠르다**.
 
 <br/>
 <br/>
 
 # Experiments
+## Main Result: Perplexity Comparison
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.10%5DMemoryDecoder/figure4.png?raw=true">
+</p>
 
+GPT-2 계열 모델(GPT-2 small, medium, large, xl)에 대해 Wikitext-103에서의 perplexity를 비교한 결과를 제시한다. 결과적으로, Memory Decoder는 모든 크기의 모델에서 성능을 향상시켰으며, 특히 GPT-2 medium에 적용했을 때는 동일 크기의 DAPT보다 낮은 perplexity를 달성했다. 이는 <span style="color:gold">**원래 모델 파라미터를 수정하지 않고도 Memory Decoder가 도메인 지식을 효과적으로 반영하여 언어 모델링 성능을 개선**</span>할 수 있음을 보여준다
 
+## Ablation Study
+<p align="center">
+<img width="600" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.10%5DMemoryDecoder/figure7.png?raw=true">
+</p>
+
+Table 9는 Memory Decoder를 학습할 때 사용하는 손실 함수 구성 요소의 효과를 분석한 결과이다. +KL Only(KL divergence만 사용)와 +CE Only(Cross-Entropy만 사용) 모두 단독으로는 충분한 성능을 내지 못하고, 특히 CE 단독일 때 가장 높은 perplexity를 보였다. 반면, 제안된 +MemDec(KL과 CE를 모두 사용)은 모든 모델 크기(Qwen2.5-3B, Qwen2.5-7B, Qwen2-7B)에서 가장 낮은 perplexity를 달성했다. 결과적으로 <span style="color:gold">**KL Deivergence를 사용하지 않으면(+CE) perplexity가 가장 커지므로, KL Divergence Loss의 성능 gain이 가장 크다**</span>.
+
+즉, KL divergence를 통해 kNN 분포를 정밀하게 근사하면서도, Cross-Entropy를 통해 언어 모델링 분포와의 안정성을 유지하는 하이브리드 학습 방식이 가장 효과적임을 입증한다. 특히 Qwen2.5-7B에서 KL Only(3.84) 대비 MemDec(3.57)이 가장 큰 개선을 보이며, 이 결과는 두 손실이 상호 보완적이라는 점을 강조한다.
+
+## Performance in Downstream NLP Tasks
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.10%5DMemoryDecoder/figure5.png?raw=true">
+</p>
+
+감정 분석(SST2, MR, CR, RT), 텍스트 분류(AGN, Yahoo), 자연어 추론(CB, RTE, HYP) 등 아홉 가지 다운스트림 NLP 과제에서의 성능을 보여준다. Memory Decoder는 **평균적으로 base 모델, kNN-LM, DAPT, LoRA를 모두 능가**했으며, 특히 자연어 추론 계열(CB, RTE)에서 뚜렷한 강점을 보였다. 또한 DAPT가 특정 과제에서 catastrophic forgetting을 일으키는 반면, Memory Decoder는 전반적으로 안정적인 성능 향상을 유지했다. 이는 Memory Decoder가 다양한 도메인과 태스크에서 일반성과 적응성을 동시에 달성할 수 있음을 입증한다.
+
+## Inference Latency
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.10%5DMemoryDecoder/figure3.png?raw=true">
+</p>
+
+다양한 도메인 적응 방법들의 추론 지연(latency)을 비교한 결과를 보여준다. kNN-LM과 In-Context RAG는 매 토큰마다 최근접 이웃 검색 또는 긴 문맥 처리로 인해 추론 시간이 선형적으로 증가하는 반면, Memory Decoder는 작은 Transformer 디코더 한 번만 거치면 되므로 훨씬 효율적이다. 특히 대규모 데이터스토어(예: 5억 엔트리) 환경에서 kNN-LM의 검색 비용이 급격히 증가하는 상황에서도, <span style="color:gold">**Memory Decoder는 고정된 오버헤드(약 1.28배)에 그치며 최대 10배 이상의 속도 이점**</span>을 보였다
+
+## Perplexity Comparison
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.10%5DMemoryDecoder/figure4.png?raw=true">
+</p>
+
+GPT-2 계열 모델(GPT-2 small, medium, large, xl)에 대해 Wikitext-103에서의 perplexity를 비교한 결과를 제시한다. 결과적으로, Memory Decoder는 모든 크기의 모델에서 성능을 향상시켰으며, 특히 GPT-2 medium에 적용했을 때는 동일 크기의 DAPT보다 낮은 perplexity를 달성했다. 이는 <span style="color:gold">**원래 모델 파라미터를 수정하지 않고도 Memory Decoder가 도메인 지식을 효과적으로 반영하여 언어 모델링 성능을 개선**</span>할 수 있음을 보여준다
+
+## Cross-Model Adaptation & Cross-Vocabulary Adaptation
+<p align="center">
+<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.10%5DMemoryDecoder/figure6.png?raw=true">
+</p>
+
+**[Cross-Model Adaptation (Table 3)]** 하나의 MemDec을 훈련해 놓으면, 같은 tokenizer를 공유하는 다양한 크기의 모델들(0.5B~72B)에 그대로 붙여서 사용할 수 있는지 확인하기 위한 실험으로, 단일 MemDec(0.5B)로 Qwen2/2.5 계열의 0.5B~72B 모델 모두 개선, 심지어 Qwen2.5-0.5B + MemDec이 Qwen2.5-72B 기본 모델보다 성능 우위. 이는 140배 이상의 파라미터 효율성을 입증한다Memory Decoder.
+
+**[Cross-Vocabulary Adaptation (Table 4)]** “tokenizer가 다른 모델에도 MemDec을 재사용할 수 있는가?”가에 대한 질문을 해결하기 위한 실험으로, 실험 결과  Qwen2.5에서 학습한 MemDec을 Llama 계열에 단 10% 추가 학습만으로 이식 가능하며, 특히 Llama3-8B에서 약 50% perplexity 감소 달성하였다. 전반적으로 LoRA보다 더 강력하고, cross-tokenizer 전이도 안정적으로 가능함을 입증했다.
 
 <br/>
 <br/>
 
 # Conclusion
+- **Contribution**
+  - **[아키텍쳐 효율성]** 작은 Transformer 디코더가 **비매개변수 검색기(non-parametric retriever)**의 동작을 근사하도록 학습되어, 추론 시 외부 검색(latency, storage)을 제거함.
+  - **[모델 호환성]** 동일한 토크나이저를 공유하는 어떤 LLM에도 쉽게 통합할 수 있는 plug-and-play 구조를 제공하여, 다양한 크기의 Qwen 및 LLaMA 모델에서 효과적인 도메인 적응을 달성함.
+  - **[범용성]** 생의학, 금융, 법률 세 가지 전문 도메인에서 평균 6.17 perplexity 감소를 달성했으며, 다운스트림 태스크에서도 안정적이고 폭넓은 성능 개선을 보여줌.
+
+<br/>
+
+- Limitations
+  - **[도메인 코퍼스 의존성]** 여전히 특정 도메인 코퍼스에 의존해야 하며, 학습 데이터 품질과 범위에 따라 성능이 제한될 수 있음.
+  - **[평가 아티팩트 문제]** 일부 다운스트림 태스크(예: Yahoo, HYP)에서는 DAPT의 성능 저하가 본질적 한계가 아니라 평가 방법론(DCPMI) 아티팩트임이 드러났음.
