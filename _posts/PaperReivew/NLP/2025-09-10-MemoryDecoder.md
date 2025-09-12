@@ -107,7 +107,7 @@ LLM이 특정 도메인에 대한 Knowledge를 이용해서 추론을 진행해�
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/Paper_Review/%5B2025.09.10%5DMemoryDecoder/figure9.png?raw=true">
 </p>
 
-사전 학습이 완료되면, 메모리 디코더는 플러그 앤 플레이 기능을 통해 호환 가능한 토크나이저를 가진 어떤 언어 모델이든 단순한 보간(interpolation)만으로 대상 도메인에 적응할 수 있다. 추론시에는 LLM과 Memory Decoder는 동일한 입력 text를 병렬로 처리한다. 
+사전 학습이 완료되면, 메모리 디코더는 플러그 앤 플레이 기능을 통해 호환 가능한 토크나이저를 가진 어떤 언어 모델이든 단순한 보간(interpolation)만으로 대상 도메인에 적응할 수 있다. 추론시에는 LLM과 Memory Decoder는 동일한 입력 text를($$x$$) 병렬로 처리한다. 
 
 <center>$$p_{\text{Mem-PLM}} (y_t \vert x) = \alpha \cdot p_{\text{Mem}}(y_t \vert x) + (1-\alpha) \cdot p_{\text{PLM}}(y_t \vert x) $$</center>
 
