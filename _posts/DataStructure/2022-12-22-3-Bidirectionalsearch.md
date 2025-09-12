@@ -53,10 +53,10 @@ goal and vice versa for finding shortest path possible.
 ### 1) Why bidirectional approach?
 많은 경우, <span style = "color:green">양방향 탐색의 앞선 두 탐색 방법보다 빠르며, 불필요한 탐색 경로를 줄일 수 있다.</span>
 
-트리를 생각해볼때, b가 branching factor이고 목표 vertex까지의 거리가 d인경우 **BFS와 DFS 탐색의 complexity**는 $$ O(bd) $$이다.
+트리를 생각해볼때, b가 branching factor이고 목표 vertex까지의 거리가 d인경우 **BFS와 DFS 탐색의 complexity**는 $$ O(b^d) $$이다.
 
-반면에, 양방향 탐색을 진행하는경우 하나의 operation을 진행하는 complexity는 $$O(\frac{bd}{2})$$이다. 따라서 전체 complexity는 $$O(\frac{bd}{2} + \frac{bd}{2} )$$이고,
-이는 $$O(bd)$$보다 작다.
+반면에, 양방향 탐색을 진행하는경우 하나의 operation을 진행하는 complexity는 $$O(\frac{b^d}{2})$$이다. 따라서 전체 complexity는 $$O(\frac{b^d}{2} + \frac{b^d}{2} )$$이고,
+이는 $$O(b^d)$$보다 작다.
 
 ### 2) When to use bidirectional approach?
 양방향 탐색은 탐색의 시작과 끝 지점이 명확하게 정의되어있고, 유니크한 경우에 사용하는 것이 적절하다. Branching factor는 두 operation(direction)이 정확하게 일치한다.
