@@ -55,7 +55,7 @@ goal and vice versa for finding shortest path possible.
 
 트리를 생각해볼때, b가 branching factor이고 목표 vertex까지의 거리가 d인경우 **BFS와 DFS 탐색의 complexity**는 $$ O(b^d) $$이다.
 
-반면에, 양방향 탐색을 진행하는경우 하나의 operation을 진행하는 complexity는 $$O(\frac{b^d}{2})$$이다. 따라서 전체 complexity는 $$O(\frac{b^d}{2} + \frac{b^d}{2} )$$이고,
+반면에, 양방향 탐색을 진행하는경우 하나의 operation을 진행하는 complexity는 $$O(b^{d/2})$$이다. 따라서 전체 complexity는 $$O(b^{d/2} + b^{d/2})$$이고,
 이는 $$O(b^d)$$보다 작다.
 
 ### 2) When to use bidirectional approach?
@@ -65,7 +65,7 @@ goal and vice versa for finding shortest path possible.
 
 - Completeness : Bidirectional search is complete if BFS is used in both searches.
 - Optimality   : It is optimal if BFS is used for search and paths have uniform cost.
-- Time and Space Complexity : Time and space complexity is $$O(\frac{b^d}{2})$$
+- Time and Space Complexity : Time and space complexity is $$O(b^{d/2})$$
 
 
 ## Reference
