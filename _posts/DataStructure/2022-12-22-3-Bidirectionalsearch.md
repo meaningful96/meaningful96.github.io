@@ -65,7 +65,7 @@ goal and vice versa for finding shortest path possible.
 
 - Completeness : Bidirectional search is complete if BFS is used in both searches.
 - Optimality   : It is optimal if BFS is used for search and paths have uniform cost.
-- Time and Space Complexity : Time and space complexity is $$O(\frac{bd}{2})$$
+- Time and Space Complexity : Time and space complexity is $$O(\frac{b^d}{2})$$
 
 
 ## Reference
