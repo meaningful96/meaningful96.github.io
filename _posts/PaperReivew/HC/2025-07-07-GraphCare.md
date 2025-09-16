@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]GraphCare: Enhancing Healthcare Predictions with Personalized Knowledge Graphs"
+title: "[논문리뷰]GraphCare: Enhancing Healthcare Predictions with Personalized Knowledge Graphs(ICLR, 2024)"
 
 categories: 
   - HC

@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]ReasoningLM: Enabling Structural Subgraph Reasoning in Pre-trained Language Models for Question Answering over Knowledge Graph"
+title: "[논문리뷰]ReasoningLM: Enabling Structural Subgraph Reasoning in Pre-trained Language Models for Question Answering over Knowledge Graph(EMNLP, 2023)"
 
 categories: 
   - NR

@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]Interactive-KBQA: Multi-Turn Interactions for Knowledge Base Question Answering with Large Language Models"
+title: "[논문리뷰]Interactive-KBQA: Multi-Turn Interactions for Knowledge Base Question Answering with Large Language Models(ACL, 2024)"
 
 categories: 
   - NR

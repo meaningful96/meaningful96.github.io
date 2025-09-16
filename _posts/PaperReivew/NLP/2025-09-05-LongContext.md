@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]Long-Context LLMs Meet RAG: Overcoming Challenges for Long Inputs in RAG"
+title: "[논문리뷰]Long-Context LLMs Meet RAG: Overcoming Challenges for Long Inputs in RAG(ICLR, 2025)"
 
 categories: 
   - NR

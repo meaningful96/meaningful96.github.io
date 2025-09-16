@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]Search-in-the-Chain: Interactively Enhancing Large Language Models with Search for Knowledge-intensive Tasks"
+title: "[논문리뷰]Search-in-the-Chain: Interactively Enhancing Large Language Models with Search for Knowledge-intensive Tasks(WWW, 2024)"
 
 categories: 
   - NR

@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]EfficientRAG: Efficient Retriever for Multi-Hop Question Answering"
+title: "[논문리뷰]EfficientRAG: Efficient Retriever for Multi-Hop Question Answering(EMNLP, 2024)"
 
 categories: 
   - NR

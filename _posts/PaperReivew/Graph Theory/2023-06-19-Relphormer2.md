@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]Relphormer: Relational Graph Transformer for Knowledge Graph Representation"
+title: "[논문리뷰]Relphormer: Relational Graph Transformer for Knowledge Graph Representation(Neurocomputing, 2023)"
 
 categories: 
   - GR

@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]DynaSemble: Dynamic Ensembling of Textual and Structure-Based Models for Knowledge Graph Completion"
+title: "[논문리뷰]DynaSemble: Dynamic Ensembling of Textual and Structure-Based Models for Knowledge Graph Completion(ACL short, 2024)"
 
 categories: 
   - GR

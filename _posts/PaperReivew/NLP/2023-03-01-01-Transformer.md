@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]Transformer: Attention Is All You Need"
+title: "[논문리뷰]Transformer: Attention Is All You Need(NeurIPS, 2017)"
 
 categories: 
   - NR

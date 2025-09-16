@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]Self-Retrieval: End-to-End Information Retrieval with One Large Language Model"
+title: "[논문리뷰]Self-Retrieval: End-to-End Information Retrieval with One Large Language Model(NeurIPS, 2024)"
 
 categories: 
   - NR

@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]Generate-then-Ground in Retrieval-Augmented Generation for Multi-hop Question Answering"
+title: "[논문리뷰]Generate-then-Ground in Retrieval-Augmented Generation for Multi-hop Question Answering(ACL, 2024)"
 
 categories: 
   - NR
