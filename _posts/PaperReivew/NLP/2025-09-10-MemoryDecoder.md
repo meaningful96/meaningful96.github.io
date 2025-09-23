@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]Memory Decoder: Memory for Large Language Models(arXiv, 2025)"
+title: "[논문리뷰]Memory Decoder: Memory for Large Language Models(NeurIPS, 2025)"
 
 categories: 
   - NR
