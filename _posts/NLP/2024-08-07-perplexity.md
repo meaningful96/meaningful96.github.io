@@ -6,8 +6,8 @@ categories:
 toc: true
 toc_sticky: true
 
-date: 2024-08-11
-last_modified_at: 2024-08-11
+date: 2024-08-07
+last_modified_at: 2024-08-07
 ---
 
 # Perplexity란?
