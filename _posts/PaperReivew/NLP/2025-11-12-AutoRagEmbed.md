@@ -117,7 +117,7 @@ CDA에서는 instruction에 따라 다른 임베딩을 사용한다.
 
 **Positive와 Negative 분리를 위한 Score**  
 
-<center$$>S_2(d^+, d_i^-; q)= -\sigma\!\left(\beta \log\frac{p_{\Theta_E}\!\left(d^+ \mid e_{q,I_{\text{next}}}\right)}{p_{\text{ref}}\!\left(d^+ \mid e_{q,I_{\text{next}}}\right)}-\beta \log\frac{p_{\Theta_E}\!\left(d_i^- \mid e_{q,I_{\text{next}}}\right)}{p_{\text{ref}}\!\left(d_i^- \mid e_{q,I_{\text{next}}}\right)}\right)$$</center>
+<center>$$S_2(d^+, d_i^-; q)= -\sigma\!\left(\beta \log\frac{p_{\Theta_E}\!\left(d^+ \mid e_{q,I_{\text{next}}}\right)}{p_{\text{ref}}\!\left(d^+ \mid e_{q,I_{\text{next}}}\right)}-\beta \log\frac{p_{\Theta_E}\!\left(d_i^- \mid e_{q,I_{\text{next}}}\right)}{p_{\text{ref}}\!\left(d_i^- \mid e_{q,I_{\text{next}}}\right)}\right)$$</center>
 
 여기서 새로 등장한 것이 reference분포 $$p_{\text{ref}}$$이다. CDA 학습 이전 상태의 LLM의 분포를 reference로 이용하여 문장 길이, 빈도 등으로 인한 편향을 보정하기 위해 사용한다. 
 
