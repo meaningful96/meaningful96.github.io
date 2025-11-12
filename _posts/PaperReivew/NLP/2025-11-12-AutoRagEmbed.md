@@ -37,7 +37,7 @@ last_modified_at: 2025-11-12
 - **Information Compression (IC)** 단계에서는 LLM Encoder는 질문(또는 문서)과 적절한 지시문, 그리고 학습 가능한 compress tokens(일종의 gist token)를 입력으로 받아, compress token 위치의 임베딩을 산출한다.
 - 이 임베딩만을 Frozen LLM Decoder에 조건으로 넣고 원본 텍스트의 로그우도를 최대화하도록 학습하여, 인코더가 전역 정보를 잘 압축한 벡터를 만들도록 유도한다.
 - 이후 **Conditional Distribution Alignment (CDA)** 단계에서 질문용 임베딩과 문서-자기 임베딩을 만들고, 분포 기반 점수로 정답은 가깝게, 오답은 멀게 정렬한다.
-  - 예를 들어 $S_1(q, d^{+})$은 "질문용 임베딩이 정답 문서를 생성할 확률"과 "문서-자기 임베딩이 자기 자신을 생성할 확률"의 로그비율 차이를 줄여 두 분포를 맞추는 점수이다.
+  - 예를 들어 $$S_1(q, d^{+})$$은 "질문용 임베딩이 정답 문서를 생성할 확률"과 "문서-자기 임베딩이 자기 자신을 생성할 확률"의 로그비율 차이를 줄여 두 분포를 맞추는 점수이다.
   - CDA의 핵심은 코사인 같은 벡터 거리에서 벗어나, <span style="color:gold">**조건부 생성 분포의 일치/선호도를 직접 최적화**</span>하는 것이다.
 
 ## 2.2. Information Compression (IC): from Discriminative to Generative Embeddings
@@ -56,25 +56,25 @@ Instruction Compressio의 목적은, 기존 "<span style="color:gold">**마지�
 
 ### 2.2.1. LLM Encoder
 - **입력**: `Context + Instruction + Compress Tokens`
-먼저 LLM 인코더는 `Context + Instruction` 를 입력으로 받아 **압축 토큰(compress token)** 위치의 hidden state들을 $e_c$를 생성한다. 이 때 이 LLM 인코더는 full fine-tunig을 진행하다. 이를 통해 압축 토큰은 입력으로 들어온 Context와 Instruction의 정보를 몇 개의 "압축 토큰"에 효과적으로 담을 수 있다 (입력 텍스트와 instruciton의 전역 정보를 압축 토큰에 담음).
+먼저 LLM 인코더는 `Context + Instruction` 를 입력으로 받아 **압축 토큰(compress token)** 위치의 hidden state들을 $$e_c$$를 생성한다. 이 때 이 LLM 인코더는 full fine-tunig을 진행하다. 이를 통해 압축 토큰은 입력으로 들어온 Context와 Instruction의 정보를 몇 개의 "압축 토큰"에 효과적으로 담을 수 있다 (입력 텍스트와 instruciton의 전역 정보를 압축 토큰에 담음).
 
 
 ### 2.2.2. LLM Decoder
 - **입력**: `Compressed Token Embeddings`
 
-LLM인코더를 통해 생성된 압축 토큰들은 freeze된 LLM 디코더에 입력된다. 디코더는 오직 이 $e_c$만을 조건으로 타깃 텍스트 $d$를 생성한다. 인코더는 이 텍스트 $d$의 likelihood를 최대화 하도록 학습하는 것이다.
+LLM인코더를 통해 생성된 압축 토큰들은 freeze된 LLM 디코더에 입력된다. 디코더는 오직 이 $$e_c$$만을 조건으로 타깃 텍스트 $$d$$를 생성한다. 인코더는 이 텍스트 $$d$$의 likelihood를 최대화 하도록 학습하는 것이다.
 
-<center>$\begin{aligned}
+<center>$$\begin{aligned}
 \mathcal{L}_{IC}
 &= \max_{e_{c_1}, \dots, e_{c_k}} P(d \mid e_{c_1}, \dots, e_{c_k} ; \theta_D) \\
 &= \max_{\Theta_E} P(d \mid c_1, \dots, c_k, t_1, \dots, t_m, q_1, \dots, q_n ; \theta_E, \theta_D)
-\end{aligned}$</center>
+\end{aligned}$$</center>
 
-- $c_1,\dots,c_k$: Compressed Token
-- $t_1,\dots,t_m$: Instruction
-- $q_1,\dots,q_n$: Context (=Query)
+- $$c_1,\dots,c_k$$: Compressed Token
+- $$t_1,\dots,t_m$$: Instruction
+- $$q_1,\dots,q_n$$: Context (=Query)
 
-결론적으로 이 과정을 통해 $e_c$가 <span style="color:gold">**전역적인(global) 의미를 담은 generative embedding**</span>이 된다.
+결론적으로 이 과정을 통해 $$e_c$$가 <span style="color:gold">**전역적인(global) 의미를 담은 generative embedding**</span>이 된다.
 
 ## 2.3. Conditional Distribution Alignment: from Data-Point to Distribution Perspective
 <p align="center">
@@ -86,47 +86,47 @@ Information Compression 단계에서 얻은 임베딩은 **AR decoder를 통해 
 CDA는 "임베딩 벡터 간 거리" 대신 "임베딩이 유도하는 생성 분포 간의 차이"를 이용해서, positivie-negative를 정렬하는 대조 학습 방법이다. 즉, point-level similarity(코사인)에서 distribution-level similarity(조건부 확률 분포) 로 관점을 바꾸는 단계이다.
 
 ### 2.3.1. Auto Regressive (AR) 조건부 분포 기반 유사도 정의
-<center>$p(d \mid e_c) = \prod_{t=1}^T p(d_t \mid d_{<t}, e)$</center>
+<center>$$p(d \mid e_c) = \prod_{t=1}^T p(d_t \mid d_{<t}, e)$$</center>
 
-디코더 $L_D$가 주어진 embedding $ e_c$에 대한 AR 조건부 분포 위와 같이 정의된다. 이 때, $d$는 디코더가 생성하는 문장 토큰 시퀀스이다. 
+디코더 $$L_D$$가 주어진 embedding $$ e_c$$에 대한 AR 조건부 분포 위와 같이 정의된다. 이 때, $$d$$는 디코더가 생성하는 문장 토큰 시퀀스이다. 
 
-<center>$S(q, d) = \frac{1}{T} \displaystyle\sum_{t=1}^T D\big(p(d_t \mid d_{<t}, e_q), p(d_t \mid d_{<t}, e_d)\big)$</center>
+<center>$$S(q, d) = \frac{1}{T} \displaystyle\sum_{t=1}^T D\big(p(d_t \mid d_{<t}, e_q), p(d_t \mid d_{<t}, e_d)\big)$$</center>
 
-- $D(\cdot, \cdot)$: 두 분포 간의 divergence 함수
+- $$D(\cdot, \cdot)$$: 두 분포 간의 divergence 함수
 
 핵심은 <span style="color:gold">**벡터 거리(point alignment)에서 조건부 분포 거리(distribution alignment)로 전환**</span>하는 것이다.
 
 ### 2.3.2. Instruction-Dependent라는 점을 활용한 실질적 정렬 전략
 CDA에서는 instruction에 따라 다른 임베딩을 사용한다.
 
-- $I_{\text{next}}$: 쿼리를 주면 관련 문서를 생성하는 instruction
-- $I_{\text{self}}$ : 문서를 주면 자기 자신을 재구성하는 instruction
+- $$I_{\text{next}}$$: 쿼리를 주면 관련 문서를 생성하는 instruction
+- $$I_{\text{self}}$$ : 문서를 주면 자기 자신을 재구성하는 instruction
 
-<center>$I_{\text{next}} + q \quad \rightarrow \quad e_{q, I_{\text{next}}} \\ I_{\text{self}} + q \quad \rightarrow \quad e_{q, I_{\text{self}}}$</center>
+<center>$$I_{\text{next}} + q \quad \rightarrow \quad e_{q, I_{\text{next}}} \\ I_{\text{self}} + q \quad \rightarrow \quad e_{q, I_{\text{self}}}$$</center>
 
 이를 이용해 두 가지 임베딩을 만들게 된다.
 
 ### 2.3.3. Training Objective
 **Positive Alignment Score**  
-<center>$S_1(q, d^+) = -\sigma\Big( \beta \mid \log\frac{p_{\Theta_E(d^+ \mid e_{q, I_{\text{next}}})}}{p_{\Theta_E(d^+ \mid e_{d^+, I_{\text{self}}})}} \Big)$</center>
+<center>$$S_1(q, d^+) = -\sigma\Big( \beta \mid \log\frac{p_{\Theta_E(d^+ \mid e_{q, I_{\text{next}}})}}{p_{\Theta_E(d^+ \mid e_{d^+, I_{\text{self}}})}} \Big)$$</center>
 
-- $p_{\Theta_E(d^+ \mid e_{q, I_{\text{next}}})}$: 질의 $q$ 임베딩으로 positive 문서 $d^+$를 생성할 확률.
-- $p_{\Theta_E(d^+ \mid e_{d^+, I_{\text{next}}})}$: positive 문서 $d^+$ 임베딩(자기 자신)으로 문서 $d^+$를 생성할 확률. 이 값은 일종의 upper bound 역할을 함.
+- $$p_{\Theta_E(d^+ \mid e_{q, I_{\text{next}}})}$$: 질의 $$q$$ 임베딩으로 positive 문서 $$d^+$$를 생성할 확률.
+- $$p_{\Theta_E(d^+ \mid e_{d^+, I_{\text{next}}})}$$: positive 문서 $$d^+$$ 임베딩(자기 자신)으로 문서 $$d^+$$를 생성할 확률. 이 값은 일종의 upper bound 역할을 함.
 
-즉 positive alignment score는 같은 문서 $d^+$를 생성할 때,  질의 임베딩과 문서-자기 임베딩이 만들어내는 분포의 차이가 logit으로 사용되며, 이 값이 작을수록 두 분포가 비슷하다는 의미이다.
+즉 positive alignment score는 같은 문서 $$d^+$$를 생성할 때,  질의 임베딩과 문서-자기 임베딩이 만들어내는 분포의 차이가 logit으로 사용되며, 이 값이 작을수록 두 분포가 비슷하다는 의미이다.
 
 **Positive와 Negative 분리를 위한 Score**  
 
-<center$>S_2(d^+, d_i^-; q)= -\sigma\!\left(\beta \log\frac{p_{\Theta_E}\!\left(d^+ \mid e_{q,I_{\text{next}}}\right)}{p_{\text{ref}}\!\left(d^+ \mid e_{q,I_{\text{next}}}\right)}-\beta \log\frac{p_{\Theta_E}\!\left(d_i^- \mid e_{q,I_{\text{next}}}\right)}{p_{\text{ref}}\!\left(d_i^- \mid e_{q,I_{\text{next}}}\right)}\right)$</center>
+<center$$>S_2(d^+, d_i^-; q)= -\sigma\!\left(\beta \log\frac{p_{\Theta_E}\!\left(d^+ \mid e_{q,I_{\text{next}}}\right)}{p_{\text{ref}}\!\left(d^+ \mid e_{q,I_{\text{next}}}\right)}-\beta \log\frac{p_{\Theta_E}\!\left(d_i^- \mid e_{q,I_{\text{next}}}\right)}{p_{\text{ref}}\!\left(d_i^- \mid e_{q,I_{\text{next}}}\right)}\right)$$</center>
 
-여기서 새로 등장한 것이 reference분포 $p_{\text{ref}}$이다. CDA 학습 이전 상태의 LLM의 분포를 reference로 이용하여 문장 길이, 빈도 등으로 인한 편향을 보정하기 위해 사용한다. 
+여기서 새로 등장한 것이 reference분포 $$p_{\text{ref}}$$이다. CDA 학습 이전 상태의 LLM의 분포를 reference로 이용하여 문장 길이, 빈도 등으로 인한 편향을 보정하기 위해 사용한다. 
 
-Logit에서 첫번째 항은  "현재 모델이 reference에 비해 $d^+$를 얼마나 더 잘생성하는가"를 나타내고, 두 번째 항은 "현재 모델이 reference에 비해 negative $d^-$를 얼마나 잘 생성하는가"를 나타낸다. 이 둘의 차이를 크게 만들어 줌으로써, positive는 더 잘 생성하고, negative는 잘 못생성하게 만드는 것이다.
+Logit에서 첫번째 항은  "현재 모델이 reference에 비해 $$d^+$$를 얼마나 더 잘생성하는가"를 나타내고, 두 번째 항은 "현재 모델이 reference에 비해 negative $$d^-$$를 얼마나 잘 생성하는가"를 나타낸다. 이 둘의 차이를 크게 만들어 줌으로써, positive는 더 잘 생성하고, negative는 잘 못생성하게 만드는 것이다.
 
 이는, DPO(Directional Preference Optimization)에서 "**우리가 선호하는 응답의 log prob를 reference 대비 더 크게 만들자**" 는 아이디어와 거의 동일한 구조이다.
 
-<center>$\mathcal{L}_{\mathrm{CDA}}
-= \mathbb{E}\!\left[-\log \frac{e^{S_1(q, d^+)/\tau}}{e^{S_1(q, d^+)/\tau}+\sum_i e^{S_2(d^+, d_i^-; q)/\tau}}\right]$</center>
+<center>$$\mathcal{L}_{\mathrm{CDA}}
+= \mathbb{E}\!\left[-\log \frac{e^{S_1(q, d^+)/\tau}}{e^{S_1(q, d^+)/\tau}+\sum_i e^{S_2(d^+, d_i^-; q)/\tau}}\right]$$</center>
 
 최종적으로 Loss 함수는 위와 같이 정의된다. <span style="color:gold">**기본 형태는 InfoNCE와 동일하지만 logit자리가 임베딩간의 유사도가 아닌, 분포의 정렬로 정의된 스코어를 사용**</span>한다는 것이다.
 
