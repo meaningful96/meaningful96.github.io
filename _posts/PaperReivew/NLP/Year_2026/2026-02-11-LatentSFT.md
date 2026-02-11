@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰]Making Long-Context Language Models Better Multi-Hop Reasoners (ACL, 2024)"
+title: "[논문리뷰]Latent Reasoning in LLMs as a Vocabulary-Space Superposition (arXiv, 2026)"
 
 categories: 
   - NR
