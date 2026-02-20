@@ -137,14 +137,14 @@ Latent token induction mask를 적용해 latent token encoder가 각 $$L_i$$의 
 ## 3.4. Training the LLM to Autonomously Generate Latent Tokens
 Stage 2에서는 Stage 1의 latent token encoder를 버리고, LLM이 아래 형태의 시퀀스를 직접 생성하게 만든다.
 
-<center>$$X = [Q,\ \texttt{\textless think\textgreater},\ z_1,\ \cdots,\ z_N,\ \texttt{\textless /think\textgreater},\ \text{Answer}]$$</center>
+<center>$$X = [Q,\ \mathtt{\lt think\gt},\ z_1,\ \cdots,\ z_N,\ \mathtt{\lt/think\gt},\ \text{Answer}]$$</center>
 
 여기서 latent slot과 explicit slot을 나누고, latent에는 KL, explicit에는 CE를 건다. 
 
 - **Latent slot label:**  $$p_t = \alpha_t$$
 - **Student prediction:** $$q_t = \text{softMax}(W^\top h_t)$$, W는 LM head
 
-<center>$$\mathcal L_{\text{auto}} (\theta_{\text{llm}}) = \lambda \cdot \frac{1}{\vert S_{\text{lat}} \vert} \text{KL}(p_t \mid q_t) + \beta \cdot \frac{1}{\vert S_{\text{exp}} \vert} \displaystyle\sum_{t \in S_{\text{exp}}} (-\log q_t[y_t])$$</center>
+<center>$$$$</center>
 
 - **입력:** Stage 1에서 만든 $$\alpha_t$$ (soft label) + 정답 토큰 $$y_t$$
 - **출력:** LLM이 latent token 분포를 먼저 생성하고, 마지막에 Answer를 생성하는 정책
