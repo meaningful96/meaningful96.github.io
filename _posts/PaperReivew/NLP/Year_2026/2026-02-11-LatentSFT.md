@@ -105,7 +105,7 @@ Stage 1은 encoder–decoder처럼 보이지만, 실제로는 **같은 LLM 구�
 **[Latent Token Induction Mask]**  
 explicit reasoning chain을 $$N$$개의 subsegment로 나누고, 각 segment의 압축 정보를 담을 special token $$L_i$$를 삽입한다. Segment는 고정 길이 혹은 의미 단위로 입력 텍스트를 쪼개는 것으로, 논문에서는 고정 길이로의 분할이 더 낫다고 말한다.
 
-- **입력:** $$\{Q, <think>, S_1, L_1, S_2, L_2, ..., S_N, L_N, </think>\}$$
+- **입력:** $$\{Q,\ \mathtt{\lt think\gt},\ S_1, L_1, S_2, L_2, ..., S_N, L_N,\ \mathtt{\lt/think\gt} \}$$
 - **출력:** Special token $$L_i$$의 임베딩
 
 <p align="center">
@@ -125,8 +125,8 @@ Latent token induction mask를 적용해 latent token encoder가 각 $$L_i$$의 
 
 각 latent token $$Z_i$$가 뒤에 남은 explict reasoning 구간들과 최종 answer을 복원하도록 강항 supervision을 건다. 즉 $$Z_i$$가 단순 압축이 아니라 <span style="color:gold">**정답을 내기 위한 충분한 의미를 담도록 semantic correctness를 강제**</span>한다.
 
-- **입력:** $$\Pi_i = \{Q, <think>, Z_1, S_2, Z_2, \cdots, Z_i\}$$
-- **복원 대상:** $$Y_i = \{ S_{i+1}\cdots, S_N, </think> \}$$
+- **입력:** $$\Pi_i = \{Q,\ \mathtt{\lt think\gt},\ Z_1, S_2, Z_2,\ \cdots,\ Z_i\}$$
+- **복원 대상:** $$Y_i = \{ S_{i+1}\cdots,\ S_N,\ \mathtt{\lt/think\gt} \}$$
 
 최종적으로 Supervised decoding loss는 다음과 같다.
 
