@@ -137,7 +137,7 @@ Latent token induction mask를 적용해 latent token encoder가 각 $$L_i$$의 
 ## 3.4. Training the LLM to Autonomously Generate Latent Tokens
 Stage 2에서는 Stage 1의 latent token encoder를 버리고, LLM이 아래 형태의 시퀀스를 직접 생성하게 만든다.
 
-<center>$$X = [Q, <think>, z_1, \cdots, z_N, </think>, \text{Answer}]$$</center>
+<center>$$X = [Q,\ \texttt{\textless think\textgreater},\ z_1,\ \cdots,\ z_N,\ \texttt{\textless /think\textgreater},\ \text{Answer}]$$</center>
 
 여기서 latent slot과 explicit slot을 나누고, latent에는 KL, explicit에는 CE를 건다. 
 
