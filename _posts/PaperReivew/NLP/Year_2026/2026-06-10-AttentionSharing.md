@@ -94,8 +94,8 @@ $$P \in \mathbb{R}^{n \times n \times m}$$인 fixed 2D sinusoidal positional enc
 
 <details>
   <summary>MQA</summary>
-**GQA (Grouped Query Attention)
-**여러 query head를 group으로 묶고 각 group이 하나의 shared K/V head를 사용하게 하는 방식이다. 예를 들어 16개의 query head가 있고, GQA-4를 쓴다면, query head는 16개 그대로 유지하지만, K/V head는 4개 group만 둔다. 즉 16개의 query head가 4개의 shared key-value group을 나눠 쓰는 구조이다.
+**GQA (Grouped Query Attention)**  
+여러 query head를 group으로 묶고 각 group이 하나의 shared K/V head를 사용하게 하는 방식이다. 예를 들어 16개의 query head가 있고, GQA-4를 쓴다면, query head는 16개 그대로 유지하지만, K/V head는 4개 group만 둔다. 즉 16개의 query head가 4개의 shared key-value group을 나눠 쓰는 구조이다.
 <center>$$\text{GQA-}g \; \text{Cache size} \propto 2g$$</center>
 
 예를 들어, H=16, g=4이면 GQA-4의 cache는 2g=8단위이다. 따라서 cache reduction은 다음과 같다.
