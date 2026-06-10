@@ -6,16 +6,30 @@
 $background-color: #eeeeee !default;
 $text-color: #222831 !default;
 $muted-text-color: #393e46 !default;
-$primary-color: #0092ca !default;
+$primary-color: #006f9f !default;
 $border-color: mix(#fff, #393e46, 75%) !default;
 $footer-background-color: $primary-color !default;
 $link-color: #393e46 !default;
-$masthead-link-color: $text-color !default;
-$masthead-link-color-hover: $text-color !default;
+$masthead-link-color: #000 !default;
+$masthead-link-color-hover: #000 !default;
 $navicon-link-color-hover: mix(#fff, $text-color, 80%) !default;
 
+.greedy-nav a.site-title,
+.greedy-nav a.site-title:visited,
+.greedy-nav a.site-title:hover,
+.site-title,
+.site-title:visited,
+.site-title:hover,
+.author__name,
+.author__name a,
+.author__name a:visited,
+.author__name a:hover,
+.nav__title {
+  color: #000 !important;
+}
+
 .page__footer {
-  color: #fff !important; // override
+  color: #fff !important;
 }
 
 .page__footer-follow .social-icons .svg-inline--fa {
