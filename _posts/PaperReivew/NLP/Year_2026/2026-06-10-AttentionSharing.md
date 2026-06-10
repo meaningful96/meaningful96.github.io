@@ -117,28 +117,28 @@ Q-GQA-g 방법은 $$H$$개의 query head, $$g$$개의 KV group에 대해 각 gro
 # 4. Experiments
 ## 4.1. Computational and Memory Analysis
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.06.10%5DAttentionSharing/figure2.png?raw=true">
+<img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.06.10%5DAttentionSharing/figure2.png?raw=true">
 </p>
 
 Computational cost관점에서 모든 variant를 공유하는 Q=K=V 셋팅은, 기존 트랜스포머 방식 대비 1/3배로 줄어든다. 여기서 중요한 점은 **Q-K=V는 어텐션 방향성을 유지하면서 KV Cache를 줄이는 유일한 2-projection variant**이다. 
 
 ## 4.2. Performance on Synthetic Tasks
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.06.10%5DAttentionSharing/figure3.png?raw=true">
+<img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.06.10%5DAttentionSharing/figure3.png?raw=true">
 </p>
 
 Synthetic task에서는 Reverse, Sort, Sub, Swap, Copy 다섯 task를 사용해 projection sharing이 algorithmic reasoning에 미치는 영향을 본다. 결과적으로 Q=K-V와 Q-K=V가 QKV와 거의 같은 평균 성능을 보인 반면, Q=K=V는 지나치게 강한 constraint 때문에 크게 떨어진다. 중요한 점은  <span style="color:gold">**Q=K-V나 Q=K=V도 QKV와 동등하거나 더 나은 성능을 보인다는 것**</span>이다.  (X)+는 특히 Swap에서 Q=K-V를 0.597에서 0.671로, Q=K=V를 0.446에서 0.576으로 끌어올려 symmetry 완화 효과를 보인다. 
 
 ## 4.3. Performance on Vision Tasks
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.06.10%5DAttentionSharing/figure4.png?raw=true">
+<img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.06.10%5DAttentionSharing/figure4.png?raw=true">
 </p>
 
 Vision task에서는 MNIST, FashionMNIST, CIFAR-10, CIFAR-100, TinyImageNet, set anomaly detection을 평가한다. Stnthetic task와 마찬가지로 Vision task에서도 symmetric attention이 language modeling만큼 치명적이지 않으며, <span style="color:gold">**Q=K-V나 Q=K=V도 QKV와 동등하거나 더 나은 성능**</span>을 보인다.
 
 ## 4.4. KV Cache Memory Analysis
 <p align="center">
-<img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.06.10%5DAttentionSharing/figure5.png?raw=true">
+<img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.06.10%5DAttentionSharing/figure5.png?raw=true">
 </p>
 
 가장 중요한 분석은 Q-K=V가 실질적인 inference memory bottleneck을 직접 줄인다는 점이다. Table 7에서 QKV와 Q=K-V는 token당 80KB, 32K context에서 2.62GB를 사용하지만, Q-K=V는 token당 40KB, 32K context에서 1.31GB만 사용한다. Q=K-V는 2-projection임에도 K와 V를 모두 저장해야 하므로 cache reduction이 0%이고, Q-K=V는 K만 저장해 50%를 줄인다. Combined variant는 Q-GQA-4 0.33GB(87.5%↓), Q-MQA 0.08GB(96.9%↓)까지 줄인다. 이 분석 때문에 **저자들은 Q-K=V를 “practical deployment advantage”가 있는 유일한 2-projection variant**로 본다.
