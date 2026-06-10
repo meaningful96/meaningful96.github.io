@@ -101,7 +101,8 @@ MQA (Multi-Query Attention)는 GQA의 극단적인 형태이다. 모든 query he
 
 <center>$$1 - \frac{2}{2H} = 1 - \frac{1}{H} = 1 - \frac{1}{16} = 93.75\%$$</center>
 즉 MQA는 cache를 매우 크게 줄이지만, 모든 query head가 같은 K/V를 공유하기 때문에 표현력 측면에서 GQA에 비해 제한적이다.
-</details> 
+</details>
+
 ---
 
 <br/>
