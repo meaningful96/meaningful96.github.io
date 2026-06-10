@@ -78,8 +78,7 @@ $$P \in \mathbb{R}^{n \times n \times m}$$인 fixed 2D sinusoidal positional enc
 <br/>
 
 ## 3.3. Combining Projection Sharing with Head Sharing
-이 논문에서 제안하는 두 번째 방법론은 Projection layer뿐만 아니라, Head sharing까지 하는 것이다. 즉 GQA (Grouped Query Attention)와 MQA (Multi-Query Attention)에도 sharing을 적용하는 것이다. GQA와 MQA는 KV cache를 줄이기 위해 여러 attention head가 Key/Value head를 공유하게 만든 attention 구조이다. 이 논문에서는 이를 head sharing이라고 부르고, 논문이 제안하는 projection sharing과는 다른 축의 효율화로 본다. 즉 GQA/MQA는 “head 수를 줄이는 방법”이고, 이 논문의 Q-K=V는 “projection matrix 자체를 공유하는 방법”이다. 논문도 GQA/MQA가 여러 query head가 key-value head를 공유해 memory를 줄인다고 설명한다.
-
+이 논문에서 제안하는 두 번째 방법론은 Projection layer뿐만 아니라, Head sharing까지 하는 것이다. 즉 GQA (Grouped Query Attention)와 MQA (Multi-Query Attention)에도 sharing을 적용하는 것이다. GQA와 MQA는 KV cache를 줄이기 위해 여러 attention head가 Key/Value head를 공유하게 만든 attention 구조이다. 이 논문에서는 이를 head sharing이라고 부르고, 논문이 제안하는 projection sharing과는 다른 축의 효율화로 본다. 즉 GQA/MQA는 “head 수를 줄이는 방법”이고, 이 논문의 Q-K=V는 “projection matrix 자체를 공유하는 방법”이다. 논문도 GQA/MQA가 여러 query head가 key-value head를 공유해 memory를 줄인다고 설명한다.  
 <details>
   <summary>GQA</summary>
 **GQA (Grouped Query Attention)
