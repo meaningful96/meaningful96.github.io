@@ -21,7 +21,7 @@ last_modified_at: 2024-06-30
 
 ### 1) Mean Rank(MR)
 
-**MR**은 매우 간단한 개념이다. 모델이 예측한 샘플들의 <span style="color:gold">**순위의 평균**</span>을 의미한다. 수식은 다음과 같다. $$N$$은 테스트한 샘플의 수이고, $$rank_i$$는 $$i$$번째 샘플의 순위이다.
+**MR**은 매우 간단한 개념이다. 모델이 예측한 샘플들의 <span style="color:red">**순위의 평균**</span>을 의미한다. 수식은 다음과 같다. $$N$$은 테스트한 샘플의 수이고, $$rank_i$$는 $$i$$번째 샘플의 순위이다.
 
 <center><span style="font-size:110%">$$\text{MR} \; = \; \frac{1}{N} \sum_{i=1}^N rank_i$$</span></center> 
 
@@ -31,7 +31,7 @@ last_modified_at: 2024-06-30
 
 ### 2) Mean Reciprocal Rank (MRR)
 
-**MRR**은 <span style="color:gold">**실제 정답의 순위의 역수를 평균**</span> 낸 것이다. 추천 시스템, Knowledge Graph Completion, 정보 검색 등 여러 분야에서 자주 사용된다. **MRR이 1에 가까울수록 모델의 성능이 좋은 것**이다.
+**MRR**은 <span style="color:red">**실제 정답의 순위의 역수를 평균**</span> 낸 것이다. 추천 시스템, Knowledge Graph Completion, 정보 검색 등 여러 분야에서 자주 사용된다. **MRR이 1에 가까울수록 모델의 성능이 좋은 것**이다.
 
 <p align="center">
 <img width="800" alt="1" src="https://github.com/meaningful96/Blogging/assets/111734605/3b390cdc-d0e7-4886-bde1-caf543e15f49">
@@ -51,7 +51,7 @@ last_modified_at: 2024-06-30
 
 ### 3) Hits@k
 
-**Hits@k**는 모든 결과들 중 <span style="color:gold">**상위 k개에 실제 정답(true candidate)이 순위안에 들어있는 비율을 계산한 것**</span>이다. @k라는 것은 상위 k개의 랭크를 말한다. 
+**Hits@k**는 모든 결과들 중 <span style="color:red">**상위 k개에 실제 정답(true candidate)이 순위안에 들어있는 비율을 계산한 것**</span>이다. @k라는 것은 상위 k개의 랭크를 말한다. 
 
 <center><span style="font-size:110%">$$\text{Hits@k} = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}(rank_i \leq k)$$</span></center> 
 
@@ -140,7 +140,7 @@ MAP는 다음과 같은 장단점을 가진다.
 <center><span style="font-size:110%">$$\text{IDCG} = \sum_{i=1}^{|REL_p|} \frac{rel_i}{\log_2(i + 1)}$$</span></center>  
 <center><span style="font-size:110%">$$\text{IDCG} = \sum_{i=1}^{|REL_p|} \frac{2^{rel_i} - 1}{\log_2(i + 1)}$$</span></center>    
 
-이제 이 두 개념을 통해 **NDCG(Normalized Discounted Cumulative Gain)**를 구할 수 있다. NDCG는 DCG를 IDCG로 정규화한 값이다. 이는 <span style="color:gold">**실제 결과의 순위를 이상적인 순서와 비교하여 평가**</span>한다. NDCG는 **0과 1 사이의 값**을 가지며, 1에 가까울수록 순위가 이상적임을 의미한다. 수식은 다음과 같다.
+이제 이 두 개념을 통해 **NDCG(Normalized Discounted Cumulative Gain)**를 구할 수 있다. NDCG는 DCG를 IDCG로 정규화한 값이다. 이는 <span style="color:red">**실제 결과의 순위를 이상적인 순서와 비교하여 평가**</span>한다. NDCG는 **0과 1 사이의 값**을 가지며, 1에 가까울수록 순위가 이상적임을 의미한다. 수식은 다음과 같다.
 
 <center><span style="font-size:110%">$$\text{NDCG} = \frac{\text{DCG}}{\text{IDCG}}$$</span></center>  
 

@@ -39,7 +39,7 @@ last_modified_at: 2025-12-26
 
 # 3. Methodology
 ## 3.1. Preliminaries
-- **Key Point:** <span style="color:gold">**Projection Layer에 LoRA expert를 직렬로 삽입**</span>
+- **Key Point:** <span style="color:red">**Projection Layer에 LoRA expert를 직렬로 삽입**</span>
 
 LoRA-Mixer의 핵심 아이디어는 LoRA를 병렬 브랜치로 붙여서 나중에 합치는 방식이 아니라, Transformer의 **Attention 또는 SSM(State-Space Model) 블록이 실제로 사용하는 선형 projection layer에 LoRA expert 혼합을 직렬**로 끼워 넣는 것이다. $$E$$개의 LoRA expert와 라우터 $$\alpha(\mathbf{x})\in \mathbb R^E$$를 사용해 projection 행렬 $$W \in \mathbb{R}^{d_{out} \times d_{in}}$$을 업데이트한다. 각 expert는 다음과 같이 정의된다.
 
@@ -58,7 +58,7 @@ $$
 - $$y$$가 곧바로 Q/K/V/O projection 이후의 어텐션 계산으로 들어가거나,
 - SSM에서 selective scan 전후의 선형변환 출력으로 들어감
 
-즉, LoRA-Mixer는 branch(=우회)로 결과를 합치는 것이 아니라, <span style="color:gold">**projection layer라는 가장 표현력이 큰 지점에서 출력을 바꿔서 이후의 attention/SSM 연산 전체에 영향을 주도록 설계**</span>되어 있으며, 이 때문에 아키텍처를 깨지 않으면서도 효과적으로 적용된다.
+즉, LoRA-Mixer는 branch(=우회)로 결과를 합치는 것이 아니라, <span style="color:red">**projection layer라는 가장 표현력이 큰 지점에서 출력을 바꿔서 이후의 attention/SSM 연산 전체에 영향을 주도록 설계**</span>되어 있으며, 이 때문에 아키텍처를 깨지 않으면서도 효과적으로 적용된다.
 
 
 ## 3.2. LoRA-Mixer for Compositing LoRAs
@@ -76,7 +76,7 @@ LoRA-Mixer의 expert는 새로 학습해야만 하는 것이 아니라, **서로
 
 ### 3.4. Specialization Balance Loss for Routing Optimization
 
-- **Key Point:** <span style="color:gold">**라우팅 기반 최적화 - RSL(Route-Specialization Balance Loss) + Expert Preservation**</span>
+- **Key Point:** <span style="color:red">**라우팅 기반 최적화 - RSL(Route-Specialization Balance Loss) + Expert Preservation**</span>
 
 논문에서는 기존 auxiliary loss가 과도한 균등 사용을 만들어 입력 인지 라우팅을 방해한다고 보고, 균형(balance)과 특화(specialization)를 동시에 목표로 하는 RSL을 제안한다.
 
@@ -87,7 +87,7 @@ $$\bar p_i$$를 토큰들에 대한 평균 soft route score, $$\bar f_i$$를 top
 
 <center>$$\mathcal H (p(\mathbb{x})) = - \displaystyle\sum_i p_i(\mathbf x)\log p_i (\mathbf{x})$$</center>
 
-이 때, $$\mathcal H (p(\mathbb{x}))$$는 엔트로피이며 $$\alpha$$와 $$\lambda$$는 각각 balance와 entropy regularizer의 영향력을 반영하는 하이퍼파라미터이다. RSL의 첫 항 $$\alpha \cdot \displaystyle\sum_{i=1}^K \bar p_i \cdot \bar f_i$$ 은 <span style="color:gold">**의도한 라우팅 확률과 실제 사용량의 일치를 유도해 전역 균형**</span>을 잡고, 둘째 항 $$\mathbb{E}_{x \sim \mathcal D} [\mathcal H (p(\mathbb{x}))]$$은 <span style="color:gold">**엔트로피 정규화를 통해 입력별로 더 선택적인 라우팅을 유도하여 무의미한 균등 활성화를 완화**</span>한다.
+이 때, $$\mathcal H (p(\mathbb{x}))$$는 엔트로피이며 $$\alpha$$와 $$\lambda$$는 각각 balance와 entropy regularizer의 영향력을 반영하는 하이퍼파라미터이다. RSL의 첫 항 $$\alpha \cdot \displaystyle\sum_{i=1}^K \bar p_i \cdot \bar f_i$$ 은 <span style="color:red">**의도한 라우팅 확률과 실제 사용량의 일치를 유도해 전역 균형**</span>을 잡고, 둘째 항 $$\mathbb{E}_{x \sim \mathcal D} [\mathcal H (p(\mathbb{x}))]$$은 <span style="color:red">**엔트로피 정규화를 통해 입력별로 더 선택적인 라우팅을 유도하여 무의미한 균등 활성화를 완화**</span>한다.
 
 **Expert Preservation Regularization**  
 학습된 expert 지식이 라우터 학습(또는 joint 과정)에서 오염되는 것을 막기 위해, 일부 expert 집합 $$C$$에 대해 초기 파라미터 $$\theta_i^{(0)}$$에서 멀어지는 것을 벌점으로 둔다.

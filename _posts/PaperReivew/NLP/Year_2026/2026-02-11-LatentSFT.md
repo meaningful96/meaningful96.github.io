@@ -53,8 +53,8 @@ last_modified_at: 2026-02-11
 
 이러한 구조의 특징은 다음과 같다.
 
-- reasoning 과정 동안 <span style="color:gold">**entropy가 높은 분포**</span>를 유지함
-- 하나의 step이 <span style="color:gold">**여러 reasoning path를 동시에 포함**</span>함
+- reasoning 과정 동안 <span style="color:red">**entropy가 높은 분포**</span>를 유지함
+- 하나의 step이 <span style="color:red">**여러 reasoning path를 동시에 포함**</span>함
 - reasoning은 token sampling 없이 latent space에서 진행됨
 - reasoning chain 길이가 크게 단축됨
 
@@ -66,12 +66,12 @@ last_modified_at: 2026-02-11
 **Observation 1. 마지막 레이어의 hidden state 분포와 토큰 임베딩 분포가 완전히 불일치한다.**  
 > The distribution of last-layer hidden states in the LLM is entirely inconsistent with that of the token embeddings
 
-Observation 1은 <span style="color:gold">**LLM의 마지막 레이어의 hidden states 분포가 토큰 임베딩 분포와 통계적으로 완전히 다르다**</span>는 것이다. 논문은 기존 latent reasoning 계열(COCONUT류)이 마지막 레이어 hidden state를 다음 step 입력(=latent token)으로 그대로 feed하는 설계를 따르는데, 이게 성능이 약한 이유가 <span style="color:gold">**입력 분포 자체가 학습 시 분포와 다르기 때문**이라고 주장한다.
+Observation 1은 <span style="color:red">**LLM의 마지막 레이어의 hidden states 분포가 토큰 임베딩 분포와 통계적으로 완전히 다르다**</span>는 것이다. 논문은 기존 latent reasoning 계열(COCONUT류)이 마지막 레이어 hidden state를 다음 step 입력(=latent token)으로 그대로 feed하는 설계를 따르는데, 이게 성능이 약한 이유가 <span style="color:red">**입력 분포 자체가 학습 시 분포와 다르기 때문**이라고 주장한다.
 
 - LLM은 pre-training 동안 **토큰 임베딩 분포를 입력으로 받는** 상황에 최적화되어 있다.
 - 그런데 hidden state를 그대로 입력으로 다시 넣으면, 모델 관점에서 out-of-distribution 입력을 받는 셈이다.
 
-Figure 2는 (예: LLaMA-3.2-1B-Instruct, GSM8k)에서 PCA로 차원을 줄여서 두 분포를 시각화하고, 단순 시각화에 그치지 않고 FID, MMD² 같은 분포 거리 지표, 그리고 랜덤 샘플링 기반 코사인 유사도와 같은 통계량까지 함께 제시해서 <span style="color:gold">**둘이 같은 공간의 변형 정도가 아니라, 분포적으로 별개**</span>라는 것을 강조한다.
+Figure 2는 (예: LLaMA-3.2-1B-Instruct, GSM8k)에서 PCA로 차원을 줄여서 두 분포를 시각화하고, 단순 시각화에 그치지 않고 FID, MMD² 같은 분포 거리 지표, 그리고 랜덤 샘플링 기반 코사인 유사도와 같은 통계량까지 함께 제시해서 <span style="color:red">**둘이 같은 공간의 변형 정도가 아니라, 분포적으로 별개**</span>라는 것을 강조한다.
 
 <p align="center">
 <img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.01.19%5DLatent-SFT/figure3.png?raw=true">
@@ -80,7 +80,7 @@ Figure 2는 (예: LLaMA-3.2-1B-Instruct, GSM8k)에서 PCA로 차원을 줄여서
 **Observation 2. 토큰 임베딩 matrix의 effective rank가 full이 아니다.**  
 > *The Effective Rank of LLM  Token embedding Is Not Full*
 
-Observation 2는 <span style="color:gold">**LLM의 토큰 임베딩 matrix는 nominal dimension은 크지만, 실제로는 low-dimensional subspace에 가깝다**</span>는 것이다. 논문은 여러 LLM의 embedding matrix에 대해 특이값의 스펙트럼을 보고, 특이값이 평평하게 유지되는 게 아니라 **빠르게 decay**한다는 점을 근거로 effective rank가 full이 아니라고 주장한다.
+Observation 2는 <span style="color:red">**LLM의 토큰 임베딩 matrix는 nominal dimension은 크지만, 실제로는 low-dimensional subspace에 가깝다**</span>는 것이다. 논문은 여러 LLM의 embedding matrix에 대해 특이값의 스펙트럼을 보고, 특이값이 평평하게 유지되는 게 아니라 **빠르게 decay**한다는 점을 근거로 effective rank가 full이 아니라고 주장한다.
 
 ## 3.2. Model Overview
 <p align="center">
@@ -91,9 +91,9 @@ Observation 2는 <span style="color:gold">**LLM의 토큰 임베딩 matrix는 no
 
 <center>$$z = \displaystyle\sum_{i=1}^V \alpha_ie_i, \quad \text{with } \alpha_i \in \mathbb R, e_i \in \mathbb R^d$$</center>
 
-이 때, $$\{ e_i \}_{i=1}^V$$는 vocabulary의 임베딩 벡터들을 의미하고, $$\alpha_i$$는 의미적 혼합도를 결정하는 파라미터이다. 즉, 하나의 토큰이 아니라 <span style="color:gold">**여러 토큰의 확률적 중첩(superposition)**</span>이다. 이 정의 때문에 latent token은 항상 vocabulary 임베딩의 span안에 존재한다는 성질을 가진다.
+이 때, $$\{ e_i \}_{i=1}^V$$는 vocabulary의 임베딩 벡터들을 의미하고, $$\alpha_i$$는 의미적 혼합도를 결정하는 파라미터이다. 즉, 하나의 토큰이 아니라 <span style="color:red">**여러 토큰의 확률적 중첩(superposition)**</span>이다. 이 정의 때문에 latent token은 항상 vocabulary 임베딩의 span안에 존재한다는 성질을 가진다.
 
-Latent-SFT는 <span style="color:gold">**(1) 먼저 latent token의 정답 레이블을 만들고(Stage 1), (2) 그 레이블을 LLM이 스스로 생성하도록 학습(Stage 2)**</span>하는 방식이다. 
+Latent-SFT는 <span style="color:red">**(1) 먼저 latent token의 정답 레이블을 만들고(Stage 1), (2) 그 레이블을 LLM이 스스로 생성하도록 학습(Stage 2)**</span>하는 방식이다. 
 
 - **Stage 1: Generating Latent Tokens via Induction–Supervision Masking**: explicit reasoning chain을 짧은 구간으로 나누고, 각 구간을 대표하는 latent toke $$z_i$$를 만들되, 그 $$z_i$$가 **뒤 구간과 최종 Answer를 복원**할 수 있게 강한 마스킹으로 강제한다. 
     
@@ -112,7 +112,7 @@ explicit reasoning chain을 $$N$$개의 subsegment로 나누고, 각 segment의 
 <img width="350" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.01.19%5DLatent-SFT/figure5.png?raw=true">
 </p>
 
-이 때, 기존 LLM의 causal attention mask를 조작하고, 이를 **latent token induction mask**라고 한다. 이는 $$L_i$$가 <span style="color:gold">**자기 앞의 reasoning subsegment들에서만 정보를 모으도록 어텐션을 제한하는 역할**</span>을 한다. 이를 통해 semantic compactness 성질을 강제한다. 예를 들어, special token $$L_3$$의 입장에서 $$L_1$$과 $$L_2$$ 토큰은 보지않고, segment 1,2,3과 $$L_3$$자기 자신만 보고 토큰의 표현을 만들도록 유도하는 것이다.
+이 때, 기존 LLM의 causal attention mask를 조작하고, 이를 **latent token induction mask**라고 한다. 이는 $$L_i$$가 <span style="color:red">**자기 앞의 reasoning subsegment들에서만 정보를 모으도록 어텐션을 제한하는 역할**</span>을 한다. 이를 통해 semantic compactness 성질을 강제한다. 예를 들어, special token $$L_3$$의 입장에서 $$L_1$$과 $$L_2$$ 토큰은 보지않고, segment 1,2,3과 $$L_3$$자기 자신만 보고 토큰의 표현을 만들도록 유도하는 것이다.
 
 <center>$$Soft \; Embedding: Z_i = \sum_{j=1}^V \alpha_j^ie_j, \quad e_j \in \text{Vocab.Matrix}$$</center>
 
@@ -123,7 +123,7 @@ Latent token induction mask를 적용해 latent token encoder가 각 $$L_i$$의 
 <img width="350" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.01.19%5DLatent-SFT/figure6.png?raw=true">
 </p>
 
-각 latent token $$Z_i$$가 뒤에 남은 explict reasoning 구간들과 최종 answer을 복원하도록 강항 supervision을 건다. 즉 $$Z_i$$가 단순 압축이 아니라 <span style="color:gold">**정답을 내기 위한 충분한 의미를 담도록 semantic correctness를 강제**</span>한다.
+각 latent token $$Z_i$$가 뒤에 남은 explict reasoning 구간들과 최종 answer을 복원하도록 강항 supervision을 건다. 즉 $$Z_i$$가 단순 압축이 아니라 <span style="color:red">**정답을 내기 위한 충분한 의미를 담도록 semantic correctness를 강제**</span>한다.
 
 - **입력:** $$\Pi_i = \{Q,\ \mathtt{\lt think\gt},\ Z_1, S_2, Z_2,\ \cdots,\ Z_i\}$$
 - **복원 대상:** $$Y_i = \{ S_{i+1}\cdots,\ S_N,\ \mathtt{\lt/think\gt} \}$$
@@ -192,9 +192,9 @@ Math500과 AIME24에서 Soft Embedding 기반 Latent-SFT는 Hidden State 기반 
 <img width="400" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.01.19%5DLatent-SFT/figure91.png?raw=true">
 </p>
 
-Figure 6에서의 Analysis 2는 latent reasoning이 단순히 하나의 reasoning path를 압축해 들고 있는 것이 아니라, <span style="color:gold">**여러 개의 서로 다른 reasoning 가설을 동시에 유지한 채로 추론을 진행한다는 점**</span>을 검증한다. 실험 결과에서 Effective Global Parallelism $$N_{eff}$$가 평균적으로 3~4 수준이라는 것은, 모델이 추론 과정 동안 “이렇게 풀 수도 있고, 저렇게 풀 수도 있다”는 복수의 가능성을 하나로 확정하지 않고 병렬적으로 유지하고 있음을 의미한다. 이는 확률 분포가 겉보기로만 넓게 퍼져 있는 상태가 아니라, 실제로 의미 있는 확률 질량이 여러 reasoning path에 나뉘어 배분되어 있다는 뜻이다. 
+Figure 6에서의 Analysis 2는 latent reasoning이 단순히 하나의 reasoning path를 압축해 들고 있는 것이 아니라, <span style="color:red">**여러 개의 서로 다른 reasoning 가설을 동시에 유지한 채로 추론을 진행한다는 점**</span>을 검증한다. 실험 결과에서 Effective Global Parallelism $$N_{eff}$$가 평균적으로 3~4 수준이라는 것은, 모델이 추론 과정 동안 “이렇게 풀 수도 있고, 저렇게 풀 수도 있다”는 복수의 가능성을 하나로 확정하지 않고 병렬적으로 유지하고 있음을 의미한다. 이는 확률 분포가 겉보기로만 넓게 퍼져 있는 상태가 아니라, 실제로 의미 있는 확률 질량이 여러 reasoning path에 나뉘어 배분되어 있다는 뜻이다. 
 
-특히 Top-2 Score가 높게 유지된다는 점은 가장 유력한 reasoning path와 두 번째 후보가 끝까지 경쟁적인 상태로 남아 있음을 보여주며, latent reasoning이 조기에 하나의 해법으로 수렴하는 것이 아니라 여러 대안을 동시에 고려하다가 마지막에야 하나로 정리되는 구조임을 뒷받침한다. 따라서 이 분석은 latent reasoning이 본질적으로 <span style="color:gold">**multiple reasoning path의 superposition 상태에서 사고를 진행한 뒤, 최종 단계에서 하나의 해답으로 collapse하는 추론 방식**</span>임을 high-level에서 명확히 보여준다.
+특히 Top-2 Score가 높게 유지된다는 점은 가장 유력한 reasoning path와 두 번째 후보가 끝까지 경쟁적인 상태로 남아 있음을 보여주며, latent reasoning이 조기에 하나의 해법으로 수렴하는 것이 아니라 여러 대안을 동시에 고려하다가 마지막에야 하나로 정리되는 구조임을 뒷받침한다. 따라서 이 분석은 latent reasoning이 본질적으로 <span style="color:red">**multiple reasoning path의 superposition 상태에서 사고를 진행한 뒤, 최종 단계에서 하나의 해답으로 collapse하는 추론 방식**</span>임을 high-level에서 명확히 보여준다.
 
 <br/>
 <br/>
