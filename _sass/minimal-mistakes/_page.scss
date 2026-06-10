@@ -589,3 +589,17 @@ body {
     }
   }
 }
+
+.page__content details summary {
+  color: #000 !important;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.page__content details summary::marker {
+  color: #000 !important;
+}
+
+.page__content details summary::-webkit-details-marker {
+  color: #000 !important;
+}
