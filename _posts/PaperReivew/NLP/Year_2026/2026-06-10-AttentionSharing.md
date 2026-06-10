@@ -105,8 +105,6 @@ MQA (Multi-Query Attention)는 GQA의 극단적인 형태이다. 모든 query he
 
 ---
 
-<br/>
-
 GQA-g에서는 $$H$$개의 query head가 $$g < H$$개의 shared KV head를 사용하고, MQA는 하나의 KV head만 모든 query head가 공유하는 극단적 형태이다. 이 때 projection sharing은 head 개수를 줄이는 것이 아니라, 각 KV head 내부에서 $$K=V$$를 강제하는 것이므로 두 방법은 병렬적으로 결합된다. Q-GQA-g 방법은 $$H$$개의 query head, $$g$$개의 KV group에 대해 각 group 내부에서 $$K=V$$를 적용한 방법이다. 따라서 cache reduction은 다음과 같다.
 
 <center>$$\text{Cache Reduction} = 1 - \frac{g}{2H}$$</center>
