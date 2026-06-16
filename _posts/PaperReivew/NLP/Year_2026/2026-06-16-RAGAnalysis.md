@@ -38,17 +38,17 @@ last_modified_at: 2026-06-16
 </p>
 
 ## 3.1. Definition
-이 논문은 RAG를 query $q$, retriever $r$, retrieved set $S_q$, instruction prompt $I$, LLM $p_\theta$로 정의한다. Retriever는 데이터베이스 $D$에서 $N$개의 문서 $S_q = \{ d_1, \ldots, d_N\} \in D$를 가져온다.
+이 논문은 RAG를 query $$q$$, retriever $$r$$, retrieved set $$S_q$$, instruction prompt $$I$$, LLM $$p_\theta$$로 정의한다. Retriever는 데이터베이스 $$D$$에서 $$N$$개의 문서 $$S_q = \{ d_1, \ldots, d_N\} \in D$$를 가져온다.
 
-<center>$\hat y \sim p_\theta(Y \mid I, q, S_q)$</center>
+<center>$$\hat y \sim p_\theta(Y \mid I, q, S_q)$$</center>
 
-검색 이후 위의 식처럼 지시문 ($I$), 쿼리 ($q$), 검색된 문서들 ($S_q$)가 LLM의 입력되고, 정답을 생성하게 된다. 이 때, 검색된 문서는 세 가지 문서 분포의 혼합에서 샘플링된 것으로 본다.
+검색 이후 위의 식처럼 지시문 ($$I$$), 쿼리 ($$q$$), 검색된 문서들 ($$S_q$$)가 LLM의 입력되고, 정답을 생성하게 된다. 이 때, 검색된 문서는 세 가지 문서 분포의 혼합에서 샘플링된 것으로 본다.
 
-<center>$d_i \sim \alpha_1 P_{\text{rel}} + \alpha_2 P_{\text{dist}} + \alpha_3 P_{\text{rand}} \\ \alpha_1, \alpha_2, \alpha_3 > 0, \quad \alpha_1+\alpha_2+\alpha_3 = 1$</center>
+<center>$$d_i \sim \alpha_1 P_{\text{rel}} + \alpha_2 P_{\text{dist}} + \alpha_3 P_{\text{rand}} \\ \alpha_1, \alpha_2, \alpha_3 > 0, \quad \alpha_1+\alpha_2+\alpha_3 = 1$$</center>
 
-$P_{\text{rel}}$은 ground truth에 해당하는 문서 분포이고, $P_{\text{dist}}$는 쿼리와 유사도는 높지만 정답 문서는 아닌, 즉 hard negative에 해당하는 distractor 문서 분포이다. 마지막으로 $P_{\text{rand}}$는 쿼리와 유사도가 낮아 쉽게 구분되는, 즉 answer derivation에 도움이 되지 않는 easy negative 문서들의 분포이다.
+$$P_{\text{rel}}$$은 ground truth에 해당하는 문서 분포이고, $$P_{\text{dist}}$$는 쿼리와 유사도는 높지만 정답 문서는 아닌, 즉 hard negative에 해당하는 distractor 문서 분포이다. 마지막으로 $$P_{\text{rand}}$$는 쿼리와 유사도가 낮아 쉽게 구분되는, 즉 answer derivation에 도움이 되지 않는 easy negative 문서들의 분포이다.
 
-논문에서는 분석을 위해 사용하는 representation을 다음과 같이 정의한다. $h^{q, S_q} \in \mathbb{R}^{L \times D}$는 쿼리와 검색된 문서들이 주어졌을 때, 모든 $L$개의 트랜스포머 레이어에서 마지막 토큰의 hidden states를 모은 것이다. 논문은 특히 마지막 레이어의 마지막 토큰의 representation인 $h_{-1}^{q, S_q}$를 PCA와 코사인 유사도 분석에 집중한다.
+논문에서는 분석을 위해 사용하는 representation을 다음과 같이 정의한다. $$h^{q, S_q} \in \mathbb{R}^{L \times D}$$는 쿼리와 검색된 문서들이 주어졌을 때, 모든 $$L$$개의 트랜스포머 레이어에서 마지막 토큰의 hidden states를 모은 것이다. 논문은 특히 마지막 레이어의 마지막 토큰의 representation인 $$h_{-1}^{q, S_q}$$를 PCA와 코사인 유사도 분석에 집중한다.
 
 ## 3.2. Analysis Settings
 ### 3.2.1. Datasets and LLM backbones
@@ -58,32 +58,32 @@ $P_{\text{rel}}$은 ground truth에 해당하는 문서 분포이고, $P_{\text{
 Retrieval database는 약 1.4T tokens 규모의 MassiveDS이고, **Contriever**를 사용해 각 쿼리마다 상위 20개의 문서를 검색한다.
 
 ### 3.2.2. Representation Analysis setting
-분석을 하기 전, 쿼리의 난이도를 easy와 hard 두 개로 분류한다. LLM에게 쿼리 $q$만 입력으로 주고 retrieval 없이 문제를 맞히면 easy, 틀리면 hard로 레이블링한다. 
+분석을 하기 전, 쿼리의 난이도를 easy와 hard 두 개로 분류한다. LLM에게 쿼리 $$q$$만 입력으로 주고 retrieval 없이 문제를 맞히면 easy, 틀리면 hard로 레이블링한다. 
 
 Multiple-document setting의 목적은 현실적인 RAG처럼 여러 문서가 동시에 주어질 때 relevant evidence가 noise 사이에서 어떻게 표현되는지를 보는 것이다. 입력 prompt는 네 개 document를 포함한다. 조건은 one relevant + three distracting, one relevant + three random, relevant-only baseline이다. 문서 순서는 positional bias를 줄이기 위해 random shuffle한다. 출력은 multi-context 조건별 hidden representation과 QA accuracy이다.
 
 ### 3.2.3. ### Effect of Relevant Documents on Uncertainty
 Relevant 문서가 모델 confidence를 높이는지 보기 위해 length-normalized log-likelihood를 uncertainty score로 사용한다. 검색 없이 생성한 답변의 스코어는 아래와 같다.
 
-<center>$s_{\text{nodoc}} = \frac{1}{\vert \hat y \vert} \displaystyle\sum_{i=1}^{\vert \hat y \vert} \log \big( p_\theta(y_t \mid I, q, y_{<t}) \big)$</center>
+<center>$$s_{\text{nodoc}} = \frac{1}{\vert \hat y \vert} \displaystyle\sum_{i=1}^{\vert \hat y \vert} \log \big( p_\theta(y_t \mid I, q, y_{<t}) \big)$$</center>
 
 Relevant 문서를 포함해 생성한 답변의 스코어는 아래와 같다.
 
-<center>$s_{\text{rel}} = \frac{1}{\vert \hat y \vert} \displaystyle\sum_{i=1}^{\vert \hat y \vert} \log \big( p_\theta(y_t \mid I, q, S_q^{\text{rel}}, y_{<t}) \big)$</center>
+<center>$$s_{\text{rel}} = \frac{1}{\vert \hat y \vert} \displaystyle\sum_{i=1}^{\vert \hat y \vert} \log \big( p_\theta(y_t \mid I, q, S_q^{\text{rel}}, y_{<t}) \big)$$</center>
 
-저자들은 $s_\text{rel} > s_\text{nodoc}$ 라는 가설을 세운다. 즉 relevant한 문서가 있으면 같은 정답을 생성하더라도 토큰의 log-likeligood가 높아져 confidence가 증가해야 한다.
+저자들은 $$s_\text{rel} > s_\text{nodoc}$$ 라는 가설을 세운다. 즉 relevant한 문서가 있으면 같은 정답을 생성하더라도 토큰의 log-likeligood가 높아져 confidence가 증가해야 한다.
 
 ### 3.2.4. Representations Separability Analyses
-PCA visualization을 정량적으로 보강하기 위해 linear probe separability를 측정한다. Linear probe의 weight와 bias를  $w, b$, test representation을 $\{ x_i\}_{i=1}^N$라 할 때, decision boundary까지의 평균 거리는 다음과 같이 정의한다.
+PCA visualization을 정량적으로 보강하기 위해 linear probe separability를 측정한다. Linear probe의 weight와 bias를  $$w, b$$, test representation을 $$\{ x_i\}_{i=1}^N$$라 할 때, decision boundary까지의 평균 거리는 다음과 같이 정의한다.
 
-<center>$d = \frac{1}{N} \displaystyle\sum_{i=1}^N \Big\vert \frac{w^\top x_i+b}{||w||_2} \Big\vert$</center>
+<center>$$d = \frac{1}{N} \displaystyle\sum_{i=1}^N \Big\vert \frac{w^\top x_i+b}{||w||_2} \Big\vert$$</center>
 
 <br/>
 <br/>
 
 # 4. Experiments
 ## 4.1. Effect of Context Relevancy
-이 섹션의 Research question은 relevant, distracting, random document가 query-only 상태 대비 LLM 내부표현을 어떻게 이동시키는가이다. 여기서 representation drift의 기준은 No Doc, 즉 검색된 문서를 넣지 않은 query-only baseline이다. 같은 쿼리 $q$에 대해 no-document 프롬프트의 마지막 레이어의 마지막 토큰 rerpesentation과, relevant/distracting/random 문서를 넣은 프롬프트의 representation을 비교한다. 예를 들어, “random document가 큰 drift를 유발한다”는 말은 random condition의 representation cluster가 No Doc cluster에서 가장 멀리 떨어져 있다는 뜻이다.
+이 섹션의 Research question은 relevant, distracting, random document가 query-only 상태 대비 LLM 내부표현을 어떻게 이동시키는가이다. 여기서 representation drift의 기준은 No Doc, 즉 검색된 문서를 넣지 않은 query-only baseline이다. 같은 쿼리 $$q$$에 대해 no-document 프롬프트의 마지막 레이어의 마지막 토큰 rerpesentation과, relevant/distracting/random 문서를 넣은 프롬프트의 representation을 비교한다. 예를 들어, “random document가 큰 drift를 유발한다”는 말은 random condition의 representation cluster가 No Doc cluster에서 가장 멀리 떨어져 있다는 뜻이다.
 
 ### Observation 1: Random Documents Induce Large Representation Drift
 Figure 2는 <span style="color:red">**semantically dissimilar한 random document가 가장 큰 representation drift를 유발한다**</span>는 결과를 보여준다. Relevant와 distracting document는 대체로 no-document baseline 근처에 위치하지만, random document는 query-only representation에서 크게 떨어진 cluster를 형성한다. 직관적으로는 random document가 유용한 정보를 담고 있지 않으므로 representation 변화도 작을 것 같지만, 실제 결과는 반대이다. 논문은 이를 LLM이 uninformative context를 내부적으로 감지하고, 답변 생성을 진행하기보다 refusal/abstention mode로 이동한 결과로 해석한다.
