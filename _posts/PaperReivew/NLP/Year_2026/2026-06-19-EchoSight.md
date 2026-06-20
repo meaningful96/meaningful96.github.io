@@ -40,9 +40,9 @@ last_modified_at: 2026-06-19
 
 EchoSight의 핵심 방법론은 **visual-only coarse retrieval → multimodal fine-grained reranking → LLM answer generation**으로 이어지는 3단계 multimodal RAG pipeline이다. Figure 2는 전체 구조를 보여주며, 
 
-- **입력:** reference image $I_{ref}$, question $Q$, External KB
+- **입력:** reference image $$I_{ref}$$, question $$Q$$, External KB
   - 외부 지식에 해당하는 Knowledge Base (KB)는 Wikipedia artical과 image pair로 구성됨.
-  - KB는 $B = \{ (a_1, I_1),\ldots, (a_n, I_n) \}$으로 정의하면 $a_i$는 Wikipedia article, $I_i$는 각 article에 연결된 image임
+  - KB는 $$B = \{ (a_1, I_1),\ldots, (a_n, I_n) \}$$으로 정의하면 $$a_i$$는 Wikipedia article, $$I_i$$는 각 article에 연결된 image임
 
 ### 3.1. Retriever
 ### 3.1.1. Corse-grained Retrieval
@@ -50,28 +50,28 @@ EchoSight의 핵심 방법론은 **visual-only coarse retrieval → multimodal f
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.06.18%5DEchoSight/figure3.png?raw=true">
 </p>
 
-**1) Visual-only Search**는 reference image $I_{ref}$만을 사용해 <span style="color:red">**유사한 Wikipedia image를 먼저 찾는 coarse retrieval**</span> 단계이다. 먼저 사전 학습된 vision encoder $\Phi_{vis}$를 이용해 External KB에 존재하는 모든 이미지를 임베딩하여 vector DB를 구축한다. 
+**1) Visual-only Search**는 reference image $$I_{ref}$$만을 사용해 <span style="color:red">**유사한 Wikipedia image를 먼저 찾는 coarse retrieval**</span> 단계이다. 먼저 사전 학습된 vision encoder $$\Phi_{vis}$$를 이용해 External KB에 존재하는 모든 이미지를 임베딩하여 vector DB를 구축한다. 
 
-사용자의 question ($q$)과 reference image ($I_{ref}$)가 시스템에 입력이 되면 먼저 $I_{ref}$를 동일한 vision encoder로 임베딩하고 유사도 기반으로 top-$k$개의 image를 검색한다. 이를 통해 최종적으로 top-$k$개의 image-article 후보 집합 $E_v = \{ (a_1, I_1),\ldots, (a_k, I_k) \}$를 얻는다. 구현에서는 frozen `Eva-CLIP-8B` vision encoder의 마지막 레이어의 mean pooling된 임베딩과 `FAISS`를 사용해 대규모 image search를 수행한다.
+사용자의 question ($$q$$)과 reference image ($$I_{ref}$$)가 시스템에 입력이 되면 먼저 $$I_{ref}$$를 동일한 vision encoder로 임베딩하고 유사도 기반으로 top-$$k$$개의 image를 검색한다. 이를 통해 최종적으로 top-$$k$$개의 image-article 후보 집합 $$E_v = \{ (a_1, I_1),\ldots, (a_k, I_k) \}$$를 얻는다. 구현에서는 frozen `Eva-CLIP-8B` vision encoder의 마지막 레이어의 mean pooling된 임베딩과 `FAISS`를 사용해 대규모 image search를 수행한다.
 
 ### 3.1.2. Fine-grained Multimodal Reranking
-Visual-only search를 통해 $k$개의 <span style="color:red">**image-article 후보 집합에 대해 질문과 실제로 관련이 있는지 image-question 기준으로 재정렬**</span>하는 fine-grained reranking을 진행하고, 이를 **Multimodal Reranking**이라고 정의한다. 먼저 Q-Former를 이용해 reference image와 textual question을 함께 받아 32개의 멀티모달 쿼리 토큰을 생성한다. 이를 수식으로 표현하면 다음과 같다. 
+Visual-only search를 통해 $$k$$개의 <span style="color:red">**image-article 후보 집합에 대해 질문과 실제로 관련이 있는지 image-question 기준으로 재정렬**</span>하는 fine-grained reranking을 진행하고, 이를 **Multimodal Reranking**이라고 정의한다. 먼저 Q-Former를 이용해 reference image와 textual question을 함께 받아 32개의 멀티모달 쿼리 토큰을 생성한다. 이를 수식으로 표현하면 다음과 같다. 
 
-<center>$z_m^i = \text{Q-Former} (I_{ref}, Q)$</center>
+<center>$$z_m^i = \text{Q-Former} (I_{ref}, Q)$$</center>
 
-여기서 $z^i_m$이 쿼리의 $i$번째 토큰 임베딩이다. 그리고 각 후보 article은 섹션 단위로 나누고 article title을 prefix로 붙여 $a_i = \{sec_1^i, sec_2^i, \ldots, sec_p^i\}$ 처럼 구성한 뒤 text encoer로 섹션 임베딩을 만든다. 섹션으로 나눈다는 것은, 쉽게 말해 하나의 long-context article을 여러 개의 passage로 나누는 것을 의미한다.
+여기서 $$z^i_m$$이 쿼리의 $$i$$번째 토큰 임베딩이다. 그리고 각 후보 article은 섹션 단위로 나누고 article title을 prefix로 붙여 $$a_i = \{sec_1^i, sec_2^i, \ldots, sec_p^i\}$$ 처럼 구성한 뒤 text encoer로 섹션 임베딩을 만든다. 섹션으로 나눈다는 것은, 쉽게 말해 하나의 long-context article을 여러 개의 passage로 나누는 것을 의미한다.
 
 Reranking score는 멀티모달 쿼리 토큰과 Wikipedia 섹션의 [CLS] 토큰 임베딩 간 최대 pairwise 유사도로 정의된다.
 
-<center>$S_r^{sec} = max_{1\leq i \leq N_q} \Big ( \cos (z_m^i, z_s^{sec}) \Big ) $</center>
+<center>$$S_r^{sec} = max_{1\leq i \leq N_q} \Big ( \cos (z_m^i, z_s^{sec}) \Big ) $$</center>
 
 이 방식은 질문에 중요한 특정 query token이 section text와 강하게 매칭되는 경우를 포착하는 late-interaction 성격의 scoring이다. 
 
-최종적으로  Reranker는 vision-only search 단계에서는 각 image-article pair별 스코어와 멀티모달 reranking score를 결합해 스코어 $sec_{vl}$
+최종적으로  Reranker는 vision-only search 단계에서는 각 image-article pair별 스코어와 멀티모달 reranking score를 결합해 스코어 $$sec_{vl}$$
 
-<center>$sec_{vl} = \arg\max_{sec \in a} \Big( \alpha \cdot S_v^{sec} + (1-\alpha)\cdot S_r^{sec} \Big)$</center>
+<center>$$sec_{vl} = \arg\max_{sec \in a} \Big( \alpha \cdot S_v^{sec} + (1-\alpha)\cdot S_r^{sec} \Big)$$</center>
 
-여기서 $\alpha$는 visual simiarlity와 reranking score 사이의 balanced parameter이다.
+여기서 $$\alpha$$는 visual simiarlity와 reranking score 사이의 balanced parameter이다.
 
 Reranker는 hard negative sampling을 활용한 대조 학습 방식으로 학습을 진행한다. 입력은 positive evidence 섹션과 negative 섹션들이며, negative는 무작위 article이 아니라 visual-only retrieval에서 image는 비슷하지만 정답 article이 아닌 후보들로 구성된다. 즉 모델은 **visually similar but contextually distinct**한 hard negatives 사이에서 질문과 실제로 관련 있는 section을 고르도록 학습된다. 목적함수는 in-batch기반 **InfoNCE**로 학습한다.
 
