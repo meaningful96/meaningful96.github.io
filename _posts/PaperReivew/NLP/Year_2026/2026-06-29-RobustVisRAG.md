@@ -58,7 +58,7 @@ RobustVisRAG는 표준 VisRAG의 vision encoder를 **causality-guided dual-path 
 - **검색 인코더 (Retrieval Encoder, $$\mathcal{E}_r$$)**: document image corpus $$\mathcal{V}$$를 검색용 embedding으로 바꾸는 vision 인코더
 - **생성 인코더 (Generation Encoder, $$\mathcal{E}_g$$)**: retrieve된 document image $$R$$을 answer generation에 사용할 visual feature로 바꾸는 generator-side vision 인코더
 
-논문은 이후 두 인코더를 통합적으로 $$\mathcal{E}_\theta$$라고 부른다. Vision-based RAG 프레임워크에서 발생하는 핵심 문제는 문서 이미지가 <span style="color:red">**blur, noise, low light, shadow 등으로 degraded되면 인코더의 embedding space가 흔들리고, 이 오류가 검색에서 끝나지 않고 생성까지 전파**</spam>된다는 점이다. 쉽게 말하면, VisRAG는 원래 “이미지 안의 내용”을 보고 문서를 찾아야 하는데, degraded image에서는 모델이 내용과 화질 문제를 함께 embedding한다. 그래서 질문과 관련된 문서가 아니라, **왜곡된 visual pattern에 의해 잘못된 문서를 검색**하거나, 맞는 문서를 검색해도 generator가 흐릿한 visual evidence에 의해 잘못된 답을 만들 수 있다.
+논문은 이후 두 인코더를 통합적으로 $$\mathcal{E}_\theta$$라고 부른다. Vision-based RAG 프레임워크에서 발생하는 핵심 문제는 문서 이미지가 <span style="color:red">**blur, noise, low light, shadow 등으로 degraded되면 인코더의 embedding space가 흔들리고, 이 오류가 검색에서 끝나지 않고 생성까지 전파**</span>된다는 점이다. 쉽게 말하면, VisRAG는 원래 “이미지 안의 내용”을 보고 문서를 찾아야 하는데, degraded image에서는 모델이 내용과 화질 문제를 함께 embedding한다. 그래서 질문과 관련된 문서가 아니라, **왜곡된 visual pattern에 의해 잘못된 문서를 검색**하거나, 맞는 문서를 검색해도 generator가 흐릿한 visual evidence에 의해 잘못된 답을 만들 수 있다.
 
 ## 3.1.2. Causal Formulation of Degradation in VisRAG
 논문은 이 문제를 **semantic factor와 degradation factor가 latent representation 안에서 섞이는 문제**로 해석한다. 여기서 $$S$$는 문서의 실제 의미 정보, 즉 text, table, chart, layout 등 task에 필요한 semantic factor이고, $$D$$는 blur, shadow 같은 degradation factor이다. 관측되는 문서 이미지 $$X$$는 이 둘이 함께 작용해서 만들어진다.
