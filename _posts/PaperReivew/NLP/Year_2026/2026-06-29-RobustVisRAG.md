@@ -236,7 +236,7 @@ $$</center>
 
 \sum_{x^-}\exp(\langle q,X^-\rangle/\tau)
 }
-$$</center
+$$</center>
 
 여기서 $$X^+$$는 query 와 관련된 positive visual document이고, $$\{X^-\}$$는 negative visual documents이다. Retrieval의 전체 objective는 다음과 같다.
 
