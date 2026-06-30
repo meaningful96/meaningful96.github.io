@@ -50,12 +50,12 @@ EchoSight의 핵심 방법론은 **visual-only coarse retrieval → multimodal f
 <img width="1000" alt="1" src="https://github.com/meaningful96/Blogging/blob/main/PaperReview(2026)/%5B2026.06.18%5DEchoSight/figure3.png?raw=true">
 </p>
 
-**1) Visual-only Search**는 reference image $$I_{ref}$$만을 사용해 <span style="color:red">**유사한 Wikipedia image를 먼저 찾는 coarse retrieval**</span> 단계이다. 먼저 사전 학습된 vision encoder $$\Phi_{vis}$$를 이용해 External KB에 존재하는 모든 이미지를 임베딩하여 vector DB를 구축한다. 
+**1) Visual-only Search**는 reference image $$I_{ref}$$만을 사용해 <span style="color:#9e0000">**유사한 Wikipedia image를 먼저 찾는 coarse retrieval**</span> 단계이다. 먼저 사전 학습된 vision encoder $$\Phi_{vis}$$를 이용해 External KB에 존재하는 모든 이미지를 임베딩하여 vector DB를 구축한다. 
 
 사용자의 question ($$q$$)과 reference image ($$I_{ref}$$)가 시스템에 입력이 되면 먼저 $$I_{ref}$$를 동일한 vision encoder로 임베딩하고 유사도 기반으로 top-$$k$$개의 image를 검색한다. 이를 통해 최종적으로 top-$$k$$개의 image-article 후보 집합 $$E_v = \{ (a_1, I_1),\ldots, (a_k, I_k) \}$$를 얻는다. 구현에서는 frozen `Eva-CLIP-8B` vision encoder의 마지막 레이어의 mean pooling된 임베딩과 `FAISS`를 사용해 대규모 image search를 수행한다.
 
 ### 3.1.2. Fine-grained Multimodal Reranking
-Visual-only search를 통해 $$k$$개의 <span style="color:red">**image-article 후보 집합에 대해 질문과 실제로 관련이 있는지 image-question 기준으로 재정렬**</span>하는 fine-grained reranking을 진행하고, 이를 **Multimodal Reranking**이라고 정의한다. 먼저 Q-Former를 이용해 reference image와 textual question을 함께 받아 32개의 멀티모달 쿼리 토큰을 생성한다. 이를 수식으로 표현하면 다음과 같다. 
+Visual-only search를 통해 $$k$$개의 <span style="color:#9e0000">**image-article 후보 집합에 대해 질문과 실제로 관련이 있는지 image-question 기준으로 재정렬**</span>하는 fine-grained reranking을 진행하고, 이를 **Multimodal Reranking**이라고 정의한다. 먼저 Q-Former를 이용해 reference image와 textual question을 함께 받아 32개의 멀티모달 쿼리 토큰을 생성한다. 이를 수식으로 표현하면 다음과 같다. 
 
 <center>$$z_m^i = \text{Q-Former} (I_{ref}, Q)$$</center>
 
