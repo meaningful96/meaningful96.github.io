@@ -53,7 +53,7 @@ $$</center>
 (\tau_t, a) = g_\text{LLM} (q, I_t; \theta_\text{LLM})
 $$</center>
 
-를 생성하여 종료한다. 즉 <span style="color:#9e0000">**종료 시점을 조절하는 Adaptive-RAG**</span>이다. LatentRAG는  text-based thought와 subquery를 latent computation slot으로 대체하고, latent representation을 retrieval model과 직접 연결한다. Methodology는 latent token generation, latent retrieval, latent decoding, joint training objective의 순서로 구성된다.
+를 생성하여 종료한다. 즉 <span style="color:red">**종료 시점을 조절하는 Adaptive-RAG**</span>이다. LatentRAG는  text-based thought와 subquery를 latent computation slot으로 대체하고, latent representation을 retrieval model과 직접 연결한다. Methodology는 latent token generation, latent retrieval, latent decoding, joint training objective의 순서로 구성된다.
 
 ## 3.1. Generation with Latent Tokens
 
@@ -72,7 +72,7 @@ $$</center>
 \mathcal I_t^\ell = (\tau_0^\ell, s_0^\ell, c_0, \ldots, \tau_{t-1}^\ell, s_{t-1}^\ell, c_{t-1}^\ell)
 $$</center>
 
-앞선 과정을 통해 <span style="color:#9e0000">**thought와 subquery만 latent token으로 바뀌었고, 문서의 컨텍스트는 여전히 자연어**</span>이다. 
+앞선 과정을 통해 <span style="color:red">**thought와 subquery만 latent token으로 바뀌었고, 문서의 컨텍스트는 여전히 자연어**</span>이다. 
 
 ### 3.1.1. Latent Thought 생성과 action 결정
 
@@ -92,9 +92,9 @@ $$</center>
 H_t^s = f_\text{LLM} (s_t^\ell; q, \mathcal I_t^\ell. \tau_t^\ell, \theta_\text{LLM})
 $$</center>
 
-기존 방식이 <span style="color:#9e0000">**$$n$$개 이상의 자연어 토큰을 순차적으로 생성하던 것과 달리, $$n$$개의 latent subquery 토큰의 hidden state를 병렬적으로 계산**</span>한다.
+기존 방식이 <span style="color:red">**$$n$$개 이상의 자연어 토큰을 순차적으로 생성하던 것과 달리, $$n$$개의 latent subquery 토큰의 hidden state를 병렬적으로 계산**</span>한다.
 
-만약 $$\alpha_t$$가 `<answer>` 이면, special subquery 토큰 대신 `<answer>` 토큰을 배치하여 최종 정답 $$a$$를 autoregressive하게 생성한다. 즉, LatentRAG는 <span style="color:#9e0000">**thought와 subquery의 긴 decoding은 제거하지만 최종 답 자체는 일반 LLM과 동일하게 자연어 토큰으로 생성**</span>한다.
+만약 $$\alpha_t$$가 `<answer>` 이면, special subquery 토큰 대신 `<answer>` 토큰을 배치하여 최종 정답 $$a$$를 autoregressive하게 생성한다. 즉, LatentRAG는 <span style="color:red">**thought와 subquery의 긴 decoding은 제거하지만 최종 답 자체는 일반 LLM과 동일하게 자연어 토큰으로 생성**</span>한다.
 
 ## 3.2. Latent Retrieval
 

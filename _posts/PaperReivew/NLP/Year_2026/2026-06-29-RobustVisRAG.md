@@ -50,7 +50,7 @@ RobustVisRAG는 표준 VisRAG의 vision encoder를 **causality-guided dual-path 
 
 ## 3.1. Preliminaries
 ### 3.1.1. Vision-based RAG
-**Vision-based RAG**는 텍스트 질문 $$q$$를 보고, visual corpus $$\mathcal V = \{ X_i \}_{i=1}^N$$안에서 관련 문서 이미지를 찾은 뒤, 그 이미지를 근거로 응답 $$Y$$를 생성하는 구조이다. 즉, TextRAG처럼 OCR로 문서를 텍스트로 바꾸는 것이 아니라, <span style="color:#9e0000">**문서 이미지를 VLM 인코더가 직접 임베딩해서 검색과 생성에 사용**</span>한다.
+**Vision-based RAG**는 텍스트 질문 $$q$$를 보고, visual corpus $$\mathcal V = \{ X_i \}_{i=1}^N$$안에서 관련 문서 이미지를 찾은 뒤, 그 이미지를 근거로 응답 $$Y$$를 생성하는 구조이다. 즉, TextRAG처럼 OCR로 문서를 텍스트로 바꾸는 것이 아니라, <span style="color:red">**문서 이미지를 VLM 인코더가 직접 임베딩해서 검색과 생성에 사용**</span>한다.
 
 <center>$$R = \mathcal R \big( q, \mathcal E_r (\mathcal V) \big), \quad Y = \mathcal G \big( q, \mathcal E_g(R) \big)$$</center>
 
@@ -58,7 +58,7 @@ RobustVisRAG는 표준 VisRAG의 vision encoder를 **causality-guided dual-path 
 - **검색 인코더 (Retrieval Encoder, $$\mathcal{E}_r$$)**: document image corpus $$\mathcal{V}$$를 검색용 embedding으로 바꾸는 vision 인코더
 - **생성 인코더 (Generation Encoder, $$\mathcal{E}_g$$)**: retrieve된 document image $$R$$을 answer generation에 사용할 visual feature로 바꾸는 generator-side vision 인코더
 
-논문은 이후 두 인코더를 통합적으로 $$\mathcal{E}_\theta$$라고 부른다. Vision-based RAG 프레임워크에서 발생하는 핵심 문제는 문서 이미지가 <span style="color:#9e0000">**blur, noise, low light, shadow 등으로 degraded되면 인코더의 embedding space가 흔들리고, 이 오류가 검색에서 끝나지 않고 생성까지 전파**</span>된다는 점이다. 쉽게 말하면, VisRAG는 원래 “이미지 안의 내용”을 보고 문서를 찾아야 하는데, degraded image에서는 모델이 내용과 화질 문제를 함께 embedding한다. 그래서 질문과 관련된 문서가 아니라, **왜곡된 visual pattern에 의해 잘못된 문서를 검색**하거나, 맞는 문서를 검색해도 generator가 흐릿한 visual evidence에 의해 잘못된 답을 만들 수 있다.
+논문은 이후 두 인코더를 통합적으로 $$\mathcal{E}_\theta$$라고 부른다. Vision-based RAG 프레임워크에서 발생하는 핵심 문제는 문서 이미지가 <span style="color:red">**blur, noise, low light, shadow 등으로 degraded되면 인코더의 embedding space가 흔들리고, 이 오류가 검색에서 끝나지 않고 생성까지 전파**</span>된다는 점이다. 쉽게 말하면, VisRAG는 원래 “이미지 안의 내용”을 보고 문서를 찾아야 하는데, degraded image에서는 모델이 내용과 화질 문제를 함께 embedding한다. 그래서 질문과 관련된 문서가 아니라, **왜곡된 visual pattern에 의해 잘못된 문서를 검색**하거나, 맞는 문서를 검색해도 generator가 흐릿한 visual evidence에 의해 잘못된 답을 만들 수 있다.
 
 ## 3.1.2. Causal Formulation of Degradation in VisRAG
 논문은 이 문제를 **semantic factor와 degradation factor가 latent representation 안에서 섞이는 문제**로 해석한다. 여기서 $$S$$는 문서의 실제 의미 정보, 즉 text, table, chart, layout 등 task에 필요한 semantic factor이고, $$D$$는 blur, shadow 같은 degradation factor이다. 관측되는 문서 이미지 $$X$$는 이 둘이 함께 작용해서 만들어진다.
@@ -89,7 +89,7 @@ X \rightarrow Z,
 Z \rightarrow (R,Y)
 $$
 
-여기서 중요한 직관은 <span style="color:#9e0000">**$$S$$와 $$D$$가 모두 이미지 $$X$$를 만들지만, VisRAG의 답변 $$A \in \{R,Y\}$$는 원래 $$S$$에 의해 결정되어야 한다는 점**</span>이다. 즉, 문서에 적힌 내용은 답을 바꾸는 원인이지만, 이미지가 흐리거나 어두운 것은 답을 바꾸는 원인이 되면 안 된다. 그런데 기존 인코더는 $$Z$$ 안에 $$S$$와 $$D$$를 같이 담기 때문에, semantic 정보와 degradation 정보가 entangle된다.
+여기서 중요한 직관은 <span style="color:red">**$$S$$와 $$D$$가 모두 이미지 $$X$$를 만들지만, VisRAG의 답변 $$A \in \{R,Y\}$$는 원래 $$S$$에 의해 결정되어야 한다는 점**</span>이다. 즉, 문서에 적힌 내용은 답을 바꾸는 원인이지만, 이미지가 흐리거나 어두운 것은 답을 바꾸는 원인이 되면 안 된다. 그런데 기존 인코더는 $$Z$$ 안에 $$S$$와 $$D$$를 같이 담기 때문에, semantic 정보와 degradation 정보가 entangle된다.
 
 따라서 논문은 representation을 다음처럼 두 부분으로 나누는 것을 목표로 한다.
 
@@ -101,24 +101,24 @@ $$
 \qquad
 Z_{\text{sem}} \perp\!\!\!\perp D$$</center>
 
-이 조건이 만족되면 모델의 예측은 degradation의 영향을 제거한 상태, 즉 <span style="color:#9e0000">**이미지가 clean한 기준 상태였다고 개입한 경우**</span>의 output에 가까워진다.
+이 조건이 만족되면 모델의 예측은 degradation의 영향을 제거한 상태, 즉 <span style="color:red">**이미지가 clean한 기준 상태였다고 개입한 경우**</span>의 output에 가까워진다.
 
 <center>$$P(A\mid do(D=d_0)),
 \qquad
 A\in\{R,Y\}$$</center>
 
-따라서 이 논문의 causal / non-causal 구분은 정답 추론과 오답 추론의 구분이 아니다. <span style="color:#9e0000">**causal path는 답을 결정해야 하는 semantic information의 경로이고, non-causal path는 답을 결정하면 안 되는 degradation information을 따로 모으는 경로**</span>이다.
+따라서 이 논문의 causal / non-causal 구분은 정답 추론과 오답 추론의 구분이 아니다. <span style="color:red">**causal path는 답을 결정해야 하는 semantic information의 경로이고, non-causal path는 답을 결정하면 안 되는 degradation information을 따로 모으는 경로**</span>이다.
 
 <br/>
 <br/>
 
 ## 3.2. RobustVisRAG
-RobustVisRAG는 기존 VisRAG의 vision 인코더를 **dual-path 인코더**로 바꾸어 semantic information과 degradation information을 분리한다. Figure 2(c)의 구조를 보면, 입력 문서 <span style="color:#9e0000">**이미지는 patch 토큰들로 나뉘고, 여기에 별도의 non-causal 토큰 하나가 추가**</span>된다. 이후 트랜스포머 레이어 안에서 patch 토큰들은 causal path를 따라 semantic representation $$Z_{\text{sem}}$$을 만들고, non-causal 토큰은 non-causal path를 따라 degradation representation $$Z_{\text{deg}}$$을 만든다.
+RobustVisRAG는 기존 VisRAG의 vision 인코더를 **dual-path 인코더**로 바꾸어 semantic information과 degradation information을 분리한다. Figure 2(c)의 구조를 보면, 입력 문서 <span style="color:red">**이미지는 patch 토큰들로 나뉘고, 여기에 별도의 non-causal 토큰 하나가 추가**</span>된다. 이후 트랜스포머 레이어 안에서 patch 토큰들은 causal path를 따라 semantic representation $$Z_{\text{sem}}$$을 만들고, non-causal 토큰은 non-causal path를 따라 degradation representation $$Z_{\text{deg}}$$을 만든다.
 
-전체 직관은 단순하다. 모델 안에 <span style="color:#9e0000">**문서 내용 담당 branch와 화질 문제 담당 branch를 따로 만들고, 학습 중에는 화질 문제 branch가 무엇이 degradation인지 알려주도록**</span> 한다. 그러면 semantic branch는 clean image에서 얻은 의미 표현과 비슷해지면서, degradation branch와는 멀어지도록 학습된다.
+전체 직관은 단순하다. 모델 안에 <span style="color:red">**문서 내용 담당 branch와 화질 문제 담당 branch를 따로 만들고, 학습 중에는 화질 문제 branch가 무엇이 degradation인지 알려주도록**</span> 한다. 그러면 semantic branch는 clean image에서 얻은 의미 표현과 비슷해지면서, degradation branch와는 멀어지도록 학습된다.
 
 ### 3.2.1. Non-Causal Path
-**Non-Causal Path**의 목적은 <span style="color:#9e0000">**이미지 안에 있는 blur, noise, shadow 같은 degradation cue를 $$Z_{\text{deg}}$$에 모으는 것**</span>이다. 이를 위해 입력 단계에서 single non-causal 토큰 $$z_{nc}^{(0)}$$을 추가한다. 이 토큰은 모든 patch 토큰을 볼 수 있지만, patch 토큰들은 이 non-causal 토큰을 보지 못하도록 attention mask를 둔다.
+**Non-Causal Path**의 목적은 <span style="color:red">**이미지 안에 있는 blur, noise, shadow 같은 degradation cue를 $$Z_{\text{deg}}$$에 모으는 것**</span>이다. 이를 위해 입력 단계에서 single non-causal 토큰 $$z_{nc}^{(0)}$$을 추가한다. 이 토큰은 모든 patch 토큰을 볼 수 있지만, patch 토큰들은 이 non-causal 토큰을 보지 못하도록 attention mask를 둔다.
 
 <center>$$
 z_{nc}^{(l+1)}
@@ -129,7 +129,7 @@ z_{nc}^{(l)}
 \alpha_{nc\leftarrow j}^{(l)}v_j^{(l)}
 $$</center>
 
-여기서 $$\alpha_{nc\leftarrow j}^{(l)}$$는 non-causal 토큰이 $$j$$번째 patch 토큰을 볼 때의 attention weight이고, $$v_j^{(l)}$$는 해당 patch 토큰의 value projection이다. 이 식의 의미는 <span style="color:#9e0000">**non-causal 토큰이 이미지 전체 patch에서 degradation cue를 모은다는 것**</span>이다. 다만 방향이 **한쪽으로만 (uni-directional) 열려** 있기 때문에, degradation cue가 semantic patch 토큰으로 다시 흘러 들어가는 것을 막는다. 마지막 레이어의 출력을 통해 degradation representation은 다음과 같이 정의된다.
+여기서 $$\alpha_{nc\leftarrow j}^{(l)}$$는 non-causal 토큰이 $$j$$번째 patch 토큰을 볼 때의 attention weight이고, $$v_j^{(l)}$$는 해당 patch 토큰의 value projection이다. 이 식의 의미는 <span style="color:red">**non-causal 토큰이 이미지 전체 patch에서 degradation cue를 모은다는 것**</span>이다. 다만 방향이 **한쪽으로만 (uni-directional) 열려** 있기 때문에, degradation cue가 semantic patch 토큰으로 다시 흘러 들어가는 것을 막는다. 마지막 레이어의 출력을 통해 degradation representation은 다음과 같이 정의된다.
 
 <center>$$Z_{\text{deg}}=z_{nc}^{(L)}$$</center>
 
@@ -151,10 +151,10 @@ $$</center>
 \Big)
 $$</center>
 
-여기서 anchor image $$X_a$$와 positive image $$X_p$$는 같은 degradation type을 가지고, negative image $$X_n$$은 다른 degradation type을 가진다. 이 loss는 같은 degradation을 가진 sample들의 $$Z_{\text{deg}}$$는 가깝게 만들고, 다른 degradation을 가진 sample들의 $$Z_{\text{deg}}$$는 멀게 만든다. 중요한 점은 NCDM이 <span style="color:#9e0000">**degradation class를 맞히는 classifier**</span>를 만드는 것이 아니라는 점이다. 목적은 $$Z_{\text{deg}}$$ 공간 안에 degradation-consistent structure를 만드는 것이다. 이렇게 해야 causal path가 학습될 때 "**이 부분은 semantic이 아니라 degradation임**" ****이라는 신호를 받을 수 있다.
+여기서 anchor image $$X_a$$와 positive image $$X_p$$는 같은 degradation type을 가지고, negative image $$X_n$$은 다른 degradation type을 가진다. 이 loss는 같은 degradation을 가진 sample들의 $$Z_{\text{deg}}$$는 가깝게 만들고, 다른 degradation을 가진 sample들의 $$Z_{\text{deg}}$$는 멀게 만든다. 중요한 점은 NCDM이 <span style="color:red">**degradation class를 맞히는 classifier**</span>를 만드는 것이 아니라는 점이다. 목적은 $$Z_{\text{deg}}$$ 공간 안에 degradation-consistent structure를 만드는 것이다. 이렇게 해야 causal path가 학습될 때 "**이 부분은 semantic이 아니라 degradation임**" ****이라는 신호를 받을 수 있다.
 
 ### 3.2.3. Causal Path
-**Causal Path**의 목적은 <span style="color:#9e0000">**degradation information을 배제하고, 문서의 의미 정보를 담는 $$Z_{\text{sem}}$$을 만드는 것**</span>이다. 이 path에서는 patch 토큰들끼리만 bidirectional attention을 수행하고, non-causal 토큰은 key/value set에서 제거된다. 즉, semantic 토큰들이 degradation 토큰을 직접 참고하지 못하게 한다.
+**Causal Path**의 목적은 <span style="color:red">**degradation information을 배제하고, 문서의 의미 정보를 담는 $$Z_{\text{sem}}$$을 만드는 것**</span>이다. 이 path에서는 patch 토큰들끼리만 bidirectional attention을 수행하고, non-causal 토큰은 key/value set에서 제거된다. 즉, semantic 토큰들이 degradation 토큰을 직접 참고하지 못하게 한다.
 
 <center>$$
 x_i^{(l+1)}
@@ -178,7 +178,7 @@ $$</center>
 여기서 $$\mathrm{Agg}(\cdot)$$는 인코더가 사용하는 semantic aggregation function이다. 직관적으로 $$Z_{\text{sem}}$$은 “**문서가 무엇을 말하는가**”를 나타내는 representation이고, $$Z_{\text{deg}}$$는 “**이미지가 어떻게 망가졌는가**”를 나타내는 representation이다.
 
 ### 3.2.4. Causal Semantic Alignment
-**Causal Semantic Alignment (CSA)**는 <span style="color:#9e0000">**degraded image에서 얻은 $$Z_{\text{sem}}$$이 clean image에서 얻은 semantic representation과 비슷해지도록 만드는 loss**</span>이다. 동시에 $$Z_{\text{sem}}$$이 $$Z_{\text{deg}}$$와는 멀어지도록 하여 degradation leakage를 줄인다.
+**Causal Semantic Alignment (CSA)**는 <span style="color:red">**degraded image에서 얻은 $$Z_{\text{sem}}$$이 clean image에서 얻은 semantic representation과 비슷해지도록 만드는 loss**</span>이다. 동시에 $$Z_{\text{sem}}$$이 $$Z_{\text{deg}}$$와는 멀어지도록 하여 degradation leakage를 줄인다.
 
 Clean/degraded image pair가 있을 때, clean image에서는 $$Z_{\text{sem}}^{\text{clean}}$$을 얻고, degraded image에서는 $$Z_{\text{sem}}^{\text{deg}}$$와 $$Z_{\text{deg}}^{\text{deg}}$$를 얻는다. 먼저 semantic consistency와 degradation independence를 함께 다루는 loss는 다음과 같다.
 
@@ -260,7 +260,7 @@ $$</center>
 \lambda_3\mathcal{L}_{\text{NCDM}}
 $$</center>
 
-즉 generation 쪽에서는 <span style="color:#9e0000">**답변 생성 능력 자체를 새로 학습시키기보다는, degraded visual input을 보더라도 generator에 전달되는 visual representation이 clean semantic representation처럼 유지되도록 인코더를 조정**</span>한다.
+즉 generation 쪽에서는 <span style="color:red">**답변 생성 능력 자체를 새로 학습시키기보다는, degraded visual input을 보더라도 generator에 전달되는 visual representation이 clean semantic representation처럼 유지되도록 인코더를 조정**</span>한다.
 
 ### 3.2.6. Inference
 Inference에서는 $$Z_{\text{sem}}$$만 사용하고, non-causal branch에서 얻은 $$Z_{\text{deg}}$$는 버린다. Non-causal path는 학습 중에 semantic–degradation disentanglement를 유도하기 위한 장치이고, 최종 검색과 생성에는 degradation-invariant semantic representation만 필요하기 때문이다. 따라서 RobustVisRAG는 test time에는 표준 VisRAG와 거의 같은 방식으로 동작한다. 핵심 차이는 인코더가 이미 학습 과정에서 degradation cue를 분리하는 법을 배웠기 때문에, degraded image가 들어와도 $$Z_{\text{sem}}$$이 더 안정적으로 유지된다는 점이다.
