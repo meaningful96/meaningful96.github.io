@@ -21,7 +21,7 @@ last_modified_at: 2026-06-10
 # 2. Limitations of Exising Works
 **[표준 QKV 설계의 필요성 검증 부족]** 기존 Transformer는 Query ($$Q$$), Key ($$K$$), Value ($$V$$)를 각각 $$W_q$$, $$W_k$$, $$W_v$$로 독립 projection하는 구조를 사실상 기본값으로 사용해 왔지만, 세 projection 각각이 성능에 얼마나 기여하는지, 일부를 공유하거나 제거해도 되는지에 대한 체계적 검증은 부족하다.
 
-[효율화 연구의 초점 편중] 기존 efficient Transformer 연구는 Performer, Linformer, Ring Attention, blockwise attention처럼 주로 self-attention의 $$O(n^2) $$score computation을 줄이는 방향에 집중했다. 반면 이 논문이 다루는 병목은 projection matrix redundancy와 autoregressive generation에서 누적되는 KV cache memory이며, 이는 attention complexity reduction과 다른 축의 효율화 문제이다.
+**[효율화 연구의 초점 편중]** 기존 efficient Transformer 연구는 Performer, Linformer, Ring Attention, blockwise attention처럼 주로 self-attention의 $$O(n^2) $$score computation을 줄이는 방향에 집중했다. 반면 이 논문이 다루는 병목은 projection matrix redundancy와 autoregressive generation에서 누적되는 KV cache memory이며, 이는 attention complexity reduction과 다른 축의 효율화 문제이다.
 
 <br/>
 <br/>
